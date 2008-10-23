@@ -5,3 +5,6 @@
 *.tmp
 .*.swp
 *~
+.classpath
+.project
+.settings/
