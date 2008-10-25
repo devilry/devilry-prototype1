@@ -1,5 +1,5 @@
-Prosjektnavn: Devilry (Yield)
-----------------------------------------------------------------------
+Prosjektnavn: Devilry
+=====================
 
 :Tor Ivar Johansen:	  Prosjektleder og modelleringsansvarlig
 :Espen Angel Kristiansen: Utviklingsleder
@@ -9,18 +9,24 @@ Prosjektnavn: Devilry (Yield)
 Devilry er et innleveringssystem for oppgaver. Det er et system vi i
 første omgang tenker at kurs ved Ifi skal kunne ta i bruk.
 
-Åpent 
-    - Det skal være et «open source»-prosjekt, med en egnet lisens.
-      Det skal være en åpen kjerne, med mulighet for lukkede utvidelser (plugins).
-    - Alle kan bidra og alle prosesser er åpne, planlegging,
-      implementering, etc. 
+Åpent
+----- 
+- Det skal være et «open source»-prosjekt, med en egnet lisens.
+  Det skal være en åpen kjerne, med mulighet for lukkede utvidelser (plugins).
+- Alle kan bidra og alle prosesser er åpne, planlegging,
+  implementering, etc. 
 
 Ifi-inspirert
-   Vi legger opp til praktisk anvendelse av det som læres bort på Ifi.
-   Dette gjør det mulig for Ifi-studenter å delta i prosjektet, og
-   ta delansvar i vedlikehold og utvikling.
-   Systemet vil derfor skrives i Java.
+-------------
+Vi legger opp til praktisk anvendelse av det som læres bort på Ifi.
+Dette gjør det mulig for Ifi-studenter å delta i prosjektet, og
+ta delansvar i vedlikehold og utvikling.
+Systemet vil derfor skrives i Java.
 
+
+
+Hvorfor?
+--------
 Ved Ifi brukes i dag flere ulike innleveringssystemer:
 
 - INF1060 og INF3190 har et system for innlevering av obliger og hjemmeeksamener.
@@ -28,72 +34,77 @@ Ved Ifi brukes i dag flere ulike innleveringssystemer:
 - INF1000 og INF1010 har Joly.
 - Ellers brukes e-post direkte til gruppelærer.
 
-
 Det viktigste er at Devilry skal dekke behov kurs ved Ifi har, men det skal være
 et innleveringssystem for all elektronisk innlevering, og ikke begrenset
 til kurs, institutt, fakultet eller utdanningsinstitusjon.
 
+
+Systemets design
+----------------
 Kjerneområdet for systemet er innlevering av oppgaver. Systemet skal
 være utvidbart ved hjelp av et plugin-system, og på denne
-måten kunne tilpasses spesifikke behov.
+måten kunne tilpasses spesifikke behov. Eksempler på plugin-moduler er
+web-frontend, brukerautentisering, feilsjekking (kompileringstest),
+databaselagring, e-post-sending og eksportering av data.
+Målet er at systemet skal være så enkelt å utvide at de som har spesielle
+behov, enkelt kan ordne dette selv.
 
-Eksempler på plugin-moduler er web-frontend, brukerautentisering,
-feilsjekking (kompileringstest), databaselagring, e-post-sending og
-eksportering av data.
-
-Målet er at systemet skal være så enkelt å utvide at de som har
-spesielle behov, enkelt kan ordne dette selv.
-Eksempel på en enkel plugin kan være sjekk av filformat, mens en mer
-avansert kan være juksesjekk.
-
-Juksesjekk kan være en plugin som kjøres enten manuelt, eller
-automatisk innen et visst tidsfrom. Det kan være sjekk av
+Eksempel på en enkel plugin kan være sjekk av filformat, mens en mer avansert
+kan være juksesjekk. Juksesjekk kan være en plugin som kjøres enten manuelt,
+eller automatisk innen et visst tidsfrom. Det kan være sjekk av
 programmeringskode eller sjekk av tekst i essayer. 
 
 
-* Krav til systemet
-
- - Driftsikkert og utviklet i samråd med drift. 
- - Enkelt for alle brukere av systemet (studenter, gruppelærere, drift, etc).
- - Tilrettelagt for internasjonale studenter.
-
-
-
-* Utvikling
-
-  Testdreven utvikling ved hjelp av industristandarden JUnit.
-  «Community»-dreven utvikling via prosjektsider på launchpad.net og code.google.com.
+Krav til systemet
+-----------------
+- Driftsikkert og utviklet i samråd med drift. 
+- Enkelt for alle brukere av systemet (studenter, gruppelærere, drift, etc).
+- Tilrettelagt for internasjonale studenter.
 
 
+Utvikling
+---------
+- Testdreven utvikling ved hjelp av industristandarden JUnit.
+- Utviklingen skal gjøres etter *Continous intergration* metoden
+  (http://en.wikipedia.org/wiki/Continuous_integration)
+- «Community»-dreven utvikling via prosjektsider på launchpad.net og code.google.com.
 
-* Målsettinger
 
-  Vi satser på å utvikle en prototype som kan brukes til innlevering
-  av oppgaver i INF1010, eventuelt også INF1050, allerede våren 09.
+Målsettinger
+------------
+Vi satser på å utvikle en prototype som kan testes på minst en innlevering av
+oppgaver i INF1010, eventuelt også INF1050, allerede våren 09.
 
 
-
-Kjerne:
+Kjerne
+------
 Kjernen skal være en plugin-driver som stabiliseres mot et punkt
 hvor den ikke trenger flere endringer med tanke på funksjonalitet.
 API mot kjernen skal være fryst, slik at ulike versjoner av kjernen
-kan kjøre ulik versjon av samme plugin.
+kan kjøre ulike versjoner av samme plugin.
 
-Plugins:
+
+Plugins
+-------
 All funksjonalitet vil ligge i plugins. Det inkluderer database, og
-web-interface. I første omgang vil database-plugin og web-interface-plugin utvikles.
+web-interface. I første omgang vil database-plugin og web-interface-plugin
+utvikles.
+
+
+Tidligere erfaring
+------------------
+Ved første øyekast kan det virke som at vi har litt høye ambisjoner i forhold
+til tidsrammen, men dette veies opp av to viktige faktorer:
+
+- Flere av oss har erfaring fra andre større prosjeketer og systemer, både
+  kommersielt og open source.
+- Vi skal benytte oss av ferdige komponenter så langt det lar seg gjøre.
 
 
 
-
-Flere av oss har erfaring fra andre større prosjeketer og systemer, både kommersielt og
-open source. 
-
-
-
-Modell over systemet slik det er tenkt:
-
-
-.. image:: modell.png
-   :scale: 2
+.. figure:: modell.png
+   :width: 400px
+   :height: 670px
    :alt: modell
+
+   Modell over systemet slik det er tenkt.   
