@@ -36,7 +36,22 @@ Ved Ifi brukes i dag flere ulike innleveringssystemer:
 
 Vi som sitter i denne prosjektgruppa har erfaring som gruppelærere fra
 INF1000, INF1010, INF1060, INF3190 og INF1050 og vi føler at systemene
-ofte fører til merarbeid.
+ofte fører til merarbeid. Vi ønsker et system som sparer tid for
+både for elever, gruppelærere og fagadministrasjonen.
+
+    Driftsikkert
+        og utviklet i samråd med drift. Alle deler av systemet testes 
+        (mer om dette lenger ned), systemet samler driftstatistikk 
+        slik at man kan oppdage problemer før de oppstår og vi baserer 
+        oss på industristandarder slik at driftsikkerheten til 
+        komponentene er høy.
+    Intuitivt
+        for alle brukere. Dette inkluderer studenter, gruppelærere, 
+        administrasjon og drift.
+    Kraftig
+        
+    Internasjonalisert
+        
 
 
 Det viktigste er at Devilry skal dekke behov kurs ved Ifi har, men det skal være
@@ -62,8 +77,9 @@ programmeringskode eller sjekk av tekst i essayer.
 
 Krav til systemet
 -----------------
-- Driftsikkert og utviklet i samråd med drift. 
-- Enkelt for alle brukere av systemet (studenter, gruppelærere, drift, etc).
+- Driftsikkert og utviklet i samråd med drift.
+- Enkelt for alle brukere av systemet (studenter, gruppelærere, drift, 
+  etc).
 - Tilrettelagt for internasjonale studenter.
 
 

@@ -1,8 +1,7 @@
 SRC=prosjektbeskrivelse-devilry
 
 
-RST2LATEX=`which rst2latex 2>/dev/null || which rst2latex.py`
-
+RST2LATEX=`which rst2latex.py 2>/dev/null || which rst2latex`
 
 help:
 	@echo "html: Generate html"
