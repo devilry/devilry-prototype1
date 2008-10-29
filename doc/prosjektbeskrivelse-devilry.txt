@@ -7,7 +7,7 @@ Prosjektnavn: Devilry
 :Bendik Rønning Opstad:   Rådgiver og utvikler
 
 Devilry er et innleveringssystem for oppgaver. Det er et system vi i
-første omgang tenker at kurs ved Ifi skal kunne ta i bruk.
+første omgang tenker at alle kurs ved Ifi skal kunne ta i bruk.
 
 Åpent
 ----- 
@@ -33,6 +33,11 @@ Ved Ifi brukes i dag flere ulike innleveringssystemer:
 - INF1100 og INF3330 har et system for innlevering av ukeoppgaver.
 - INF1000 og INF1010 har Joly.
 - Ellers brukes e-post direkte til gruppelærer.
+
+Vi som sitter i denne prosjektgruppa har erfaring som gruppelærere fra
+INF1000, INF1010, INF1060, INF3190 og INF1050 og vi føler at systemene
+ofte fører til merarbeid.
+
 
 Det viktigste er at Devilry skal dekke behov kurs ved Ifi har, men det skal være
 et innleveringssystem for all elektronisk innlevering, og ikke begrenset
