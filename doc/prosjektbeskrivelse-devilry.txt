@@ -1,43 +1,40 @@
+###############################################################################
 Prosjektnavn: Devilry
-=====================
+###############################################################################
 
-:Tor Ivar Johansen:	  Prosjektleder og modelleringsansvarlig
-:Espen Angel Kristiansen: Utviklingsleder
-:Simen Sægrov: 		  Utvikler og planlegger
-:Bendik Rønning Opstad:   Rådgiver og utvikler
 
-Devilry er et innleveringssystem for oppgaver. Det er et system vi i
-første omgang tenker at alle kurs ved Ifi skal kunne ta i bruk.
+|Devilry| er et innleveringsystem for oppgaver. Det er et system vi i
+første omgang tenker at alle kurs ved IFI skal kunne ta i bruk. *Vi* 
+er en gruppe av engasjerte studenter som både har vært gruppelærere og 
+sitter i fagutvalget. Dette er ikke et prosjekt i regi av FUI, men 
+prosjektet oppstod på grunnlag av tilbakemeldinger fra studenter og 
+erfaringen vi selv har som gruppelærere og studenter. Foreløpig består 
+utviklingsgruppen av:
 
-Åpent
------ 
-- Det skal være et «open source»-prosjekt, med en egnet lisens.
-  Det skal være en åpen kjerne, med mulighet for lukkede utvidelser (plugins).
-- Alle kan bidra og alle prosesser er åpne, planlegging,
-  implementering, etc. 
+    - Tor Ivar Johansen
+    - Espen Angell Kristiansen
+    - Simen Sægrov
+    - Bendik Rønning Opstad
+    - Kristian Haga Karstensen
 
-Ifi-inspirert
--------------
-Vi legger opp til praktisk anvendelse av det som læres bort på Ifi.
-Dette gjør det mulig for Ifi-studenter å delta i prosjektet, og
-ta delansvar i vedlikehold og utvikling.
-Systemet vil derfor skrives i Java.
-
+Flere andre studenter ved IFI har vist interesse for å hjelpe med 
+mindre oppgaver som testing, oversetting og lignende.
 
 
 Hvorfor?
---------
+==============================================================================
 Ved Ifi brukes i dag flere ulike innleveringssystemer:
 
 - INF1060 og INF3190 har et system for innlevering av obliger og hjemmeeksamener.
-- INF1100 og INF3330 har et system for innlevering av ukeoppgaver.
 - INF1000 og INF1010 har Joly.
+- INF1100 og INF3330 har et system for innlevering av ukeoppgaver.
 - Ellers brukes e-post direkte til gruppelærer.
 
-Vi som sitter i denne prosjektgruppa har erfaring som gruppelærere fra
-INF1000, INF1010, INF1060, INF3190 og INF1050 og vi føler at systemene
-ofte fører til merarbeid. Vi ønsker et system som sparer tid for
-både for elever, gruppelærere og fagadministrasjonen.
+Vi som sitter i denne prosjektgruppa har erfaring som gruppelærere fra 
+INF1000, INF1010, INF1060, INF3190 og INF1050 og vi føler at systemene 
+ofte fører til merarbeid. Vi ønsker et system som sparer tid for både 
+for elever, gruppelærere og fagadministrasjonen. Systemet må derfor ha 
+følgende egenskaper:
 
     Driftsikkert
         og utviklet i samråd med drift. Alle deler av systemet testes 
@@ -48,61 +45,42 @@ både for elever, gruppelærere og fagadministrasjonen.
     Intuitivt
         for alle brukere. Dette inkluderer studenter, gruppelærere, 
         administrasjon og drift.
-    Kraftig
-        
     Internasjonalisert
-        
+        Mange studenter forstår ikke norsk. Alle feilmeldinger, 
+        menyvalg og tilbakemeldinger fra systemet skal være oversatt 
+        til flere språk ved hjelp av oversettelsesfiler som ikke 
+        krever programmeringsforståelse. Rettere skal kunne se hvilket 
+        språk studenten foretrekker slik at tilbakemelding kan 
+        tilpasses.
 
+Det viktigste er at |Devilry| skal dekke behov kurs ved Ifi har, men det skal være
+et innleveringsystem for all elektronisk innlevering, og ikke 
+begrenset til kurs, institutt, fakultet eller utdanningsinstitusjon.
 
-Det viktigste er at Devilry skal dekke behov kurs ved Ifi har, men det skal være
-et innleveringssystem for all elektronisk innlevering, og ikke begrenset
-til kurs, institutt, fakultet eller utdanningsinstitusjon.
 
 
 Systemets design
-----------------
-Kjerneområdet for systemet er innlevering av oppgaver. Systemet skal
-være utvidbart ved hjelp av et plugin-system, og på denne
-måten kunne tilpasses spesifikke behov. Eksempler på plugin-moduler er
-web-frontend, brukerautentisering, feilsjekking (kompileringstest),
+===============================================================================
+Kjerneområdet for systemet er innlevering av oppgaver. Systemet skal 
+være utvidbart ved hjelp av et plugin-system, og på denne måten kunne 
+tilpasses spesifikke behov. Eksempler på plugin-moduler er 
+web-frontend, brukerautentisering, feilsjekking (kompileringstest), 
 databaselagring, e-post-sending og eksportering av data.
-Målet er at systemet skal være så enkelt å utvide at de som har spesielle
-behov, enkelt kan ordne dette selv.
+Målet er at systemet skal være så enkelt å utvide at de som har 
+spesielle behov, enkelt kan ordne dette selv.
 
 Eksempel på en enkel plugin kan være sjekk av filformat, mens en mer avansert
 kan være juksesjekk. Juksesjekk kan være en plugin som kjøres enten manuelt,
-eller automatisk innen et visst tidsfrom. Det kan være sjekk av
-programmeringskode eller sjekk av tekst i essayer. 
-
-
-Krav til systemet
------------------
-- Driftsikkert og utviklet i samråd med drift.
-- Enkelt for alle brukere av systemet (studenter, gruppelærere, drift, 
-  etc).
-- Tilrettelagt for internasjonale studenter.
-
-
-Utvikling
----------
-- Testdreven utvikling ved hjelp av industristandarden JUnit.
-- Utviklingen skal gjøres etter *Continous intergration* metoden
-  (http://en.wikipedia.org/wiki/Continuous_integration)
-- «Community»-dreven utvikling via prosjektsider på launchpad.net og code.google.com.
-
-
-Målsettinger
-------------
-Vi satser på å utvikle en prototype som kan testes på minst en innlevering av
-oppgaver i INF1010, eventuelt også INF1050, allerede våren 09.
+eller automatisk innen et visst tidsrom. Det kan være sjekk av
+*java kildekode* eller sjekk av tekst i essayer. 
 
 
 Kjerne
 ------
-Kjernen skal være en plugin-driver som stabiliseres mot et punkt
-hvor den ikke trenger flere endringer med tanke på funksjonalitet.
-API mot kjernen skal være fryst, slik at ulike versjoner av kjernen
-kan kjøre ulike versjoner av samme plugin.
+Kjernen skal være en plugin-driver som stabiliseres mot et punkt hvor 
+den ikke trenger flere endringer med tanke på funksjonalitet. API mot 
+kjernen skal være fryst, slik at ulike versjoner av kjernen kan kjøre 
+ulike versjoner av samme plugin.
 
 
 Plugins
@@ -110,6 +88,46 @@ Plugins
 All funksjonalitet vil ligge i plugins. Det inkluderer database, og
 web-interface. I første omgang vil database-plugin og web-interface-plugin
 utvikles.
+
+
+
+Utvikling
+===============================================================================
+
+- Testdreven utvikling ved hjelp av industristandarden JUnit.
+- Utviklingen skal gjøres etter `Continous intergration`_ metoden
+- «Community»-dreven utvikling via prosjektside på 
+  http://launchpad.net/devilry. Launchpad gir oss bla.:
+
+    - Web-interface for oversettelser.
+    - Mailinglister (med arkiv).
+    - Versjonskontroll.
+    - Bugtracking
+
+Åpent
+----- 
+- skal være et «open source»-prosjekt, med en egnet lisens.
+  skal være en åpen kjerne, med mulighet for lukkede utvidelser 
+  (plugins).
+- alle kan bidra og alle prosesser er åpne; planlegging,
+  implementering, etc. 
+
+
+Ifi-inspirert
+-------------
+Vi legger opp til praktisk anvendelse av det som læres bort på Ifi.  
+Dette gjør det mulig for Ifi-studenter å delta i prosjektet, og ta 
+delansvar i vedlikehold og utvikling. Systemet vil derfor skrives i 
+Java.
+
+
+
+
+Målsettinger
+===============================================================================
+Vi satser på å utvikle en veldig enkel prototype som kan testes på 
+minst en innlevering av oppgaver i INF1010, eventuelt også INF1050, 
+allerede våren 09.
 
 
 Tidligere erfaring
@@ -122,10 +140,6 @@ til tidsrammen, men dette veies opp av to viktige faktorer:
 - Vi skal benytte oss av ferdige komponenter så langt det lar seg gjøre.
 
 
-
-.. figure:: modell.png
-   :width: 400px
-   :height: 670px
-   :alt: modell
-
-   Modell over systemet slik det er tenkt.   
+.. |Devilry| replace:: *Devilry*
+.. _`Continous intergration`:
+        http://en.wikipedia.org/wiki/Continuous_integration

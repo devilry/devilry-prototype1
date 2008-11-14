@@ -4,6 +4,7 @@ SRC=prosjektbeskrivelse-devilry
 RST2LATEX=`which rst2latex.py 2>/dev/null || which rst2latex`
 RST2HTML=`which rst2html.py 2>/dev/null || which rst2html`
 
+
 help:
 	@echo "html: Generate html"
 	@echo "pdf:  Generate pdf via latex"
