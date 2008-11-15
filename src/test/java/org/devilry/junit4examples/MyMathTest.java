@@ -5,7 +5,7 @@
  * class even though we could have used lots more advanced
  * Junit4 features.
  * */
-package devilry.sandbox.junit4examples;
+package org.devilry.sandbox.junit4examples;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
@@ -18,7 +18,7 @@ public class MyMathTest {
 
 	@Test public void sum(){   // the @Test decorator marks this as a test 
 		assertEquals(4, MyMath.sum(2, 2));
-		assertEquals(4.7, MyMath.sum(2.4, 2.3));
+		assertEquals(4.7, MyMath.sum(2.4, 2.3), 0.1); // the third argument is the allowed error margin.
 	}
 
 	@Test public void div(){
@@ -26,6 +26,6 @@ public class MyMathTest {
 		assertEquals(1, MyMath.div(3, 2));
 
 		assertEquals(2, MyMath.div(4, 2));
-		assertEquals(1.5, MyMath.div(3, 2));
+		assertEquals(1.5, MyMath.div(3.0, 2.0), 0);
 	}
 }

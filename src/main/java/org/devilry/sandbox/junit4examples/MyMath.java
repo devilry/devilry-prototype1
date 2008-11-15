@@ -1,5 +1,5 @@
 /** Simple math operation used to demonstrate simple Junit4. */
-package devilry.sandbox.junit4examples;
+package org.devilry.sandbox.junit4examples;
 
 
 /**
