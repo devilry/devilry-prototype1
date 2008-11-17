@@ -6,6 +6,7 @@
  * Junit4 features.
  * */
 package org.devilry.sandbox.junit4examples;
+import org.devilry.sandbox.junit4examples.MyMath;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
