@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.6.0_07" class="java.beans.XMLDecoder"> 
+ <object class="com.horstmann.violet.UseCaseDiagramGraph"> 
+  <void method="addNode"> 
+   <object id="ActorNode0" class="com.horstmann.violet.ActorNode"> 
+    <void property="name"> 
+     <void property="text"> 
+      <string>Student</string> 
+     </void> 
+    </void> 
+   </object> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>46.0</double> 
+     <double>38.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object id="UseCaseNode0" class="com.horstmann.violet.UseCaseNode"> 
+    <void property="name"> 
+     <void property="text"> 
+      <string>Deliver an assignment</string> 
+     </void> 
+    </void> 
+   </object> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>190.0</double> 
+     <double>39.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object id="ActorNode1" class="com.horstmann.violet.ActorNode"> 
+    <void property="name"> 
+     <void property="text"> 
+      <string>Devilry API</string> 
+     </void> 
+    </void> 
+   </object> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>443.0</double> 
+     <double>35.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object id="UseCaseNode1" class="com.horstmann.violet.UseCaseNode"> 
+    <void property="name"> 
+     <void property="text"> 
+      <string>Send assignment information
+to plugin queue</string> 
+     </void> 
+    </void> 
+   </object> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>628.0</double> 
+     <double>283.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object id="ActorNode2" class="com.horstmann.violet.ActorNode"> 
+    <void property="name"> 
+     <void property="text"> 
+      <string>Plugin handler</string> 
+     </void> 
+    </void> 
+   </object> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>428.0</double> 
+     <double>298.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object id="UseCaseNode2" class="com.horstmann.violet.UseCaseNode"> 
+    <void property="name"> 
+     <void property="text"> 
+      <string>Send assignment
+information</string> 
+     </void> 
+    </void> 
+   </object> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>413.0</double> 
+     <double>175.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object id="UseCaseNode3" class="com.horstmann.violet.UseCaseNode"> 
+    <void property="name"> 
+     <void property="text"> 
+      <string>Send &quot;low system load&quot; event</string> 
+     </void> 
+    </void> 
+   </object> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>174.0</double> 
+     <double>530.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object id="ActorNode3" class="com.horstmann.violet.ActorNode"> 
+    <void property="name"> 
+     <void property="text"> 
+      <string>Event handler</string> 
+     </void> 
+    </void> 
+   </object> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>15.0</double> 
+     <double>542.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object id="ActorNode4" class="com.horstmann.violet.ActorNode"> 
+    <void property="name"> 
+     <void property="text"> 
+      <string>Plugin handler</string> 
+     </void> 
+    </void> 
+   </object> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>438.0</double> 
+     <double>539.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object id="UseCaseNode4" class="com.horstmann.violet.UseCaseNode"> 
+    <void property="name"> 
+     <void property="text"> 
+      <string>Load plugin</string> 
+     </void> 
+    </void> 
+   </object> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>648.0</double> 
+     <double>546.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object class="com.horstmann.violet.NoteNode"> 
+    <void property="text"> 
+     <void property="text"> 
+      <string>The assignment has been delivered and safely stored,
+but no plugins are allowed higher priority than a
+delivery, so we have to wait for low system load.</string> 
+     </void> 
+    </void> 
+   </object> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>331.0</double> 
+     <double>407.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object id="UseCaseNode5" class="com.horstmann.violet.UseCaseNode"> 
+    <void property="name"> 
+     <void property="text"> 
+      <string>Put in temporary storage</string> 
+     </void> 
+    </void> 
+   </object> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>640.0</double> 
+     <double>25.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object class="com.horstmann.violet.NoteNode"> 
+    <void property="text"> 
+     <void property="text"> 
+      <string>If the plugin is attached to the assignment delivered
+above, it will be a plugin which moves the assignment
+from temporary storage to the database.</string> 
+     </void> 
+    </void> 
+   </object> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>411.0</double> 
+     <double>645.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object class="com.horstmann.violet.NoteNode"> 
+    <void property="text"> 
+     <void property="text"> 
+      <string>Temporary storage might be filesystem,
+database or...</string> 
+     </void> 
+    </void> 
+   </object> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>585.0</double> 
+     <double>150.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.UseCaseRelationshipEdge"/> 
+   <object idref="ActorNode0"/> 
+   <object idref="UseCaseNode0"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.UseCaseRelationshipEdge"/> 
+   <object idref="UseCaseNode0"/> 
+   <object idref="ActorNode1"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.UseCaseRelationshipEdge"/> 
+   <object idref="ActorNode1"/> 
+   <object idref="UseCaseNode2"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.UseCaseRelationshipEdge"/> 
+   <object idref="UseCaseNode2"/> 
+   <object idref="ActorNode2"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.UseCaseRelationshipEdge"/> 
+   <object idref="ActorNode2"/> 
+   <object idref="UseCaseNode1"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.UseCaseRelationshipEdge"/> 
+   <object idref="ActorNode3"/> 
+   <object idref="UseCaseNode3"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.UseCaseRelationshipEdge"/> 
+   <object idref="UseCaseNode3"/> 
+   <object idref="ActorNode4"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.UseCaseRelationshipEdge"/> 
+   <object idref="ActorNode4"/> 
+   <object idref="UseCaseNode4"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.UseCaseRelationshipEdge"/> 
+   <object idref="ActorNode1"/> 
+   <object idref="UseCaseNode5"/> 
+  </void> 
+ </object> 
+</java> 

@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1052.3622"
+   height="744.09448"
+   id="svg3235"
+   sodipodi:version="0.32"
+   inkscape:version="0.46"
+   version="1.0"
+   sodipodi:docname="devilry-overview.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape">
+  <defs
+     id="defs3237">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective3243" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     gridtolerance="10000"
+     guidetolerance="10"
+     objecttolerance="10"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.87757673"
+     inkscape:cx="526.18109"
+     inkscape:cy="372.04724"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1391"
+     inkscape:window-height="856"
+     inkscape:window-x="49"
+     inkscape:window-y="22" />
+  <metadata
+     id="metadata3240">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g3782"
+       transform="translate(7.9765105,64.951586)">
+      <rect
+         y="502.48593"
+         x="21.078915"
+         height="139.04639"
+         width="305.4136"
+         id="rect3774"
+         style="fill:#acabba;fill-opacity:1;stroke:#000000;stroke-width:2.12078762;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3754"
+         y="602.7757"
+         x="53.859062"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="602.7757"
+           x="53.859062"
+           id="tspan3756"
+           sodipodi:role="line">Command line inteface</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text3758"
+         y="558.10309"
+         x="141.04266"
+         style="font-size:28px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="558.10309"
+           x="141.04266"
+           id="tspan3760"
+           sodipodi:role="line">CLI</tspan></text>
+    </g>
+    <path
+       sodipodi:type="arc"
+       style="fill:#dee1eb;fill-opacity:1;stroke:#000000;stroke-width:2.148;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path3846"
+       sodipodi:cx="659.77136"
+       sodipodi:cy="212.51703"
+       sodipodi:rx="412.49954"
+       sodipodi:ry="190.8665"
+       d="M 1072.2709,212.51703 A 412.49954,190.8665 0 1 1 247.27182,212.51703 A 412.49954,190.8665 0 1 1 1072.2709,212.51703 z"
+       transform="matrix(0.9765233,0,0,1.0209041,-32.149549,37.128701)" />
+    <g
+       id="g3811"
+       transform="translate(45.23059,26.537387)">
+      <rect
+         y="278.27594"
+         x="437.22464"
+         height="109.47504"
+         width="302.05081"
+         id="rect3809"
+         style="fill:#818ebc;fill-opacity:1;stroke:#000000;stroke-width:2.06509662;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         transform="scale(0.8888654,1.1250297)"
+         sodipodi:linespacing="125%"
+         id="text3762"
+         y="311.00632"
+         x="527.74133"
+         style="font-size:48.95983505px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="311.00632"
+           x="527.74133"
+           id="tspan3764"
+           sodipodi:role="line">Devilry api</tspan></text>
+    </g>
+    <g
+       id="g3789"
+       transform="translate(98.78716,113.1395)">
+      <rect
+         y="65.533081"
+         x="170.34372"
+         height="72.928093"
+         width="237.01631"
+         id="rect3776"
+         style="fill:#acabba;fill-opacity:1;stroke:#000000;stroke-width:2.148;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3766"
+         y="112.81065"
+         x="190.29675"
+         style="font-size:28px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="112.81065"
+           x="190.29675"
+           id="tspan3768"
+           sodipodi:role="line">Web interface</tspan></text>
+    </g>
+    <g
+       id="g3794"
+       transform="translate(-72.138067,-330.12659)">
+      <rect
+         y="499.40414"
+         x="811.04608"
+         height="74.067596"
+         width="184.59924"
+         id="rect3778"
+         style="fill:#acabba;fill-opacity:1;stroke:#000000;stroke-width:2.148;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3770"
+         y="548.10022"
+         x="839.81262"
+         style="font-size:28px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="548.10022"
+           x="839.81262"
+           id="tspan3772"
+           sodipodi:role="line">Database</tspan></text>
+    </g>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2.29999995;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:6.9, 2.3;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 296.69652,566.37712 L 542.66784,415.32091"
+       id="path3836"
+       inkscape:connector-type="polyline"
+       inkscape:connection-end="#g3811"
+       inkscape:connection-start="#g3782" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2.29999995;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 451.54142,252.67467 L 538.54121,303.78078"
+       id="path3838"
+       inkscape:connector-type="polyline"
+       inkscape:connection-start="#g3789"
+       inkscape:connection-end="#g3811" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2.29999995;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 705.44151,303.78078 L 782.03663,244.41915"
+       id="path3840"
+       inkscape:connector-type="polyline"
+       inkscape:connection-start="#g3811"
+       inkscape:connection-end="#g3794" />
+    <text
+       xml:space="preserve"
+       style="font-size:36.3155098px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+       x="303.7117"
+       y="516.83759"
+       id="text3842"
+       sodipodi:linespacing="125%"
+       transform="scale(0.9929751,1.0070746)"><tspan
+         sodipodi:role="line"
+         id="tspan3844"
+         x="303.7117"
+         y="516.83759">RPC</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+       x="304.24689"
+       y="542.40271"
+       id="text3848"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3850"
+         x="304.24689"
+         y="542.40271">Remote procedure call</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+       x="549.10168"
+       y="103.34517"
+       id="text3852"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3854"
+         x="549.10168"
+         y="103.34517">Java EE server</tspan></text>
+  </g>
+</svg>
