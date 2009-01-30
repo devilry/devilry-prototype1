@@ -10,10 +10,12 @@
 	<name>Devilry</name>
 	<url>http://launchpad.net/devilry/</url>
 
+	<!--
 	<modules>
 		<module>core</module>
 		<module>sandbox</module>
 	</modules>
+	-->
 
 
 	<dependencies>
@@ -40,5 +42,22 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<reporting>
+		<plugins>
+
+			<!-- Disable all reporting to speed up site-generation. -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<reportSets>
+					<reportSet>
+						<reports>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+		</plugins>
+	</reporting>
 
 </project>

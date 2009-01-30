@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Devilry">
+	<body>
+		<links>
+			<item name="Devilry at launchpad" href="http://www.launchpad.net/devilry/" />
+			<item name="Devilry at google code" href="http://code.google.com/p/devilry/" />
+		</links>
+
+		<menu name="Devilry">
+			<item name="Introduction" href="index.html"/>
+		</menu>
+
+		<menu name="Meetings">
+			<item name="2009-01-29" href="meetings/2009-01-29.html"/>
+		</menu>
+
+	</body>
+</project>
+

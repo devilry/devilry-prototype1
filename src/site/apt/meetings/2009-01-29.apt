@@ -1,0 +1,46 @@
+Meeting 2009-01-29 - summary
+
+
+* The basic use-case
+
+
+    We started with discussing how the basic use-case of the system (delivering 
+    an assignment), should work. We decided that no pre-processing of the 
+    delivered file(s) should be done during the delivery; a plugin will handle 
+    transporting the delivery from temporary storage to the database.
+
+[2009-01-29/devilry-use.png] The basic use-case
+
+
+* Database/class hierarchy
+
+
+    Next we discussed the database/class hierarchy in the core. We agree that a 
+    generic hierarchy system would suite us best. The <spring semester 2009> of 
+    the <course INF1010> at the <Department of Informatics> at the <Faculty of 
+    mathemathics and Natural Sciences> at the <University in Oslo> will be 
+    expressed with this hierarchy:
+
+-------------------------------------------------------------
+University in Oslo
+    Faculty of Mathemathics and Natural Sciences
+        Department of Informatics
+            INF1010
+                spring2009
+-------------------------------------------------------------
+
+    where each level in the hierarchy is a <<<Node>>> containing inheritable 
+    policy information and a name. Policies also use inheritance.
+   
+[2009-01-29/core_uml.png] The class/database hierarchy
+
+    By inheritance we mean that all <<<value=null>>> elements inherit their 
+    value from their parent node. So if <spring2009> does not define a policy it 
+    will use the policy of <INF1010>. And if <INF1010> does not have a policy, 
+    both <INF1010> and <spring2009> will inherit the policy of <Department of 
+    Informatics>.
+
+    An important issue is that policy history for an assignment is lost if a 
+    toplevel policy (which the assignment inherits from) is changed. We proposed 
+    to remedy this by storing policies when an assignment is closed (after the 
+    deadline of the last try).
