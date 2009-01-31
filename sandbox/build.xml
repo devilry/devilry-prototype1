@@ -1,9 +1,0 @@
-<project name="stuff" default="build" basedir=".">
-	<target name="build" description="compile the source">
-		<echo message="Build the ant stuff!"/>
-	</target>
-
-	<target name="clean" description="clean up">
-		<echo message="Clean this shit up!"/>
-	</target>
-</project>
