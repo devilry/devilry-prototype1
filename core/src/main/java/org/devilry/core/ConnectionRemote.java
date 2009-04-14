@@ -7,4 +7,3 @@ import javax.ejb.Remote;
 public interface ConnectionRemote {
 	public String test();
 }
-

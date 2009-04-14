@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+    <parent>
+        <groupId>devilry</groupId>
+        <artifactId>devilry-base</artifactId>
+        <version>0.1</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <packaging>jar</packaging>
+
+    <artifactId>cli</artifactId>
+    <name>Devilry :: cli</name>
+    <version>0.1</version>
+
+    <properties>
+        <glassfish.home>/Users/xxespen/prog/glassfish</glassfish.home>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>glassfish</groupId>
+            <artifactId>appserv-rt.jar</artifactId>
+            <version>LATEST</version>
+            <scope>system</scope>
+            <systemPath>${glassfish.home}/lib/appserv-rt.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>glassfish</groupId>
+            <artifactId>javaee.jar</artifactId>
+            <version>LATEST</version>
+            <scope>system</scope>
+            <systemPath>${glassfish.home}/lib/javaee.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>devilry</groupId>
+            <artifactId>core</artifactId>
+            <version>0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.5</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <includes>
+                        <include>none</include>
+                    </includes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>run RemovableClientTest</id>
+                        <phase>integration-test</phase>
+                        <configuration>
+                            <includes>
+                                <include>**/RemovableClientTest.java</include>
+                            </includes>
+                        </configuration>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+
+</project>

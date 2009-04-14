@@ -1,7 +1,7 @@
-package ejb30.client;
+package org.devilry.cli;
 
 import javax.naming.*;
-import ejb30.session.*;
+//import ejb30.session.*;
 import java.util.Properties;
 import com.sun.appserv.security.ProgrammaticLogin;
 import org.devilry.core.ConnectionRemote;
