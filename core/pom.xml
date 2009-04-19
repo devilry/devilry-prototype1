@@ -25,10 +25,6 @@
         </plugins>
     </build>
 
-    <properties>
-        <glassfish.home>/Users/xxespen/prog/glassfish</glassfish.home>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>glassfish</groupId>

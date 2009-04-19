@@ -13,9 +13,6 @@
     <name>Devilry :: cli</name>
     <version>0.1</version>
 
-    <properties>
-        <glassfish.home>/Users/xxespen/prog/glassfish</glassfish.home>
-    </properties>
     <dependencies>
         <dependency>
             <groupId>glassfish</groupId>
