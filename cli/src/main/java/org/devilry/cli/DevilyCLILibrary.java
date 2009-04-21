@@ -8,7 +8,6 @@ package org.devilry.cli;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import org.devilry.core.DeliveryCandidate;
-import org.devilry.core.bendik.FileOutputTransferStream;
 
 /**
  *

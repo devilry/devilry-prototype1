@@ -1,18 +1,12 @@
 package org.devilry.core;
 
-import java.util.Collection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+//import java.util.Collection;
 
 import javax.ejb.Stateful;
-import javax.naming.*;
-import org.devilry.core.bendik.ClientRemote;
-import javax.ejb.Stateless;
-import org.devilry.core.bendik.FileOutputTransferStream;
+
 
 @Stateful(mappedName="DeliveryCandidateBeanRemote")
 public class DeliveryCandidateBean implements DeliveryCandidate {
-
 
     String path;
     byte [] data;
@@ -37,11 +31,14 @@ public class DeliveryCandidateBean implements DeliveryCandidate {
         return data;
     }
 
+    /*
     public Collection getFilePaths() {
         return null;
     }
-
-    public FileOutputTransferStream getFileOutputStream() {
+*/
+    
+    public org.devilry.core.bendik.FileOutputTransferStream getFileOutputStream() {
        return null;
     }
+     
 }

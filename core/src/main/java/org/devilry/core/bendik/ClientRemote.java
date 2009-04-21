@@ -1,6 +1,5 @@
 package org.devilry.core.bendik;
 
-import org.devilry.core.*;
 import javax.ejb.Remote;
 
 @Remote

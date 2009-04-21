@@ -1,10 +1,5 @@
 package org.devilry.core.bendik;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import javax.naming.*;
-import org.devilry.core.bendik.ClientRemote;
 import javax.ejb.Stateless;
 
 @Stateless(mappedName="ClientBeanRemote")
@@ -16,7 +11,6 @@ public class ClientBean implements ClientRemote {
        return fileStream;
    }
 */
-
 
     public String getStatus() {
          return "skrot";

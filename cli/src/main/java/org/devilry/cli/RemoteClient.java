@@ -5,13 +5,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
-import javax.naming.*;
-import org.devilry.core.bendik.ClientRemote;
-import org.devilry.core.DeliveryCandidate;
-import org.devilry.core.bendik.RemoteFileBean;
-import org.devilry.core.bendik.FileOutputTransferStreamImpl;
-import org.devilry.core.bendik.FileOutputTransferStream;
 
 public class RemoteClient {
 

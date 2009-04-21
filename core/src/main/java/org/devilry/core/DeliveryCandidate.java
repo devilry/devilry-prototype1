@@ -5,9 +5,8 @@
 
 package org.devilry.core;
 
-import java.util.Collection;
+//import java.util.Collection;
 import javax.ejb.Remote;
-import org.devilry.core.bendik.FileOutputTransferStream;
 
 /**
  *
@@ -20,7 +19,7 @@ public interface DeliveryCandidate {
     public long getId();
     public void addFile(String path, byte [] fileData);
     public byte [] getData(String path);
-    public Collection getFilePaths();
+   // public Collection getFilePaths();
 
-    public FileOutputTransferStream getFileOutputStream();
+    public org.devilry.core.bendik.FileOutputTransferStream getFileOutputStream();
 }

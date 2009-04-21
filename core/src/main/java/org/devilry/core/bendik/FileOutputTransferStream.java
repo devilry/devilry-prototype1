@@ -13,7 +13,6 @@ import javax.ejb.Remote;
  */
 @Remote
 public interface FileOutputTransferStream {
-
     public void write(byte [] fileData, int  offset, int len);
     public String getStatus();
 }
