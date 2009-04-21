@@ -8,6 +8,7 @@ package org.devilry.cli;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import org.devilry.core.DeliveryCandidate;
+import org.devilry.core.bendik.FileOutputTransferStream;
 
 /**
  *
@@ -22,7 +23,15 @@ public class DevilyCLILibrary {
         Object obj = ctx.lookup("DeliveryCandidateBeanRemote");
         System.out.println("obj:" + obj);
         delivery = (DeliveryCandidate) obj;
-    }
+
+        /*
+         Object oHome = ctx.lookup("java:comp/env/ejb/Counter");
+            Method create = oHome.getMethod("create",null);
+            Object remote = create.invoke(oHome, null);
+
+            FileOutputTransferStream teset = delivery.getFileOutputStream();
+    */
+         }
 
     private boolean isDeliveryBeanInitialized() {
         return delivery != null;
@@ -34,6 +43,8 @@ public class DevilyCLILibrary {
             initializeDeliveryBean();
 
             delivery.addFile(path, fileData);
+
+           
     }
 
 }

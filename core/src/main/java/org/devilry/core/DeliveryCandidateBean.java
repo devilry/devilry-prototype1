@@ -8,6 +8,7 @@ import javax.ejb.Stateful;
 import javax.naming.*;
 import org.devilry.core.bendik.ClientRemote;
 import javax.ejb.Stateless;
+import org.devilry.core.bendik.FileOutputTransferStream;
 
 @Stateful(mappedName="DeliveryCandidateBeanRemote")
 public class DeliveryCandidateBean implements DeliveryCandidate {
@@ -38,5 +39,9 @@ public class DeliveryCandidateBean implements DeliveryCandidate {
 
     public Collection getFilePaths() {
         return null;
+    }
+
+    public FileOutputTransferStream getFileOutputStream() {
+       return null;
     }
 }

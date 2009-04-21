@@ -1,21 +1,19 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package org.devilry.core.bendik;
 
-import java.io.IOException;
-import java.io.Serializable;
+import javax.ejb.Remote;
 
-public class FileOutputTransferStream implements FileOutputTransferStreamInterface, Serializable {
-	
-	protected String fileName;
-   
-    public FileOutputTransferStream(String name) {
-        fileName = name;
-    }
-    
-    public void write(byte [] fileData, int  offset, int len) throws IOException {
-		System.out.println("writing");
-    }
+/**
+ *
+ * @author bro
+ */
+@Remote
+public interface FileOutputTransferStream {
 
-    public String getStatus() {
-        return "hello";
-    }
+    public void write(byte [] fileData, int  offset, int len);
+    public String getStatus();
 }

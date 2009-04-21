@@ -1,7 +1,8 @@
 package org.devilry.core;
 
 
- public class RemoteFile implements java.io.Serializable{
+
+public class RemoteFile implements java.io.Serializable{
  	protected String filePath;
 
  	RemoteFile(String path) {

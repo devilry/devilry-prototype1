@@ -10,8 +10,8 @@ import javax.naming.*;
 import org.devilry.core.bendik.ClientRemote;
 import org.devilry.core.DeliveryCandidate;
 import org.devilry.core.bendik.RemoteFileBean;
+import org.devilry.core.bendik.FileOutputTransferStreamImpl;
 import org.devilry.core.bendik.FileOutputTransferStream;
-import org.devilry.core.bendik.FileOutputTransferStreamInterface;
 
 public class RemoteClient {
 
@@ -49,6 +49,7 @@ public class RemoteClient {
     }
 
     public void addFile(byte [] fileData) {
+
          try {
 
             DevilyCLILibrary lib = new DevilyCLILibrary();

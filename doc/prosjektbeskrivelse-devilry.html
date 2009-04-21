@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.4.1: http://docutils.sourceforge.net/" />
+<title>Prosjektnavn: Devilry</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger
+:Contact: goodger@users.sourceforge.net
+:Date: $Date: 2005-12-18 01:56:14 +0100 (Sun, 18 Dec 2005) $
+:Revision: $Revision: 4224 $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin-left: 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left {
+  clear: left }
+
+img.align-right {
+  clear: right }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font-family: serif ;
+  font-size: 100% }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em ;
+  background-color: #eeeeee }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+tt.docutils {
+  background-color: #eeeeee }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="prosjektnavn-devilry">
+<h1 class="title">Prosjektnavn: Devilry</h1>
+<p><em>Devilry</em> er et innleveringsystem for oppgaver. Det er et system vi i
+første omgang tenker at alle kurs ved IFI skal kunne ta i bruk. <em>Vi</em>
+er en gruppe av engasjerte studenter som både har vært gruppelærere og
+sitter i fagutvalget. Dette er ikke et prosjekt i regi av FUI, men
+prosjektet oppstod på grunnlag av tilbakemeldinger fra studenter og
+erfaringen vi selv har som gruppelærere og studenter. Foreløpig består
+utviklingsgruppen av:</p>
+<blockquote>
+<ul class="simple">
+<li>Tor Ivar Johansen</li>
+<li>Espen Angell Kristiansen</li>
+<li>Simen Sægrov</li>
+<li>Bendik Rønning Opstad</li>
+<li>Kristian Haga Karstensen</li>
+</ul>
+</blockquote>
+<p>Flere andre studenter ved IFI har vist interesse for å hjelpe med
+mindre oppgaver som testing, oversetting og lignende.</p>
+<div class="section">
+<h1><a id="hvorfor" name="hvorfor">Hvorfor?</a></h1>
+<p>Ved Ifi brukes i dag flere ulike innleveringssystemer:</p>
+<ul class="simple">
+<li>INF1060 og INF3190 har et system for innlevering av obliger og hjemmeeksamener.</li>
+<li>INF1000 og INF1010 har Joly.</li>
+<li>INF1100 og INF3330 har et system for innlevering av ukeoppgaver.</li>
+<li>Ellers brukes e-post direkte til gruppelærer.</li>
+</ul>
+<p>Vi som sitter i denne prosjektgruppa har erfaring som gruppelærere fra
+INF1000, INF1010, INF1060, INF3190 og INF1050 og vi føler at systemene
+ofte fører til merarbeid. Vi ønsker et system som sparer tid for både
+for elever, gruppelærere og fagadministrasjonen. Systemet må derfor ha
+følgende egenskaper:</p>
+<blockquote>
+<dl class="docutils">
+<dt>Driftsikkert</dt>
+<dd>og utviklet i samråd med drift. Alle deler av systemet testes
+(mer om dette lenger ned), systemet samler driftstatistikk
+slik at man kan oppdage problemer før de oppstår og vi baserer
+oss på industristandarder slik at driftsikkerheten til
+komponentene er høy.</dd>
+<dt>Intuitivt</dt>
+<dd>for alle brukere. Dette inkluderer studenter, gruppelærere,
+administrasjon og drift.</dd>
+<dt>Internasjonalisert</dt>
+<dd>Mange studenter forstår ikke norsk. Alle feilmeldinger,
+menyvalg og tilbakemeldinger fra systemet skal være oversatt
+til flere språk ved hjelp av oversettelsesfiler som ikke
+krever programmeringsforståelse. Rettere skal kunne se hvilket
+språk studenten foretrekker slik at tilbakemelding kan
+tilpasses.</dd>
+</dl>
+</blockquote>
+<p>Det viktigste er at <em>Devilry</em> skal dekke behov kurs ved Ifi har, men det skal være
+et innleveringsystem for all elektronisk innlevering, og ikke
+begrenset til kurs, institutt, fakultet eller utdanningsinstitusjon.</p>
+</div>
+<div class="section">
+<h1><a id="systemets-design" name="systemets-design">Systemets design</a></h1>
+<p>Kjerneområdet for systemet er innlevering av oppgaver. Systemet skal
+være utvidbart ved hjelp av et plugin-system, og på denne måten kunne
+tilpasses spesifikke behov. Eksempler på plugin-moduler er
+web-frontend, brukerautentisering, feilsjekking (kompileringstest),
+databaselagring, e-post-sending og eksportering av data.
+Målet er at systemet skal være så enkelt å utvide at de som har
+spesielle behov, enkelt kan ordne dette selv.</p>
+<p>Eksempel på en enkel plugin kan være sjekk av filformat, mens en mer avansert
+kan være juksesjekk. Juksesjekk kan være en plugin som kjøres enten manuelt,
+eller automatisk innen et visst tidsrom. Det kan være sjekk av
+<em>java kildekode</em> eller sjekk av tekst i essayer.</p>
+<div class="section">
+<h2><a id="kjerne" name="kjerne">Kjerne</a></h2>
+<p>Kjernen skal være en plugin-driver som stabiliseres mot et punkt hvor
+den ikke trenger flere endringer med tanke på funksjonalitet. API mot
+kjernen skal være fryst, slik at ulike versjoner av kjernen kan kjøre
+ulike versjoner av samme plugin.</p>
+</div>
+<div class="section">
+<h2><a id="plugins" name="plugins">Plugins</a></h2>
+<p>All funksjonalitet vil ligge i plugins. Det inkluderer database, og
+web-interface. I første omgang vil database-plugin og web-interface-plugin
+utvikles.</p>
+</div>
+</div>
+<div class="section">
+<h1><a id="utvikling" name="utvikling">Utvikling</a></h1>
+<ul>
+<li><p class="first">Testdreven utvikling ved hjelp av industristandarden JUnit.</p>
+</li>
+<li><p class="first">Utviklingen skal gjøres etter <a class="reference" href="http://en.wikipedia.org/wiki/Continuous_integration">Continous intergration</a> metoden</p>
+</li>
+<li><p class="first">«Community»-dreven utvikling via prosjektside på
+<a class="reference" href="http://launchpad.net/devilry">http://launchpad.net/devilry</a>. Launchpad gir oss bla.:</p>
+<blockquote>
+<ul class="simple">
+<li>Web-interface for oversettelser.</li>
+<li>Mailinglister (med arkiv).</li>
+<li>Versjonskontroll.</li>
+<li>Bugtracking</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<div class="section">
+<h2><a id="pent" name="pent">Åpent</a></h2>
+<ul class="simple">
+<li>skal være et «open source»-prosjekt, med en egnet lisens.
+skal være en åpen kjerne, med mulighet for lukkede utvidelser
+(plugins).</li>
+<li>alle kan bidra og alle prosesser er åpne; planlegging,
+implementering, etc.</li>
+</ul>
+</div>
+<div class="section">
+<h2><a id="ifi-inspirert" name="ifi-inspirert">Ifi-inspirert</a></h2>
+<p>Vi legger opp til praktisk anvendelse av det som læres bort på Ifi.
+Dette gjør det mulig for Ifi-studenter å delta i prosjektet, og ta
+delansvar i vedlikehold og utvikling. Systemet vil derfor skrives i
+Java.</p>
+</div>
+</div>
+<div class="section">
+<h1><a id="m-lsettinger" name="m-lsettinger">Målsettinger</a></h1>
+<p>Vi satser på å utvikle en veldig enkel prototype som kan testes på
+minst en innlevering av oppgaver i INF1010, eventuelt også INF1050,
+allerede våren 09.</p>
+<div class="section">
+<h2><a id="tidligere-erfaring" name="tidligere-erfaring">Tidligere erfaring</a></h2>
+<p>Ved første øyekast kan det virke som at vi har litt høye ambisjoner i forhold
+til tidsrammen, men dette veies opp av to viktige faktorer:</p>
+<ul class="simple">
+<li>Flere av oss har erfaring fra andre større prosjeketer og systemer, både
+kommersielt og open source.</li>
+<li>Vi skal benytte oss av ferdige komponenter så langt det lar seg gjøre.</li>
+</ul>
+</div>
+</div>
+</div>
+</body>
+</html>
