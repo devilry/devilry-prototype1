@@ -4,5 +4,6 @@ import javax.ejb.Remote;
 
 @Remote
 public interface ExampleRemote {
-	public String test();
+	public long test();
+	public String getData(long id);
 }

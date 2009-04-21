@@ -3,7 +3,7 @@ package org.devilry.cli;
 import javax.naming.*;
 import java.util.Properties;
 import com.sun.appserv.security.ProgrammaticLogin;
-import org.devilry.core.ConnectionRemote;
+import org.devilry.core.ConnectionRemote;	
 
 public class Client {
 	public static void main(String args[]) throws Exception {
