@@ -15,6 +15,8 @@ import javax.ejb.Remote;
 @Remote
 public interface DeliveryCandidate {
 
+    public void setId(long id);
+    public long getId();
     public void addFile(String path, byte [] fileData);
     public byte [] getData(String path);
     public Collection getFilePaths();

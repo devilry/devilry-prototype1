@@ -12,12 +12,24 @@ import javax.ejb.Stateless;
 @Stateful(mappedName="DeliveryCandidateBeanRemote")
 public class DeliveryCandidateBean implements DeliveryCandidate {
 
-    String fileName;
+
+    String path;
     byte [] data;
 
+    public void setId(long id) {
+        
+    }
+
+    public long getId() {
+        return -1;
+    }
+
+    // "kat1/src/file.java"
     public void addFile(String path, byte [] fileData) {
-        this.fileName = fileName;
+        this.path = path;
         data = fileData;
+
+     //   System.err.println("Added file " + path);
     }
 
     public byte [] getData(String path) {
