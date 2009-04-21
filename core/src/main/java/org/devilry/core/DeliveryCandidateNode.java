@@ -17,9 +17,9 @@ import java.util.Iterator;
 
 @Entity
 public class DeliveryCandidateNode implements Serializable, Iterable {
-	@Transient
-    @PersistenceContext(unitName="DevilryCore")
-    private EntityManager em;
+	//@Transient
+    //@PersistenceContext(unitName="DevilryCore")
+    //private EntityManager em;
 
 	@Id
 	@GeneratedValue
@@ -30,14 +30,16 @@ public class DeliveryCandidateNode implements Serializable, Iterable {
 
 	public void addFile(FileNode file) {
 		files.add(file);
-		em.persist(file);
+		//em.persist(file);
 	}
 
 	public FileNode getFile(String path) {
-		Query q = em.createQuery(
+		/*Query q = em.createQuery(
 				"SELECT FROM PersistedFile WHERE filePath = :filePath");
 		q.setParameter("filePath", path);
 		return (FileNode) q.getSingleResult();
+		 */
+		return null;
 	}
 
 	public Iterator iterator() {

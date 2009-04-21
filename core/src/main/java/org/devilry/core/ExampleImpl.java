@@ -6,7 +6,7 @@ import javax.persistence.PersistenceContext;
 
 @Stateless(mappedName="Example")
 public class ExampleImpl implements ExampleRemote {
-    @PersistenceContext(unitName="DevilryCore")
+    //@PersistenceContext(unitName="DevilryCore")
     private EntityManager em;
 
 	public long test() {
@@ -17,9 +17,9 @@ public class ExampleImpl implements ExampleRemote {
 	}
 
 	public String getData(long id) {
-		DeliveryCandidateNode n = new DeliveryCandidateNode();
-		em.persist(n);
-		n.addFile(new FileNode(n, "stuff", "assa".getBytes()));
+		//DeliveryCandidateNode n = new DeliveryCandidateNode();
+		//em.persist(n);
+		//n.addFile(new FileNode(n, "stuff", "assa".getBytes()));
 		return "hei";
 	}
 }
