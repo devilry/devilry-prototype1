@@ -1,5 +1,6 @@
 package org.devilry.core.bendik;
 
+//import java.io.Serializable;
 import javax.ejb.Stateful;
 
 @Stateful(mappedName="FileOutputTransferStreamImplRemote")
@@ -16,6 +17,6 @@ public class FileOutputTransferStreamImpl implements FileOutputTransferStream {
     }
 
     public String getStatus() {
-        return "hello";
+        return null;
     }
 }

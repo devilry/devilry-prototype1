@@ -4,8 +4,7 @@ import java.util.Collection;
 
 import javax.ejb.Stateful;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
+//import javax.naming.Context;
 
 @Stateful(mappedName="DeliveryCandidateBeanRemote")
 public class DeliveryCandidateBean implements DeliveryCandidate {
@@ -38,12 +37,11 @@ public class DeliveryCandidateBean implements DeliveryCandidate {
         return null;
     }
 
-    
+    /*
     public org.devilry.core.bendik.FileOutputTransferStream getFileOutputStream() {
-
+  
     try {
-        Context ctx = new InitialContext();
-
+        javax.naming.Context ctx = new javax.naming.InitialContext();
       
         Object obj = ctx.lookup("FileOutputTransferStreamImplRemote");
       //  System.out.println("obj:" + obj);
@@ -56,7 +54,10 @@ public class DeliveryCandidateBean implements DeliveryCandidate {
         //Systme.err.println("Exception:" + e.getMessage());
 
     }
-       return null;
+      
+      return null;
+    
+        //return new org.devilry.core.bendik.FileOutputTransferStreamImpl();
     }
-     
+     */
 }

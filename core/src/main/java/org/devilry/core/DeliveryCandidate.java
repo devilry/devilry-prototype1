@@ -21,5 +21,5 @@ public interface DeliveryCandidate {
     public byte [] getData(String path);
     public Collection getFilePaths();
 
-    public org.devilry.core.bendik.FileOutputTransferStream getFileOutputStream();
+ //   public org.devilry.core.bendik.FileOutputTransferStream getFileOutputStream();
 }
