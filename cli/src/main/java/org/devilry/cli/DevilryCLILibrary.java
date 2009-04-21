@@ -8,32 +8,30 @@ package org.devilry.cli;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import org.devilry.core.DeliveryCandidate;
+import org.devilry.core.DeliveryCandidateNode;
+import org.devilry.core.DeliveryRemote;
 
 /**
  *
  * @author bro
  */
-public class DevilyCLILibrary {
+public class DevilryCLILibrary {
 
-    DeliveryCandidate delivery = null;
+   DeliveryRemote deliveryManager = null;
         
     private void initializeDeliveryBean() throws Exception {
         Context ctx = new InitialContext();
+    /*
         Object obj = ctx.lookup("DeliveryCandidateBeanRemote");
         System.out.println("obj:" + obj);
         delivery = (DeliveryCandidate) obj;
+*/
 
-        /*
-         Object oHome = ctx.lookup("java:comp/env/ejb/Counter");
-            Method create = oHome.getMethod("create",null);
-            Object remote = create.invoke(oHome, null);
-
-            FileOutputTransferStream teset = delivery.getFileOutputStream();
-    */
-         }
+        deliveryManager = (DeliveryRemote) ctx.lookup("Delivery");
+    }
 
     private boolean isDeliveryBeanInitialized() {
-        return delivery != null;
+        return deliveryManager != null;
     }
 
     public void addFile(String path, byte [] fileData) throws Exception {
@@ -41,8 +39,11 @@ public class DevilyCLILibrary {
         if (!isDeliveryBeanInitialized())
             initializeDeliveryBean();
 
-            delivery.addFile(path, fileData);
-
+		DeliveryCandidateNode dir = new DeliveryCandidateNode();
+		dir.addFile(path, fileData);
+		long id = deliveryManager.add(dir);
+  
+        System.err.println("Added file " + path + " with id:" + id);
            
     }
 

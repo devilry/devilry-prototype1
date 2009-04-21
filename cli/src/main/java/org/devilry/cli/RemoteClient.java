@@ -45,7 +45,7 @@ public class RemoteClient {
 
          try {
 
-            DevilyCLILibrary lib = new DevilyCLILibrary();
+            DevilryCLILibrary lib = new DevilryCLILibrary();
 
             lib.addFile("NewFileToSave", fileData);
 
