@@ -11,7 +11,7 @@ public class ExampleClient {
 
 	public static void main(String args[]) throws Exception {
 		Context ctx = new InitialContext();
-		DeliveryRemote dm = (DeliveryRemote) ctx.lookup("Delivery");
+		DeliveryRemote dm = (DeliveryRemote) ctx.lookup("DeliveryBean");
 
 		String filename = args[0];
 
