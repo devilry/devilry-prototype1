@@ -22,7 +22,7 @@ public class DeliveryCandidateNode implements Serializable {
 	@GeneratedValue
 	protected long id;
 
-	@OneToMany(cascade=CascadeType.REMOVE, fetch=FetchType.LAZY)
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	protected Collection<FileNode> files;
 
 	public DeliveryCandidateNode() {

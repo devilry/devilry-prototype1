@@ -2,6 +2,7 @@ package org.devilry.core;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 
@@ -9,9 +10,12 @@ import javax.persistence.Id;
 public class FileNode implements Serializable {
 
 	@Id
+	@GeneratedValue
+	protected long id;
+
 	protected DeliveryCandidateNode directoryNode;
 	
-	@Id
+
 	protected String filePath;
 
 	protected byte[] fileData;
@@ -23,7 +27,6 @@ public class FileNode implements Serializable {
 		filePath = path;
 		fileData = data;
 	}
-
 	
 	public DeliveryCandidateNode getDirectory() {
 		return directoryNode;
