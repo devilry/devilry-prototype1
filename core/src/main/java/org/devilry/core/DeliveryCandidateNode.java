@@ -13,14 +13,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.GeneratedValue;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 
 @Entity
-public class DeliveryCandidateNode implements Serializable, Iterable {
-	//@Transient
-    //@PersistenceContext(unitName="DevilryCore")
-    //private EntityManager em;
-
+public class DeliveryCandidateNode implements Serializable {
 	@Id
 	@GeneratedValue
 	protected long id;
@@ -28,21 +25,36 @@ public class DeliveryCandidateNode implements Serializable, Iterable {
 	@OneToMany(cascade=CascadeType.REMOVE, fetch=FetchType.LAZY)
 	protected Collection<FileNode> files;
 
+	public DeliveryCandidateNode() {
+		files = new LinkedList<FileNode>();
+	}
+
+
+	public long getId() {
+		return id;
+	}
+
+
 	public void addFile(FileNode file) {
 		files.add(file);
 		//em.persist(file);
 	}
 
+	/*
 	public FileNode getFile(String path) {
-		/*Query q = em.createQuery(
+		Query q = em.createQuery(
 				"SELECT FROM PersistedFile WHERE filePath = :filePath");
 		q.setParameter("filePath", path);
 		return (FileNode) q.getSingleResult();
-		 */
 		return null;
 	}
+	*/
 
-	public Iterator iterator() {
-		return files.iterator();
+	public Collection<FileNode> getFiles() {
+		return files;
+	}
+
+	public void addFile(String path, byte[] data) {
+		files.add(new FileNode(this, path, data));
 	}
 }

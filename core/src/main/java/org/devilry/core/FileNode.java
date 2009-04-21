@@ -28,7 +28,7 @@ public class FileNode implements Serializable {
 	public DeliveryCandidateNode getDirectory() {
 		return directoryNode;
 	}
-		
+
 	public String getPath() {
 		return filePath;
 	}
