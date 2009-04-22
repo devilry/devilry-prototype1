@@ -7,12 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Query;
-import javax.persistence.Transient;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.GeneratedValue;
-import java.util.Iterator;
 import java.util.LinkedList;
 
 
@@ -22,12 +17,10 @@ public class DeliveryCandidateNode implements Serializable {
 	@GeneratedValue
 	protected long id;
 
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-	protected Collection<FileNode> files;
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	protected Collection<FileNode> files = new LinkedList<FileNode>();;
 
-	public DeliveryCandidateNode() {
-		files = new LinkedList<FileNode>();
-	}
+	public DeliveryCandidateNode() {}
 
 
 	public long getId() {
@@ -37,24 +30,21 @@ public class DeliveryCandidateNode implements Serializable {
 
 	public void addFile(FileNode file) {
 		files.add(file);
-		//em.persist(file);
-	}
-
-	/*
-	public FileNode getFile(String path) {
-		Query q = em.createQuery(
-				"SELECT FROM PersistedFile WHERE filePath = :filePath");
-		q.setParameter("filePath", path);
-		return (FileNode) q.getSingleResult();
-		return null;
-	}
-	*/
-
-	public Collection<FileNode> getFiles() {
-		return files;
 	}
 
 	public void addFile(String path, byte[] data) {
 		files.add(new FileNode(this, path, data));
+	}
+
+
+	/** Force the JPA provider to load the files into memory. This "hack" is
+	 * required because we use LAZY fetch on the relationship.
+	 */
+	void loadFiles() {
+		files.size();
+	}
+
+	public Collection<FileNode> getFiles() {
+		return files;
 	}
 }

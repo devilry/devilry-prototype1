@@ -13,7 +13,7 @@ public class FileNode implements Serializable {
 	@GeneratedValue
 	protected long id;
 
-	protected DeliveryCandidateNode directoryNode;
+	protected DeliveryCandidateNode deliveryCandidate;
 	
 
 	protected String filePath;
@@ -23,13 +23,13 @@ public class FileNode implements Serializable {
 	protected FileNode() {}
 
 	public FileNode(DeliveryCandidateNode directory, String path, byte[] data) {
-		directoryNode = directory;
+		deliveryCandidate = directory;
 		filePath = path;
 		fileData = data;
 	}
 	
 	public DeliveryCandidateNode getDirectory() {
-		return directoryNode;
+		return deliveryCandidate;
 	}
 
 	public String getPath() {
