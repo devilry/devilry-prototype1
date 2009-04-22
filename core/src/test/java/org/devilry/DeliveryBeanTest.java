@@ -22,14 +22,14 @@ public class DeliveryBeanTest extends BaseSessionBeanFixture<DeliveryBean> {
 		DeliveryCandidateNode dc = new DeliveryCandidateNode();
 		dc.addFile("a", "aa".getBytes());
 		dc.addFile("b", "bb".getBytes());
+		/*
 		long id = d.add(dc);
 
-		/*
 		Collection<FileNode> c = dc.getFiles();
 		assertEquals(c.size(), 2);
 
 		DeliveryCandidateNode dcFromDb = d.getFull(id);
 		assertCollectionsEqual(c, dcFromDb.getFiles());
-		 */
+		 **/
 	}
 }

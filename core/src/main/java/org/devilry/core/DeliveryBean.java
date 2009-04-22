@@ -1,20 +1,14 @@
 package org.devilry.core;
 
-import java.util.Collection;
-import java.util.List;
 import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
 @Stateless
 public class DeliveryBean implements DeliveryRemote {
     @PersistenceContext(unitName="DevilryCore")
     private EntityManager em;
 
-	@TransactionAttribute
 	public long add(DeliveryCandidateNode dc) {
 		em.persist(dc);
 		return dc.getId();
