@@ -17,7 +17,7 @@ public class DeliveryCandidateNode implements Serializable {
 	@GeneratedValue
 	protected long id;
 
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	protected Collection<FileNode> files = new LinkedList<FileNode>();;
 
 	public DeliveryCandidateNode() {}

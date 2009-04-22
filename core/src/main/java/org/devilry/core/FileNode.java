@@ -10,12 +10,9 @@ import javax.persistence.Id;
 public class FileNode implements Serializable {
 
 	@Id
-	@GeneratedValue
-	protected long id;
-
 	protected DeliveryCandidateNode deliveryCandidate;
 	
-
+	@Id
 	protected String filePath;
 
 	protected byte[] fileData;

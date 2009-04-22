@@ -1,14 +1,18 @@
 package org.devilry.core;
 
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 @Stateless
 public class DeliveryBean implements DeliveryRemote {
     @PersistenceContext(unitName="DevilryCore")
     private EntityManager em;
 
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public long add(DeliveryCandidateNode dc) {
 		em.persist(dc);
 		return dc.getId();
@@ -29,15 +33,12 @@ public class DeliveryBean implements DeliveryRemote {
 		return d;
 	}
 
-
-	/*
 	public FileNode getFile(DeliveryCandidateNode deliveryCandidate, String path) {
 		Query q = em.createQuery(
-				"SELECT FROM PersistedFile WHERE filePath = :filePath "+
-				"AND deliveryCandidate = :deliveryCandidate");
+				"SELECT n FROM FileNode n WHERE n.filePath = :filePath "+
+				"AND n.deliveryCandidate.id = :pid");
 		q.setParameter("filePath", path);
-		q.setParameter("deliveryCandidate", deliveryCandidate);
+		q.setParameter("pid", deliveryCandidate.getId());
 		return (FileNode) q.getSingleResult();
 	}
-	 * */
 }

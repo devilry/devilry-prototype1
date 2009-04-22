@@ -27,5 +27,8 @@ public class ExampleClient {
 		DeliveryCandidateNode d = dm.getFull(id);
 		for(FileNode n: d.getFiles())
 			System.out.printf("   - %s:%s%n", n.getPath(), new String(n.getData()));
+
+		FileNode n = dm.getFile(d, filename);
+		System.out.printf(">>> %s:%s%n", n.getPath(), new String(n.getData()));
 	}
 }

@@ -8,4 +8,5 @@ public interface DeliveryRemote {
 	public long add(DeliveryCandidateNode dc);
 	public DeliveryCandidateNode get(long id);
 	public DeliveryCandidateNode getFull(long id);
+	public FileNode getFile(DeliveryCandidateNode deliveryCandidate, String path);
 }
