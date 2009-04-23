@@ -4,15 +4,15 @@ start:
 	@echo "###########################################"
 	@echo "Starting glassfish"
 	@echo "###########################################"
-	mvn asadmin:start-domain
-	mvn asadmin:start-database
+	asadmin start-domain
+	asadmin start-database --dbhost localhost
 
 stop:
 	@echo "###########################################"
 	@echo "Stopping glassfish"
 	@echo "###########################################"
-	mvn asadmin:stop-database
-	mvn asadmin:stop-domain
+	asadmin stop-database --dbhost localhost
+	asadmin stop-domain
 
 restart: stop start
 
