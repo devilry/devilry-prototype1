@@ -5,12 +5,16 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.Collection;
 import java.util.Scanner;
 import java.util.logging.Logger;
+import org.devilry.core.FileNode;
 
 public class RemoteClient {
 
     Logger log = Logger.getLogger(RemoteClient.class.getName());
+
+    String newLine = System.getProperty("line.separator");
 
 	public static void main (String args[]) throws Exception {
 
@@ -38,20 +42,24 @@ public class RemoteClient {
 
             Scanner scan = new Scanner(System.in);
 
+            help();
+
             for (;;) {
 
-                System.out.print("Devilry >");
+                System.out.print("Devilry>");
 
                 while (!scan.hasNextLine()) {
-                    System.err.println("slettping");
+                    System.err.println("sleeping");
                     Thread.sleep(200);
                 }
                
                 String line = scan.nextLine();
                 String[] args = line.split("\\s");
 
-                System.err.println("cmd:" + line);
-                handleCommand(args);
+                if (!handleCommand(args)) {
+                    System.out.println("Exiting Devilry shell");
+                    break;
+                }
 
             }
         } catch (Exception e) {
@@ -63,44 +71,114 @@ public class RemoteClient {
          handleCommand(args);
      }
 
-    public void handleCommand(String [] args) {
-        
-  // Expect valid file in args[1]
-        if (args[0].equalsIgnoreCase("add")) {
+    public boolean handleCommand(String [] args) {
 
-            if (!new File(args[1]).isFile()) {
-               log.warning("File named " + args[1] + " could not be found!");
-               return;
-            }
-
-            byte [] data = getFileAsByteArray(new File(args[1]));
-
-            addFile(data);
+        if (args.length == 0)
+            return true;
+ 
+         if (args[0].equalsIgnoreCase("exit")) {
+                return false;
+         } 
+         else if (args[0].equalsIgnoreCase("help")) {
+            help();
          }
-        else {
-             System.err.println("Invalid command " + args[0]);
-             return;
+        else if (args[0].equalsIgnoreCase("pwd")) {
+            printPWD();
         }
 
+         else if (args[0].equalsIgnoreCase("add")) {
+
+             File f = new File(args[1]);
+
+            if (!f.isFile()) {
+               log.warning("File named " + args[1] + " could not be found!");
+               return true;
+            }
+
+            byte [] fileData = getFileAsByteArray(f);
+
+            addFile(f, fileData);
+            
+        } else if (args[0].equalsIgnoreCase("listfiles")) {
+            
+            if (args.length < 2) {
+                System.out.println("id is missing");
+            }
+            else {
+                
+                try {
+                    long id = (long) Integer.parseInt(args[1]);
+                    getFiles(id);
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid id:" + args[1]);
+                }
+            }
+        } else {
+            System.err.println("Invalid command:" + args[0]);
+            System.out.println("Type 'help' for available commands.");
+        }
+
+        return true;
     }
 
-    public void addFile(byte [] fileData) {
+    void printPWD() {
+         String curDir = System.getProperty("user.dir");
+         System.out.println(curDir);
+    }
 
-         try {
+    public void help() {
+         System.out.println("Available commands:" + newLine +
+                                "    - add       filename" + newLine +
+                                "    - listfiles id" + newLine +
+                                "    - pwd" + newLine +
+                                "    - exit"
+                     );
+    }
 
-           DevilryCLILibrary lib = new DevilryCLILibrary();
+    public void getFiles(long id) {
 
-           lib.addFile("NewFileToSave", fileData);
+        try {
+
+            DevilryCLILibrary lib = new DevilryCLILibrary();
+
+            Collection<FileNode> files = lib.getFiles(id);
+
+            if (files.size() == 0) {
+                System.out.print("No files in delivery with id " + id);
+            }
+            else {
+                System.out.println("Files in delivery with id " + id + ":");
+            }
+
+            for (FileNode file : files) {
+                System.out.println(file.getPath());
+            }
+            
+        } catch (Exception e) {
+            System.err.println("Exception:" + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    
+    public void addFile(File f, byte[] fileData) {
+
+        try {
+
+            DevilryCLILibrary lib = new DevilryCLILibrary();
+
+            long id = lib.addFile(f.getName(), fileData);
+
+            //log.info("Added file " + path + " with id:" + id);
+            System.out.println("New file added with delivery id:" + id);
 
         } catch (Exception e) {
             System.err.println("Exception:" + e.getMessage());
             e.printStackTrace();
         }
-
     }
 
-
-     public static byte [] getFileAsByteArray(File file) {
+    public static byte[] getFileAsByteArray(File file) {
 
         try {
 

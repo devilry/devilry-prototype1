@@ -18,6 +18,8 @@ import org.devilry.core.FileNode;
  */
 public class DevilryCLILibrary {
 
+    java.util.logging.Logger log = java.util.logging.Logger.getLogger(getClass().getName());
+
    DeliveryRemote deliveryManager = null;
         
     private void initializeDeliveryBean() throws Exception {
@@ -53,14 +55,18 @@ public class DevilryCLILibrary {
 		dir.addFile(path, fileData);
 		long id = deliveryManager.add(dir);
 
-        System.err.println("Added file " + path + " with id:" + id);
-
         return id;
     }
 
-    Collection<FileNode> getFiles(long id) {
+    Collection<FileNode> getFiles(long id) throws Exception {
+
+        System.err.println("deliveryManager:" + deliveryManager);
+
+        if (!isDeliveryBeanInitialized())
+            initializeDeliveryBean();
+
         DeliveryCandidateNode d = deliveryManager.getFull(id);
-		return d.getFiles();
+		return d == null ? null : d.getFiles();
     }
     
 }

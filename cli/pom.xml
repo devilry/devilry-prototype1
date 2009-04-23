@@ -55,6 +55,22 @@
         </dependency>
     </dependencies>
 
+	
+	<profiles>
+	  <profile>
+		<id>RemoteClient</id>
+		<properties>
+		  <java.mainclass>org.devilry.cli.RemoteClient</java.mainclass>
+		</properties>
+
+		<activation>
+		  <activeByDefault>true</activeByDefault>
+		</activation>
+		
+	  </profile>
+	</profiles>
+	
+
     <build>
         <plugins>
             <plugin>
@@ -80,6 +96,16 @@
                     </execution>
                 </executions>
             </plugin>
+
+			<plugin>
+			  <groupId>org.codehaus.mojo</groupId>
+			  <artifactId>exec-maven-plugin</artifactId>
+			  <version>1.1.1</version>
+				
+			  <configuration>
+				<mainClass>${java.mainclass}</mainClass>
+			  </configuration>
+			</plugin>
         </plugins>
     </build>
 
