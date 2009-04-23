@@ -1,0 +1,3 @@
+Main-Class: org.devilry.core.bendik.filestuff.client.FileTransferClient
+
+

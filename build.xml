@@ -1,0 +1,155 @@
+<project name="Devilry" basedir="." default="Welcome">
+  <description>
+	Devilry build file
+  </description>
+  
+  <target name="Welcome">
+	<echo>
+	  ===========================
+	  ==== Devilry build.xml ====
+	  ===========================
+	  
+	  Targets:
+	  =======================================
+	  jms-setup  - start JMS stuff on GlassFish
+	  all        - Create the jms stuff
+	  undeploy   - Undeploy from server.
+	  clean      - Clean up build stuff
+
+	</echo>
+  </target>
+  
+  <property environment="env"/>
+
+  <property name="glassfish.home" location="${env.HOME}/prog/glassfish/" />
+  
+  
+  <target name="jms-setup" depends="create-connection-factory, create-queue" />
+  
+  
+
+  <target name="create-connection-factory">
+	<exec executable="${glassfish.home}/bin/asadmin"
+          failonerror="true"
+          vmlauncher="false">
+	  <arg line="create-jms-resource 
+				 --restype javax.jms.ConnectionFactory --enabled=true
+				 FileTransferConnectionFactory"/>
+	</exec>
+  </target>
+
+  <target name="create-queue">
+	<exec executable="${glassfish.home}/bin/asadmin"
+          failonerror="true"
+          vmlauncher="false">
+      <arg line="create-jms-resource
+				 --restype javax.jms.Queue --enabled=true
+				 --property Name=FileTransferJMSQueue FileTransferJMSQueue"/>
+	</exec>
+  </target>
+
+
+
+
+  <property name="build.dir" value="${basedir}/core/target" />
+  <property name="src.dir" value="${basedir}/core/src/main/java/" />
+  <property name="config.dir" value="${basedir}/core/src/main/resources/META-INF" />
+  
+  <!--<property file="env.properties" /> -->
+
+  <path id="j2ee.classpath">
+    <pathelement location="${build.dir}"/>
+    <fileset dir="${glassfish.home}/lib">
+      <include name="javaee.jar"/>
+      <include name="appserv-rt.jar"/>
+    </fileset>
+  </path>
+
+  <target name="clean">
+	<delete dir="${build.dir}"/>
+	<mkdir dir="${build.dir}" />
+	<mkdir dir="${build.dir}/lib" />
+  </target>
+
+  <target name="all">
+    <antcall target="clean"/>
+    <antcall target="compile"/>
+    <antcall target="package-ejb"/>
+    <antcall target="package-client"/>
+    <antcall target="package-ear"/>
+    <antcall target="deploy"/>
+    <antcall target="run-client"/>
+  </target>
+
+
+  <target name="compile">
+	<javac destdir="${build.dir}" srcdir="${src.dir}" classpathref="j2ee.classpath">
+      <compilerarg value="-Xlint:unchecked"/>
+    </javac>		
+  </target>
+
+  <target name="package-ejb" depends="compile">
+	<jar jarfile="${build.dir}/FileTransferService.jar">
+	  <fileset dir="${build.dir}">
+		<include name="org/devilry/core/bendik/filestuff/session/**" />
+        <include name="org/devilry/core/bendik/filestuff/entity/**" />
+        <include name="org/devilry/core/bendik/filestuff/MDB/**" />
+      </fileset>
+      <metainf dir="${config.dir}">
+		<include name="persistence.xml" />
+	  </metainf>		
+	</jar>
+  </target>
+
+
+  <target name="package-client" depends="compile">
+	<jar jarfile="${build.dir}/FileTransferClient.jar" manifest="${config.dir}/manifest.mf">
+	  <fileset dir="${build.dir}">
+        <include name="org/devilry/core/bendik/filestuff/client/FileTransferClient.class" />
+      </fileset>	
+	</jar>
+  </target>
+
+
+
+
+  <target name="package-ear" depends="package-ejb">
+	<jar destfile="${build.dir}/FileTransferService.ear"
+		 basedir="${build.dir}"
+         includes="FileTransferService.jar FileTransferClient.jar"/>
+  </target>
+
+  
+
+  <target name="deploy">        
+	<exec executable="${glassfish.home}/bin/asadmin" 
+          failonerror="true" 
+          vmlauncher="false">
+      <arg line="deploy  --createtables=true ${build.dir}/FileTransferService.ear"/>
+	</exec>
+  </target>
+
+
+  <target name="undeploy">        
+    <exec executable="${glassfish.home}/bin/asadmin" 
+          failonerror="true" 
+          vmlauncher="false">
+      <arg line="undeploy  --droptables=true FileTransferService"/>
+    </exec>
+  </target>
+  
+
+  <target name="run-client">        
+    <exec executable="${glassfish.home}/bin/appclient" 
+          failonerror="true" 
+          vmlauncher="false">
+      <arg line="-client ${glassfish.home}/domains/domain1/generated/xml/j2ee-apps/FileTransferService/FileTransferServiceClient.jar  
+                 -mainclass org.devilry.core.bendik.filestuff.client.FileTransferClient 10 LEONARDO DAVINCI"/>
+    </exec>
+  </target>
+  
+
+</project>
+
+
+

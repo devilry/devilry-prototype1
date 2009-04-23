@@ -2,4 +2,5 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
     <persistence-unit name="ExampleCtx"/>
     <persistence-unit name="DevilryCore"/>
+    <persistence-unit name="FileTransferService"/>
 </persistence>
