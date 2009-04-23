@@ -11,16 +11,19 @@
 	  
 	  Targets:
 	  =======================================
-	  start-server    - Starts the GlassFish server and database
-	  stop-server     - Stops the GlassFish server and database
-	  restart-server  - Restarts the GlassFish server including database
-	  install         - Runs mvn install
+	  start-server      - Starts the GlassFish server and database
+	  stop-server       - Stops the GlassFish server and database
+	  restart-server    - Restarts the GlassFish server including database
+	  install           - Runs mvn install
 
-	  deploy          - Deploy core to server
-	  undeploy        - Undeploy core from server
-	  redeploy        - Runs undeploy and deploy
+	  deploy            - Deploy core to server
+	  undeploy          - Undeploy core from server
+	  redeploy          - Runs undeploy and deploy
 	  
-	  ExampleClient   - Runs the cli ExampleClient
+	  ExampleClient     - Runs the cli ExampleClient
+	  RemoteClient      - Runs RemoteClient add pom.xml
+	  RemoteClientShell - Runs RemoteClient in shell mode
+	  
 
 	  JMS Targets:
 	  ---------------------------------------
@@ -127,6 +130,24 @@
   </exec>
 </target>
   
+
+<target name="RemoteClient">        
+  <exec executable="mvn" dir="cli/"
+        failonerror="true" vmlauncher="false">
+    <arg line='exec:java -Djava.mainclass="org.devilry.cli.RemoteClient" -Dexec.args="add pom.xml"'  
+         />
+  </exec>
+</target>
+  
+<target name="RemoteClientShell">        
+  <exec executable="mvn" dir="cli/" 
+        failonerror="false" vmlauncher="true">
+    <arg line='-e exec:java -Djava.mainclass="org.devilry.cli.RemoteClient"'  
+         />
+  </exec>
+</target>
+  
+
 
 
 <import file="build_jms.xml" />

@@ -5,10 +5,12 @@
 
 package org.devilry.cli;
 
+import java.util.Collection;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import org.devilry.core.DeliveryCandidateNode;
 import org.devilry.core.DeliveryRemote;
+import org.devilry.core.FileNode;
 
 /**
  *
@@ -26,14 +28,23 @@ public class DevilryCLILibrary {
         delivery = (DeliveryCandidate) obj;
 */
 
-        deliveryManager = (DeliveryRemote) ctx.lookup("Delivery");
+        //deliveryManager = (DeliveryRemote) ctx.lookup("Delivery");
+        deliveryManager = (DeliveryRemote) ctx.lookup("org.devilry.core.DeliveryRemote");
+
     }
 
     private boolean isDeliveryBeanInitialized() {
         return deliveryManager != null;
     }
 
-    public void addFile(String path, byte [] fileData) throws Exception {
+    /**
+     *
+     * @param path
+     * @param fileData
+     * @return id
+     * @throws java.lang.Exception
+     */
+    public long addFile(String path, byte [] fileData) throws Exception {
 
         if (!isDeliveryBeanInitialized())
             initializeDeliveryBean();
@@ -41,9 +52,15 @@ public class DevilryCLILibrary {
 		DeliveryCandidateNode dir = new DeliveryCandidateNode();
 		dir.addFile(path, fileData);
 		long id = deliveryManager.add(dir);
-  
+
         System.err.println("Added file " + path + " with id:" + id);
-           
+
+        return id;
     }
 
+    Collection<FileNode> getFiles(long id) {
+        DeliveryCandidateNode d = deliveryManager.getFull(id);
+		return d.getFiles();
+    }
+    
 }
