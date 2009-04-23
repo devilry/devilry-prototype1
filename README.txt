@@ -20,4 +20,4 @@ Execute one of the CLI's
 
 ~$ cd cli/
 ~$ mvn exec:java -Djava.mainclass="org.devilry.cli.RemoteClient"
-~$ mvn exec:java -Djava.mainclass="org.devilry.cli.RemoteClient" -Dexec.args="arg1 arg2 arg3"
+~$ mvn exec:java -Djava.mainclass="org.devilry.cli.RemoteClient" -Dexec.args="add pom.xml"
