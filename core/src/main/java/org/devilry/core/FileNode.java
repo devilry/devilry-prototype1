@@ -1,36 +1,35 @@
 package org.devilry.core;
 
 import java.io.Serializable;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
 
 @Entity
 public class FileNode implements Serializable {
 
-	@Id
-	protected DeliveryCandidateNode deliveryCandidate;
-	
-	@Id
-	protected String filePath;
+	@EmbeddedId
+	protected FileNodeId id;
 
 	protected byte[] fileData;
 
-	protected FileNode() {}
+	protected FileNode() {
+		id = new FileNodeId();
+	}
 
-	public FileNode(DeliveryCandidateNode directory, String path, byte[] data) {
-		deliveryCandidate = directory;
-		filePath = path;
+	public FileNode(DeliveryCandidateNode deliveryCandidate, String path, byte[] data) {
+		this();
+		id.setDeliveryCandidate(deliveryCandidate);
+		id.setFilePath(path);
 		fileData = data;
 	}
 	
 	public DeliveryCandidateNode getDirectory() {
-		return deliveryCandidate;
+		return id.getDeliveryCandidate();
 	}
 
 	public String getPath() {
-		return filePath;
+		return id.getFilePath();
 	}
 
 	public byte[] getData() {

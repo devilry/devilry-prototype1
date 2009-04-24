@@ -120,7 +120,7 @@
 		dir="cli/"
         failonerror="true" 
         vmlauncher="false">
-    <arg line='exec:java -Djava.mainclass="org.devilry.cli.ExampleClient" -Dexec.args="test"'  
+    <arg line='exec:java -e -Djava.mainclass="org.devilry.cli.ExampleClient"'  
          />
   </exec>
 </target>
