@@ -24,11 +24,6 @@
 	  RemoteClient      - Runs "RemoteClient add pom.xml"
 	  RemoteClientShell - Prints the command to run in shell
 	  
-
-	  JMS Targets:
-	  ---------------------------------------
-	  jms             - Gives all avaialable JMS commands
-	  
 	</echo>
   </target>
   
@@ -148,36 +143,6 @@
 
      
 </target>
-
-
-<import file="build_jms.xml" />
-
-
-<target name="jms">        
-  <antcall target="JMS.welcome" />
-</target>
-
-<target name="jms-setup">        
-  <antcall target="JMS.jms-setup" />
-</target>
-
-
-<target name="jms-all">        
-  <antcall target="JMS.jms-all" />
-</target>
-
-<target name="jms-run-client">        
-  <antcall target="JMS.jms-run-client" />
-</target>
-
-<target name="jms-undeploy">        
-  <antcall target="JMS.jms-undeploy" />
-</target>
-
-<target name="jms-clean">        
-  <antcall target="JMS.jms-clean" />
-</target>
-
 
 
 </project>
