@@ -1,23 +1,55 @@
-The pom.xml assumes you have glassfish installed in $HOME/prog/glassfish.
+Setup and install glassfish
+===========================
+
+Download glassfish V2.1 and install it to a location of your choosing. Configure 
+the Maven build files for Devilry to use your newly installed glassfish by 
+adding the following to your settings.xml::
+
+	<activeProfiles>
+		<activeProfile>Devilry default</activeProfile>
+	</activeProfiles>
+
+	<profiles>
+		<profile>
+			<id>Devilry default</id>
+            <properties>
+				<glassfish.home>${env.HOME}/prog/glassfish</glassfish.home>
+			</properties>
+		</profile>
+	</profiles>
+
+Or just copy ``doc/settings.xml``.
+
+On Linux and OSX, settings.xml is located in ``$HOME/.m2/settings.xml``.
+In the config above we have installed glassfish in ``$HOME/prog/glassfish/``, so 
+you will have to adjust the path to reflect where you installed glassfish.
+You can read more about maven settings files here:
+
+    http://maven.apache.org/settings.html
+
+
 
 Compile and run with glassfish
 ==============================
 
-(0. start glassfish with: mvn asadmin:start-domain)
-(0.1. start glassfish database with: mvn asadmin:start-database)
-1. Put beans in the core/ module
-2. Put command-line applications using beans in the cli/ module.
-3. Compile and install into the local maven repository with:
-    ~$ mvn install
-4. Deploy to glassfish with:
-    ~$ cd core/; mvn asadmin:deploy; cd ../
-5. Undeploy with: cd core/; mvn asadmin:undeploy; cd ../
-5. Redeploy with: cd core/; mvn asadmin:redeploy; cd ../
+1. Start glassfish::
 
+    ~$ ant start-server
 
-Execute one of the CLI's
-========================
+2. Build all modules::
 
-~$ cd cli/
-~$ mvn exec:java -Djava.mainclass="org.devilry.cli.RemoteClient"
-~$ mvn exec:java -Djava.mainclass="org.devilry.cli.RemoteClient" -Dexec.args="add pom.xml"
+    ~$ ant install
+
+3. Deploy the bean to glassfish::
+
+    ~$ ant deploy
+
+    you will probably get some SQL exceptions. As long as you get
+    "Command deploy executed successfully ...." within these warnings, 
+    everything is OK.
+
+4. Run the remote client::
+
+    ~$ ant RemoteClient
+
+Run "ant" without any arguments for more commands.

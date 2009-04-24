@@ -10,48 +10,31 @@
     <name>Devilry</name>
     <url>http://code.google.com/p/devilry</url>
 
-    <properties>
-        <glassfish.home>${env.HOME}/prog/glassfish</glassfish.home>
-    </properties>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>asadmin-maven-plugin-releases-repository</id>
+            <name>asadmin-maven-plugin-releases-repository</name>
+            <url>http://asadmin-maven-plugin.googlecode.com/svn/trunk/repository/releases</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>asadmin-maven-plugin-snapshots-repository</id>
+            <name>asadmin-maven-plugin-snapshots-repository</name>
+            <url>http://asadmin-maven-plugin.googlecode.com/svn/trunk/repository/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 
-	<pluginRepositories>
-		<pluginRepository>
-			<id>asadmin-maven-plugin-releases-repository</id>
-			<name>asadmin-maven-plugin-releases-repository</name>
-			<url>http://asadmin-maven-plugin.googlecode.com/svn/trunk/repository/releases</url>
-			<releases><enabled>true</enabled></releases>
-			<snapshots><enabled>false</enabled></snapshots>
-		</pluginRepository>
-		<pluginRepository>
-			<id>asadmin-maven-plugin-snapshots-repository</id>
-			<name>asadmin-maven-plugin-snapshots-repository</name>
-			<url>http://asadmin-maven-plugin.googlecode.com/svn/trunk/repository/snapshots</url>
-			<releases><enabled>false</enabled></releases>
-			<snapshots><enabled>true</enabled></snapshots>
-		</pluginRepository>
-	</pluginRepositories>
-
-
-	<dependencies>
-		<dependency>
-			<groupId>com.bm</groupId>
-			<artifactId>ejb3unit</artifactId>
-			<scope>test</scope>
-			<version>1.2</version>
-		</dependency>
-	</dependencies>
-
-
-	<repositories>
-		<repository>
-			<snapshots>
-				<enabled>false</enabled>
-				</snapshots>
-			<id>ejb3unit</id>
-			<name>ejb3unit repository</name>
-			<url>http://ejb3unit.sourceforge.net/maven2</url>
-		</repository>
-	</repositories>
 
     <build>
         <plugins>
@@ -80,10 +63,10 @@
                     <mainClass>${java.mainclass}</mainClass>
                 </configuration>
             </plugin>
-			<plugin>
-				<groupId>org.n0pe.mojo</groupId>
-				<artifactId>asadmin-maven-plugin</artifactId>
-				<version>0.3</version>
+            <plugin>
+                <groupId>org.n0pe.mojo</groupId>
+                <artifactId>asadmin-maven-plugin</artifactId>
+                <version>0.3</version>
                 <configuration>
                     <glassfishHome>${glassfish.home}</glassfishHome>
                     <domain>domain1</domain>
@@ -92,7 +75,7 @@
                     <user>admin</user>
                     <appArchive>${project.build.directory}/${project.build.finalName}.${project.artifact.artifactHandler.extension}</appArchive>
                 </configuration>
-			</plugin>
+            </plugin>
         </plugins>
 
     </build>

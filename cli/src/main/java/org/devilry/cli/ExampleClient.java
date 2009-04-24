@@ -30,5 +30,8 @@ public class ExampleClient {
 
 		FileNode n = dm.getFile(d, filename);
 		System.out.printf(">>> %s:%s%n", n.getPath(), new String(n.getData()));
+
+		for(String filePath: dm.getFilePaths(d))
+			System.out.println(" - " + filePath);
 	}
 }
