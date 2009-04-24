@@ -48,7 +48,11 @@ Compile and run with glassfish
     "Command deploy executed successfully ...." within these warnings, 
     everything is OK.
 
-4. Run the remote client::
+4. Run the example client (noninterractive client)::
+
+   ~$ ant ExampleClient 
+
+5. Run the remote client::
 
     ~$ ant RemoteClient
 
