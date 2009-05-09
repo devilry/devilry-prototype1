@@ -3,7 +3,7 @@ package org.devilry.cli;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import org.devilry.core.DeliveryCandidateNode;
-import org.devilry.core.DeliveryRemote;
+import org.devilry.core.DeliveryBeanRemote;
 import org.devilry.core.FileNode;
 
 public class ExampleClient {
@@ -12,7 +12,7 @@ public class ExampleClient {
 		Context ctx = new InitialContext();
 
 		// https://glassfish.dev.java.net/javaee5/ejb/EJB_FAQ.html#SessionBeanGlobalJNDINameAssignment
-		DeliveryRemote delivery = (DeliveryRemote) ctx.lookup("org.devilry.core.DeliveryRemote");
+		DeliveryBeanRemote delivery = (DeliveryBeanRemote) ctx.lookup("org.devilry.core.DeliveryRemote");
 
 		// Create a delivery candidate and add it to the delivery
 		DeliveryCandidateNode deliveryCand = new DeliveryCandidateNode();

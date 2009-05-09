@@ -1,40 +1,36 @@
 package org.devilry;
 
-import java.util.Properties;
-import javax.naming.Context;
-import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import org.devilry.core.DeliveryCandidateNode;
-import org.devilry.core.DeliveryRemote;
-import org.junit.After;
+import org.devilry.core.DeliveryBeanRemote;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class DeliveryBeanTest {
-	Context ctx;
-	DeliveryRemote bean;
 
-    public DeliveryBeanTest() {
-    }
+	DeliveryBeanRemote bean;
 
-    @Before
-    public void setUp() throws NamingException {
-		Properties p = new Properties();
-		p.put(Context.INITIAL_CONTEXT_FACTORY,
-				"org.apache.openejb.client.LocalInitialContextFactory");
-		ctx = new InitialContext(p);
-		Object ref = ctx.lookup("DeliveryBeanRemote");
-		bean = (DeliveryRemote) ref;
-    }
+	@Before
+	public void setUp() throws NamingException {
+		bean = Helpers.loadBean(DeliveryBeanRemote.class);
+	}
 
-    @After
-    public void tearDown() {
-    }
-
-    @Test
-    public void hello() {
+	@Test
+	public void add() {
 		DeliveryCandidateNode n = new DeliveryCandidateNode();
-		bean.add(n);
+		long id = bean.add(n);
+		n = bean.get(id);
+		assertNotNull(n);
+	}
+
+
+	@Test
+	public void get() {
+		DeliveryCandidateNode n = new DeliveryCandidateNode();
+		n.addFile("a.txt", "a".getBytes());
+		long id = bean.add(n);
+		n = bean.get(id);
+		assertEquals(id, n.getId());
 	}
 }
