@@ -25,14 +25,14 @@ public class DeliveryBean implements DeliveryRemote {
 
 	/** Get a DeliveryCandidateNode without files loaded into memory.
 	@return A DeliveryCandidateNode where <b>getFiles() do not work</b>. */
-	public DeliveryCandidateNode get(long id) {
+	public DeliveryCandidateNode get(FileNodeId id) {
 		return em.find(DeliveryCandidateNode.class, id);
 	}
 
 	/** Get a DeliveryCandidateNode with files loaded into memory.
 	@return A DeliveryCandidateNode where <b>getFiles() work</b>.
 	 */
-	public DeliveryCandidateNode getFull(long id) {
+	public DeliveryCandidateNode getFull(FileNodeId id) {
 		DeliveryCandidateNode d = em.find(DeliveryCandidateNode.class, id);
 		d.loadFiles();
 		return d;
