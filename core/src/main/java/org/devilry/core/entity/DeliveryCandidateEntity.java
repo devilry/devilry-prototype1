@@ -18,8 +18,7 @@ public class DeliveryCandidateEntity implements Serializable {
     @GeneratedValue
     protected long id;
 
-//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@Transient
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     protected Collection<FileMetaEntity> files = new LinkedList<FileMetaEntity>();
 
 
