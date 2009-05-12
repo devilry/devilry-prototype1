@@ -1,6 +1,6 @@
 <openejb-jar>
   <properties>
      openejb.deploymentId.format = {ejbName}
-     openejb.jndiname.format = {ejbClass}
+     openejb.jndiname.format = {ejbName}
   </properties>
 </openejb-jar>

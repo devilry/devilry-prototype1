@@ -9,7 +9,7 @@ import java.util.Collection;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import org.devilry.core.entity.DeliveryCandidateEntity;
-import org.devilry.core.session.DeliveryBeanRemote;
+import org.devilry.core.session.DeliveryCandidateRemote;
 import org.devilry.core.entity.FileMetaEntity;
 
 /**
@@ -20,7 +20,7 @@ public class DevilryCLILibrary {
 
     java.util.logging.Logger log = java.util.logging.Logger.getLogger(getClass().getName());
 
-   DeliveryBeanRemote deliveryManager = null;
+   DeliveryCandidateRemote deliveryManager = null;
         
     private void initializeDeliveryBean() throws Exception {
         Context ctx = new InitialContext();
@@ -31,7 +31,7 @@ public class DevilryCLILibrary {
 */
 
         //deliveryManager = (DeliveryRemote) ctx.lookup("Delivery");
-        deliveryManager = (DeliveryBeanRemote) ctx.lookup("org.devilry.core.DeliveryRemote");
+        deliveryManager = (DeliveryCandidateRemote) ctx.lookup("org.devilry.core.DeliveryRemote");
 
     }
 

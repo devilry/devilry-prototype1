@@ -2,6 +2,7 @@ package org.devilry.core.entity;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
@@ -9,11 +10,13 @@ import javax.persistence.ManyToOne;
 public class FileMetaEntity implements Serializable {
 
 	@Id
+	@GeneratedValue
+	private long id;
+
 	@ManyToOne
-	DeliveryCandidateEntity deliveryCandidate;
+	private DeliveryCandidateEntity deliveryCandidate;
 	
-	@Id
-	String filePath;
+	private String filePath;
 
 	protected FileMetaEntity() {
 	}
@@ -21,6 +24,10 @@ public class FileMetaEntity implements Serializable {
 	public FileMetaEntity(DeliveryCandidateEntity deliveryCandidate, String filePath) {
 		this.deliveryCandidate = deliveryCandidate;
 		this.filePath = filePath;
+	}
+
+	public long getId() {
+		return id;
 	}
 
 	public DeliveryCandidateEntity getDeliveryCandidate() {
@@ -32,11 +39,16 @@ public class FileMetaEntity implements Serializable {
 	}
 
 
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	public void setDeliveryCandidate(DeliveryCandidateEntity deliveryCandidate) {
 		this.deliveryCandidate = deliveryCandidate;
 	}
 
-	public void setFilePath() {
+	public void setFilePath(String filePath) {
 		this.filePath = filePath;
 	}
+
 }

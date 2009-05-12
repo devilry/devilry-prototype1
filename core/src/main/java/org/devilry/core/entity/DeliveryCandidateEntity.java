@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.GeneratedValue;
 import java.util.LinkedList;
+import javax.persistence.Transient;
 
 @Entity
 public class DeliveryCandidateEntity implements Serializable {
@@ -17,7 +18,8 @@ public class DeliveryCandidateEntity implements Serializable {
     @GeneratedValue
     protected long id;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@Transient
     protected Collection<FileMetaEntity> files = new LinkedList<FileMetaEntity>();
 
 

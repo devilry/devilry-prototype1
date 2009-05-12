@@ -1,4 +1,4 @@
-package org.devilry;
+package org.devilry.core.session;
 
 import java.util.Properties;
 import javax.naming.Context;
@@ -23,7 +23,10 @@ public class Helpers {
 		p.put(Context.INITIAL_CONTEXT_FACTORY,
 				"org.apache.openejb.client.LocalInitialContextFactory");
 		Context ctx = new InitialContext(p);
-		Object ref = ctx.lookup(remoteInterface.getName());
+
+		String name = remoteInterface.getSimpleName();
+		name = name.substring(0, name.length() - "Remote".length()) + "Impl";
+		Object ref = ctx.lookup(name);
 		return (T) ref;
 	}
 }
