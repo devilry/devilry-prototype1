@@ -8,7 +8,7 @@ import java.io.FileNotFoundException;
 import java.util.Collection;
 import java.util.Scanner;
 import java.util.logging.Logger;
-import org.devilry.core.FileNode;
+import org.devilry.core.entity.FileMetaEntity;
 
 public class RemoteClient {
 
@@ -141,7 +141,7 @@ public class RemoteClient {
 
             DevilryCLILibrary lib = new DevilryCLILibrary();
 
-            Collection<FileNode> files = lib.getFiles(id);
+            Collection<FileMetaEntity> files = lib.getFiles(id);
 
             if (files.size() == 0) {
                 System.out.print("No files in delivery with id " + id);
@@ -150,7 +150,7 @@ public class RemoteClient {
                 System.out.println("Files in delivery with id " + id + ":");
             }
 
-            for (FileNode file : files) {
+            for (FileMetaEntity file : files) {
                 System.out.println(file.getPath());
             }
             

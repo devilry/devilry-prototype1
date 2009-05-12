@@ -1,8 +1,8 @@
 package org.devilry;
 
 import javax.naming.NamingException;
-import org.devilry.core.DeliveryCandidateNode;
-import org.devilry.core.DeliveryBeanRemote;
+import org.devilry.core.entity.DeliveryCandidateEntity;
+import org.devilry.core.session.DeliveryBeanRemote;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -20,7 +20,7 @@ public class DeliveryBeanTest {
 	@Ignore
 	@Test
 	public void add() {
-		DeliveryCandidateNode n = new DeliveryCandidateNode();
+		DeliveryCandidateEntity n = new DeliveryCandidateEntity();
 		long id = bean.add(n);
 		n = bean.get(id);
 		assertNotNull(n);
@@ -30,7 +30,7 @@ public class DeliveryBeanTest {
 	@Ignore
 	@Test
 	public void get() {
-		DeliveryCandidateNode n = new DeliveryCandidateNode();
+		DeliveryCandidateEntity n = new DeliveryCandidateEntity();
 		n.addFile("a.txt", "a".getBytes());
 		long id = bean.add(n);
 		n = bean.get(id);

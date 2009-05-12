@@ -1,5 +1,8 @@
-package org.devilry.core;
+package org.devilry.core.session;
 
+import org.devilry.core.entity.FileMetaEntity;
+import org.devilry.core.entity.FileDataEntity;
+import org.devilry.core.*;
 import java.util.Iterator;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
@@ -15,14 +18,14 @@ public class FileReaderBean implements FileReaderBeanRemote {
 	@PersistenceContext(unitName = "DevilryCore")
 	private EntityManager em;
 
-	FileNode fileNode;
-	Iterator<FileDataNode> dataIterator;
+	FileMetaEntity fileNode;
+	Iterator<FileDataEntity> dataIterator;
 
 	public FileReaderBean() {
 		fileNode = null;
 	}
 
-	public void open(FileNode fileNode) {
+	public void open(FileMetaEntity fileNode) {
 		this.fileNode = fileNode;
 	}
 

@@ -1,5 +1,7 @@
-package org.devilry.core;
+package org.devilry.core.session;
 
+import org.devilry.core.entity.FileMetaEntity;
+import org.devilry.core.*;
 import javax.ejb.Remote;
 
 /**
@@ -8,6 +10,6 @@ import javax.ejb.Remote;
  */
 @Remote
 public interface FileReaderBeanRemote {
-	public void open(FileNode fileNode);
+	public void open(FileMetaEntity fileNode);
 	public byte[] read();
 }

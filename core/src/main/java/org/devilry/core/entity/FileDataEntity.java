@@ -1,4 +1,4 @@
-package org.devilry.core;
+package org.devilry.core.entity;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -14,9 +14,11 @@ import javax.persistence.SequenceGenerator;
  *
  * @see FileNode
  * @author Espen Angell Kristiansen <post@espenak.net>
+ *
+ * @note This is not intergrated with FileMetaEntity yet!
  */
 @Entity
-public class FileDataNode implements Serializable {
+public class FileDataEntity implements Serializable {
 
 	@Id
 	@SequenceGenerator(name = "FILEDATANODE_SEQUENCE")
@@ -27,11 +29,11 @@ public class FileDataNode implements Serializable {
 	@Basic(fetch = FetchType.LAZY, optional=false)
 	private byte[] dataBlock;
 
-	public FileDataNode() {
+	public FileDataEntity() {
 		dataBlock = new byte[0];
 	}
 
-	public FileDataNode(byte[] dataBlock) {
+	public FileDataEntity(byte[] dataBlock) {
 		this.dataBlock = dataBlock;
 	}
 
