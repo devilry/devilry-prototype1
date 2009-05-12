@@ -17,8 +17,8 @@ public class DeliveryCandidateNode implements Serializable {
     @GeneratedValue
     protected long id;
 
-    //@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    //protected Collection<FileNode> files = new LinkedList<FileNode>();
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    protected Collection<FileNode> files = new LinkedList<FileNode>();
 
 
     public DeliveryCandidateNode() {
@@ -30,23 +30,22 @@ public class DeliveryCandidateNode implements Serializable {
 
 
     public void addFile(FileNode file) {
-        //files.add(file);
+        files.add(file);
     }
 
     public void addFile(String path, byte[] data) {
-        //files.add(new FileNode(id, path, data));
+        files.add(new FileNode(id, path));
     }
 
     /** Force the JPA provider to load the files into memory. This "hack" is
      * required because we use LAZY fetch on the relationship.
      */
     void loadFiles() {
-        //files.size();
+        files.size();
     }
 
     public Collection<FileNode> getFiles() {
-        //return files;
-		return null;
+        return files;
     }
 
     @Override

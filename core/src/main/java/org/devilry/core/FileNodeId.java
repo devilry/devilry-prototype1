@@ -2,14 +2,12 @@ package org.devilry.core;
 
 import java.io.Serializable;
 import javax.persistence.Embeddable;
-import javax.persistence.ManyToOne;
 
 
 @Embeddable
 public class FileNodeId implements Serializable {
-    protected long deliveryCandidateId;
-
-    protected String filePath;
+    private long deliveryCandidateId;
+    private String filePath;
 
     public FileNodeId() {}
 
