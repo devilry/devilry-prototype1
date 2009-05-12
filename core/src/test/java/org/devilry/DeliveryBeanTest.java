@@ -4,6 +4,7 @@ import javax.naming.NamingException;
 import org.devilry.core.DeliveryCandidateNode;
 import org.devilry.core.DeliveryBeanRemote;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -16,6 +17,7 @@ public class DeliveryBeanTest {
 		bean = Helpers.loadBean(DeliveryBeanRemote.class);
 	}
 
+	@Ignore
 	@Test
 	public void add() {
 		DeliveryCandidateNode n = new DeliveryCandidateNode();
@@ -25,6 +27,7 @@ public class DeliveryBeanTest {
 	}
 
 
+	@Ignore
 	@Test
 	public void get() {
 		DeliveryCandidateNode n = new DeliveryCandidateNode();
