@@ -13,14 +13,13 @@ public class DeliveryBeanTest {
 	@Before
 	public void setUp() throws NamingException, Exception {
 		bean = Helpers.loadBean(DeliveryCandidateRemote.class);
-		System.out.println("hei");
 		bean.init(0);
 	}
 
 	@Test
 	public void addFile() {
-//		bean.addFile("test.txt");
-//		List<Long> fileIds = bean.getFileIds();
-//		assertEquals(1, fileIds.size());
+		bean.addFile("test.txt");
+		List<Long> fileIds = bean.getFileIds();
+		assertEquals(1, fileIds.size());
 	}
 }

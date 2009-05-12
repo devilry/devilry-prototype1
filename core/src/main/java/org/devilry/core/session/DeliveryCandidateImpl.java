@@ -20,10 +20,7 @@ public class DeliveryCandidateImpl implements DeliveryCandidateRemote {
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void init(long id) {
 		// TODO: should load from db, but create new for now.
-		try {
-			em.persist(new DeliveryCandidateEntity());
-		} catch (Exception e) {
-		}
+		em.persist(new DeliveryCandidateEntity());
 	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
