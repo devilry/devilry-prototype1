@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.GeneratedValue;
 import java.util.LinkedList;
-import javax.persistence.Transient;
 
 @Entity
 public class DeliveryCandidateEntity implements Serializable {
