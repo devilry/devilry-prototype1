@@ -3,7 +3,7 @@ package org.devilry.cli;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import org.devilry.core.entity.DeliveryCandidateEntity;
-import org.devilry.core.session.DeliveryCandidateRemote;
+import org.devilry.core.session.dao.DeliveryCandidateRemote;
 import org.devilry.core.entity.FileMetaEntity;
 
 public class ExampleClient {

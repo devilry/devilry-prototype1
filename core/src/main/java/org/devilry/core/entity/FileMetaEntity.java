@@ -13,9 +13,9 @@ public class FileMetaEntity implements Serializable {
 	@GeneratedValue
 	private long id;
 
-	@ManyToOne
+	@ManyToOne(optional=false)
 	private DeliveryCandidateEntity deliveryCandidate;
-	
+
 	private String filePath;
 
 	protected FileMetaEntity() {

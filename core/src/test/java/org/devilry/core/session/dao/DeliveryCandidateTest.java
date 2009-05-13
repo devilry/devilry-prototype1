@@ -1,4 +1,4 @@
-package org.devilry.core.session;
+package org.devilry.core.session.dao;
 
 import java.util.List;
 import javax.naming.NamingException;
@@ -7,14 +7,16 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class DeliveryBeanTest extends AbstractSessionBeanTestHelper {
+public class DeliveryCandidateTest extends AbstractSessionBeanTestHelper {
 
 	DeliveryCandidateRemote remoteBean;
+	long deliveryId;
 
 	@Before
 	public void setUp() throws NamingException {
 		setupEjbContainer();
 		remoteBean = (DeliveryCandidateRemote) getRemoteBean(DeliveryCandidate.class);
+		deliveryId = 0;
 	}
 
 	@After
@@ -22,9 +24,14 @@ public class DeliveryBeanTest extends AbstractSessionBeanTestHelper {
 		destroyEjbContainer();
 	}
 
+	@Test(expected=Exception.class)
+	public void addFileWithoutInit() {
+		remoteBean.addFile("not.txt");
+	}
+
 	@Test
 	public void addFile() {
-		remoteBean.init(0);
+		remoteBean.init(deliveryId);
 		remoteBean.addFile("test.txt");
 		List<Long> fileIds = remoteBean.getFileIds();
 		assertEquals(1, fileIds.size());
@@ -33,7 +40,7 @@ public class DeliveryBeanTest extends AbstractSessionBeanTestHelper {
 
 	@Test
 	public void getFileIds() throws NamingException {
-		remoteBean.init(0);
+		remoteBean.init(deliveryId);
 		remoteBean.addFile("b");
 		remoteBean.addFile("a");
 		remoteBean.addFile("c");

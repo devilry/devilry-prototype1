@@ -1,4 +1,4 @@
-package org.devilry.core.session;
+package org.devilry.core.session.dao;
 
 import java.util.Properties;
 import javax.ejb.Stateless;
