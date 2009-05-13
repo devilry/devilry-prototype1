@@ -32,9 +32,11 @@ public class DeliveryCandidateTest extends AbstractSessionBeanTestHelper {
 	@Test
 	public void addFile() {
 		remoteBean.init(deliveryId);
-		remoteBean.addFile("test.txt");
+		long id1 = remoteBean.addFile("test.txt");
+		long id2 = remoteBean.addFile("test2.txt");
+		assertFalse(id1 == id2);
 		List<Long> fileIds = remoteBean.getFileIds();
-		assertEquals(1, fileIds.size());
+		assertEquals(2, fileIds.size());
 	}
 
 

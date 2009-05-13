@@ -37,6 +37,7 @@ public class DeliveryCandidate implements DeliveryCandidateRemote {
 	public long addFile(String filePath) {
 		FileMetaEntity f = new FileMetaEntity(deliveryCandidate, filePath);
 		em.persist(f);
+		em.flush();
 		return f.getId();
 	}
 

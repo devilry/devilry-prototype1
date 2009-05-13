@@ -17,8 +17,8 @@ import org.devilry.core.entity.FileMetaEntity;
  * @author Espen Angell Kristiansen <post@espenak.net>
  */
 public abstract class AbstractSessionBeanTestHelper {
-	protected static Class[] ENTITIES = {DeliveryCandidateEntity.class, FileMetaEntity.class};
 
+	protected static Class[] ENTITIES = {DeliveryCandidateEntity.class, FileMetaEntity.class};
 	protected EntityManager entityManager;
 	protected InitialContext localCtx;
 	private TestBeanLocal testBean;
@@ -36,7 +36,6 @@ public abstract class AbstractSessionBeanTestHelper {
 		entityManager = testBean.getEntityManager();
 	}
 
-
 	protected void destroyEjbContainer() {
 		testBean.clearDatabase();
 	}
@@ -45,12 +44,9 @@ public abstract class AbstractSessionBeanTestHelper {
 		return localCtx.lookup(beanImplClass.getSimpleName() + "Local");
 	}
 
-
 	protected Object getRemoteBean(Class beanImplClass) throws NamingException {
 		return localCtx.lookup(beanImplClass.getSimpleName() + "Remote");
 	}
-
-
 
 	@Stateless
 	public static class TestBean implements TestBeanLocal {
@@ -64,7 +60,7 @@ public abstract class AbstractSessionBeanTestHelper {
 
 		@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 		public void clearDatabase() {
-			for(Class entity: ENTITIES) {
+			for (Class entity : ENTITIES) {
 				entityManager.createQuery(
 						"DELETE FROM " + entity.getSimpleName()).executeUpdate();
 			}
