@@ -10,32 +10,6 @@
     <name>Devilry</name>
     <url>http://code.google.com/p/devilry</url>
 
-    <pluginRepositories>
-        <pluginRepository>
-            <id>asadmin-maven-plugin-releases-repository</id>
-            <name>asadmin-maven-plugin-releases-repository</name>
-            <url>http://asadmin-maven-plugin.googlecode.com/svn/trunk/repository/releases</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-        <pluginRepository>
-            <id>asadmin-maven-plugin-snapshots-repository</id>
-            <name>asadmin-maven-plugin-snapshots-repository</name>
-            <url>http://asadmin-maven-plugin.googlecode.com/svn/trunk/repository/snapshots</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
-
-
     <build>
         <plugins>
             <plugin>
@@ -52,28 +26,6 @@
                 <version>2.2</version>
                 <configuration>
                     <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.1.1</version>
-
-                <configuration>
-                    <mainClass>${java.mainclass}</mainClass>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.n0pe.mojo</groupId>
-                <artifactId>asadmin-maven-plugin</artifactId>
-                <version>0.3</version>
-                <configuration>
-                    <glassfishHome>${glassfish.home}</glassfishHome>
-                    <domain>domain1</domain>
-                    <host>localhost</host>
-                    <port>4848</port>
-                    <user>admin</user>
-                    <appArchive>${project.build.directory}/${project.build.finalName}.${project.artifact.artifactHandler.extension}</appArchive>
                 </configuration>
             </plugin>
         </plugins>
