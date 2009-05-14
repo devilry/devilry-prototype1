@@ -10,7 +10,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-
 @Stateful
 public class DeliveryCandidate implements DeliveryCandidateRemote {
 
@@ -28,7 +27,7 @@ public class DeliveryCandidate implements DeliveryCandidateRemote {
 	public long getId() {
 		return deliveryCandidate.getId();
 	}
-	
+
 	public long getDeliveryId() {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
@@ -43,7 +42,9 @@ public class DeliveryCandidate implements DeliveryCandidateRemote {
 
 	public List<Long> getFileIds() {
 		// TODO: add this id to query
-		Query q = em.createQuery("SELECT f.id FROM FileMetaEntity WHERE f. f ORDER BY f.filePath");
+		Query q = em.createQuery("SELECT f.id FROM FileMetaEntity f "
+				+ "WHERE f.deliveryCandidate.id = :id ORDER BY f.filePath");
+		q.setParameter("id", deliveryCandidate.getId());
 		return q.getResultList();
 	}
 }
