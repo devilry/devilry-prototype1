@@ -8,9 +8,9 @@ package org.devilry.cli;
 import java.util.Collection;
 import javax.naming.Context;
 import javax.naming.InitialContext;
-import org.devilry.core.entity.DeliveryCandidateEntity;
+import org.devilry.core.entity.DeliveryCandidate;
 import org.devilry.core.session.dao.DeliveryCandidateRemote;
-import org.devilry.core.entity.FileMetaEntity;
+import org.devilry.core.entity.FileMeta;
 
 /**
  *
@@ -51,21 +51,21 @@ public class DevilryCLILibrary {
         if (!isDeliveryBeanInitialized())
             initializeDeliveryBean();
 
-		DeliveryCandidateEntity dir = new DeliveryCandidateEntity();
+		DeliveryCandidate dir = new DeliveryCandidate();
 		dir.addFile(path, fileData);
 		long id = deliveryManager.add(dir);
 
         return id;
     }
 
-    Collection<FileMetaEntity> getFiles(long id) throws Exception {
+    Collection<FileMeta> getFiles(long id) throws Exception {
 
         System.err.println("deliveryManager:" + deliveryManager);
 
         if (!isDeliveryBeanInitialized())
             initializeDeliveryBean();
 
-        DeliveryCandidateEntity d = deliveryManager.getFull(id);
+        DeliveryCandidate d = deliveryManager.getFull(id);
 		return d == null ? null : d.getFiles();
     }
     

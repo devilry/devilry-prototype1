@@ -7,21 +7,21 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class FileMetaEntity implements Serializable {
+public class FileMeta implements Serializable {
 
 	@Id
 	@GeneratedValue
 	private long id;
 
 	@ManyToOne(optional=false)
-	private DeliveryCandidateEntity deliveryCandidate;
+	private DeliveryCandidate deliveryCandidate;
 
 	private String filePath;
 
-	protected FileMetaEntity() {
+	protected FileMeta() {
 	}
 
-	public FileMetaEntity(DeliveryCandidateEntity deliveryCandidate, String filePath) {
+	public FileMeta(DeliveryCandidate deliveryCandidate, String filePath) {
 		this.deliveryCandidate = deliveryCandidate;
 		this.filePath = filePath;
 	}
@@ -30,7 +30,7 @@ public class FileMetaEntity implements Serializable {
 		return id;
 	}
 
-	public DeliveryCandidateEntity getDeliveryCandidate() {
+	public DeliveryCandidate getDeliveryCandidate() {
 		return deliveryCandidate;
 	}
 
@@ -43,7 +43,7 @@ public class FileMetaEntity implements Serializable {
 		this.id = id;
 	}
 
-	public void setDeliveryCandidate(DeliveryCandidateEntity deliveryCandidate) {
+	public void setDeliveryCandidate(DeliveryCandidate deliveryCandidate) {
 		this.deliveryCandidate = deliveryCandidate;
 	}
 

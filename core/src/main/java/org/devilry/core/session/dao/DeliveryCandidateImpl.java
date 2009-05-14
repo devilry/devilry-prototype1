@@ -1,7 +1,7 @@
 package org.devilry.core.session.dao;
 
-import org.devilry.core.entity.FileMetaEntity;
-import org.devilry.core.entity.DeliveryCandidateEntity;
+import org.devilry.core.entity.FileMeta;
+import org.devilry.core.entity.DeliveryCandidate;
 import java.util.List;
 import javax.ejb.Stateful;
 import javax.ejb.TransactionAttribute;
@@ -15,12 +15,12 @@ public class DeliveryCandidateImpl implements DeliveryCandidateRemote {
 
 	@PersistenceContext(unitName = "DevilryCore")
 	protected EntityManager em;
-	protected DeliveryCandidateEntity deliveryCandidate = null;
+	protected DeliveryCandidate deliveryCandidate = null;
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void init(long id) {
 		// TODO: should load from db, but create new for now.
-		deliveryCandidate = new DeliveryCandidateEntity();
+		deliveryCandidate = new DeliveryCandidate();
 		em.persist(deliveryCandidate);
 	}
 
@@ -34,7 +34,7 @@ public class DeliveryCandidateImpl implements DeliveryCandidateRemote {
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public long addFile(String filePath) {
-		FileMetaEntity f = new FileMetaEntity(deliveryCandidate, filePath);
+		FileMeta f = new FileMeta(deliveryCandidate, filePath);
 		em.persist(f);
 		em.flush();
 		return f.getId();
@@ -42,7 +42,7 @@ public class DeliveryCandidateImpl implements DeliveryCandidateRemote {
 
 	public List<Long> getFileIds() {
 		// TODO: add this id to query
-		Query q = em.createQuery("SELECT f.id FROM FileMetaEntity f "
+		Query q = em.createQuery("SELECT f.id FROM FileMeta f "
 				+ "WHERE f.deliveryCandidate.id = :id ORDER BY f.filePath");
 		q.setParameter("id", deliveryCandidate.getId());
 		return q.getResultList();

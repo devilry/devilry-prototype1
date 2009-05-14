@@ -6,13 +6,13 @@ import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 
 @Entity
-public class DeliveryCandidateEntity implements Serializable {
+public class DeliveryCandidate implements Serializable {
 
     @Id
     @GeneratedValue
     protected long id;
 
-    public DeliveryCandidateEntity() {
+    public DeliveryCandidate() {
     }
 
 

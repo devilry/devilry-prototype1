@@ -20,7 +20,7 @@ import javax.persistence.SequenceGenerator;
  * @note This is not intergrated with FileMetaEntity yet!
  */
 @Entity
-public class FileDataEntity implements Serializable {
+public class FileData implements Serializable {
 
 	@Id
 	@SequenceGenerator(name = "FILEDATANODE_SEQUENCE")
@@ -29,16 +29,16 @@ public class FileDataEntity implements Serializable {
 
 	@ManyToOne(optional = false, fetch=FetchType.LAZY)
 	@Column(nullable = false)
-	private FileMetaEntity fileMeta;
+	private FileMeta fileMeta;
 
 	@Lob
 	@Column(nullable = false)
 	private byte[] dataBlock;
 
-	protected FileDataEntity() {
+	protected FileData() {
 	}
 
-	public FileDataEntity(FileMetaEntity fileMeta, byte[] dataBlock) {
+	public FileData(FileMeta fileMeta, byte[] dataBlock) {
 		this.fileMeta = fileMeta;
 		this.dataBlock = dataBlock;
 	}

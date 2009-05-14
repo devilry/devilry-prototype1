@@ -9,8 +9,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import org.devilry.core.entity.DeliveryCandidateEntity;
-import org.devilry.core.entity.FileMetaEntity;
+import org.devilry.core.entity.DeliveryCandidate;
+import org.devilry.core.entity.FileMeta;
 
 /**
  *
@@ -18,7 +18,7 @@ import org.devilry.core.entity.FileMetaEntity;
  */
 public abstract class AbstractSessionBeanTestHelper {
 
-	protected static Class[] ENTITIES = {DeliveryCandidateEntity.class, FileMetaEntity.class};
+	protected static Class[] ENTITIES = {DeliveryCandidate.class, FileMeta.class};
 	protected EntityManager entityManager;
 	protected InitialContext localCtx;
 	private TestBeanLocal testBean;

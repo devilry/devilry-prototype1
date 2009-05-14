@@ -8,8 +8,8 @@ import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import org.devilry.core.entity.FileDataEntity;
-import org.devilry.core.entity.FileMetaEntity;
+import org.devilry.core.entity.FileData;
+import org.devilry.core.entity.FileMeta;
 
 
 /**
@@ -18,7 +18,7 @@ import org.devilry.core.entity.FileMetaEntity;
  */
 @Stateful
 public class FileImpl implements FileMetaRemote {
-	protected FileMetaEntity fileMeta;
+	protected FileMeta fileMeta;
 	protected Iterator<Long> readIter = null;
 
 	@PersistenceContext(unitName = "DevilryCore")
@@ -26,7 +26,7 @@ public class FileImpl implements FileMetaRemote {
 
 	public void init(long fileId) {
 		resetReadState();
-		fileMeta = em.find(FileMetaEntity.class, fileId);
+		fileMeta = em.find(FileMeta.class, fileId);
 	}
 
 	public long getId() {
@@ -44,16 +44,16 @@ public class FileImpl implements FileMetaRemote {
 	public byte[] read() {
 		if(readIter == null) {
 			Query q = em.createQuery(
-					"SELECT d.id FROM FileDataEntity d WHERE d.fileMeta.id = :fileId");
+					"SELECT d.id FROM FileData d WHERE d.fileMeta.id = :fileId");
 			q.setParameter("fileId", fileMeta.getId());
 			List<Long> r = q.getResultList();
 			readIter = r.iterator();
 		}
 		Long id = readIter.next();
 		Query q = em.createQuery(
-				"SELECT d FROM FileDataEntity d WHERE d.id = :id");
+				"SELECT d FROM FileData d WHERE d.id = :id");
 		q.setParameter("id", id);
-		FileDataEntity d = (FileDataEntity) q.getSingleResult();
+		FileData d = (FileData) q.getSingleResult();
 		return d.getDataBlock();
 	}
 
@@ -63,7 +63,7 @@ public class FileImpl implements FileMetaRemote {
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void write(byte[] dataBlock) {
-		FileDataEntity d = new FileDataEntity(fileMeta, dataBlock);
+		FileData d = new FileData(fileMeta, dataBlock);
 		em.persist(d);
 	}
 }
