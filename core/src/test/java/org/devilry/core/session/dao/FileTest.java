@@ -16,8 +16,8 @@ public class FileTest extends AbstractSessionBeanTestHelper {
 	@Before
 	public void setUp() throws NamingException {
 		setupEjbContainer();
-		fileMeta = (FileMetaRemote) getRemoteBean(File.class);
-		deliveryCandidate = getRemoteBean(DeliveryCandidate.class);
+		fileMeta = (FileMetaRemote) getRemoteBean(FileImpl.class);
+		deliveryCandidate = getRemoteBean(DeliveryCandidateImpl.class);
 		deliveryCandidate.init(0);
 		fileId = deliveryCandidate.addFile("test.txt");
 		fileMeta.init(fileId);
