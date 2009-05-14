@@ -15,7 +15,7 @@ public class DeliveryCandidateTest extends AbstractSessionBeanTestHelper {
 	@Before
 	public void setUp() throws NamingException {
 		setupEjbContainer();
-		remoteBean = (DeliveryCandidateRemote) getRemoteBean(DeliveryCandidate.class);
+		remoteBean = getRemoteBean(DeliveryCandidate.class);
 		deliveryId = 0;
 	}
 

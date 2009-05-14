@@ -32,7 +32,7 @@ public abstract class AbstractSessionBeanTestHelper {
 
 
 
-		testBean = (TestBeanLocal) getLocalBean(TestBean.class);
+		testBean = getLocalBean(TestBean.class);
 		entityManager = testBean.getEntityManager();
 	}
 
@@ -40,13 +40,16 @@ public abstract class AbstractSessionBeanTestHelper {
 		testBean.clearDatabase();
 	}
 
-	protected Object getLocalBean(Class beanImplClass) throws NamingException {
-		return localCtx.lookup(beanImplClass.getSimpleName() + "Local");
+	@SuppressWarnings("unchecked")
+	protected <E> E getLocalBean(Class<E> beanImplClass) throws NamingException {
+		return (E) localCtx.lookup(beanImplClass.getSimpleName() + "Local");
 	}
 
-	protected Object getRemoteBean(Class beanImplClass) throws NamingException {
-		return localCtx.lookup(beanImplClass.getSimpleName() + "Remote");
+	@SuppressWarnings("unchecked")
+	protected <E> E getRemoteBean(Class<E> beanImplClass) throws NamingException {
+		return (E) localCtx.lookup(beanImplClass.getSimpleName() + "Remote");
 	}
+
 
 	@Stateless
 	public static class TestBean implements TestBeanLocal {
