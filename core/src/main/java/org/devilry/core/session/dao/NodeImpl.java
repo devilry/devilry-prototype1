@@ -3,19 +3,21 @@ package org.devilry.core.session.dao;
 import javax.ejb.Stateful;
 import javax.persistence.*;
 
+import org.devilry.core.entity.*;
+
 @Stateful
 public class NodeImpl implements NodeRemote {
 	@PersistenceContext(unitName="DevilryCore")
 	protected EntityManager em;
 
-	protected org.devilry.core.entity.Node node;
+	protected Node node;
 
 	public boolean init(long nodeId) {
 		Query q = em.createQuery("SELECT n FROM Node n WHERE n.id=:nodeId");
 		q.setParameter("nodeId", nodeId);
 
 		try {
-			node = (org.devilry.core.entity.Node) q.getSingleResult();
+			node = (Node) q.getSingleResult();
 		} catch(NoResultException e) {
 			node = null;
 		}
@@ -51,7 +53,7 @@ public class NodeImpl implements NodeRemote {
 	}
 
 	public String getPath() {
-		org.devilry.core.entity.Node cn = node;
+		Node cn = node;
 		String path = null;
 
 		while(true) {
