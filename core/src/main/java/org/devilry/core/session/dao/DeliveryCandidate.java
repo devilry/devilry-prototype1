@@ -42,6 +42,7 @@ public class DeliveryCandidate implements DeliveryCandidateRemote {
 	}
 
 	public List<Long> getFileIds() {
+		// TODO: add this id to query
 		Query q = em.createQuery("SELECT f.id FROM FileMetaEntity f ORDER BY f.filePath");
 		return q.getResultList();
 	}

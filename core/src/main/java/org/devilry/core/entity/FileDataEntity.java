@@ -2,12 +2,14 @@ package org.devilry.core.entity;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
 /** One block of data in a FileNode.
@@ -25,20 +27,20 @@ public class FileDataEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FILEDATANODE_SEQUENCE")
 	private long id;
 
+	@ManyToOne(optional = false, fetch=FetchType.LAZY)
+	@Column(nullable = false)
+	private FileMetaEntity fileMeta;
+
 	@Lob
-	@Basic(fetch = FetchType.LAZY, optional=false)
+	@Column(nullable = false)
 	private byte[] dataBlock;
 
-	public FileDataEntity() {
-		dataBlock = new byte[0];
+	protected FileDataEntity() {
 	}
 
-	public FileDataEntity(byte[] dataBlock) {
+	public FileDataEntity(FileMetaEntity fileMeta, byte[] dataBlock) {
+		this.fileMeta = fileMeta;
 		this.dataBlock = dataBlock;
-	}
-
-	public void setDataBlock(byte[] data) {
-		this.dataBlock = data;
 	}
 
 	public byte[] getDataBlock() {

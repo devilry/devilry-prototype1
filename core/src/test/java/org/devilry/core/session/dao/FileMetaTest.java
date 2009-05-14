@@ -42,4 +42,17 @@ public class FileMetaTest extends AbstractSessionBeanTestHelper {
 	public void getFilePath() {
 		assertEquals("test.txt", fileMeta.getFilePath());
 	}
+
+	@Test
+	public void readwrite() {
+		fileMeta.write("a".getBytes());
+		fileMeta.write("b".getBytes());
+		fileMeta.write("c".getBytes());
+		assertEquals("a", new String(fileMeta.read()));
+		assertEquals("b", new String(fileMeta.read()));
+		assertEquals("c", new String(fileMeta.read()));
+
+		fileMeta.resetReadState();
+		assertEquals("a", new String(fileMeta.read()));
+	}
 }
