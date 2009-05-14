@@ -9,8 +9,13 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import org.devilry.core.entity.CourseNode;
 import org.devilry.core.entity.DeliveryCandidate;
 import org.devilry.core.entity.FileMeta;
+import org.devilry.core.entity.Node;
+import org.devilry.core.entity.PeriodNode;
+import org.junit.After;
 
 /**
  *
@@ -18,7 +23,8 @@ import org.devilry.core.entity.FileMeta;
  */
 public abstract class AbstractSessionBeanTestHelper {
 
-	protected static Class[] ENTITIES = {DeliveryCandidate.class, FileMeta.class};
+	protected static Class[] ENTITIES = {DeliveryCandidate.class, FileMeta.class,
+		Node.class, CourseNode.class, PeriodNode.class};
 	protected EntityManager entityManager;
 	protected InitialContext localCtx;
 	private TestBeanLocal testBean;
@@ -29,8 +35,6 @@ public abstract class AbstractSessionBeanTestHelper {
 		p.put("openejb.deploymentId.format", "{ejbName}{interfaceType.annotationName}");
 		p.put("openejb.jndiname.format", "{ejbName}{interfaceType.annotationName}");
 		localCtx = new InitialContext(p);
-
-
 
 		testBean = getLocalBean(TestBean.class);
 		entityManager = testBean.getEntityManager();
@@ -49,7 +53,6 @@ public abstract class AbstractSessionBeanTestHelper {
 	protected <E> E getRemoteBean(Class<E> beanImplClass) throws NamingException {
 		return (E) localCtx.lookup(beanImplClass.getSimpleName() + "Remote");
 	}
-
 
 	@Stateless
 	public static class TestBean implements TestBeanLocal {
