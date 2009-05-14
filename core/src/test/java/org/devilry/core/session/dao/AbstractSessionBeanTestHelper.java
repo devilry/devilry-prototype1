@@ -10,6 +10,7 @@ import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.devilry.core.entity.AssignmentNode;
 import org.devilry.core.entity.CourseNode;
 import org.devilry.core.entity.DeliveryCandidate;
 import org.devilry.core.entity.FileMeta;
@@ -18,22 +19,26 @@ import org.devilry.core.entity.PeriodNode;
 import org.junit.After;
 
 /**
- *
+ * 
  * @author Espen Angell Kristiansen <post@espenak.net>
  */
 public abstract class AbstractSessionBeanTestHelper {
 
-	protected static Class[] ENTITIES = {DeliveryCandidate.class, FileMeta.class,
-		Node.class, CourseNode.class, PeriodNode.class};
+	protected static Class[] ENTITIES = { FileMeta.class,
+			DeliveryCandidate.class, AssignmentNode.class, PeriodNode.class,
+			CourseNode.class, Node.class };
 	protected EntityManager entityManager;
 	protected InitialContext localCtx;
 	private TestBeanLocal testBean;
 
 	protected void setupEjbContainer() throws NamingException {
 		Properties p = new Properties();
-		p.put(Context.INITIAL_CONTEXT_FACTORY, "org.apache.openejb.client.LocalInitialContextFactory");
-		p.put("openejb.deploymentId.format", "{ejbName}{interfaceType.annotationName}");
-		p.put("openejb.jndiname.format", "{ejbName}{interfaceType.annotationName}");
+		p.put(Context.INITIAL_CONTEXT_FACTORY,
+				"org.apache.openejb.client.LocalInitialContextFactory");
+		p.put("openejb.deploymentId.format",
+				"{ejbName}{interfaceType.annotationName}");
+		p.put("openejb.jndiname.format",
+				"{ejbName}{interfaceType.annotationName}");
 		localCtx = new InitialContext(p);
 
 		testBean = getLocalBean(TestBean.class);
@@ -50,7 +55,8 @@ public abstract class AbstractSessionBeanTestHelper {
 	}
 
 	@SuppressWarnings("unchecked")
-	protected <E> E getRemoteBean(Class<E> beanImplClass) throws NamingException {
+	protected <E> E getRemoteBean(Class<E> beanImplClass)
+			throws NamingException {
 		return (E) localCtx.lookup(beanImplClass.getSimpleName() + "Remote");
 	}
 
@@ -68,7 +74,8 @@ public abstract class AbstractSessionBeanTestHelper {
 		public void clearDatabase() {
 			for (Class entity : ENTITIES) {
 				entityManager.createQuery(
-						"DELETE FROM " + entity.getSimpleName()).executeUpdate();
+						"DELETE FROM " + entity.getSimpleName())
+						.executeUpdate();
 			}
 		}
 	}
