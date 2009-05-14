@@ -12,3 +12,6 @@ target/
 .settings/
 nbactions.xml
 *.vpp~*
+*.ipr
+*.iml
+*.iws
