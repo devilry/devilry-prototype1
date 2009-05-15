@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class DeliveryCandidateTest extends AbstractDaoTest {
+public class DeliveryCandidateTest extends AbstractDeliveryDaoTest {
 
 	DeliveryCandidateRemote remoteBean;
 	long deliveryId;
@@ -16,7 +16,7 @@ public class DeliveryCandidateTest extends AbstractDaoTest {
 	public void setUp() throws NamingException {
 		setupEjbContainer();
 		remoteBean = getRemoteBean(DeliveryCandidateImpl.class);
-		deliveryId = 0;
+		deliveryId = delivery.addDeliveryCandidate();
 	}
 
 	@After
