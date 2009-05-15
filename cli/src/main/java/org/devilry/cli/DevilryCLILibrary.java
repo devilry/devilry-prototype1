@@ -51,11 +51,14 @@ public class DevilryCLILibrary {
         if (!isDeliveryBeanInitialized())
             initializeDeliveryBean();
 
+        /*
 		DeliveryCandidate dir = new DeliveryCandidate();
 		dir.addFile(path, fileData);
 		long id = deliveryManager.add(dir);
+         *   return id;
+*/
 
-        return id;
+        return -1;
     }
 
     Collection<FileMeta> getFiles(long id) throws Exception {
@@ -65,8 +68,11 @@ public class DevilryCLILibrary {
         if (!isDeliveryBeanInitialized())
             initializeDeliveryBean();
 
+        /*
         DeliveryCandidate d = deliveryManager.getFull(id);
 		return d == null ? null : d.getFiles();
+    */
+        return null;
     }
     
 }
