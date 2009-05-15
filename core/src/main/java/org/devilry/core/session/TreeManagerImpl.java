@@ -57,6 +57,18 @@ public class TreeManagerImpl implements TreeManagerRemote {
 
 		return node.getId();
 	}
+
+	public long addAssignmentNode(String name, String displayName, long parentId) {
+		AssignmentNode node = new AssignmentNode();
+		node.setName(name.toLowerCase());
+		node.setDisplayName(displayName);
+		node.setParentId(parentId);
+
+		em.persist(node);
+
+		return node.getId();
+	}
+
 	public long getNodeIdFromPath(String path) {
 		String[] sp = path.split("\\.");
 

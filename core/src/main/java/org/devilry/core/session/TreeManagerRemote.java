@@ -14,6 +14,8 @@ public interface TreeManagerRemote {
 	public long addPeriodNode(String name, Date start, Date end, long parentId);
 	public long addPeriodNode(String name, String displayName, Date start, Date end, long parentId);
 
+	public long addAssignmentNode(String name, String displayName, long parentId);	
+
 	public long getNodeIdFromPath(String path);
 }
 
