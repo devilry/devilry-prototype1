@@ -28,7 +28,7 @@ public class TreeManagerImplTest extends AbstractSessionBeanTestHelper {
 	@Test
 	public void addNode() {
 		tm.addNode("uio", "Universitetet i Oslo");
-		assertTrue(0 != tm.getNodeIdFromPath("uio"));
+		assertTrue(0 < tm.getNodeIdFromPath("uio"));
 
 	}
 
@@ -39,7 +39,7 @@ public class TreeManagerImplTest extends AbstractSessionBeanTestHelper {
 				"Grunnkurs i objektorientert programmering", 
 				tm.getNodeIdFromPath("uio"));
 
-		assertTrue(0 != tm.getNodeIdFromPath("uio.inf1000"));
+		assertTrue(0 < tm.getNodeIdFromPath("uio.inf1000"));
 	}
 
 	@Test
@@ -54,13 +54,13 @@ public class TreeManagerImplTest extends AbstractSessionBeanTestHelper {
 		tm.addPeriodNode("fall09", "Fall 2009", start.getTime(), end.getTime(),
 				tm.getNodeIdFromPath("uio.inf1000"));
 
-		assertTrue(0 != tm.getNodeIdFromPath("uio.inf1000.fall09"));
+		assertTrue(0 < tm.getNodeIdFromPath("uio.inf1000.fall09"));
 	}
 
 	@Test
 	public void getNodeIdFromPath() {
 		tm.addNode("uio", "Universitetet i Oslo");
-		assertTrue(0 != tm.getNodeIdFromPath("uio"));
+		assertTrue(0 < tm.getNodeIdFromPath("uio"));
 	}
 }
 
