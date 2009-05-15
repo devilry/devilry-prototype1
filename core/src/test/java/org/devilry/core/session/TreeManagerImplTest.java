@@ -25,34 +25,52 @@ public class TreeManagerImplTest extends AbstractDaoTest {
 
 	@Test
 	public void addNode() {
-		tm.addNode("uio", "Universitetet i Oslo");
+		long id = tm.addNode("uio", "Universitetet i Oslo");
+		assertTrue(0 < id);
 		assertTrue(0 < tm.getNodeIdFromPath("uio"));
-
+		assertEquals(tm.getNodeIdFromPath("uio"), id);
 	}
 
 	@Test
 	public void addCourseNode() {
-		tm.addNode("uio", "Universitetet i Oslo");
-		tm.addCourseNode("inf1000", "INF1000", 
-				"Grunnkurs i objektorientert programmering", 
-				tm.getNodeIdFromPath("uio"));
+		long id = tm.addNode("uio", "Universitetet i Oslo");
+		id = tm.addCourseNode("inf1000", "INF1000", 
+				"Grunnkurs i objektorientert programmering",  id);
 
+		assertTrue(0 < id);
 		assertTrue(0 < tm.getNodeIdFromPath("uio.inf1000"));
+		assertEquals(tm.getNodeIdFromPath("uio.inf1000"), id);
 	}
 
 	@Test
 	public void addPeriodNode() {
-		tm.addNode("uio", "Universitetet i Oslo");
-		tm.addCourseNode("inf1000", "INF1000", "Grunnkurs i objektorientert programmering",
-				tm.getNodeIdFromPath("uio"));
+		long id = tm.addNode("uio", "Universitetet i Oslo");
+		id = tm.addCourseNode("inf1000", "INF1000", "Grunnkurs i objektorientert programmering", id);
 
 		Calendar start = new GregorianCalendar(2009, 00, 01);
 		Calendar end = new GregorianCalendar(2009, 05, 15);
 
-		tm.addPeriodNode("fall09", "Fall 2009", start.getTime(), end.getTime(),
-				tm.getNodeIdFromPath("uio.inf1000"));
+		id = tm.addPeriodNode("fall09", "Fall 2009", start.getTime(), end.getTime(), id);
 
+		assertTrue(0 < id);
 		assertTrue(0 < tm.getNodeIdFromPath("uio.inf1000.fall09"));
+		assertEquals(tm.getNodeIdFromPath("uio.inf1000.fall09"), id);
+	}
+
+	@Test
+	public void addAssignmentNode() {
+		long id = tm.addNode("uio", "Universitetet i Oslo");
+		id = tm.addCourseNode("inf1000", "INF1000", "Grunnkurs i objektorientert programmering", id);
+
+		Calendar start = new GregorianCalendar(2009, 00, 01);
+		Calendar end = new GregorianCalendar(2009, 05, 15);
+
+		id = tm.addPeriodNode("fall09", "Fall 2009", start.getTime(), end.getTime(), id);
+		id = tm.addAssignmentNode("oblig1", "O1", id);
+
+		assertTrue(0 < id);
+		assertTrue(0 < tm.getNodeIdFromPath("uio.inf1000.fall09.oblig1"));
+		assertEquals(tm.getNodeIdFromPath("uio.inf1000.fall09.oblig1"), id);
 	}
 
 	@Test

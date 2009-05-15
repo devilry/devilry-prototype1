@@ -14,6 +14,7 @@ public class TreeManagerImpl implements TreeManagerRemote {
 		return addNode(name, displayName, -1);
 	}
 
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public long addNode(String name, String displayName, long parentId) {
 		Node node = new Node();
 		node.setName(name.toLowerCase());
@@ -21,6 +22,7 @@ public class TreeManagerImpl implements TreeManagerRemote {
 		node.setParentId(parentId);
 
 		em.persist(node);
+		em.flush();
 
 		return node.getId();
 	}
@@ -29,6 +31,7 @@ public class TreeManagerImpl implements TreeManagerRemote {
 		return addCourseNode(name, name, displayName, parentId);
 	}
 
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public long addCourseNode(String name, String courseCode, String displayName, long parentId) {
 		CourseNode node = new CourseNode();
 		node.setName(name.toLowerCase());
@@ -37,6 +40,7 @@ public class TreeManagerImpl implements TreeManagerRemote {
 		node.setParentId(parentId);
 
 		em.persist(node);
+		em.flush();
 		
 		return node.getId();
 	}
@@ -45,6 +49,7 @@ public class TreeManagerImpl implements TreeManagerRemote {
 		return addPeriodNode(name, name, start, end, parentId);
 	}
 
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public long addPeriodNode(String name, String displayName, Date start, Date end, long parentId) {
 		PeriodNode node = new PeriodNode();
 		node.setName(name.toLowerCase());
@@ -54,10 +59,12 @@ public class TreeManagerImpl implements TreeManagerRemote {
 		node.setParentId(parentId);
 
 		em.persist(node);
+		em.flush();
 
 		return node.getId();
 	}
 
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public long addAssignmentNode(String name, String displayName, long parentId) {
 		AssignmentNode node = new AssignmentNode();
 		node.setName(name.toLowerCase());
@@ -65,6 +72,7 @@ public class TreeManagerImpl implements TreeManagerRemote {
 		node.setParentId(parentId);
 
 		em.persist(node);
+		em.flush();
 
 		return node.getId();
 	}
