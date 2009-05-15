@@ -84,7 +84,7 @@ git://github.com/espenak/devilry.git
 Testing the client
 -------------------
 
-To test the client, you need to download OpenEJB Standlone Server as well
+To test the client, you need to download OpenEJB Standalone Server as well. 
 Unpack and place the bin directory in the path and start or stop the server with:
 'openejb start|stop'
 
