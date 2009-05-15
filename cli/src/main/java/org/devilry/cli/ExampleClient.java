@@ -43,21 +43,21 @@ public class ExampleClient {
 
 	public Context getServerConnection() throws NamingException {
 		Properties p = new Properties();
-//
-//		// Embed openejb
-//		p.put(Context.INITIAL_CONTEXT_FACTORY,
-//				"org.apache.openejb.client.LocalInitialContextFactory");
-//
-//		// Set bean naming (JNDI) format
-//		p.put("openejb.deploymentId.format",
-//				"{ejbName}{interfaceType.annotationName}");
-//		p.put("openejb.jndiname.format",
-//				"{ejbName}{interfaceType.annotationName}");
+
+		// Embed openejb
 		p.put(Context.INITIAL_CONTEXT_FACTORY,
-			"org.apache.openejb.client.RemoteInitialContextFactory");
-		p.put(Context.PROVIDER_URL, "ejbd://127.0.0.1:4201");
-		p.put("java.naming.security.principal", "jonathan");
-		p.put("java.naming.security.credentials", "secret");
+				"org.apache.openejb.client.LocalInitialContextFactory");
+
+		// Set bean naming (JNDI) format
+		p.put("openejb.deploymentId.format",
+				"{ejbName}{interfaceType.annotationName}");
+		p.put("openejb.jndiname.format",
+				"{ejbName}{interfaceType.annotationName}");
+//		p.put(Context.INITIAL_CONTEXT_FACTORY,
+//			"org.apache.openejb.client.RemoteInitialContextFactory");
+//		p.put(Context.PROVIDER_URL, "ejbd://127.0.0.1:4201");
+//		p.put("java.naming.security.principal", "jonathan");
+//		p.put("java.naming.security.credentials", "secret");
 
 		return new InitialContext(p);
 	}
