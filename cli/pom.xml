@@ -15,43 +15,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>glassfish</groupId>
-            <artifactId>appserv-rt.jar</artifactId>
-            <version>LATEST</version>
-            <scope>system</scope>
-            <systemPath>${glassfish.home}/lib/appserv-rt.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>glassfish</groupId>
-            <artifactId>javaee.jar</artifactId>
-            <version>LATEST</version>
-            <scope>system</scope>
-            <systemPath>${glassfish.home}/lib/javaee.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>glassfish</groupId>
-            <artifactId>toplink-essentials-agent.jar</artifactId>
-            <version>LATEST</version>
-            <scope>system</scope>
-            <systemPath>${glassfish.home}/lib/toplink-essentials-agent.jar </systemPath>
-        </dependency>
-        <dependency>
-            <groupId>glassfish</groupId>
-            <artifactId>toplink-essentials.jar</artifactId>
-            <version>LATEST</version>
-            <scope>system</scope>
-            <systemPath>${glassfish.home}/lib/toplink-essentials.jar </systemPath>
-        </dependency>
-        <dependency>
             <groupId>devilry</groupId>
             <artifactId>core</artifactId>
             <version>0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.5</version>
-            <scope>test</scope>
         </dependency>
 		
 		<dependency>

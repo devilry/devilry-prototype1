@@ -20,12 +20,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.5</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.apache.openejb</groupId>
             <artifactId>javaee-api</artifactId>
             <version>5.0-1</version>
@@ -42,6 +36,7 @@
     </dependencies>
 
 
+	<!--
     <reporting>
         <plugins>
             <plugin>
@@ -49,7 +44,8 @@
                 <artifactId>cobertura-maven-plugin</artifactId>
             </plugin>
         </plugins>
-    </reporting>
+	</reporting>
+	-->
 
 
 
