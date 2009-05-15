@@ -62,4 +62,38 @@ We have testcases for JAAS in our [devilry-sandbox][2].
 Usage
 =====
 
-TODO: how to compile and run the client.
+Testing the core
+-----------------
+
+To compile and run the client you need:
+
+* Linux (Windows hasn't been tested)
+* Maven
+* git (http://git-scm.com/)
+
+
+
+Git read only repository:
+git://github.com/espenak/devilry.git
+
+
+ 
+'mvn test' in the root directory to compile and test the devilry core.
+
+
+Testing the client
+-------------------
+
+To test the client, you need to download OpenEJB Standlone Server as well
+Unpack and place the bin directory in the path and start or stop the server with:
+'openejb start|stop'
+
+'mvn install' to create the core package and deploy with 'openejb deploy core/target/core-0.1.jar'
+
+run client shell with from the cli directory with 'mvn exec:java'
+
+On first run, a default hierarchy must be created (from within the shell) 
+using the command:
+'addtestnodes'
+
+Then use the commands avaialable in the shell.
