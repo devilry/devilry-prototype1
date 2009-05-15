@@ -132,7 +132,6 @@
                 </executions>
             </plugin>
 
-            <!--
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
@@ -142,7 +141,7 @@
                     <mainClass>${java.mainclass}</mainClass>
                 </configuration>
             </plugin>
-            -->
+			<!--
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
@@ -166,7 +165,8 @@
                         <argument>${java.mainclass}</argument>
                     </arguments>
                 </configuration>
-            </plugin>
+			</plugin>
+			-->
         </plugins>
     </build>
 
