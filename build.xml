@@ -141,6 +141,15 @@
 	cd cli; mvn -e exec:java -P RemoteClient; cd ../
 </echo>
 
+</target>
+
+
+<target name="ExampleClient2">        
+  
+  <echo>This must be run manually like this:
+	cd cli; mvn exec:java -e -Djava.mainclass="org.devilry.cli.ExampleClient"; cd ../
+</echo>
+
      
 </target>
 

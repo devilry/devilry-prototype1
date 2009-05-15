@@ -6,15 +6,21 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Collection;
+import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.naming.NamingException;
 import org.devilry.core.entity.FileMeta;
+import org.devilry.core.session.TreeManagerRemote;
 
 public class RemoteClient {
 
     Logger log = Logger.getLogger(RemoteClient.class.getName());
 
     String newLine = System.getProperty("line.separator");
+
+    DevilryCLILibrary lib = new DevilryCLILibrary();
 
 	public static void main (String args[]) throws Exception {
 
@@ -75,40 +81,38 @@ public class RemoteClient {
 
         if (args.length == 0)
             return true;
- 
+
+        //org.apache.commons.cli
+
          if (args[0].equalsIgnoreCase("exit")) {
                 return false;
          } 
          else if (args[0].equalsIgnoreCase("help")) {
             help();
          }
-        else if (args[0].equalsIgnoreCase("pwd")) {
+         else if (args[0].equalsIgnoreCase("pwd")) {
             printPWD();
-        }
+         }
 
          else if (args[0].equalsIgnoreCase("add")) {
 
-             File f = new File(args[1]);
-
-            if (!f.isFile()) {
-               log.warning("File named " + args[1] + " could not be found!");
-               return true;
-            }
-
-            byte [] fileData = getFileAsByteArray(f);
-
-            addFile(f, fileData);
-            
-        } else if (args[0].equalsIgnoreCase("listfiles")) {
+             add(args);
+         }
+         else if (args[0].equalsIgnoreCase("addtestnodes")) {
+            lib.addTestNodes();
+         }
+         else if (args[0].equalsIgnoreCase("listCandidateFiles")) {
             
             if (args.length < 2) {
-                System.out.println("id is missing");
+                System.out.println("id is missing, running default");
+
+                getFiles("uio.inf1000.spring2009.oblig1");
             }
             else {
                 
                 try {
-                    long id = (long) Integer.parseInt(args[1]);
-                    getFiles(id);
+                    String path = args[1];
+                    getFiles(path);
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid id:" + args[1]);
                 }
@@ -121,6 +125,29 @@ public class RemoteClient {
         return true;
     }
 
+    boolean add(String [] args) {
+
+        if (args.length < 3) {
+            System.out.println("To few arguments for option add");
+            return false;
+        }
+
+          String deliveryPath = args[1];
+
+          File f = new File(args[2]);
+
+            if (!f.isFile()) {
+               log.warning("File named " + args[2] + " could not be found!");
+               return true;
+            }
+
+            byte [] fileData = getFileAsByteArray(f);
+
+            addFile(deliveryPath, f, fileData);
+
+            return false;
+    }
+
     void printPWD() {
          String curDir = System.getProperty("user.dir");
          System.out.println(curDir);
@@ -129,29 +156,29 @@ public class RemoteClient {
     public void help() {
          System.out.println("Available commands:" + newLine +
                                 "    - add       filename" + newLine +
-                                "    - listfiles id" + newLine +
+                                "    - listCandiateFiles nodePath" + newLine +
                                 "    - pwd" + newLine +
                                 "    - exit"
                      );
     }
 
-    public void getFiles(long id) {
+    public void getFiles(String nodePath) {
 
         try {
 
             DevilryCLILibrary lib = new DevilryCLILibrary();
 
-            Collection<FileMeta> files = lib.getFiles(id);
+            List<String> files =lib.getDeliveryCandidateFiles(nodePath);
 
             if (files.size() == 0) {
-                System.out.print("No files in delivery with id " + id);
+                System.out.print("No files in delivery for path " + nodePath);
             }
             else {
-                System.out.println("Files in delivery with id " + id + ":");
+                System.out.println("Files in delivery with path " + nodePath + ":");
             }
 
-            for (FileMeta file : files) {
-             //   System.out.println(file.getPath());
+            for (String file : files) {
+                System.out.println(file);
             }
             
         } catch (Exception e) {
@@ -161,15 +188,13 @@ public class RemoteClient {
     }
 
     
-    public void addFile(File f, byte[] fileData) {
+    public void addFile(String deliveryPath, File f, byte[] fileData) {
 
         try {
 
-            DevilryCLILibrary lib = new DevilryCLILibrary();
+            long id = lib.addDelivery(deliveryPath, f.getName(), fileData);
 
-            long id = lib.addFile(f.getName(), fileData);
-
-            //log.info("Added file " + path + " with id:" + id);
+            log.info("Added file " + f.getName() + " with id:" + id);
             System.out.println("New file added with delivery id:" + id);
 
         } catch (Exception e) {
