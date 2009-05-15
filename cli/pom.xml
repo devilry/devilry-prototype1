@@ -40,30 +40,39 @@
             <version>${openejb-version}</version>
         </dependency>
 
+        <!-- Required to run the client with an embedded openejb
+        Note that not having this dependency on the client makes
+        is unable to handle certain exceptions (PersistenceException...)
+        -->
         <dependency>
             <groupId>org.apache.openejb</groupId>
             <artifactId>openejb-core</artifactId>
             <version>${openejb-version}</version>
             <scope>compile</scope>
         </dependency>
-
     </dependencies>
 
 
     <profiles>
         <profile>
-            <id>RemoteClient</id>
+            <id>ExampleClient</id>
             <properties>
                 <java.mainclass>org.devilry.cli.ExampleClient</java.mainclass>
+            </properties>
+
+        </profile>
+
+        <profile>
+            <id>RemoteClient</id>
+            <properties>
+                <java.mainclass>org.devilry.cli.RemoteClient</java.mainclass>
             </properties>
 
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
-
         </profile>
     </profiles>
-
 
     <build>
         <plugins>
@@ -151,7 +160,9 @@
                     <arguments>
                         <argument>-classpath</argument>
                         <classpath/>
-                        <argument>-javaagent:${basedir}/target/openejb-javaagent-${openejb-version}.jar</argument>
+                        <argument>
+                            -javaagent:${basedir}/target/openejb-javaagent-${openejb-version}.jar
+                        </argument>
                         <argument>${java.mainclass}</argument>
                     </arguments>
                 </configuration>

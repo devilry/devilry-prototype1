@@ -19,7 +19,7 @@ public class ExampleClient {
 	Context serverConnection;
 
 	public ExampleClient() throws NamingException {
-		serverConnection = getServerConnection();
+		serverConnection = getEmbeddedServerConnection();
 
 		// Get the tree mananger bean
 		// same as:
@@ -34,14 +34,14 @@ public class ExampleClient {
 		// List nodes
 		NodeRemote uio = getRemoteBean(NodeImpl.class);
 		uio.init(tm.getNodeIdFromPath("uio"));
-		for(long facultyId: uio.getChildren()) {
+		for (long facultyId : uio.getChildren()) {
 			NodeRemote faculty = getRemoteBean(NodeImpl.class);
 			faculty.init(facultyId);
 			System.out.println(faculty.getPath());
 		}
 	}
 
-	public Context getServerConnection() throws NamingException {
+	public Context getEmbeddedServerConnection() throws NamingException {
 		Properties p = new Properties();
 
 		// Embed openejb
@@ -53,11 +53,15 @@ public class ExampleClient {
 				"{ejbName}{interfaceType.annotationName}");
 		p.put("openejb.jndiname.format",
 				"{ejbName}{interfaceType.annotationName}");
-//		p.put(Context.INITIAL_CONTEXT_FACTORY,
-//			"org.apache.openejb.client.RemoteInitialContextFactory");
-//		p.put(Context.PROVIDER_URL, "ejbd://127.0.0.1:4201");
-//		p.put("java.naming.security.principal", "jonathan");
-//		p.put("java.naming.security.credentials", "secret");
+
+		return new InitialContext(p);
+	}
+
+	public Context getRemoteServerConnection() throws NamingException {
+		Properties p = new Properties();
+		p.put(Context.INITIAL_CONTEXT_FACTORY,
+				"org.apache.openejb.client.RemoteInitialContextFactory");
+		p.put(Context.PROVIDER_URL, "ejbd://127.0.0.1:4201");
 
 		return new InitialContext(p);
 	}
