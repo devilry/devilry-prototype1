@@ -101,18 +101,7 @@ public class TreeManagerImpl implements TreeManagerRemote {
 	}
 
 	private Node getNode(long nodeId) {
-		Query q = em.createQuery("SELECT n FROM Node n WHERE n.id=:nodeId");
-		q.setParameter("nodeId", nodeId);
-
-		Node node;
-
-		try {
-			node = (Node) q.getSingleResult();
-		} catch(NoResultException e) {
-			node = null;
-		}
-
-		return node;
+		return em.find(Node.class, nodeId);
 	}
 
 	private long getNodeId(String name) {
