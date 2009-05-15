@@ -80,5 +80,13 @@ public class NodeImpl implements NodeRemote {
 
 		return (List<Long>) q.getResultList();
 	}
+
+	public List<Long> getSiblings() {
+		Query q = em.createQuery("SELECT n.id FROM Node n WHERE n.parentId=:parentId AND n.id<>:id");
+		q.setParameter("parentId", node.getParentId());
+		q.setParameter("id", node.getId());
+
+		return (List<Long>) q.getResultList();
+	}
 }
 

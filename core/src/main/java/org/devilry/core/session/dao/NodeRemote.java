@@ -14,5 +14,6 @@ public interface NodeRemote {
 	public String getDisplayName();
 	public String getPath();
 	public List<Long> getChildren();
+	public List<Long> getSiblings();
 }
 

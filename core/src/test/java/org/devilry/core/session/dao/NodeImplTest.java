@@ -80,4 +80,10 @@ public class NodeImplTest extends AbstractSessionBeanTestHelper {
 		node.init(tm.getNodeIdFromPath("uio.matnat"));
 		assertEquals(2, node.getChildren().size());
 	}
+
+	@Test
+	public void getSiblings() {
+		node.init(tm.getNodeIdFromPath("uio.matnat.ifi"));
+		assertEquals(1, node.getSiblings().size());
+	}
 }
