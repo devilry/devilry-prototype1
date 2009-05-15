@@ -56,6 +56,8 @@ build on the Node-tree (UserNode and GroupNode) this has yet to be implemented.
 
 We have testcases for JAAS in our [devilry-sandbox][2].
 
+[2]: http://github.com/espenak/devilry-sandbox/tree/eda5253cebd0f11f0b3a1d7c282f6e3868a474c4/ejb/nodemgr-bean
+
 
 Usage
 =====
