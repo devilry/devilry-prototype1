@@ -2,6 +2,7 @@ package org.devilry.core.session.dao;
 
 import javax.ejb.Stateful;
 import javax.persistence.*;
+import java.util.List;
 
 import org.devilry.core.entity.*;
 
@@ -71,6 +72,13 @@ public class NodeImpl implements NodeRemote {
 		}
 		
 		return path;
+	}
+
+	public List<Long> getChildren() {
+		Query q = em.createQuery("SELECT n.id FROM Node n WHERE n.parentId=:parentId");
+		q.setParameter("parentId", node.getId());
+
+		return (List<Long>) q.getResultList();
 	}
 }
 

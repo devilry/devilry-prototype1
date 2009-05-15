@@ -25,6 +25,9 @@ public class NodeImplTest extends AbstractSessionBeanTestHelper {
 				tm.getNodeIdFromPath("uio"));
 		tm.addNode("ifi", "Institutt for informatikk",
 				tm.getNodeIdFromPath("uio.matnat"));
+
+		tm.addNode("ifi2", "Institutt for informatikk (IFI2)",
+				tm.getNodeIdFromPath("uio.matnat"));
 	}
 
 	@After
@@ -47,8 +50,8 @@ public class NodeImplTest extends AbstractSessionBeanTestHelper {
 	@Test
 	public void setName() {
 		node.init(tm.getNodeIdFromPath("uio.matnat"));
-		node.setName("ifi2");
-		assertEquals("ifi2", node.getName());
+		node.setName("ifi3");
+		assertEquals("ifi3", node.getName());
 		node.setName("ifi");
 	}
 
@@ -70,5 +73,11 @@ public class NodeImplTest extends AbstractSessionBeanTestHelper {
 	public void getPath() {
 		node.init(tm.getNodeIdFromPath("uio.matnat"));
 		assertEquals("uio.matnat", node.getPath());
+	}
+
+	@Test
+	public void getChildren() {
+		node.init(tm.getNodeIdFromPath("uio.matnat"));
+		assertEquals(2, node.getChildren().size());
 	}
 }
