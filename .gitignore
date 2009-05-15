@@ -15,3 +15,4 @@ nbactions.xml
 *.ipr
 *.iml
 *.iws
+*.log
