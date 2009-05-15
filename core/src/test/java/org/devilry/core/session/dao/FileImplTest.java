@@ -7,7 +7,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 
-public class FileTest extends AbstractDaoTest {
+public class FileImplTest extends AbstractDeliveryDaoTst {
 
 	FileMetaRemote fileMeta;
 	DeliveryCandidateRemote deliveryCandidate;
@@ -18,7 +18,8 @@ public class FileTest extends AbstractDaoTest {
 		setupEjbContainer();
 		fileMeta = getRemoteBean(FileImpl.class);
 		deliveryCandidate = getRemoteBean(DeliveryCandidateImpl.class);
-		deliveryCandidate.init(0);
+		long deliveryCandidateId = delivery.addDeliveryCandidate();
+		deliveryCandidate.init(deliveryCandidateId);
 		fileId = deliveryCandidate.addFile("test.txt");
 		fileMeta.init(fileId);
 	}

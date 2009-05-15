@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 import javax.naming.NamingException;
 import java.util.List;
 
-public class DeliveryImplTest extends AbstractDeliveryDaoTest {
+public class DeliveryImplTest extends AbstractDeliveryDaoTst {
 
 	@Before
 	public void setUp() throws NamingException {
@@ -22,7 +22,7 @@ public class DeliveryImplTest extends AbstractDeliveryDaoTest {
 
 	@Test
 	public void getAssignmentId() {
-		assertEquals(assignmentId, delivery.getId());
+		assertEquals(assignmentId, delivery.getAssignmentId());
 	}
 
 	@Test

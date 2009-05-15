@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 
 import org.devilry.core.session.*;
 
-public class PeriodNodeImplTest extends AbstractDaoTest {
+public class PeriodNodeImplTest extends AbstractDaoTst {
 	PeriodNodeRemote node;
 	TreeManagerRemote tm;
 

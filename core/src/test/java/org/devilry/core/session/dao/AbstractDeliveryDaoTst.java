@@ -6,7 +6,7 @@ import org.devilry.core.session.TreeManagerImpl;
 import javax.naming.NamingException;
 import java.util.GregorianCalendar;
 
-public class AbstractDeliveryDaoTest extends AbstractDaoTest {
+public class AbstractDeliveryDaoTst extends AbstractDaoTst {
 	DeliveryRemote delivery;
 	long assignmentId;
 

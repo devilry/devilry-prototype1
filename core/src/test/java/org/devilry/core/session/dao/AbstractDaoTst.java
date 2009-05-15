@@ -17,7 +17,7 @@ import org.junit.After;
  * 
  * @author Espen Angell Kristiansen <post@espenak.net>
  */
-public abstract class AbstractDaoTest {
+public abstract class AbstractDaoTst {
 
 	protected static Class[] ENTITIES = {
 			FileMeta.class, DeliveryCandidate.class,

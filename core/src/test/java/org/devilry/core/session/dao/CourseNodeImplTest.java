@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 
 import org.devilry.core.session.*;
 
-public class CourseNodeImplTest extends AbstractDaoTest {
+public class CourseNodeImplTest extends AbstractDaoTst {
 	CourseNodeRemote node;
 	TreeManagerRemote tm;
 
