@@ -8,6 +8,7 @@ import java.util.GregorianCalendar;
 
 public class AbstractDeliveryDaoTest extends AbstractDaoTest {
 	DeliveryRemote delivery;
+	long assignmentId;
 
 	protected void setupEjbContainer() throws NamingException {
 		super.setupEjbContainer();
@@ -17,10 +18,10 @@ public class AbstractDeliveryDaoTest extends AbstractDaoTest {
 		id = tm.addCourseNode("inf1000", "INF1000", "First programming course.", id);
 		id = tm.addPeriodNode("spring2009", new GregorianCalendar(2009, 1, 1).getTime(),
 				new GregorianCalendar(2009, 6, 15).getTime(), id);
-		id = tm.addAssignmentNode("Oblig1", "Obligatory assignment 1", id);
-		AssignmentNodeRemote node = getRemoteBean(AssignmentNodeImpl.class);
-		node.init(id);
+		assignmentId = tm.addAssignmentNode("Oblig1", "Obligatory assignment 1", id);
+		AssignmentNodeRemote assignment = getRemoteBean(AssignmentNodeImpl.class);
+		assignment.init(assignmentId);
 		delivery = getRemoteBean(DeliveryImpl.class);
-		delivery.init(node.addDelivery());
+		delivery.init(assignment.addDelivery());
 	}
 }

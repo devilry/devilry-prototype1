@@ -4,6 +4,8 @@ import org.devilry.core.entity.Delivery;
 import org.devilry.core.entity.DeliveryCandidate;
 
 import javax.ejb.Stateful;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.PersistenceContext;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -38,9 +40,11 @@ public class DeliveryImpl implements DeliveryRemote {
 		return q.getResultList();
 	}
 
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public long addDeliveryCandidate() {
 		DeliveryCandidate d = new DeliveryCandidate(delivery);
 		em.persist(d);
+		em.flush();
 		return d.getId();
 	}
 }
