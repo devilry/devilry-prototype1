@@ -20,9 +20,13 @@ public class CourseNodeImplTest extends AbstractSessionBeanTestHelper {
 		tm = getRemoteBean(TreeManagerImpl.class);
 		node = getRemoteBean(CourseNodeImpl.class);
 
-		tm.addNode("ifi", "Universitetet i Oslo");
+		tm.addNode("uio", "Universitetet i Oslo");
+		tm.addNode("matnat", "Det matematisk-naturvitenskapelige fakultet",
+				tm.getNodeIdFromPath("uio"));
+		tm.addNode("ifi", "Institutt for informatikk", 
+				tm.getNodeIdFromPath("uio.matnat"));
 		tm.addCourseNode("inf1000", "INF1000", "Grunnkurs i objektorientert programmering",
-				tm.getNodeIdFromPath("ifi"));
+				tm.getNodeIdFromPath("uio.matnat.ifi"));
 	}
 
 	@After

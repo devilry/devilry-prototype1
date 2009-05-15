@@ -18,7 +18,7 @@ public class TreeManagerImpl implements TreeManagerRemote {
 		Node node = new Node();
 		node.setName(name.toLowerCase());
 		node.setDisplayName(displayName);
-		node.setParent( getNode(parentId) );
+		node.setParentId(parentId);
 
 		em.persist(node);
 
@@ -34,7 +34,7 @@ public class TreeManagerImpl implements TreeManagerRemote {
 		node.setName(name.toLowerCase());
 		node.setDisplayName(displayName);
 		node.setCourseCode(courseCode);
-		node.setParent( getNode(parentId) );
+		node.setParentId(parentId);
 
 		em.persist(node);
 		
@@ -51,7 +51,7 @@ public class TreeManagerImpl implements TreeManagerRemote {
 		node.setDisplayName(displayName);
 		node.setStartDate(start);
 		node.setEndDate(end);
-		node.setParent( getNode(parentId) );
+		node.setParentId(parentId);
 
 		em.persist(node);
 
@@ -103,11 +103,11 @@ public class TreeManagerImpl implements TreeManagerRemote {
 		Query q;
 		
 		if(parentId != -1) {
-			q = em.createQuery("SELECT n FROM Node n WHERE n.name=:name AND n.parent IS NOT NULL AND n.parent.id=:parentId");
+			q = em.createQuery("SELECT n FROM Node n WHERE n.name=:name AND n.parent!=-1 AND n.parentId=:parentId");
 			q.setParameter("name", name);
 			q.setParameter("parentId", parentId);
 		} else {
-			q = em.createQuery("SELECT n FROM Node n WHERE n.name=:name AND n.parent IS NULL");
+			q = em.createQuery("SELECT n FROM Node n WHERE n.name=:name AND n.parentId=-1");
 			q.setParameter("name", name);
 		}
 
@@ -126,23 +126,35 @@ public class TreeManagerImpl implements TreeManagerRemote {
 		Query q;
 
 		if(parent != null) {
-			q = em.createQuery("SELECT n FROM Node n WHERE n.name=:name AND n.parent IS NOT NULL AND n.parent.name=:parent");
+			q = em.createQuery("SELECT n FROM Node n WHERE n.name=:name AND n.parentId<>-1");
 			q.setParameter("name", name);
-			q.setParameter("parent", parent);
+
+			for(Node n : (java.util.List<Node>) q.getResultList()) {
+				Query pq = em.createQuery("SELECT n.name FROM Node n WHERE n.id=:parentId");
+				pq.setParameter("parentId", n.getParentId());
+
+				try {
+					String pname = (String) pq.getSingleResult();
+					if(parent.equals(pname))
+						return n.getId();
+
+				} catch(NoResultException e) {
+					return -1;
+				}
+			}
+
+			return -1;
 		} else {
-			q = em.createQuery("SELECT n FROM Node n WHERE n.name=:name AND n.parent IS NULL");
+			q = em.createQuery("SELECT n FROM Node n WHERE n.name=:name AND n.parentId=-1");
 			q.setParameter("name", name);
+
+			try {
+				Node node = (Node) q.getSingleResult();
+				return node.getId();
+			} catch(NoResultException e) {
+				return -1;
+			}
 		}
-
-		Node node;
-
-		try {
-			node = (Node) q.getSingleResult();
-		} catch(NoResultException e) {
-			node = null;
-		}
-
-		return node==null?-1:node.getId();
 	}
 }
 

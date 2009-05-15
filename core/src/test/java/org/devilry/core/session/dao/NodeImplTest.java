@@ -21,10 +21,12 @@ public class NodeImplTest extends AbstractSessionBeanTestHelper {
 		node = getRemoteBean(NodeImpl.class);
 
 		tm.addNode("uio", "Universitetet i Oslo");
-
 		tm.addNode("matnat", "Det matematisk-naturvitenskapelige fakultet", 
 				tm.getNodeIdFromPath("uio"));
 		tm.addNode("ifi", "Institutt for informatikk",
+				tm.getNodeIdFromPath("uio.matnat"));
+
+		tm.addNode("ifi2", "Institutt for informatikk (IFI2)",
 				tm.getNodeIdFromPath("uio.matnat"));
 	}
 
@@ -48,8 +50,8 @@ public class NodeImplTest extends AbstractSessionBeanTestHelper {
 	@Test
 	public void setName() {
 		node.init(tm.getNodeIdFromPath("uio.matnat"));
-		node.setName("ifi2");
-		assertEquals("ifi2", node.getName());
+		node.setName("ifi3");
+		assertEquals("ifi3", node.getName());
 		node.setName("ifi");
 	}
 
@@ -71,5 +73,17 @@ public class NodeImplTest extends AbstractSessionBeanTestHelper {
 	public void getPath() {
 		node.init(tm.getNodeIdFromPath("uio.matnat"));
 		assertEquals("uio.matnat", node.getPath());
+	}
+
+	@Test
+	public void getChildren() {
+		node.init(tm.getNodeIdFromPath("uio.matnat"));
+		assertEquals(2, node.getChildren().size());
+	}
+
+	@Test
+	public void getSiblings() {
+		node.init(tm.getNodeIdFromPath("uio.matnat.ifi"));
+		assertEquals(1, node.getSiblings().size());
 	}
 }

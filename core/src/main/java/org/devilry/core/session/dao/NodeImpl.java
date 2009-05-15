@@ -2,6 +2,7 @@ package org.devilry.core.session.dao;
 
 import javax.ejb.Stateful;
 import javax.persistence.*;
+import java.util.List;
 
 import org.devilry.core.entity.*;
 
@@ -57,13 +58,13 @@ public class NodeImpl implements NodeRemote {
 		String path = null;
 
 		while(true) {
-			if(cn.getParent() != null) {
+			if(cn.getParentId() != -1) {
 				if(path==null)
 					path = cn.getName();
 				else
 					path = cn.getName() + "." + path;
 
-				cn = cn.getParent();
+				cn = em.find(Node.class, cn.getParentId());
 			} else {
 				path = cn.getName() + "." + path;
 				break;
@@ -71,6 +72,21 @@ public class NodeImpl implements NodeRemote {
 		}
 		
 		return path;
+	}
+
+	public List<Long> getChildren() {
+		Query q = em.createQuery("SELECT n.id FROM Node n WHERE n.parentId=:parentId");
+		q.setParameter("parentId", node.getId());
+
+		return (List<Long>) q.getResultList();
+	}
+
+	public List<Long> getSiblings() {
+		Query q = em.createQuery("SELECT n.id FROM Node n WHERE n.parentId=:parentId AND n.id<>:id");
+		q.setParameter("parentId", node.getParentId());
+		q.setParameter("id", node.getId());
+
+		return (List<Long>) q.getResultList();
 	}
 }
 
