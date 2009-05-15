@@ -21,7 +21,6 @@ public class NodeImplTest extends AbstractSessionBeanTestHelper {
 		node = getRemoteBean(NodeImpl.class);
 
 		tm.addNode("uio", "Universitetet i Oslo");
-
 		tm.addNode("matnat", "Det matematisk-naturvitenskapelige fakultet", 
 				tm.getNodeIdFromPath("uio"));
 		tm.addNode("ifi", "Institutt for informatikk",

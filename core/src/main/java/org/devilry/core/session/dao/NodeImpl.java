@@ -57,13 +57,13 @@ public class NodeImpl implements NodeRemote {
 		String path = null;
 
 		while(true) {
-			if(cn.getParent() != null) {
+			if(cn.getParentId() != -1) {
 				if(path==null)
 					path = cn.getName();
 				else
 					path = cn.getName() + "." + path;
 
-				cn = cn.getParent();
+				cn = em.find(Node.class, cn.getParentId());
 			} else {
 				path = cn.getName() + "." + path;
 				break;
