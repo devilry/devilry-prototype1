@@ -13,11 +13,6 @@
     <packaging>ejb</packaging>
     <version>0.1</version>
 
-    <properties>
-        <openejb-version>3.1</openejb-version>
-    </properties>
-
-
     <dependencies>
         <dependency>
             <groupId>org.apache.openejb</groupId>
@@ -32,27 +27,12 @@
             <version>${openejb-version}</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
-
-
-	<!--
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-	</reporting>
-	-->
-
 
 
     <build>
         <plugins>
-
-            <!--
+                        <!--
             this configures the surefire plugin to run your tests with the
             javaagent enabled
             -->
@@ -97,5 +77,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

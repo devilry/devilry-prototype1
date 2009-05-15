@@ -15,6 +15,11 @@
         <module>cli</module>
     </modules>
 
+    <properties>
+        <openejb-version>3.1</openejb-version>
+        <javaee-api-version>5.0-1</javaee-api-version>        
+    </properties>
+
 	<dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -43,7 +48,6 @@
                 </configuration>
             </plugin>
         </plugins>
-
     </build>
 
 
@@ -60,6 +64,12 @@
 					</reportSet>
 				</reportSets>
 			</plugin>
+			<!--
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+            </plugin>
+			-->
 		</plugins>
 	</reporting>
 </project>
