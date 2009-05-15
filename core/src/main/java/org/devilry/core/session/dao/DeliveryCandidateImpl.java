@@ -26,7 +26,7 @@ public class DeliveryCandidateImpl implements DeliveryCandidateRemote {
 	}
 
 	public long getDeliveryId() {
-		throw new UnsupportedOperationException("Not supported yet.");
+		return deliveryCandidate.getDelivery().getId();
 	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)

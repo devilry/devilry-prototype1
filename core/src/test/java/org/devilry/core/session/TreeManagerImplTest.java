@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 
 import org.devilry.core.session.dao.*;
 
-public class TreeManagerImplTest extends AbstractDaoTest {
+public class TreeManagerImplTest extends AbstractDaoTst {
 	TreeManagerRemote tm;
 
 	@Before

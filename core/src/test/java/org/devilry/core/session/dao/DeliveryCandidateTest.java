@@ -7,16 +7,16 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class DeliveryCandidateTest extends AbstractDaoTest {
+public class DeliveryCandidateTest extends AbstractDeliveryDaoTst {
 
 	DeliveryCandidateRemote remoteBean;
-	long deliveryId;
+	long deliveryCandidateId;
 
 	@Before
 	public void setUp() throws NamingException {
 		setupEjbContainer();
 		remoteBean = getRemoteBean(DeliveryCandidateImpl.class);
-		deliveryId = 0;
+		deliveryCandidateId = delivery.addDeliveryCandidate();
 	}
 
 	@After
@@ -31,7 +31,7 @@ public class DeliveryCandidateTest extends AbstractDaoTest {
 
 	@Test
 	public void addFile() {
-		remoteBean.init(deliveryId);
+		remoteBean.init(deliveryCandidateId);
 		long id1 = remoteBean.addFile("test.txt");
 		long id2 = remoteBean.addFile("test2.txt");
 		assertFalse(id1 == id2);
@@ -42,7 +42,7 @@ public class DeliveryCandidateTest extends AbstractDaoTest {
 
 	@Test
 	public void getFileIds() throws NamingException {
-		remoteBean.init(deliveryId);
+		remoteBean.init(deliveryCandidateId);
 		remoteBean.addFile("b");
 		remoteBean.addFile("a");
 		remoteBean.addFile("c");
