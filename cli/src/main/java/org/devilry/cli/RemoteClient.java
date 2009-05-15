@@ -151,7 +151,7 @@ public class RemoteClient {
             }
 
             for (FileMeta file : files) {
-                System.out.println(file.getPath());
+             //   System.out.println(file.getPath());
             }
             
         } catch (Exception e) {
