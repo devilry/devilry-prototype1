@@ -115,7 +115,7 @@ public class TreeManagerImpl implements TreeManagerRemote {
 		Query q;
 		
 		if(parentId != -1) {
-			q = em.createQuery("SELECT n FROM Node n WHERE n.name=:name AND n.parent!=-1 AND n.parentId=:parentId");
+			q = em.createQuery("SELECT n FROM Node n WHERE n.name=:name AND n.parentId=:parentId");
 			q.setParameter("name", name);
 			q.setParameter("parentId", parentId);
 		} else {
