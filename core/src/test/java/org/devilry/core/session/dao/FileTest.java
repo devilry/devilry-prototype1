@@ -7,7 +7,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 
-public class FileTest extends AbstractSessionBeanTestHelper {
+public class FileTest extends AbstractDaoTest {
 
 	FileMetaRemote fileMeta;
 	DeliveryCandidateRemote deliveryCandidate;

@@ -7,11 +7,9 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import org.devilry.core.entity.*;
-import org.devilry.core.session.*;
 import org.devilry.core.session.dao.*;
 
-public class TreeManagerImplTest extends AbstractSessionBeanTestHelper {
+public class TreeManagerImplTest extends AbstractDaoTest {
 	TreeManagerRemote tm;
 
 	@Before

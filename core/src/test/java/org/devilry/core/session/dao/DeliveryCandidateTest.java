@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class DeliveryCandidateTest extends AbstractSessionBeanTestHelper {
+public class DeliveryCandidateTest extends AbstractDaoTest {
 
 	DeliveryCandidateRemote remoteBean;
 	long deliveryId;

@@ -17,11 +17,8 @@ public class DeliveryCandidateImpl implements DeliveryCandidateRemote {
 	protected EntityManager em;
 	protected DeliveryCandidate deliveryCandidate = null;
 
-	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-	public void init(long id) {
-		// TODO: should load from db, but create new for now.
-		deliveryCandidate = new DeliveryCandidate();
-		em.persist(deliveryCandidate);
+	public void init(long deliveryCandidateId) {
+		deliveryCandidate = em.find(DeliveryCandidate.class, deliveryCandidateId);
 	}
 
 	public long getId() {
@@ -41,7 +38,6 @@ public class DeliveryCandidateImpl implements DeliveryCandidateRemote {
 	}
 
 	public List<Long> getFileIds() {
-		// TODO: add this id to query
 		Query q = em.createQuery("SELECT f.id FROM FileMeta f "
 				+ "WHERE f.deliveryCandidate.id = :id ORDER BY f.filePath");
 		q.setParameter("id", deliveryCandidate.getId());

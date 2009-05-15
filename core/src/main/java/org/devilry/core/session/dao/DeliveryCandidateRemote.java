@@ -5,7 +5,7 @@ import javax.ejb.Remote;
 
 @Remote
 public interface DeliveryCandidateRemote {
-	public void init(long id);
+	public void init(long deliveryCandidateId);
 	public long getId();
 	public long getDeliveryId();
 	public long addFile(String filePath);

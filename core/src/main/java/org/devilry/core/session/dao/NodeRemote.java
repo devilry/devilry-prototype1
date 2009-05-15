@@ -5,7 +5,7 @@ import java.util.List;
 
 @Remote
 public interface NodeRemote {
-	public boolean init(long nodeId);	
+	public void init(long nodeId);	
 	public void setId(long nodeId);
 	public long getId();
 	public void setName(String name);

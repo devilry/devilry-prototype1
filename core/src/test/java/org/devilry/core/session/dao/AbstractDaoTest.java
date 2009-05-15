@@ -10,22 +10,18 @@ import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.devilry.core.entity.AssignmentNode;
-import org.devilry.core.entity.CourseNode;
-import org.devilry.core.entity.DeliveryCandidate;
-import org.devilry.core.entity.FileMeta;
-import org.devilry.core.entity.Node;
-import org.devilry.core.entity.PeriodNode;
+import org.devilry.core.entity.*;
 import org.junit.After;
 
 /**
  * 
  * @author Espen Angell Kristiansen <post@espenak.net>
  */
-public abstract class AbstractSessionBeanTestHelper {
+public abstract class AbstractDaoTest {
 
-	protected static Class[] ENTITIES = { FileMeta.class,
-			DeliveryCandidate.class, AssignmentNode.class, PeriodNode.class,
+	protected static Class[] ENTITIES = {
+			FileMeta.class, DeliveryCandidate.class,
+			Delivery.class, AssignmentNode.class, PeriodNode.class,
 			CourseNode.class, Node.class };
 	protected EntityManager entityManager;
 	protected InitialContext localCtx;

@@ -7,10 +7,9 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import org.devilry.core.entity.*;
 import org.devilry.core.session.*;
 
-public class PeriodNodeImplTest extends AbstractSessionBeanTestHelper {
+public class PeriodNodeImplTest extends AbstractDaoTest {
 	PeriodNodeRemote node;
 	TreeManagerRemote tm;
 

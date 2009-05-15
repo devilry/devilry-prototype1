@@ -30,4 +30,8 @@ public class Delivery implements Serializable {
 	public void setId(long id) {
 		this.id = id;
 	}
+
+	public AssignmentNode getAssignment() {
+		return assignment;
+	}
 }

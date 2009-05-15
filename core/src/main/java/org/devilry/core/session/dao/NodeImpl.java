@@ -13,17 +13,8 @@ public class NodeImpl implements NodeRemote {
 
 	protected Node node;
 
-	public boolean init(long nodeId) {
-		Query q = em.createQuery("SELECT n FROM Node n WHERE n.id=:nodeId");
-		q.setParameter("nodeId", nodeId);
-
-		try {
-			node = (Node) q.getSingleResult();
-		} catch(NoResultException e) {
-			node = null;
-		}
-
-		return node==null?false:true;
+	public void init(long nodeId) {
+		node = em.find(Node.class, nodeId);
 	}
 
 	public void setId(long nodeId) {
