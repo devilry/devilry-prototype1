@@ -77,6 +77,12 @@ public class TreeManagerImpl implements TreeManagerRemote {
 		return node.getId();
 	}
 
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	public void delNode(long nodeId) {
+		Node node = getNode(nodeId);
+		em.remove(node);
+	}
+
 	public long getNodeIdFromPath(String path) {
 		String[] sp = path.split("\\.");
 
@@ -100,6 +106,7 @@ public class TreeManagerImpl implements TreeManagerRemote {
 		return -1;
 	}
 
+	@TransactionAttribute(TransactionAttributeType.SUPPORTS)
 	private Node getNode(long nodeId) {
 		return em.find(Node.class, nodeId);
 	}

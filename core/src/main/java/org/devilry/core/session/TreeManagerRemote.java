@@ -7,14 +7,13 @@ import java.util.Date;
 public interface TreeManagerRemote {
 	public long addNode(String name, String displayName);
 	public long addNode(String name, String displayName, long parentId);
-
 	public long addCourseNode(String name, String displayName, long parentId);
 	public long addCourseNode(String name, String courseCode, String displayName, long parentId);
-
 	public long addPeriodNode(String name, Date start, Date end, long parentId);
 	public long addPeriodNode(String name, String displayName, Date start, Date end, long parentId);
-
 	public long addAssignmentNode(String name, String displayName, long parentId);	
+
+	public void delNode(long nodeId);
 
 	public long getNodeIdFromPath(String path);
 }

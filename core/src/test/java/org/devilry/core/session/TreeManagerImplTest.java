@@ -74,6 +74,15 @@ public class TreeManagerImplTest extends AbstractDaoTst {
 	}
 
 	@Test
+	public void delNode() {
+		long id = tm.addNode("uio", "Universitetet i Oslo");
+		
+		assertEquals(id, tm.getNodeIdFromPath("uio"));
+		tm.delNode(id);
+		assertEquals(-1, tm.getNodeIdFromPath("uio"));
+	}
+
+	@Test
 	public void getNodeIdFromPath() {
 		tm.addNode("uio", "Universitetet i Oslo");
 		assertTrue(0 < tm.getNodeIdFromPath("uio"));
