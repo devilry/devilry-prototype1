@@ -67,7 +67,7 @@ Testing the core
 
 To compile and run the client you need:
 
-* Linux (Windows hasn't been tested)
+* Linux or OSX (Windows hasn't been tested, but should work)
 * Maven
 * git (http://git-scm.com/)
 
