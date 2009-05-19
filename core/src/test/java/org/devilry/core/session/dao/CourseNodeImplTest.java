@@ -48,16 +48,16 @@ public class CourseNodeImplTest {
 
 	@Test
 	public void setCourseCode() {
-//		node.init(tm.getNodeIdFromPath("uio.matnat.ifi.inf1000"));
-//		node.setCourseCode("INF1010");
-//		assertEquals("INF1010", node.getCourseCode());
-//		node.setCourseCode("INF1000");
+		node.init(tm.getNodeIdFromPath("uio.matnat.ifi.inf1000"));
+		node.setCourseCode("INF1010");
+		assertEquals("INF1010", node.getCourseCode());
+		node.setCourseCode("INF1000");
 	}
 
 	@Test
 	public void getCourseCode() {
-/*		node.init(tm.getNodeIdFromPath("uio.matnat.ifi.inf1000"));
-		assertEquals("INF1000", node.getCourseCode()); */
+		node.init(tm.getNodeIdFromPath("uio.matnat.ifi.inf1000"));
+		assertEquals("INF1000", node.getCourseCode());
 	}
 }
 
