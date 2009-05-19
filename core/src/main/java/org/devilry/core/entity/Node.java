@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 @Table(
 	name="NODE",
-	uniqueConstraints=@UniqueConstraint(columnNames={"name", "parentId"})
+	uniqueConstraints=@UniqueConstraint(columnNames={"name", "parent"})
 )
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="nodeType", discriminatorType=DiscriminatorType.STRING)
@@ -20,8 +20,9 @@ public class Node implements java.io.Serializable {
 
 	protected String displayName;
 
-	@Column(name="parentId")
-	protected long parentId;
+	@ManyToOne(fetch=FetchType.LAZY)
+	@Column(name="parent")
+	protected Node parent;
 
 	public Node() {
 
@@ -51,12 +52,12 @@ public class Node implements java.io.Serializable {
 		return this.displayName;
 	}
 
-	public long getParentId() {
-		return this.parentId;
+	public Node getParent() {
+		return this.parent;
 	}
 
-	public void setParentId(long parentId) {
-		this.parentId = parentId;
+	public void setParent(Node parent) {
+		this.parent = parent;
 	}
 }
 

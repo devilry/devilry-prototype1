@@ -45,19 +45,23 @@ public class NodeImpl implements NodeRemote {
 	}
 
 	public String getPath() {
-		Node cn = node;
+		// need a fresh object to access parent
+		Node cn = em.find(Node.class, node.getId());
 		String path = null;
 
 		while(true) {
-			if(cn.getParentId() != -1) {
+			if(cn.getParent() != null) {
 				if(path==null)
 					path = cn.getName();
 				else
 					path = cn.getName() + "." + path;
 
-				cn = em.find(Node.class, cn.getParentId());
+				cn = cn.getParent();
 			} else {
-				path = cn.getName() + "." + path;
+				if(path == null)
+					path = cn.getName();
+				else
+					path = cn.getName() + "." + path;
 				break;
 			}
 		}
@@ -66,15 +70,18 @@ public class NodeImpl implements NodeRemote {
 	}
 
 	public List<Long> getChildren() {
-		Query q = em.createQuery("SELECT n.id FROM Node n WHERE n.parentId=:parentId");
+		Query q = em.createQuery("SELECT n.id FROM Node n WHERE n.parent IS NOT NULL AND n.parent.id=:parentId");
 		q.setParameter("parentId", node.getId());
 
 		return (List<Long>) q.getResultList();
 	}
 
 	public List<Long> getSiblings() {
-		Query q = em.createQuery("SELECT n.id FROM Node n WHERE n.parentId=:parentId AND n.id<>:id");
-		q.setParameter("parentId", node.getParentId());
+		// need a fresh object to access parent
+		node = em.find(Node.class, node.getId());
+
+		Query q = em.createQuery("SELECT n.id FROM Node n WHERE n.parent IS NOT NULL AND n.parent.id=:parentId AND n.id<>:id");
+		q.setParameter("parentId", node.getParent().getId());
 		q.setParameter("id", node.getId());
 
 		return (List<Long>) q.getResultList();

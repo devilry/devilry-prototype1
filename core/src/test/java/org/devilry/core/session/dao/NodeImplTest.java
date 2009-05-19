@@ -1,6 +1,8 @@
 package org.devilry.core.session.dao;
 
-import javax.naming.NamingException;
+import javax.naming.*;
+import javax.persistence.*;
+import java.util.Properties;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,29 +10,37 @@ import static org.junit.Assert.*;
 
 import org.devilry.core.session.*;
 
-public class NodeImplTest extends AbstractDaoTst {
+public class NodeImplTest  {
 	NodeRemote node;
 	TreeManagerRemote tm;
+	InitialContext ctx;
 
 	@Before
 	public void setUp() throws NamingException {
-		setupEjbContainer();
-		tm = getRemoteBean(TreeManagerImpl.class);
-		node = getRemoteBean(NodeImpl.class);
+		Properties p = new Properties();
+		p.put(Context.INITIAL_CONTEXT_FACTORY,
+				"org.apache.openejb.client.LocalInitialContextFactory");
+		p.put("openejb.deploymentId.format",
+				"{ejbName}{interfaceType.annotationName}");
+		p.put("openejb.jndiname.format",
+				"{ejbName}{interfaceType.annotationName}");
+		ctx = new InitialContext(p);
+		
+		tm = (TreeManagerRemote) ctx.lookup("TreeManagerImplRemote");
+		node = (NodeRemote) ctx.lookup("NodeImplRemote");
 
 		tm.addNode("uio", "Universitetet i Oslo");
-		tm.addNode("matnat", "Det matematisk-naturvitenskapelige fakultet", 
+		tm.addNode("matnat", "Det matematisk-naturvitenskapelige fakultet",
 				tm.getNodeIdFromPath("uio"));
-		tm.addNode("ifi", "Institutt for informatikk",
-				tm.getNodeIdFromPath("uio.matnat"));
-
-		tm.addNode("ifi2", "Institutt for informatikk (IFI2)",
+		tm.addNode("ifi", "Institutt for informatikk", 
 				tm.getNodeIdFromPath("uio.matnat"));
 	}
 
 	@After
 	public void tearDown() {
-		destroyEjbContainer();
+		tm.delNode(tm.getNodeIdFromPath("uio.matnat.ifi"));
+		tm.delNode(tm.getNodeIdFromPath("uio.matnat"));
+		tm.delNode(tm.getNodeIdFromPath("uio"));
 	}
 
 	@Test
@@ -69,19 +79,25 @@ public class NodeImplTest extends AbstractDaoTst {
 
 	@Test
 	public void getPath() {
-		node.init(tm.getNodeIdFromPath("uio.matnat"));
-		assertEquals("uio.matnat", node.getPath());
+		node.init(tm.getNodeIdFromPath("uio.matnat.ifi"));
+		assertEquals("uio.matnat.ifi", node.getPath());
 	}
 
 	@Test
 	public void getChildren() {
 		node.init(tm.getNodeIdFromPath("uio.matnat"));
+		assertEquals(1, node.getChildren().size());
+		tm.addNode("ifi2", "ifi2", tm.getNodeIdFromPath("uio.matnat"));
 		assertEquals(2, node.getChildren().size());
+		tm.delNode(tm.getNodeIdFromPath("uio.matnat.ifi2"));
 	}
 
 	@Test
 	public void getSiblings() {
 		node.init(tm.getNodeIdFromPath("uio.matnat.ifi"));
+		assertEquals(0, node.getSiblings().size());
+		tm.addNode("ifi2", "ifi2", tm.getNodeIdFromPath("uio.matnat"));
 		assertEquals(1, node.getSiblings().size());
+		tm.delNode(tm.getNodeIdFromPath("uio.matnat.ifi2"));
 	}
 }
