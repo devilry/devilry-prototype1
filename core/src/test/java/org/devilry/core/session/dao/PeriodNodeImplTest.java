@@ -10,15 +10,24 @@ import static org.junit.Assert.*;
 
 import org.devilry.core.session.*;
 
-public class PeriodNodeImplTest extends AbstractDaoTst {
+public class PeriodNodeImplTest {
 	PeriodNodeRemote node;
 	TreeManagerRemote tm;
+	InitialContext ctx;
 
 	@Before
 	public void setUp() throws NamingException {
-		setupEjbContainer();
-		tm = getRemoteBean(TreeManagerImpl.class);
-		node = getRemoteBean(PeriodNodeImpl.class);
+		Properties p = new Properties();
+		p.put(Context.INITIAL_CONTEXT_FACTORY,
+				"org.apache.openejb.client.LocalInitialContextFactory");
+		p.put("openejb.deploymentId.format",
+				"{ejbName}{interfaceType.annotationName}");
+		p.put("openejb.jndiname.format",
+				"{ejbName}{interfaceType.annotationName}");
+		ctx = new InitialContext(p);
+		
+		tm = (TreeManagerRemote) ctx.lookup("TreeManagerImplRemote");
+		node = (PeriodNodeRemote) ctx.lookup("PeriodNodeImplRemote");
 
 		tm.addNode("uio", "Universitetet i Oslo");
 		tm.addNode("matnat", "Det matematisk-naturvitenskapelige fakultet",
@@ -37,7 +46,11 @@ public class PeriodNodeImplTest extends AbstractDaoTst {
 
 	@After
 	public void tearDown() {
-		destroyEjbContainer();
+		tm.delNode(tm.getNodeIdFromPath("uio.matnat.ifi.inf1000.fall09"));
+		tm.delNode(tm.getNodeIdFromPath("uio.matnat.ifi.inf1000"));
+		tm.delNode(tm.getNodeIdFromPath("uio.matnat.ifi"));
+		tm.delNode(tm.getNodeIdFromPath("uio.matnat"));
+		tm.delNode(tm.getNodeIdFromPath("uio"));
 	}
 
 	@Test
