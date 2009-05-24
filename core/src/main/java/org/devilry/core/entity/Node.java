@@ -1,6 +1,8 @@
 package org.devilry.core.entity;
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.LinkedList;
 
 @Entity
 @Table(
@@ -20,9 +22,13 @@ public class Node implements java.io.Serializable {
 
 	protected String displayName;
 
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
 	@Column(name="parent")
 	protected Node parent;
+
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	protected Collection<Node> children = new LinkedList<Node>();
 
 	public Node() {
 
@@ -58,6 +64,14 @@ public class Node implements java.io.Serializable {
 
 	public void setParent(Node parent) {
 		this.parent = parent;
+	}
+
+	public Collection<Node> getChildren() {
+		return children;
+	}
+
+	public void setChildren(Collection<Node> children) {
+		this.children = children;
 	}
 }
 

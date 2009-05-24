@@ -3,15 +3,24 @@ package org.devilry.core.session;
 import javax.ejb.*;
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Collection;
+
 import org.devilry.core.entity.*;
 
 @Stateless
 public class TreeManagerImpl implements TreeManagerRemote {
 	@PersistenceContext(unitName="DevilryCore")
 	private EntityManager em;
-
+	
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public long addNode(String name, String displayName) {
-		return addNode(name, displayName, -1);
+		Node node = new Node();
+		node.setName(name.toLowerCase());
+		node.setDisplayName(displayName);
+		em.persist(node);
+		em.flush();
+
+		return node.getId();
 	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
@@ -19,9 +28,13 @@ public class TreeManagerImpl implements TreeManagerRemote {
 		Node node = new Node();
 		node.setName(name.toLowerCase());
 		node.setDisplayName(displayName);
-		node.setParent(getNode(parentId));
+		Node parent = getNode(parentId);
+		node.setParent(parent);
+		Collection<Node> c = parent.getChildren();
+		c.add(node);
+		parent.setChildren(c);
 
-		em.persist(node);
+		em.merge(parent);
 		em.flush();
 
 		return node.getId();
@@ -80,11 +93,7 @@ public class TreeManagerImpl implements TreeManagerRemote {
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void delNode(long nodeId) {
 		Node node = getNode(nodeId);
-
-		if(node != null) {
-			em.remove(node);
-			em.flush();
-		}
+		em.remove(node);
 	}
 
 	public long getNodeIdFromPath(String path) {
