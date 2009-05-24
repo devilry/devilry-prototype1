@@ -10,25 +10,15 @@ import static org.junit.Assert.*;
 
 import org.devilry.core.session.*;
 
-public class NodeImplTest  {
+public class NodeImplTest extends AbstractDaoTst {
 	NodeRemote node;
 	TreeManagerRemote tm;
-	InitialContext ctx;
 
 	@Before
 	public void setUp() throws NamingException {
-		Properties p = new Properties();
-		p.put(Context.INITIAL_CONTEXT_FACTORY,
-				"org.apache.openejb.client.LocalInitialContextFactory");
-		p.put("openejb.deploymentId.format",
-				"{ejbName}{interfaceType.annotationName}");
-		p.put("openejb.jndiname.format",
-				"{ejbName}{interfaceType.annotationName}");
-		ctx = new InitialContext(p);
-		
-		tm = (TreeManagerRemote) ctx.lookup("TreeManagerImplRemote");
-		node = (NodeRemote) ctx.lookup("NodeImplRemote");
-
+		setupEjbContainer();
+		tm = getRemoteBean(TreeManagerImpl.class);
+		node = getRemoteBean(NodeImpl.class);
 		tm.addNode("uio", "Universitetet i Oslo");
 		tm.addNode("matnat", "Det matematisk-naturvitenskapelige fakultet",
 				tm.getNodeIdFromPath("uio"));
@@ -38,8 +28,6 @@ public class NodeImplTest  {
 
 	@After
 	public void tearDown() {
-		tm.delNode(tm.getNodeIdFromPath("uio.matnat.ifi"));
-		tm.delNode(tm.getNodeIdFromPath("uio.matnat"));
 		tm.delNode(tm.getNodeIdFromPath("uio"));
 	}
 

@@ -73,5 +73,10 @@ public class Node implements java.io.Serializable {
 	public void setChildren(Collection<Node> children) {
 		this.children = children;
 	}
+
+	public void addChild(Node child) {
+		child.setParent(this);
+		children.add(child);
+	}
 }
 

@@ -33,7 +33,6 @@ public class AssignmentNodeImplTest extends AbstractDaoTst {
 
 	@After
 	public void tearDown() {
-		destroyEjbContainer();
 	}
 
 	@Test

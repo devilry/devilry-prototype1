@@ -21,7 +21,6 @@ public class DeliveryCandidateTest extends AbstractDeliveryDaoTst {
 
 	@After
 	public void tearDown() {
-		destroyEjbContainer();
 	}
 
 	@Test(expected=Exception.class)

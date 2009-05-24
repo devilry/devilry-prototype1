@@ -47,6 +47,5 @@ public class DeliveryImplTest extends AbstractDeliveryDaoTst {
 
 	@After
 	public void tearDown() {
-		destroyEjbContainer();
 	}
 }

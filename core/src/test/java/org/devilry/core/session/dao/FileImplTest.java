@@ -26,7 +26,6 @@ public class FileImplTest extends AbstractDeliveryDaoTst {
 
 	@After
 	public void tearDown() {
-		destroyEjbContainer();
 	}
 
 	@Test
