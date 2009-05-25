@@ -37,7 +37,7 @@ public class PeriodNodeImplTest extends AbstractDaoTst {
 
 	@After
 	public void tearDown() {
-//		tm.delNode(tm.getNodeIdFromPath("uio.matnat.ifi.inf1000.fall09"));
+		tm.delNode(tm.getNodeIdFromPath("uio.matnat.ifi.inf1000.fall09"));
 //		tm.delNode(tm.getNodeIdFromPath("uio.matnat.ifi.inf1000"));
 //		tm.delNode(tm.getNodeIdFromPath("uio.matnat.ifi"));
 //		tm.delNode(tm.getNodeIdFromPath("uio.matnat"));

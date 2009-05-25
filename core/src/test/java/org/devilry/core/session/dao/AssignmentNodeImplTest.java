@@ -33,6 +33,9 @@ public class AssignmentNodeImplTest extends AbstractDaoTst {
 
 	@After
 	public void tearDown() {
+		tm.delNode(tm.getNodeIdFromPath("uio.inf1000.spring2009.oblig1"));
+		tm.delNode(tm.getNodeIdFromPath("uio.inf1000.spring2009"));
+		tm.delNode(tm.getNodeIdFromPath("uio"));
 	}
 
 	@Test
