@@ -115,4 +115,14 @@
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_f6tdhEo2Ed6_X5Z1-LyYTA" value="1"/>
     </ownedEnd>
   </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_-2G-sEo2Ed6_X5Z1-LyYTA" name="CourseAdmins" memberEnd="_-2HlwEo2Ed6_X5Z1-LyYTA _-2Hlw0o2Ed6_X5Z1-LyYTA">
+    <ownedEnd xmi:id="_-2HlwEo2Ed6_X5Z1-LyYTA" name="src" type="_dKM6MEo1Ed6_X5Z1-LyYTA" association="_-2G-sEo2Ed6_X5Z1-LyYTA">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_-2Hlwko2Ed6_X5Z1-LyYTA" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-2HlwUo2Ed6_X5Z1-LyYTA" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_-2Hlw0o2Ed6_X5Z1-LyYTA" name="dst" type="_R3hW8EozEd6_X5Z1-LyYTA" aggregation="shared" association="_-2G-sEo2Ed6_X5Z1-LyYTA">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_-2IM0Uo2Ed6_X5Z1-LyYTA" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-2IM0Eo2Ed6_X5Z1-LyYTA" value="1"/>
+    </ownedEnd>
+  </packagedElement>
 </uml:Package>
