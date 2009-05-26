@@ -12,8 +12,14 @@
   <elementImport xmi:id="_Q3LUQkozEd6_X5Z1-LyYTA">
     <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
   </elementImport>
-  <packagedElement xmi:type="uml:Class" xmi:id="_R3hW8EozEd6_X5Z1-LyYTA" name="User"/>
-  <packagedElement xmi:type="uml:Class" xmi:id="_TziXsEozEd6_X5Z1-LyYTA" name="Identity"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_R3hW8EozEd6_X5Z1-LyYTA" name="User">
+    <ownedAttribute xmi:id="_oih50Eo0Ed6_X5Z1-LyYTA" name="name" aggregation="composite"/>
+    <ownedAttribute xmi:id="_phs30Eo0Ed6_X5Z1-LyYTA" name="email" aggregation="composite"/>
+    <ownedAttribute xmi:id="_qTvYwEo0Ed6_X5Z1-LyYTA" name="phoneNumber" aggregation="composite"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_TziXsEozEd6_X5Z1-LyYTA" name="Identity">
+    <ownedAttribute xmi:id="_rMbUQEo0Ed6_X5Z1-LyYTA" name="identity" aggregation="composite"/>
+  </packagedElement>
   <packagedElement xmi:type="uml:Association" xmi:id="_Z7f0cEozEd6_X5Z1-LyYTA" memberEnd="_Z7gbgEozEd6_X5Z1-LyYTA _Z7hpoEozEd6_X5Z1-LyYTA">
     <ownedEnd xmi:id="_Z7gbgEozEd6_X5Z1-LyYTA" name="src" type="_R3hW8EozEd6_X5Z1-LyYTA" association="_Z7f0cEozEd6_X5Z1-LyYTA">
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Z7hCkUozEd6_X5Z1-LyYTA" value="1"/>
