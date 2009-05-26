@@ -1,14 +1,8 @@
 package org.devilry.cli;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.InputStream;
+import java.io.File;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Scanner;
@@ -23,6 +17,8 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.PosixParser;
 import org.devilry.core.entity.FileMeta;
 import org.devilry.core.session.TreeManagerRemote;
+import org.devilry.core.session.dao.DeliveryCandidateRemote;
+import org.devilry.core.session.dao.FileImpl;
 import org.devilry.core.session.dao.FileMetaRemote;
 
 public class RemoteClient {
@@ -107,13 +103,15 @@ public class RemoteClient {
              printLS();
          } else if (args[0].equalsIgnoreCase("add")) {
              add(args);
+         } else if (args[0].equalsIgnoreCase("devil")) {
+             printDevil();
          } else if (args[0].equalsIgnoreCase("addtestnodes")) {
              lib.addTestNodes();
          }
          else if (args[0].equalsIgnoreCase("listCandidateFiles")) {
             
             if (args.length < 2) {
-                System.out.println("id is missing, running default");
+                System.out.println("id is missing, using default: uio.inf1000.spring2009.oblig1");
 
                 getFiles("uio.inf1000.spring2009.oblig1");
             }
@@ -206,7 +204,7 @@ public class RemoteClient {
 
         if (args.length < 3) {
             System.out.println("To few arguments for option add");
-            System.out.println("Valid nodepath: uio.inf1000.oblig1");
+            System.out.println("Valid nodepath: uio.inf1000.spring2009.oblig1");
             return;
         }
 
@@ -214,14 +212,18 @@ public class RemoteClient {
 
         File f = new File(args[2]);
 
-        if (!f.isFile()) {
+        if (f.isFile()) {
+            byte[] fileData = FileUtil.getFileAsByteArray(f);
+            addFile(nodePath, f, fileData);
+        }
+        else if (f.isDirectory()) {
+            addDirectory(nodePath, f);
+        }
+        else {
             log.warning("File named " + args[2] + " could not be found!");
             return;
         }
 
-        byte[] fileData = getFileAsByteArray(f);
-
-        addFile(nodePath, f, fileData);
     }
 
     void printPWD() {
@@ -240,6 +242,10 @@ public class RemoteClient {
             System.out.println(s);
     }
 
+    void printDevil() {
+        System.out.println(getDevil());
+    }
+
     public void help() {
          System.out.println("Available commands:" + newLine +
                                 "    - add nodeTath      filename" + newLine +
@@ -252,35 +258,64 @@ public class RemoteClient {
                      );
     }
 
+
+    public String getDevil() {
+
+        String devil =
+                "  (\\-\"````\"-/)" + newLine +
+                "  //^\\    /^\\\\" + newLine +
+                " ;/ ~_\\  /_~ \\;" + newLine +
+                " |  / \\\\// \\  |" + newLine +
+                "(,  \\0/  \\0/  ,)" + newLine +
+                " |   /    \\   |" + newLine +
+                " | (_\\.__./_) |" + newLine +
+                "  \\ \\-v..v-/ /" + newLine +
+                "   \\ `====' /" + newLine +
+                "    `\\\\\\///'" + newLine +
+                "     '\\\\//'" + newLine +
+                "       \\/";
+
+        return devil;
+    }
     
     public void getLastDelivery(String nodePath, String outputDir) {
-        
-         try {
-               File outputDirFile = new File(outputDir);
 
-               if (outputDirFile.isFile()) {
-                   System.err.println("outputDir is not a directory!");
-                   return;
-               }
-               else if (!outputDirFile.isDirectory()) {
-                   outputDirFile.mkdir();
-               }
+        try {
+            File outputDirFile = new File(outputDir);
 
-              FileMetaRemote remoteFile =lib.getLastDeliveryCandidateFile(nodePath);
+            if (outputDirFile.isFile()) {
+                System.err.println("outputDir is not a directory!");
+                return;
+            } else if (!outputDirFile.isDirectory()) {
+                outputDirFile.mkdir();
+            }
 
-               byte [] data = remoteFile.read();
+            //FileMetaRemote remoteFile = lib.getLastDeliveryCandidateFile(nodePath);
+            DeliveryCandidateRemote remoteBean = lib.getLastDeliveryCandidate(nodePath);
 
-               System.err.println("remoteFile.getFilePath():" + remoteFile.getFilePath());
+            List<Long> fileIDs = remoteBean.getFileIds();
 
-               writeToFile(data, new File(outputDirFile, remoteFile.getFilePath()));
+            for (int i = 0; i < fileIDs.size(); i++) {
+                long fID = fileIDs.get(i);
 
+                FileMetaRemote remoteFileBean = lib.getRemoteBean(FileImpl.class);
+                remoteFileBean.init(fID);
+
+                byte[] data = remoteFileBean.read();
+
+                System.err.println("remoteFile.getFilePath():" + remoteFileBean.getFilePath());
+
+                FileUtil.writeToFile(data, new File(outputDirFile, remoteFileBean.getFilePath()));
+            }
+
+            //fileNames.add("Candiate " + cID + ":" + remoteFileBean.getFilePath());
 
         } catch (Exception e) {
             System.err.println("Exception:" + e.getMessage());
             e.printStackTrace();
         }
-        
     }
+    
     
     public void getFiles(String nodePath) {
 
@@ -310,7 +345,7 @@ public class RemoteClient {
 
         try {
 
-            long id = lib.addDelivery(deliveryPath, f.getName(), fileData);
+            long id = lib.addDeliveryFile(deliveryPath, f.getName(), fileData);
 
             log.info("Added file " + f.getName() + " with id:" + id);
 
@@ -320,71 +355,24 @@ public class RemoteClient {
         }
     }
 
-    public static byte[] getFileAsByteArray(File file) {
+     public void addDirectory(String deliveryPath, File dir) {
 
         try {
 
-            if (!file.isFile()) {
-                throw new FileNotFoundException("File " + file.getAbsolutePath() + " could not be found!");
-            }
+            List<Long> fileIDs = lib.addDeliveryDir(deliveryPath, dir);
 
-            BufferedInputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(file));
-            ByteArrayOutputStream byteStream = new ByteArrayOutputStream(bufferedInputStream.available());
+           // long id = lib.addDeliveryFile(deliveryPath, f.getName(), fileData);
 
-            int buffer;
-            while ((buffer = bufferedInputStream.read()) != -1)
-                byteStream.write(buffer);
-
-            bufferedInputStream.close();
-            byteStream.close();
-
-            return byteStream.toByteArray();
+            log.info("Added directory " + dir.getName());
 
         } catch (Exception e) {
-            System.err.println("Exception: " + e.getMessage()); //$NON-NLS-1$
+            System.err.println("Exception:" + e.getMessage());
+            e.printStackTrace();
         }
-        return null;
     }
 
-
-     public static boolean writeToFile(byte [] data, File file) {
-    	return writeToFile(new ByteArrayInputStream(data), file);
-    }
-
-    public static boolean writeToFile(InputStream data, File file) {
-
-        System.err.println("writing file:" + file.getAbsolutePath());
+  
 
 
-        try {
-        	if (!file.getParentFile().isDirectory()) {
-        		if (!file.getParentFile().mkdirs()) {
-                    log.log(Level.WARNING, "Failed to create new file: " + file);
-        			return false;
-        		}
-        	}
-
-        	int bufferSize = 8192;
-
-        	BufferedInputStream inputStream = new BufferedInputStream(data);
-        	FileOutputStream fileStream = new FileOutputStream(file);
-
-        	byte buffer [] = new byte[bufferSize];
-        	BufferedOutputStream dest = new BufferedOutputStream(fileStream, bufferSize);
-        	int count;
-
-        	while ((count = inputStream.read(buffer, 0, bufferSize)) != -1) {
-        		dest.write(buffer, 0, count);
-        	}
-
-        	inputStream.close();
-        	dest.close();
-
-        } catch (Exception e) {
-           log.log(Level.SEVERE, "Exception:"+ e.getMessage());
-            return false;
-        }
-        return true;
-    }
-
+  
 }

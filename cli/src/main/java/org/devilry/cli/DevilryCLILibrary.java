@@ -4,8 +4,11 @@
  */
 package org.devilry.cli;
 
+import java.util.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Properties;
@@ -38,7 +41,7 @@ public class DevilryCLILibrary {
 
     private void initializeServerConnection() throws Exception {
         log.info("initializeServerConnection");
-        serverConnection = getLocalServerConnection();
+        serverConnection = getRemoteServerConnection();
     }
 
     private boolean isServerInitialized() {
@@ -46,21 +49,20 @@ public class DevilryCLILibrary {
     }
 
 
+    private DeliveryRemote getDelivery(String deliveryPath) throws Exception {
 
-    public long addDelivery(String deliveryPath, String filePath, byte[] fileData) throws Exception {
-
-        if (!isServerInitialized()) {
+         if (!isServerInitialized()) {
             initializeServerConnection();
         }
 
-        System.err.println("addFile:" + deliveryPath + " file:" + filePath);
+       // System.err.println("addFile:" + deliveryPath + " file:" + filePath);
 
         TreeManagerRemote tm = getTreeManager();
 
         long deliveryId = tm.getNodeIdFromPath(deliveryPath);
-        System.err.println(deliveryPath + " id:" + deliveryId);
+        //System.err.println(deliveryPath + " id:" + deliveryId);
 
-        
+
         AssignmentNodeRemote assignMent = getRemoteBean(AssignmentNodeImpl.class);
         assignMent.init(tm.getNodeIdFromPath("uio.inf1000.spring2009.oblig1"));
 
@@ -78,15 +80,135 @@ public class DevilryCLILibrary {
         }
 
         DeliveryRemote delivery = getRemoteBean(DeliveryImpl.class);
-        System.err.println("deliveryID:" + deliveryID);
+        //System.err.println("deliveryID:" + deliveryID);
 
         delivery.init(deliveryID);
+
+        return delivery;
+    }
+
+
+    public long addDeliveryFile(String deliveryPath, String filePath, byte[] fileData) throws Exception {
+
+        DeliveryRemote delivery = getDelivery(deliveryPath);
 
         long deliveryCandidateId = delivery.addDeliveryCandidate();
 
         DeliveryCandidateRemote remoteBean = getRemoteBean(DeliveryCandidateImpl.class);
         remoteBean.init(deliveryCandidateId);
+
+        remoteBean.setDeliveryTime();
+
+        long fileId = addFileToDelivery(remoteBean, filePath, fileData);
+
+        return fileId;
+    }
+
+    
+    public List<Long> addDeliveryDir(String deliveryPath, File dir) throws Exception {
+
+        if (!dir.isDirectory()) {
+            throw new FileNotFoundException("Directory " + dir + " could not be found!");
+        }
+
+        File[] files = dir.listFiles();
+
+        if (files.length == 0) {
+            return new ArrayList<Long>();
+        }
+
+
+        DeliveryRemote delivery = getDelivery(deliveryPath);
+
+        System.err.println("New delivery registered to " + deliveryPath);
+        System.err.println("Following files are added to new delivery id:" + delivery.getId());
+
+        long deliveryCandidateId = delivery.addDeliveryCandidate();
+
+        DeliveryCandidateRemote remoteBean = getRemoteBean(DeliveryCandidateImpl.class);
+        remoteBean.init(deliveryCandidateId);
+
+        remoteBean.setDeliveryTime();
+
+        ArrayList<Long> fileIDs = new ArrayList<Long>();
+
+        Map <String, File> filesMap = getFileMap(dir);
         
+        ArrayList<String> keys = new ArrayList<String>();
+
+        Iterator<String> it = filesMap.keySet().iterator();
+
+        while (it.hasNext()) {
+            String filePath = it.next();
+            keys.add(filePath);
+        }
+
+        Collections.sort(keys);
+
+         for (int i = 0; i < keys.size(); i++) {
+
+            String filePath = keys.get(i);
+            File f = filesMap.get(filePath);
+
+            byte[] fileData = FileUtil.getFileAsByteArray(f);
+
+            long fileId = addFileToDelivery(remoteBean, filePath, fileData);
+
+            //System.err.println("File id:" + fileId + " size:"+ fileData.length + " " + filePath);
+
+            System.err.printf("File id:%5d size:%7d %s\n", + fileId, fileData.length, filePath);
+
+            fileIDs.add(fileId);
+         }
+
+        return fileIDs;
+    }
+
+    
+
+    Map <String, File> getFileMap(File dir) {
+
+        ArrayList <File> fileList = new ArrayList<File>();
+
+        addToFileMap(dir, fileList);
+
+        Map <String, File> fileMap = new HashMap <String, File>();
+
+        for (int i = 0; i < fileList.size(); i++) {
+            
+            File f = fileList.get(i);
+
+            String path = f.getAbsolutePath();
+            path = path.substring(dir.getAbsolutePath().length());
+            
+            fileMap.put(path, f);
+        }
+
+        return fileMap;
+    }
+
+    private void addToFileMap(File dir, ArrayList <File> fileList) {
+
+        if (dir.isDirectory()) {
+            File [] files = dir.listFiles();
+
+            for (int i = 0; i < files.length; i++) {
+                if (files[i].isDirectory()) {
+
+                     if (!files[i].getName().startsWith("."))
+                        addToFileMap(files[i], fileList);
+                }
+                else {
+
+                    if (!files[i].getName().startsWith("."))
+                         fileList.add(files[i]);
+                }
+            }
+        }
+    }
+
+    private long addFileToDelivery(DeliveryCandidateRemote remoteBean, String filePath, byte[] fileData) throws Exception {
+               
         long fileId = remoteBean.addFile(filePath);
         FileMetaRemote fileMeta = getRemoteBean(FileImpl.class);
         fileMeta.init(fileId);
@@ -97,9 +219,26 @@ public class DevilryCLILibrary {
         return fileId;
     }
 
+    /*
+    FileMetaRemote getLastDeliveryCandidateFile(String nodePath) throws Exception {
 
+        List<Long> fileIDs = remoteBean.getFileIds();
 
-     FileMetaRemote getLastDeliveryCandidateFile(String nodePath) throws Exception {
+        long fID = fileIDs.get(0);
+
+        System.err.println("FileID:" + fID);
+
+        FileMetaRemote remoteFileBean = getRemoteBean(FileImpl.class);
+        remoteFileBean.init(fID);
+
+        fileNames.add("Candiate " + cID + ":" + remoteFileBean.getFilePath());
+
+        return remoteFileBean;
+    }
+ */
+    
+
+     DeliveryCandidateRemote getLastDeliveryCandidate(String nodePath) throws Exception {
 
         if (!isServerInitialized()) {
             initializeServerConnection();
@@ -131,30 +270,15 @@ public class DevilryCLILibrary {
             return null;
         }
 
-
-        List<String> fileNames = new ArrayList<String>();
-
-        long cID = candidateIDs.get(candidateIDs.size() -1);
+         long cID = candidateIDs.get(candidateIDs.size() -1);
 
          System.err.println("CandiateID:" + cID);
 
          DeliveryCandidateRemote remoteBean = getRemoteBean(DeliveryCandidateImpl.class);
          remoteBean.init(cID);
 
-         List<Long> fileIDs = remoteBean.getFileIds();
-
-        long fID = fileIDs.get(0);
-
-         System.err.println("FileID:" + fID);
-
-         FileMetaRemote remoteFileBean = getRemoteBean(FileImpl.class);
-         remoteFileBean.init(fID);
-
-         fileNames.add("Candiate " + cID + ":" + remoteFileBean.getFilePath());
-
-        return remoteFileBean;
-
-    }
+         return remoteBean;
+     }
 
 
     List<String> getDeliveryCandidateFileList(String nodePath) throws Exception {
@@ -194,7 +318,7 @@ public class DevilryCLILibrary {
 
         for (long cID : candidateIDs) {
 
-            System.err.println("CandiateID:" + cID);
+           // System.err.println("CandiateID:" + cID);
 
             DeliveryCandidateRemote remoteBean = getRemoteBean(DeliveryCandidateImpl.class);
             remoteBean.init(cID);
@@ -203,7 +327,7 @@ public class DevilryCLILibrary {
 
             for (long fID : fileIDs) {
 
-                System.err.println("FileID:" + fID);
+                //System.err.println("Candiate " +cID + " FileID:" + fID);
 
                 FileMetaRemote remoteFileBean = getRemoteBean(FileImpl.class);
                 remoteFileBean.init(fID);
@@ -373,7 +497,7 @@ public class DevilryCLILibrary {
         return (E) serverConnection.lookup(beanImplClass.getSimpleName() + "Remote");
     }
 
-    public Context getLocalServerConnection() throws NamingException {
+    public Context getRemoteServerConnection1() throws NamingException {
         Properties p = new Properties();
 //
 //		// Embed openejb
@@ -393,4 +517,29 @@ public class DevilryCLILibrary {
 
         return new InitialContext(p);
     }
+
+    public Context getRemoteServerConnection() throws NamingException {
+		Properties p = new Properties();
+		p.put(Context.INITIAL_CONTEXT_FACTORY,
+				"org.apache.openejb.client.RemoteInitialContextFactory");
+		p.put(Context.PROVIDER_URL, "ejbd://127.0.0.1:4201");
+
+		return new InitialContext(p);
+	}
+
+    public Context getEmbeddedServerConnection() throws NamingException {
+		Properties p = new Properties();
+
+		// Embed openejb
+		p.put(Context.INITIAL_CONTEXT_FACTORY,
+				"org.apache.openejb.client.LocalInitialContextFactory");
+
+		// Set bean naming (JNDI) format
+		p.put("openejb.deploymentId.format",
+				"{ejbName}{interfaceType.annotationName}");
+		p.put("openejb.jndiname.format",
+				"{ejbName}{interfaceType.annotationName}");
+
+		return new InitialContext(p);
+	}
 }

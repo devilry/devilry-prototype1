@@ -1,5 +1,6 @@
 package org.devilry.core.entity;
 
+import java.util.Date;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -27,8 +28,6 @@ public class DeliveryCandidate implements Serializable {
 	
 	public DeliveryCandidate() {
 
-	}
-
 	public long getId() {
 		return id;
 	}
@@ -44,7 +43,7 @@ public class DeliveryCandidate implements Serializable {
 	public void setTimeOfDelivery(Date timeOfDelivery) {
 		this.timeOfDelivery = timeOfDelivery;
 	}
-	
+
 	public Delivery getDelivery() {
 		return delivery;
 	}
