@@ -7,9 +7,6 @@
 *~
 .DS_Store
 target/
-.classpath
-.project
-.settings/
 nbactions.xml
 *.vpp~*
 *.ipr
