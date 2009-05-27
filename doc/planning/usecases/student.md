@@ -1,0 +1,49 @@
+# Use cases for students
+
+
+## List deliveries grouped by course and period
+
+### Trigger
+
+The user requests a list of all it's deliveries.
+
+
+### Successful end condition
+
+The user receives a tree where the first/top-level is basic course info, the second level is basic period info,
+and the bottom level is basic delivery-info. Example (the actual result will provide more information on each level):
+
+> * inf1010
+>     * spring2020
+>         * oblig1
+>         * oblig2
+>     * spring2021
+>         * oblig1
+> * inf5750
+>     * spring2010
+>         * oblig1
+>         * oblig2
+>         * essay
+
+
+### Failed end condition
+
+This action does not fail because it is not possible to perform it when not authenticated with the JavaEE server,
+and when the user does not have any deliveries, the result will be an empty list/tree.
+
+
+### Primary actors
+
+Student
+
+
+### Main flow
+
+1. The student asks the system for a list of all of it's deliveries
+2. The system returns a list of all the deliveries where the student is one of the owners.
+
+
+## List active deliveries grouped by course and period
+
+This is almost the same as the goal *List deliveries grouped by course and period*. The difference is that the result
+only includes deliveries within periods containing the current date/time.

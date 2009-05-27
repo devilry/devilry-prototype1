@@ -15,15 +15,28 @@
   <packagedElement xmi:type="uml:Actor" xmi:id="_MQj6kEqYEd6Yu7Z8u2Iruw" name="Student">
     <generalization xmi:id="_iswv8EqaEd6Yu7Z8u2Iruw" general="_g6YzYEqaEd6Yu7Z8u2Iruw"/>
   </packagedElement>
-  <packagedElement xmi:type="uml:Component" xmi:id="_2OanIEqZEd6Yu7Z8u2Iruw" name="Devilry core" useCase="_T0zSoEqZEd6Yu7Z8u2Iruw _F4CnYEqaEd6Yu7Z8u2Iruw _KT7j4EqaEd6Yu7Z8u2Iruw _vptukEqaEd6Yu7Z8u2Iruw _9usFMEqaEd6Yu7Z8u2Iruw _Zuq-IEqbEd6Yu7Z8u2Iruw _cRUhEEqbEd6Yu7Z8u2Iruw _qdx_wEqbEd6Yu7Z8u2Iruw">
+  <packagedElement xmi:type="uml:Component" xmi:id="_2OanIEqZEd6Yu7Z8u2Iruw" name="Devilry core" useCase="_T0zSoEqZEd6Yu7Z8u2Iruw _F4CnYEqaEd6Yu7Z8u2Iruw _KT7j4EqaEd6Yu7Z8u2Iruw _vptukEqaEd6Yu7Z8u2Iruw _9usFMEqaEd6Yu7Z8u2Iruw _Zuq-IEqbEd6Yu7Z8u2Iruw _cRUhEEqbEd6Yu7Z8u2Iruw _qdx_wEqbEd6Yu7Z8u2Iruw _7a1SkEqiEd6Yu7Z8u2Iruw">
     <ownedUseCase xmi:id="_T0zSoEqZEd6Yu7Z8u2Iruw" name="List deliveries grouped by course and period" subject="_2OanIEqZEd6Yu7Z8u2Iruw"/>
     <ownedUseCase xmi:id="_F4CnYEqaEd6Yu7Z8u2Iruw" name="List active deliveries grouped by course and period" subject="_2OanIEqZEd6Yu7Z8u2Iruw"/>
-    <ownedUseCase xmi:id="_KT7j4EqaEd6Yu7Z8u2Iruw" name="Get a delivery" subject="_2OanIEqZEd6Yu7Z8u2Iruw"/>
-    <ownedUseCase xmi:id="_vptukEqaEd6Yu7Z8u2Iruw" name="List delivery candidates in ascending order by timestamp" subject="_2OanIEqZEd6Yu7Z8u2Iruw"/>
-    <ownedUseCase xmi:id="_9usFMEqaEd6Yu7Z8u2Iruw" name="List delivery candidates in descending order by timestamp" subject="_2OanIEqZEd6Yu7Z8u2Iruw"/>
-    <ownedUseCase xmi:id="_Zuq-IEqbEd6Yu7Z8u2Iruw" name="Get a delivery candidate" subject="_2OanIEqZEd6Yu7Z8u2Iruw"/>
-    <ownedUseCase xmi:id="_cRUhEEqbEd6Yu7Z8u2Iruw" name="Get latest delivery candidate on a given delivery" subject="_2OanIEqZEd6Yu7Z8u2Iruw"/>
-    <ownedUseCase xmi:id="_qdx_wEqbEd6Yu7Z8u2Iruw" name="Add delivery candidate to a delivery" subject="_2OanIEqZEd6Yu7Z8u2Iruw"/>
+    <ownedUseCase xmi:id="_KT7j4EqaEd6Yu7Z8u2Iruw" name="Get a delivery" subject="_2OanIEqZEd6Yu7Z8u2Iruw">
+      <include xmi:id="_L5KGMEqjEd6Yu7Z8u2Iruw" addition="_7a1SkEqiEd6Yu7Z8u2Iruw"/>
+    </ownedUseCase>
+    <ownedUseCase xmi:id="_vptukEqaEd6Yu7Z8u2Iruw" name="List delivery candidates on a delivery in ascending order by timestamp" subject="_2OanIEqZEd6Yu7Z8u2Iruw">
+      <include xmi:id="_Zjz4UEqjEd6Yu7Z8u2Iruw" addition="_7a1SkEqiEd6Yu7Z8u2Iruw"/>
+    </ownedUseCase>
+    <ownedUseCase xmi:id="_9usFMEqaEd6Yu7Z8u2Iruw" name="List delivery candidates on a delivery in descending order by timestamp" subject="_2OanIEqZEd6Yu7Z8u2Iruw">
+      <include xmi:id="_Z5Gy4EqjEd6Yu7Z8u2Iruw" addition="_7a1SkEqiEd6Yu7Z8u2Iruw"/>
+    </ownedUseCase>
+    <ownedUseCase xmi:id="_Zuq-IEqbEd6Yu7Z8u2Iruw" name="Get a delivery candidate" subject="_2OanIEqZEd6Yu7Z8u2Iruw">
+      <include xmi:id="_a8il0EqjEd6Yu7Z8u2Iruw" addition="_7a1SkEqiEd6Yu7Z8u2Iruw"/>
+    </ownedUseCase>
+    <ownedUseCase xmi:id="_cRUhEEqbEd6Yu7Z8u2Iruw" name="Get latest delivery candidate on a given delivery" subject="_2OanIEqZEd6Yu7Z8u2Iruw">
+      <include xmi:id="_bZ1l0EqjEd6Yu7Z8u2Iruw" addition="_7a1SkEqiEd6Yu7Z8u2Iruw"/>
+    </ownedUseCase>
+    <ownedUseCase xmi:id="_qdx_wEqbEd6Yu7Z8u2Iruw" name="Add delivery candidate to a delivery" subject="_2OanIEqZEd6Yu7Z8u2Iruw">
+      <include xmi:id="_b4R1UEqjEd6Yu7Z8u2Iruw" addition="_7a1SkEqiEd6Yu7Z8u2Iruw"/>
+    </ownedUseCase>
+    <ownedUseCase xmi:id="_7a1SkEqiEd6Yu7Z8u2Iruw" name="Check permission on the delivery" subject="_2OanIEqZEd6Yu7Z8u2Iruw"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Actor" xmi:id="_g6YzYEqaEd6Yu7Z8u2Iruw" name="User"/>
   <packagedElement xmi:type="uml:Association" xmi:id="_E9OTAEqcEd6Yu7Z8u2Iruw" memberEnd="_E9TLgEqcEd6Yu7Z8u2Iruw _E9TykkqcEd6Yu7Z8u2Iruw" navigableOwnedEnd="_E9TykkqcEd6Yu7Z8u2Iruw">
