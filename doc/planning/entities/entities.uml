@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<uml:Package xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/2.1.0/UML" xmi:id="_QzCbIEozEd6_X5Z1-LyYTA" name="Package">
+<uml:Package xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmi:id="_QzCbIEozEd6_X5Z1-LyYTA" name="Package">
   <elementImport xmi:id="_Q3Hp4EozEd6_X5Z1-LyYTA">
     <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
   </elementImport>
@@ -115,7 +115,7 @@
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_f6tdhEo2Ed6_X5Z1-LyYTA" value="1"/>
     </ownedEnd>
   </packagedElement>
-  <packagedElement xmi:type="uml:Association" xmi:id="_-2G-sEo2Ed6_X5Z1-LyYTA" name="CourseAdmins" memberEnd="_-2HlwEo2Ed6_X5Z1-LyYTA _-2Hlw0o2Ed6_X5Z1-LyYTA">
+  <packagedElement xmi:type="uml:Association" xmi:id="_-2G-sEo2Ed6_X5Z1-LyYTA" name="PeriodAdmins" memberEnd="_-2HlwEo2Ed6_X5Z1-LyYTA _-2Hlw0o2Ed6_X5Z1-LyYTA">
     <ownedEnd xmi:id="_-2HlwEo2Ed6_X5Z1-LyYTA" name="src" type="_dKM6MEo1Ed6_X5Z1-LyYTA" association="_-2G-sEo2Ed6_X5Z1-LyYTA">
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_-2Hlwko2Ed6_X5Z1-LyYTA" value="1"/>
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-2HlwUo2Ed6_X5Z1-LyYTA" value="1"/>
