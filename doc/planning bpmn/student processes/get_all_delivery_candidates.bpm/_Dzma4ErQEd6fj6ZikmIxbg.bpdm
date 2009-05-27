@@ -1,0 +1,112 @@
+﻿<bpel:process xmlns:bpdm="http://www.intalio/designer/business-process-data-modeling" xmlns:Student="http://thisdiagram/Student" xmlns:diag="http://thisdiagram" xmlns:bpel="http://schemas.xmlsoap.org/ws/2004/03/business-process/" xmlns:pnlk="http://schemas.xmlsoap.org/ws/2004/03/partner-link/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mapper="http://www.intalio.com/designer/mapper" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:this="http://thisdiagram/Devilry_core" targetNamespace="http://thisdiagram/Devilry_core">
+    <bpdm:dependencies version="5100011">
+        <bpdm:namespaceDefinition bpdm:uri="http://thisdiagram/Devilry_core" bpdm:prefix="this" bpdm:type="this_process"></bpdm:namespaceDefinition>
+        <bpdm:namespaceDefinition bpdm:uri="http://www.w3.org/2001/XMLSchema" bpdm:prefix="xs"></bpdm:namespaceDefinition>
+        <bpdm:namespaceDefinition bpdm:uri="http://thisdiagram/Student" bpdm:prefix="Student" bpdm:comment="contrib=&apos;partner-pool:///_OjwcsErOEd6fj6ZikmIxbg"></bpdm:namespaceDefinition>
+        <bpdm:namespaceDefinition bpdm:uri="http://thisdiagram" bpdm:prefix="diag" bpdm:comment="contrib=&apos;partner-pool:///_OjwcsErOEd6fj6ZikmIxbg"></bpdm:namespaceDefinition>
+        <bpdm:namespaceContributor bpdm:url="thisprocess://this-process-types" bpdm:label="process defined this-process-types">
+            <wsdl:portType name="ForStudent">
+                <wsdl:operation name="Receive_request_for_all_deliveries" bpdm:source="partner-pool:///_OjwcsErOEd6fj6ZikmIxbg">
+                    <wsdl:input message="this:Receive_request_for_all_deliveriesRequest" name="Receive_request_for_all_deliveries"/>
+                </wsdl:operation>
+            </wsdl:portType>
+            <xs:element name="Receive_request_for_all_deliveriesRequest" type="xs:string" bpdm:source="partner-pool:///_OjwcsErOEd6fj6ZikmIxbg"/>
+            <wsdl:message name="Receive_request_for_all_deliveriesRequest" bpdm:source="partner-pool:///_OjwcsErOEd6fj6ZikmIxbg">
+                <wsdl:part name="body" element="this:Receive_request_for_all_deliveriesRequest"/>
+            </wsdl:message>
+            <bpel:binding name="CanonicBindingForStudent" type="this:ForStudent" bpdm:isSynchronized="true"/>
+        </bpdm:namespaceContributor>
+        <bpdm:namespaceContributor bpdm:url="partner-pool:///_OjwcsErOEd6fj6ZikmIxbg" bpdm:label="Student"/>
+    </bpdm:dependencies>
+    <bpel:scope bpdm:label="Devilry core" bpdm:ID="_Dzma4ErQEd6fj6ZikmIxbg">
+        <bpel:partnerLinks>
+            <bpel:partnerLink name="studentAndDevilry_corePlkVar" partnerLinkType="diag:StudentAndDevilry_core" initializePartnerRole="true" myRole="Devilry_core_for_Student" bpdm:providedService="this:CanonicServiceForStudent" bpdm:providedPort="canonicPort" bpdm:provideSOAPAddress="${deploy_serverUrl}${deploy_baseSoapServicesUrl}/${deploy_bundleNcName}/${diagram_relativeURL}/Devilry_core/Student" bpdm:providedIsDefault="true" partnerRole="Student_for_Devilry_core" bpdm:invokedService="Student:CanonicServiceForDevilry_core" bpdm:invokedPort="canonicPort" bpdm:invokedSOAPAddress="${deploy_serverUrl}${deploy_baseSoapServicesUrl}/${deploy_bundleNcName}/${diagram_relativeURL}/Student/Devilry_core" bpdm:invokedIsDefault="true" bpdm:clientTasks="_Dzma4ErQEd6fj6ZikmIxbg:_85k9IErREd6fj6ZikmIxbg, _Dzma4ErQEd6fj6ZikmIxbg:_ZZLcMErQEd6fj6ZikmIxbg" bpdm:isManaged="true" bpdm:otherPoolId="_OjwcsErOEd6fj6ZikmIxbg"/>
+        </bpel:partnerLinks>
+        <bpel:variables>
+            <bpel:variable name="thisReceive_request_for_all_deliveriesRequestMsg" messageType="this:Receive_request_for_all_deliveriesRequest" bpdm:id="_qbjYEErQEd6fj6ZikmIxbg" bpdm:messageIds="inc:_qa_-cErQEd6fj6ZikmIxbg"/>
+            <bpel:variable name="studentReceive_list_of_deliveriesRequestMsg" messageType="Student:Receive_list_of_deliveriesRequest" bpdm:id="_PNbH8ErSEd6fj6ZikmIxbg" bpdm:messageIds=" out:_PNW2gErSEd6fj6ZikmIxbg">
+                <bpel:from bpdm:toPart="body">
+                    <bpel:literal bpdm:linkedMessageType="Student:Receive_list_of_deliveriesRequest" bpdm:linkedPart="body"></bpel:literal>
+                </bpel:from>
+            </bpel:variable>
+        </bpel:variables>
+        <bpel:sequence>
+            <bpdm:messagingtask eventType="start: empty" bpdm:label="EventStartEmpty" bpdm:ID="_RNWDMErQEd6fj6ZikmIxbg"></bpdm:messagingtask>
+            <bpdm:messagingtask operation="Receive_request_for_all_deliveries" partnerLink="studentAndDevilry_corePlkVar" portType="this:ForStudent" isMyRole="true" bpdm:label="Receive request for all deliveries" bpdm:ID="_ZZLcMErQEd6fj6ZikmIxbg">
+                <bpdm:linkset bpdm:type="incomingMessage" bpdm:bpeltype="receive" bpdm:messageVariable="thisReceive_request_for_all_deliveriesRequestMsg" bpdm:msgVarScopeId="_Dzma4ErQEd6fj6ZikmIxbg" bpdm:variableIsManaged="true" bpdm:messageType="this:Receive_request_for_all_deliveriesRequest" bpdm:ID="_qa_-cErQEd6fj6ZikmIxbg"></bpdm:linkset>
+            </bpdm:messagingtask>
+            <bpdm:messagingtask bpdm:label="Query the database for all deliveries owned by the student" bpdm:ID="_DCl_QErREd6fj6ZikmIxbg"></bpdm:messagingtask>
+            <bpdm:gateway bpdm:label="More unprocessed deliveries?" bpdm:ID="_pO9FQErUEd6fj6ZikmIxbg" bpdm:gatewayType="data_xor">
+                <bpdm:linkset bpdm:type="case" bpdm:default="false" bpdm:ID="_y9PvgErUEd6fj6ZikmIxbg" bpdm:targetDisplayName="No"></bpdm:linkset>
+                <bpdm:linkset bpdm:type="case" bpdm:default="false" bpdm:ID="_bQsvwErWEd6fj6ZikmIxbg" bpdm:targetDisplayName="yes"></bpdm:linkset>
+                <bpel:sequence>
+                    <bpdm:messagingtask operation="Receive_list_of_deliveries" partnerLink="studentAndDevilry_corePlkVar" portType="Student:ForDevilry_core" isMyRole="false" bpdm:label="Send tree of deliveries" bpdm:ID="_85k9IErREd6fj6ZikmIxbg">
+                        <bpdm:linkset bpdm:type="outgoingMessage" bpdm:bpeltype="invoke-request" bpdm:messageVariable="studentReceive_list_of_deliveriesRequestMsg" bpdm:msgVarScopeId="_Dzma4ErQEd6fj6ZikmIxbg" bpdm:variableIsManaged="true" bpdm:messageType="Student:Receive_list_of_deliveriesRequest" bpdm:ID="_PNW2gErSEd6fj6ZikmIxbg"></bpdm:linkset>
+                    </bpdm:messagingtask>
+                    <bpdm:messagingtask eventType="end: empty" bpdm:label="EventEndEmpty" bpdm:ID="_SeyLAErSEd6fj6ZikmIxbg"></bpdm:messagingtask>
+                </bpel:sequence>
+                <bpel:sequence>
+                    <bpdm:messagingtask bpdm:label="Select next unprocessed delivery" bpdm:ID="_JkDH0UrWEd6fj6ZikmIxbg"></bpdm:messagingtask>
+                    <bpdm:gateway bpdm:label="Course in result tree?" bpdm:ID="_JkDH1ErWEd6fj6ZikmIxbg" bpdm:gatewayType="data_xor">
+                        <bpdm:linkset bpdm:type="case" bpdm:default="false" bpdm:ID="_MwVdoErWEd6fj6ZikmIxbg" bpdm:targetDisplayName="yes"></bpdm:linkset>
+                        <bpdm:linkset bpdm:type="case" bpdm:default="false" bpdm:ID="_NDaxsErWEd6fj6ZikmIxbg" bpdm:targetDisplayName="no"></bpdm:linkset>
+                        <bpel:sequence>
+                        </bpel:sequence>
+                        <bpel:sequence>
+                            <bpdm:messagingtask bpdm:label="Add course to the to level in the result tree" bpdm:ID="_JkDH00rWEd6fj6ZikmIxbg"></bpdm:messagingtask>
+                        </bpel:sequence>
+                    </bpdm:gateway>
+                    <bpdm:messagingtask bpdm:label="Locate period where the delivery belongs" bpdm:ID="_JkDH0krWEd6fj6ZikmIxbg"></bpdm:messagingtask>
+                    <bpdm:gateway bpdm:label="Period in result tree?" bpdm:ID="_X_NhIErnEd6fj6ZikmIxbg" bpdm:gatewayType="data_xor">
+                        <bpdm:linkset bpdm:type="case" bpdm:default="false" bpdm:ID="_b7ODsErnEd6fj6ZikmIxbg" bpdm:targetDisplayName="[Period in result tree? - Add the period below its course in the result tree]"></bpdm:linkset>
+                        <bpdm:linkset bpdm:type="case" bpdm:default="false" bpdm:ID="_zpvugErnEd6fj6ZikmIxbg" bpdm:targetDisplayName="[Period in result tree? - Add the delivery to the result tree  below its period]"></bpdm:linkset>
+                        <bpel:sequence>
+                        </bpel:sequence>
+                        <bpel:sequence>
+                            <bpdm:messagingtask bpdm:label="Add the period below its course in the result tree" bpdm:ID="_b7Fg0ErnEd6fj6ZikmIxbg"></bpdm:messagingtask>
+                        </bpel:sequence>
+                    </bpdm:gateway>
+                    <bpdm:messagingtask bpdm:label="Add the delivery to the result tree  below its period" bpdm:ID="_zpq2AErnEd6fj6ZikmIxbg"></bpdm:messagingtask>
+                    <bpdm:messagingtask eventType="intermediate: empty" bpdm:label="Link A" bpdm:ID="_tJCQAErmEd6fj6ZikmIxbg"></bpdm:messagingtask>
+                </bpel:sequence>
+            </bpdm:gateway>
+        </bpel:sequence>
+        <bpel:sequence>
+            <bpdm:messagingtask eventType="intermediate: empty" bpdm:label="Link A" bpdm:ID="_NZ22kEroEd6fj6ZikmIxbg"></bpdm:messagingtask>
+            <bpdm:gateway bpdm:label="More unprocessed deliveries?" bpdm:ID="_pO9FQErUEd6fj6ZikmIxbg" bpdm:gatewayType="data_xor">
+                <bpdm:linkset bpdm:type="case" bpdm:default="false" bpdm:ID="_y9PvgErUEd6fj6ZikmIxbg" bpdm:targetDisplayName="No"></bpdm:linkset>
+                <bpdm:linkset bpdm:type="case" bpdm:default="false" bpdm:ID="_bQsvwErWEd6fj6ZikmIxbg" bpdm:targetDisplayName="yes"></bpdm:linkset>
+                <bpel:sequence>
+                    <bpdm:messagingtask operation="Receive_list_of_deliveries" partnerLink="studentAndDevilry_corePlkVar" portType="Student:ForDevilry_core" isMyRole="false" bpdm:label="Send tree of deliveries" bpdm:ID="_85k9IErREd6fj6ZikmIxbg">
+                        <bpdm:linkset bpdm:type="outgoingMessage" bpdm:bpeltype="invoke-request" bpdm:messageVariable="studentReceive_list_of_deliveriesRequestMsg" bpdm:msgVarScopeId="_Dzma4ErQEd6fj6ZikmIxbg" bpdm:variableIsManaged="true" bpdm:messageType="Student:Receive_list_of_deliveriesRequest" bpdm:ID="_PNW2gErSEd6fj6ZikmIxbg"></bpdm:linkset>
+                    </bpdm:messagingtask>
+                    <bpdm:messagingtask eventType="end: empty" bpdm:label="EventEndEmpty" bpdm:ID="_SeyLAErSEd6fj6ZikmIxbg"></bpdm:messagingtask>
+                </bpel:sequence>
+                <bpel:sequence>
+                    <bpdm:messagingtask bpdm:label="Select next unprocessed delivery" bpdm:ID="_JkDH0UrWEd6fj6ZikmIxbg"></bpdm:messagingtask>
+                    <bpdm:gateway bpdm:label="Course in result tree?" bpdm:ID="_JkDH1ErWEd6fj6ZikmIxbg" bpdm:gatewayType="data_xor">
+                        <bpdm:linkset bpdm:type="case" bpdm:default="false" bpdm:ID="_MwVdoErWEd6fj6ZikmIxbg" bpdm:targetDisplayName="yes"></bpdm:linkset>
+                        <bpdm:linkset bpdm:type="case" bpdm:default="false" bpdm:ID="_NDaxsErWEd6fj6ZikmIxbg" bpdm:targetDisplayName="no"></bpdm:linkset>
+                        <bpel:sequence>
+                        </bpel:sequence>
+                        <bpel:sequence>
+                            <bpdm:messagingtask bpdm:label="Add course to the to level in the result tree" bpdm:ID="_JkDH00rWEd6fj6ZikmIxbg"></bpdm:messagingtask>
+                        </bpel:sequence>
+                    </bpdm:gateway>
+                    <bpdm:messagingtask bpdm:label="Locate period where the delivery belongs" bpdm:ID="_JkDH0krWEd6fj6ZikmIxbg"></bpdm:messagingtask>
+                    <bpdm:gateway bpdm:label="Period in result tree?" bpdm:ID="_X_NhIErnEd6fj6ZikmIxbg" bpdm:gatewayType="data_xor">
+                        <bpdm:linkset bpdm:type="case" bpdm:default="false" bpdm:ID="_b7ODsErnEd6fj6ZikmIxbg" bpdm:targetDisplayName="[Period in result tree? - Add the period below its course in the result tree]"></bpdm:linkset>
+                        <bpdm:linkset bpdm:type="case" bpdm:default="false" bpdm:ID="_zpvugErnEd6fj6ZikmIxbg" bpdm:targetDisplayName="[Period in result tree? - Add the delivery to the result tree  below its period]"></bpdm:linkset>
+                        <bpel:sequence>
+                        </bpel:sequence>
+                        <bpel:sequence>
+                            <bpdm:messagingtask bpdm:label="Add the period below its course in the result tree" bpdm:ID="_b7Fg0ErnEd6fj6ZikmIxbg"></bpdm:messagingtask>
+                        </bpel:sequence>
+                    </bpdm:gateway>
+                    <bpdm:messagingtask bpdm:label="Add the delivery to the result tree  below its period" bpdm:ID="_zpq2AErnEd6fj6ZikmIxbg"></bpdm:messagingtask>
+                    <bpdm:messagingtask eventType="intermediate: empty" bpdm:label="Link A" bpdm:ID="_tJCQAErmEd6fj6ZikmIxbg"></bpdm:messagingtask>
+                </bpel:sequence>
+            </bpdm:gateway>
+        </bpel:sequence>
+    </bpel:scope>
+</bpel:process>

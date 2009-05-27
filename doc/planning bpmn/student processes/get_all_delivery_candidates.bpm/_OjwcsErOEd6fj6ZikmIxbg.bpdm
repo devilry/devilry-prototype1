@@ -1,0 +1,44 @@
+﻿<bpel:process xmlns:bpdm="http://www.intalio/designer/business-process-data-modeling" xmlns:diag="http://thisdiagram" xmlns:bpel="http://schemas.xmlsoap.org/ws/2004/03/business-process/" xmlns:Devilry_core="http://thisdiagram/Devilry_core" xmlns:pnlk="http://schemas.xmlsoap.org/ws/2004/03/partner-link/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mapper="http://www.intalio.com/designer/mapper" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:this="http://thisdiagram/Student" targetNamespace="http://thisdiagram/Student">
+    <bpdm:dependencies version="5100011">
+        <bpdm:namespaceDefinition bpdm:uri="http://thisdiagram/Devilry_core" bpdm:prefix="Devilry_core" bpdm:comment="contrib=&apos;partner-pool:///_Dzma4ErQEd6fj6ZikmIxbg"></bpdm:namespaceDefinition>
+        <bpdm:namespaceDefinition bpdm:uri="http://www.w3.org/2001/XMLSchema" bpdm:prefix="xs"></bpdm:namespaceDefinition>
+        <bpdm:namespaceDefinition bpdm:uri="http://thisdiagram/Student" bpdm:prefix="this" bpdm:type="this_process"></bpdm:namespaceDefinition>
+        <bpdm:namespaceDefinition bpdm:uri="http://thisdiagram" bpdm:prefix="diag" bpdm:comment="contrib=&apos;partner-pool:///_Dzma4ErQEd6fj6ZikmIxbg"></bpdm:namespaceDefinition>
+        <bpdm:namespaceContributor bpdm:url="thisprocess://this-process-types" bpdm:label="process defined this-process-types">
+            <wsdl:portType name="ForDevilry_core">
+                <wsdl:operation name="Receive_list_of_deliveries" bpdm:source="partner-pool:///_Dzma4ErQEd6fj6ZikmIxbg">
+                    <wsdl:input message="this:Receive_list_of_deliveriesRequest" name="Receive_list_of_deliveries"/>
+                </wsdl:operation>
+            </wsdl:portType>
+            <xs:element name="Receive_list_of_deliveriesRequest" type="xs:string" bpdm:source="partner-pool:///_Dzma4ErQEd6fj6ZikmIxbg"/>
+            <wsdl:message name="Receive_list_of_deliveriesRequest" bpdm:source="partner-pool:///_Dzma4ErQEd6fj6ZikmIxbg">
+                <wsdl:part name="body" element="this:Receive_list_of_deliveriesRequest"/>
+            </wsdl:message>
+            <bpel:binding name="CanonicBindingForDevilry_core" type="this:ForDevilry_core" bpdm:isSynchronized="true"/>
+        </bpdm:namespaceContributor>
+        <bpdm:namespaceContributor bpdm:url="partner-pool:///_Dzma4ErQEd6fj6ZikmIxbg" bpdm:label="Devilry core"/>
+    </bpdm:dependencies>
+    <bpel:scope bpdm:label="Student" bpdm:ID="_OjwcsErOEd6fj6ZikmIxbg">
+        <bpel:partnerLinks>
+            <bpel:partnerLink name="studentAndDevilry_corePlkVar" partnerLinkType="diag:StudentAndDevilry_core" initializePartnerRole="true" myRole="Student_for_Devilry_core" bpdm:providedService="this:CanonicServiceForDevilry_core" bpdm:providedPort="canonicPort" bpdm:provideSOAPAddress="${deploy_serverUrl}${deploy_baseSoapServicesUrl}/${deploy_bundleNcName}/${diagram_relativeURL}/Student/Devilry_core" bpdm:providedIsDefault="true" partnerRole="Devilry_core_for_Student" bpdm:invokedService="Devilry_core:CanonicServiceForStudent" bpdm:invokedPort="canonicPort" bpdm:invokedSOAPAddress="${deploy_serverUrl}${deploy_baseSoapServicesUrl}/${deploy_bundleNcName}/${diagram_relativeURL}/Devilry_core/Student" bpdm:invokedIsDefault="true" bpdm:clientTasks="_OjwcsErOEd6fj6ZikmIxbg:__2sD8ErQEd6fj6ZikmIxbg, _OjwcsErOEd6fj6ZikmIxbg:_T7xYUErQEd6fj6ZikmIxbg" bpdm:isManaged="true" bpdm:otherPoolId="_Dzma4ErQEd6fj6ZikmIxbg"/>
+        </bpel:partnerLinks>
+        <bpel:variables>
+            <bpel:variable name="devilry_coreReceive_request_for_all_deliveriesRequestMsg" messageType="Devilry_core:Receive_request_for_all_deliveriesRequest" bpdm:id="_qbcDUErQEd6fj6ZikmIxbg" bpdm:messageIds=" out:_qa_-cErQEd6fj6ZikmIxbg">
+                <bpel:from bpdm:toPart="body">
+                    <bpel:literal bpdm:linkedMessageType="Devilry_core:Receive_request_for_all_deliveriesRequest" bpdm:linkedPart="body"></bpel:literal>
+                </bpel:from>
+            </bpel:variable>
+            <bpel:variable name="thisReceive_list_of_deliveriesRequestMsg" messageType="this:Receive_list_of_deliveriesRequest" bpdm:id="_PNh1oErSEd6fj6ZikmIxbg" bpdm:messageIds="inc:_PNW2gErSEd6fj6ZikmIxbg"/>
+        </bpel:variables>
+        <bpel:sequence>
+            <bpdm:messagingtask eventType="start: empty" bpdm:label="Student wants overwiev of his/her deliveries" bpdm:ID="_qAs6AErOEd6fj6ZikmIxbg"></bpdm:messagingtask>
+            <bpdm:messagingtask operation="Receive_request_for_all_deliveries" partnerLink="studentAndDevilry_corePlkVar" portType="Devilry_core:ForStudent" isMyRole="false" bpdm:label="Send request for all deliveries" bpdm:ID="_T7xYUErQEd6fj6ZikmIxbg">
+                <bpdm:linkset bpdm:type="outgoingMessage" bpdm:bpeltype="invoke-request" bpdm:messageVariable="devilry_coreReceive_request_for_all_deliveriesRequestMsg" bpdm:msgVarScopeId="_OjwcsErOEd6fj6ZikmIxbg" bpdm:variableIsManaged="true" bpdm:messageType="Devilry_core:Receive_request_for_all_deliveriesRequest" bpdm:ID="_qa_-cErQEd6fj6ZikmIxbg"></bpdm:linkset>
+            </bpdm:messagingtask>
+            <bpdm:messagingtask operation="Receive_list_of_deliveries" partnerLink="studentAndDevilry_corePlkVar" portType="this:ForDevilry_core" isMyRole="true" bpdm:label="Receive list of deliveries" bpdm:ID="__2sD8ErQEd6fj6ZikmIxbg">
+                <bpdm:linkset bpdm:type="incomingMessage" bpdm:bpeltype="receive" bpdm:messageVariable="thisReceive_list_of_deliveriesRequestMsg" bpdm:msgVarScopeId="_OjwcsErOEd6fj6ZikmIxbg" bpdm:variableIsManaged="true" bpdm:messageType="this:Receive_list_of_deliveriesRequest" bpdm:ID="_PNW2gErSEd6fj6ZikmIxbg"></bpdm:linkset>
+            </bpdm:messagingtask>
+            <bpdm:messagingtask eventType="end: empty" bpdm:label="EventEndEmpty" bpdm:ID="_YdC5MErSEd6fj6ZikmIxbg"></bpdm:messagingtask>
+        </bpel:sequence>
+    </bpel:scope>
+</bpel:process>

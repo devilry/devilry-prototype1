@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:BpmnDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:bpmn="http://stp.eclipse.org/bpmn" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmi:id="_Oi79UErOEd6fj6ZikmIxbg" iD="_Oi6IIErOEd6fj6ZikmIxbg">
+  <pools xmi:type="bpmn:Pool" xmi:id="_OjxDwErOEd6fj6ZikmIxbg" iD="_OjwcsErOEd6fj6ZikmIxbg" name="Student">
+    <artifacts xmi:type="bpmn:DataObject" xmi:id="_qbcDUUrQEd6fj6ZikmIxbg" iD="_qbcDUErQEd6fj6ZikmIxbg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_qbcqYErQEd6fj6ZikmIxbg" source="attachedDataobject">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_qbcqYUrQEd6fj6ZikmIxbg" key="isBpelDeclaration" value="true"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_qbftsErQEd6fj6ZikmIxbg" key="defaultDeclarationName" value="devilry_coreReceive_request_for_all_deliveriesRequestMsg"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_qbhi4ErQEd6fj6ZikmIxbg" key="douri2" value="builtin:///diagram?wsdlmessage={http://thisdiagram/Devilry_core}Receive_request_for_all_deliveriesRequest"/>
+      </eAnnotations>
+      <associations xmi:type="bpmn:Association" xmi:id="_qbftsUrQEd6fj6ZikmIxbg" direction="To" target="_T7xYUUrQEd6fj6ZikmIxbg">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_qbgUwErQEd6fj6ZikmIxbg" source="dataObjectAssociationTypeSource">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_qbg70ErQEd6fj6ZikmIxbg" key="dataObjectAssociationTypeValue" value="outgoingMesssageVariable"/>
+        </eAnnotations>
+      </associations>
+    </artifacts>
+    <artifacts xmi:type="bpmn:DataObject" xmi:id="_PNh1oUrSEd6fj6ZikmIxbg" iD="_PNh1oErSEd6fj6ZikmIxbg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_PNh1okrSEd6fj6ZikmIxbg" source="attachedDataobject">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_PNh1o0rSEd6fj6ZikmIxbg" key="isBpelDeclaration" value="true"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_PNmuIkrSEd6fj6ZikmIxbg" key="defaultDeclarationName" value="thisReceive_list_of_deliveriesRequestMsg"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_PNpxcUrSEd6fj6ZikmIxbg" key="douri2" value="builtin:///diagram?wsdlmessage={http://thisdiagram/Student}Receive_list_of_deliveriesRequest"/>
+      </eAnnotations>
+      <associations xmi:type="bpmn:Association" xmi:id="_PNn8QErSEd6fj6ZikmIxbg" direction="From" target="__2sD8UrQEd6fj6ZikmIxbg">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_PNojUErSEd6fj6ZikmIxbg" source="dataObjectAssociationTypeSource">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_PNpxcErSEd6fj6ZikmIxbg" key="dataObjectAssociationTypeValue" value="incomingMesssageVariable"/>
+        </eAnnotations>
+      </associations>
+    </artifacts>
+    <vertices xmi:type="bpmn:Activity" xmi:id="_qAs6AUrOEd6fj6ZikmIxbg" iD="_qAs6AErOEd6fj6ZikmIxbg" outgoingEdges="_pMI-oUrQEd6fj6ZikmIxbg" name="Student wants overwiev of his/her deliveries" activityType="EventStartEmpty"/>
+    <vertices xmi:type="bpmn:Activity" xmi:id="_T7xYUUrQEd6fj6ZikmIxbg" iD="_T7xYUErQEd6fj6ZikmIxbg" associations="_qbftsUrQEd6fj6ZikmIxbg" outgoingEdges="__2wVYUrQEd6fj6ZikmIxbg" incomingEdges="_pMI-oUrQEd6fj6ZikmIxbg" name="Send request for all deliveries">
+      <outgoingMessages xmi:type="bpmn:MessagingEdge" href="#_qa_-cUrQEd6fj6ZikmIxbg"/>
+    </vertices>
+    <vertices xmi:type="bpmn:Activity" xmi:id="__2sD8UrQEd6fj6ZikmIxbg" iD="__2sD8ErQEd6fj6ZikmIxbg" associations="_PNn8QErSEd6fj6ZikmIxbg" outgoingEdges="_YdHxsUrSEd6fj6ZikmIxbg" incomingEdges="__2wVYUrQEd6fj6ZikmIxbg" name="Receive list of deliveries" activityType="Task">
+      <incomingMessages xmi:type="bpmn:MessagingEdge" href="#_PNW2gUrSEd6fj6ZikmIxbg"/>
+    </vertices>
+    <vertices xmi:type="bpmn:Activity" xmi:id="_YdC5MUrSEd6fj6ZikmIxbg" iD="_YdC5MErSEd6fj6ZikmIxbg" incomingEdges="_YdHxsUrSEd6fj6ZikmIxbg" activityType="EventEndEmpty"/>
+    <sequenceEdges xmi:type="bpmn:SequenceEdge" xmi:id="_pMI-oUrQEd6fj6ZikmIxbg" iD="_pMI-oErQEd6fj6ZikmIxbg" source="_qAs6AUrOEd6fj6ZikmIxbg" target="_T7xYUUrQEd6fj6ZikmIxbg"/>
+    <sequenceEdges xmi:type="bpmn:SequenceEdge" xmi:id="__2wVYUrQEd6fj6ZikmIxbg" iD="__2wVYErQEd6fj6ZikmIxbg" source="_T7xYUUrQEd6fj6ZikmIxbg" target="__2sD8UrQEd6fj6ZikmIxbg"/>
+    <sequenceEdges xmi:type="bpmn:SequenceEdge" xmi:id="_YdHxsUrSEd6fj6ZikmIxbg" iD="_YdHxsErSEd6fj6ZikmIxbg" source="__2sD8UrQEd6fj6ZikmIxbg" target="_YdC5MUrSEd6fj6ZikmIxbg"/>
+  </pools>
+  <pools xmi:type="bpmn:Pool" xmi:id="_Dzma4UrQEd6fj6ZikmIxbg" iD="_Dzma4ErQEd6fj6ZikmIxbg" name="Devilry core">
+    <artifacts xmi:type="bpmn:DataObject" xmi:id="_qbjYEUrQEd6fj6ZikmIxbg" iD="_qbjYEErQEd6fj6ZikmIxbg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_qbjYEkrQEd6fj6ZikmIxbg" source="attachedDataobject">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_qbjYE0rQEd6fj6ZikmIxbg" key="isBpelDeclaration" value="true"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_qbkmMkrQEd6fj6ZikmIxbg" key="defaultDeclarationName" value="thisReceive_request_for_all_deliveriesRequestMsg"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_qbl0UUrQEd6fj6ZikmIxbg" key="douri2" value="builtin:///diagram?wsdlmessage={http://thisdiagram/Devilry_core}Receive_request_for_all_deliveriesRequest"/>
+      </eAnnotations>
+      <associations xmi:type="bpmn:Association" xmi:id="_qblNQErQEd6fj6ZikmIxbg" direction="From" target="_ZZLcMUrQEd6fj6ZikmIxbg">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_qblNQUrQEd6fj6ZikmIxbg" source="dataObjectAssociationTypeSource">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_qbl0UErQEd6fj6ZikmIxbg" key="dataObjectAssociationTypeValue" value="incomingMesssageVariable"/>
+        </eAnnotations>
+      </associations>
+    </artifacts>
+    <artifacts xmi:type="bpmn:DataObject" xmi:id="_PNbH8UrSEd6fj6ZikmIxbg" iD="_PNbH8ErSEd6fj6ZikmIxbg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_PNbH8krSEd6fj6ZikmIxbg" source="attachedDataobject">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_PNbH80rSEd6fj6ZikmIxbg" key="isBpelDeclaration" value="true"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_PNdkMkrSEd6fj6ZikmIxbg" key="defaultDeclarationName" value="studentReceive_list_of_deliveriesRequestMsg"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_PNhOkErSEd6fj6ZikmIxbg" key="douri2" value="builtin:///diagram?wsdlmessage={http://thisdiagram/Student}Receive_list_of_deliveriesRequest"/>
+      </eAnnotations>
+      <associations xmi:type="bpmn:Association" xmi:id="_PNeyUErSEd6fj6ZikmIxbg" direction="To" target="_85k9IUrREd6fj6ZikmIxbg">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_PNgAcErSEd6fj6ZikmIxbg" source="dataObjectAssociationTypeSource">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_PNgngErSEd6fj6ZikmIxbg" key="dataObjectAssociationTypeValue" value="outgoingMesssageVariable"/>
+        </eAnnotations>
+      </associations>
+    </artifacts>
+    <vertices xmi:type="bpmn:Activity" xmi:id="_RNWDMUrQEd6fj6ZikmIxbg" iD="_RNWDMErQEd6fj6ZikmIxbg" outgoingEdges="_xka4MUrQEd6fj6ZikmIxbg" activityType="EventStartEmpty"/>
+    <vertices xmi:type="bpmn:Activity" xmi:id="_ZZLcMUrQEd6fj6ZikmIxbg" iD="_ZZLcMErQEd6fj6ZikmIxbg" associations="_qblNQErQEd6fj6ZikmIxbg" outgoingEdges="_DCqQsUrREd6fj6ZikmIxbg" incomingEdges="_xka4MUrQEd6fj6ZikmIxbg" name="Receive request for all deliveries">
+      <incomingMessages xmi:type="bpmn:MessagingEdge" href="#_qa_-cUrQEd6fj6ZikmIxbg"/>
+    </vertices>
+    <vertices xmi:type="bpmn:Activity" xmi:id="_DCl_QUrREd6fj6ZikmIxbg" iD="_DCl_QErREd6fj6ZikmIxbg" outgoingEdges="_vgQUIUroEd6fj6ZikmIxbg" incomingEdges="_DCqQsUrREd6fj6ZikmIxbg" name="Query the database for all deliveries owned by the student" activityType="Task"/>
+    <vertices xmi:type="bpmn:Activity" xmi:id="_85k9IUrREd6fj6ZikmIxbg" iD="_85k9IErREd6fj6ZikmIxbg" associations="_PNeyUErSEd6fj6ZikmIxbg" outgoingEdges="_Se44sUrSEd6fj6ZikmIxbg" incomingEdges="_y9PvgUrUEd6fj6ZikmIxbg" name="Send tree of deliveries">
+      <outgoingMessages xmi:type="bpmn:MessagingEdge" href="#_PNW2gUrSEd6fj6ZikmIxbg"/>
+    </vertices>
+    <vertices xmi:type="bpmn:Activity" xmi:id="_SeyLAUrSEd6fj6ZikmIxbg" iD="_SeyLAErSEd6fj6ZikmIxbg" incomingEdges="_Se44sUrSEd6fj6ZikmIxbg" activityType="EventEndEmpty"/>
+    <vertices xmi:type="bpmn:Activity" xmi:id="_pO9FQUrUEd6fj6ZikmIxbg" iD="_pO9FQErUEd6fj6ZikmIxbg" outgoingEdges="_y9PvgUrUEd6fj6ZikmIxbg _bQsvwUrWEd6fj6ZikmIxbg" incomingEdges="_vgQUIUroEd6fj6ZikmIxbg _OpIGEUroEd6fj6ZikmIxbg" name="More unprocessed deliveries?" activityType="GatewayDataBasedExclusive"/>
+    <vertices xmi:type="bpmn:Activity" xmi:id="_JjpfN0rWEd6fj6ZikmIxbg" iD="_JkDH0krWEd6fj6ZikmIxbg" outgoingEdges="_X_RykUrnEd6fj6ZikmIxbg" incomingEdges="_MwVdoUrWEd6fj6ZikmIxbg _Not3IUrWEd6fj6ZikmIxbg" name="Locate period where the delivery belongs"/>
+    <vertices xmi:type="bpmn:Activity" xmi:id="_JjtJkErWEd6fj6ZikmIxbg" iD="_JkDH0UrWEd6fj6ZikmIxbg" outgoingEdges="_PX0YEUroEd6fj6ZikmIxbg" incomingEdges="_bQsvwUrWEd6fj6ZikmIxbg" name="Select next unprocessed delivery"/>
+    <vertices xmi:type="bpmn:Activity" xmi:id="_JjypIErWEd6fj6ZikmIxbg" iD="_JkDH1ErWEd6fj6ZikmIxbg" outgoingEdges="_MwVdoUrWEd6fj6ZikmIxbg _NDaxsUrWEd6fj6ZikmIxbg" incomingEdges="_PX0YEUroEd6fj6ZikmIxbg" name="Course in result tree?" activityType="GatewayDataBasedExclusive"/>
+    <vertices xmi:type="bpmn:Activity" xmi:id="_Jjz3QErWEd6fj6ZikmIxbg" iD="_JkDH00rWEd6fj6ZikmIxbg" outgoingEdges="_Not3IUrWEd6fj6ZikmIxbg" incomingEdges="_NDaxsUrWEd6fj6ZikmIxbg" name="Add course to the to level in the result tree"/>
+    <vertices xmi:type="bpmn:Activity" xmi:id="_tJC3EErmEd6fj6ZikmIxbg" iD="_tJCQAErmEd6fj6ZikmIxbg" incomingEdges="_Jah6QEroEd6fj6ZikmIxbg" name="Link A" activityType="EventIntermediateEmpty"/>
+    <vertices xmi:type="bpmn:Activity" xmi:id="_X_NhIUrnEd6fj6ZikmIxbg" iD="_X_NhIErnEd6fj6ZikmIxbg" outgoingEdges="_zpvugUrnEd6fj6ZikmIxbg _b7ODsUrnEd6fj6ZikmIxbg" incomingEdges="_X_RykUrnEd6fj6ZikmIxbg" name="Period in result tree?" activityType="GatewayDataBasedExclusive"/>
+    <vertices xmi:type="bpmn:Activity" xmi:id="_b7Fg0UrnEd6fj6ZikmIxbg" iD="_b7Fg0ErnEd6fj6ZikmIxbg" outgoingEdges="__8aaAUrnEd6fj6ZikmIxbg" incomingEdges="_b7ODsUrnEd6fj6ZikmIxbg" name="Add the period below its course in the result tree" activityType="Task"/>
+    <vertices xmi:type="bpmn:Activity" xmi:id="_zpq2AUrnEd6fj6ZikmIxbg" iD="_zpq2AErnEd6fj6ZikmIxbg" outgoingEdges="_Jah6QEroEd6fj6ZikmIxbg" incomingEdges="_zpvugUrnEd6fj6ZikmIxbg __8aaAUrnEd6fj6ZikmIxbg" name="Add the delivery to the result tree  below its period" activityType="Task"/>
+    <vertices xmi:type="bpmn:Activity" xmi:id="_NZ22kUroEd6fj6ZikmIxbg" iD="_NZ22kEroEd6fj6ZikmIxbg" outgoingEdges="_OpIGEUroEd6fj6ZikmIxbg" name="Link A" activityType="EventIntermediateEmpty"/>
+    <sequenceEdges xmi:type="bpmn:SequenceEdge" xmi:id="_xka4MUrQEd6fj6ZikmIxbg" iD="_xka4MErQEd6fj6ZikmIxbg" source="_RNWDMUrQEd6fj6ZikmIxbg" target="_ZZLcMUrQEd6fj6ZikmIxbg"/>
+    <sequenceEdges xmi:type="bpmn:SequenceEdge" xmi:id="_DCqQsUrREd6fj6ZikmIxbg" iD="_DCqQsErREd6fj6ZikmIxbg" source="_ZZLcMUrQEd6fj6ZikmIxbg" target="_DCl_QUrREd6fj6ZikmIxbg"/>
+    <sequenceEdges xmi:type="bpmn:SequenceEdge" xmi:id="_Se44sUrSEd6fj6ZikmIxbg" iD="_Se44sErSEd6fj6ZikmIxbg" source="_85k9IUrREd6fj6ZikmIxbg" target="_SeyLAUrSEd6fj6ZikmIxbg"/>
+    <sequenceEdges xmi:type="bpmn:SequenceEdge" xmi:id="_y9PvgUrUEd6fj6ZikmIxbg" iD="_y9PvgErUEd6fj6ZikmIxbg" name="No" source="_pO9FQUrUEd6fj6ZikmIxbg" target="_85k9IUrREd6fj6ZikmIxbg"/>
+    <sequenceEdges xmi:type="bpmn:SequenceEdge" xmi:id="_MwVdoUrWEd6fj6ZikmIxbg" iD="_MwVdoErWEd6fj6ZikmIxbg" name="yes" source="_JjypIErWEd6fj6ZikmIxbg" target="_JjpfN0rWEd6fj6ZikmIxbg"/>
+    <sequenceEdges xmi:type="bpmn:SequenceEdge" xmi:id="_NDaxsUrWEd6fj6ZikmIxbg" iD="_NDaxsErWEd6fj6ZikmIxbg" name="no" source="_JjypIErWEd6fj6ZikmIxbg" target="_Jjz3QErWEd6fj6ZikmIxbg"/>
+    <sequenceEdges xmi:type="bpmn:SequenceEdge" xmi:id="_Not3IUrWEd6fj6ZikmIxbg" iD="_Not3IErWEd6fj6ZikmIxbg" source="_Jjz3QErWEd6fj6ZikmIxbg" target="_JjpfN0rWEd6fj6ZikmIxbg"/>
+    <sequenceEdges xmi:type="bpmn:SequenceEdge" xmi:id="_bQsvwUrWEd6fj6ZikmIxbg" iD="_bQsvwErWEd6fj6ZikmIxbg" name="yes" source="_pO9FQUrUEd6fj6ZikmIxbg" target="_JjtJkErWEd6fj6ZikmIxbg"/>
+    <sequenceEdges xmi:type="bpmn:SequenceEdge" xmi:id="_X_RykUrnEd6fj6ZikmIxbg" iD="_X_RykErnEd6fj6ZikmIxbg" source="_JjpfN0rWEd6fj6ZikmIxbg" target="_X_NhIUrnEd6fj6ZikmIxbg"/>
+    <sequenceEdges xmi:type="bpmn:SequenceEdge" xmi:id="_b7ODsUrnEd6fj6ZikmIxbg" iD="_b7ODsErnEd6fj6ZikmIxbg" source="_X_NhIUrnEd6fj6ZikmIxbg" target="_b7Fg0UrnEd6fj6ZikmIxbg"/>
+    <sequenceEdges xmi:type="bpmn:SequenceEdge" xmi:id="_zpvugUrnEd6fj6ZikmIxbg" iD="_zpvugErnEd6fj6ZikmIxbg" source="_X_NhIUrnEd6fj6ZikmIxbg" target="_zpq2AUrnEd6fj6ZikmIxbg"/>
+    <sequenceEdges xmi:type="bpmn:SequenceEdge" xmi:id="__8aaAUrnEd6fj6ZikmIxbg" iD="__8aaAErnEd6fj6ZikmIxbg" source="_b7Fg0UrnEd6fj6ZikmIxbg" target="_zpq2AUrnEd6fj6ZikmIxbg"/>
+    <sequenceEdges xmi:type="bpmn:SequenceEdge" xmi:id="_Jah6QEroEd6fj6ZikmIxbg" iD="_JahTMEroEd6fj6ZikmIxbg" source="_zpq2AUrnEd6fj6ZikmIxbg" target="_tJC3EErmEd6fj6ZikmIxbg"/>
+    <sequenceEdges xmi:type="bpmn:SequenceEdge" xmi:id="_OpIGEUroEd6fj6ZikmIxbg" iD="_OpIGEEroEd6fj6ZikmIxbg" source="_NZ22kUroEd6fj6ZikmIxbg" target="_pO9FQUrUEd6fj6ZikmIxbg"/>
+    <sequenceEdges xmi:type="bpmn:SequenceEdge" xmi:id="_PX0YEUroEd6fj6ZikmIxbg" iD="_PX0YEEroEd6fj6ZikmIxbg" source="_JjtJkErWEd6fj6ZikmIxbg" target="_JjypIErWEd6fj6ZikmIxbg"/>
+    <sequenceEdges xmi:type="bpmn:SequenceEdge" xmi:id="_vgQUIUroEd6fj6ZikmIxbg" iD="_vgQUIEroEd6fj6ZikmIxbg" source="_DCl_QUrREd6fj6ZikmIxbg" target="_pO9FQUrUEd6fj6ZikmIxbg"/>
+  </pools>
+  <messages xmi:type="bpmn:MessagingEdge" xmi:id="_qa_-cUrQEd6fj6ZikmIxbg" iD="_qa_-cErQEd6fj6ZikmIxbg" source="_T7xYUUrQEd6fj6ZikmIxbg" target="_ZZLcMUrQEd6fj6ZikmIxbg"/>
+  <messages xmi:type="bpmn:MessagingEdge" xmi:id="_PNW2gUrSEd6fj6ZikmIxbg" iD="_PNW2gErSEd6fj6ZikmIxbg" source="_85k9IUrREd6fj6ZikmIxbg" target="__2sD8UrQEd6fj6ZikmIxbg"/>
+</bpmn:BpmnDiagram>
