@@ -26,10 +26,6 @@ public class Node implements java.io.Serializable {
 	@Column(name="parent")
 	protected Node parent;
 
-
-//	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//	protected Collection<Node> children = new LinkedList<Node>();
-
 	public Node() {
 
 	}

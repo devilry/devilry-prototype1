@@ -12,13 +12,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
-/** One block of data in a FileNode.
- *
- * @see FileNode
- * @author Espen Angell Kristiansen <post@espenak.net>
- *
- * @note This is not intergrated with FileMetaEntity yet!
- */
+
 @Entity
 public class FileData implements Serializable {
 
