@@ -1,6 +1,8 @@
 package org.devilry.core.session.dao;
 
 import javax.ejb.Stateful;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.*;
 import java.util.List;
 
@@ -85,6 +87,27 @@ public class NodeImpl implements NodeRemote {
 		q.setParameter("id", node.getId());
 
 		return (List<Long>) q.getResultList();
+	}
+
+
+
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)		
+	private void remove(Long curId, String pad) {
+		Query q = em.createQuery("SELECT n.id FROM Node n WHERE n.parent IS NOT NULL AND n.parent.id=:parentId");
+		q.setParameter("parentId", curId);
+		List<Long> children = q.getResultList();
+		for(Long n: children) {
+			remove(n, pad + "   ");
+		}
+		System.out.println(pad + curId);
+		q = em.createQuery("DELETE FROM Node n WHERE n.id = :id");
+		q.setParameter("id", curId);
+		q.executeUpdate();
+	}
+
+	public void remove() {
+		node = em.find(Node.class, node.getId());
+		remove(node.getId(), "");
 	}
 }
 

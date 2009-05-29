@@ -28,8 +28,14 @@ public class NodeImplTest extends AbstractDaoTst {
 
 	@After
 	public void tearDown() {
-		tm.delNode(tm.getNodeIdFromPath("uio"));
+		long id = tm.getNodeIdFromPath("uio");
+		if(id != -1) {
+			node.init(id);
+			node.remove();
+		}
 	}
+
+
 
 	@Test
 	public void getId() {
@@ -77,7 +83,6 @@ public class NodeImplTest extends AbstractDaoTst {
 		assertEquals(1, node.getChildren().size());
 		tm.addNode("ifi2", "ifi2", tm.getNodeIdFromPath("uio.matnat"));
 		assertEquals(2, node.getChildren().size());
-		tm.delNode(tm.getNodeIdFromPath("uio.matnat.ifi2"));
 	}
 
 	@Test
@@ -86,6 +91,14 @@ public class NodeImplTest extends AbstractDaoTst {
 		assertEquals(0, node.getSiblings().size());
 		tm.addNode("ifi2", "ifi2", tm.getNodeIdFromPath("uio.matnat"));
 		assertEquals(1, node.getSiblings().size());
-		tm.delNode(tm.getNodeIdFromPath("uio.matnat.ifi2"));
+	}
+
+	@Test
+	public void remove() {
+		node.init(tm.getNodeIdFromPath("uio"));
+		node.remove();
+		assertEquals(-1, tm.getNodeIdFromPath("uio"));
+		assertEquals(-1, tm.getNodeIdFromPath("uio.matnat"));
+		assertEquals(-1, tm.getNodeIdFromPath("uio.matnat.ifi"));
 	}
 }

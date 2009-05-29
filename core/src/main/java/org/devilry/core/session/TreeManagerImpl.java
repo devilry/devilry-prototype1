@@ -25,9 +25,8 @@ public class TreeManagerImpl implements TreeManagerRemote {
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	protected long persistNode(Node node, long parentId) {
-		Node parent = getNode(parentId);
-		parent.addChild(node);
-		em.merge(parent);
+		node.setParent(getNode(parentId));
+		em.persist(node);
 		em.flush();
 		return node.getId();
 	}
@@ -64,19 +63,12 @@ public class TreeManagerImpl implements TreeManagerRemote {
 		return persistNode(node, parentId);
 	}
 
-	public long addAssignmentNode(String name, String displayName, long parentId) {
-		AssignmentNode node = new AssignmentNode();
-		node.setName(name.toLowerCase());
-		node.setDisplayName(displayName);
-		node.setParent(getNode(parentId));
-		return persistNode(node, parentId);
-	}
 
-	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-	public void delNode(long nodeId) {
-		Node node = getNode(nodeId);
-		em.remove(node);
-	}
+//	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+//	public void delNode(long nodeId) {
+//		Node node = getNode(nodeId);
+//		em.remove(node);
+//	}
 
 	public long getNodeIdFromPath(String path) {
 		String[] sp = path.split("\\.");

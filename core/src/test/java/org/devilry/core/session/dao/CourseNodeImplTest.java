@@ -29,11 +29,20 @@ public class CourseNodeImplTest extends AbstractDaoTst {
 				tm.getNodeIdFromPath("uio.matnat"));
 		tm.addCourseNode("inf1000", "INF1000", "Grunnkurs i objektorientert programmering",
 				tm.getNodeIdFromPath("uio.matnat.ifi"));
+		tm.addCourseNode("a", "A", "A",
+				tm.getNodeIdFromPath("uio.matnat.ifi.inf1000"));
+		tm.addCourseNode("b", "B", "B",
+				tm.getNodeIdFromPath("uio.matnat.ifi.inf1000.a"));
 	}
 
 	@After
-	public void tearDown() {
-		tm.delNode(tm.getNodeIdFromPath("uio"));
+	public void tearDown() throws NamingException {
+		long id = tm.getNodeIdFromPath("uio");
+		if(id != -1) {
+			NodeRemote n = getRemoteBean(CourseNodeImpl.class);
+			n.init(id);
+			n.remove();
+		}
 	}
 
 	@Test

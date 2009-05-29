@@ -15,5 +15,6 @@ public interface NodeRemote {
 	public String getPath();
 	public List<Long> getChildren();
 	public List<Long> getSiblings();
+	public void remove();
 }
 

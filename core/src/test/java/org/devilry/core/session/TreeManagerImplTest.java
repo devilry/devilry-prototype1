@@ -22,7 +22,7 @@ public class TreeManagerImplTest extends AbstractDaoTst {
 
 	@After
 	public void tearDown() {
-		tm.delNode(rootnodeId);
+//		tm.delNode(rootnodeId);
 	}
 
 	@Test
@@ -56,27 +56,34 @@ public class TreeManagerImplTest extends AbstractDaoTst {
 		assertEquals(tm.getNodeIdFromPath("uio.inf1000.fall09"), rootnodeId);
 	}
 
-	@Test
-	public void addAssignmentNode() {
-		rootnodeId = tm.addCourseNode("inf1000", "INF1000", "Grunnkurs i objektorientert programmering", rootnodeId);
 
-		Calendar start = new GregorianCalendar(2009, 00, 01);
-		Calendar end = new GregorianCalendar(2009, 05, 15);
 
-		rootnodeId = tm.addPeriodNode("fall09", "Fall 2009", start.getTime(), end.getTime(), rootnodeId);
-		rootnodeId = tm.addAssignmentNode("oblig1", "O1", rootnodeId);
-
-		assertTrue(0 < rootnodeId);
-		assertTrue(0 < tm.getNodeIdFromPath("uio.inf1000.fall09.oblig1"));
-		assertEquals(tm.getNodeIdFromPath("uio.inf1000.fall09.oblig1"), rootnodeId);
-	}
-
+	/*
 	@Test
 	public void delNode() {
-		assertEquals(rootnodeId, tm.getNodeIdFromPath("uio"));
+		tm.addNode("a", "A", tm.getNodeIdFromPath("uio"));
+		tm.addNode("b", "B", tm.getNodeIdFromPath("uio"));
+		tm.addNode("a1", "A1", tm.getNodeIdFromPath("uio.a"));
 		tm.delNode(rootnodeId);
 		assertEquals(-1, tm.getNodeIdFromPath("uio"));
+		assertEquals(-1, tm.getNodeIdFromPath("uio.a"));
+		assertEquals(-1, tm.getNodeIdFromPath("uio.a.a1"));
+
+		long id = tm.addNode("uio", "Unive.....");
+		assertEquals(id, tm.getNodeIdFromPath("uio"));
+		assertTrue(id != -1);
 	}
+
+	@Test
+	public void delCourseNode() {
+		tm.addNode("coursea", "Course A", tm.getNodeIdFromPath("uio"));
+		tm.addNode("courseb", "Course A", tm.getNodeIdFromPath("uio"));
+		tm.delNode(rootnodeId);
+		assertEquals(-1, tm.getNodeIdFromPath("uio"));
+		assertEquals(-1, tm.getNodeIdFromPath("uio.a"));
+		assertEquals(-1, tm.getNodeIdFromPath("uio.a.a1"));
+	}
+	*/
 
 	@Test
 	public void getNodeIdFromPath() {

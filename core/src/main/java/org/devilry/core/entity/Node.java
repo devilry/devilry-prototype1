@@ -22,13 +22,13 @@ public class Node implements java.io.Serializable {
 
 	protected String displayName;
 
-	@ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@Column(name="parent")
 	protected Node parent;
 
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	protected Collection<Node> children = new LinkedList<Node>();
+//	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//	protected Collection<Node> children = new LinkedList<Node>();
 
 	public Node() {
 
@@ -66,17 +66,17 @@ public class Node implements java.io.Serializable {
 		this.parent = parent;
 	}
 
-	public Collection<Node> getChildren() {
-		return children;
-	}
-
-	public void setChildren(Collection<Node> children) {
-		this.children = children;
-	}
-
-	public void addChild(Node child) {
-		child.setParent(this);
-		children.add(child);
-	}
+//	public Collection<Node> getChildren() {
+//		return children;
+//	}
+//
+//	public void setChildren(Collection<Node> children) {
+//		this.children = children;
+//	}
+//
+//	public void addChild(Node child) {
+//		child.setParent(this);
+//		children.add(child);
+//	}
 }
 

@@ -36,12 +36,21 @@ public class PeriodNodeImplTest extends AbstractDaoTst {
 	}
 
 	@After
-	public void tearDown() {
-		tm.delNode(tm.getNodeIdFromPath("uio.matnat.ifi.inf1000.fall09"));
+	public void tearDown() throws NamingException {
+//		tm.delNode(tm.getNodeIdFromPath("uio.matnat.ifi.inf1000.fall09"));
 //		tm.delNode(tm.getNodeIdFromPath("uio.matnat.ifi.inf1000"));
 //		tm.delNode(tm.getNodeIdFromPath("uio.matnat.ifi"));
 //		tm.delNode(tm.getNodeIdFromPath("uio.matnat"));
-		tm.delNode(tm.getNodeIdFromPath("uio"));
+//		tm.delNode(tm.getNodeIdFromPath("uio"));
+//		node.remove();
+		long id = tm.getNodeIdFromPath("uio");
+		if(id != -1) {
+			NodeRemote n = getRemoteBean(CourseNodeImpl.class);
+			n.init(id);
+			n.remove();
+		} else {
+			System.out.println("CRAP!!!");
+		}
 	}
 
 	@Test
@@ -50,6 +59,7 @@ public class PeriodNodeImplTest extends AbstractDaoTst {
 		assertEquals("Thu Jan 01 00:00:00 CET 2009", node.getStartDate().toString());
 	}
 
+	/*
 	@Test
 	public void setStartDate() {
 		node.init(tm.getNodeIdFromPath("uio.matnat.ifi.inf1000.fall09"));
@@ -75,5 +85,6 @@ public class PeriodNodeImplTest extends AbstractDaoTst {
 		end = new GregorianCalendar(2009, 05, 15);
 		node.setEndDate(end.getTime());
 	}
+	*/
 }
 
