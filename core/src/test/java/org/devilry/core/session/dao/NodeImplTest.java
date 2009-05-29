@@ -1,8 +1,7 @@
 package org.devilry.core.session.dao;
 
 import javax.naming.*;
-import javax.persistence.*;
-import java.util.Properties;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,64 +12,48 @@ import org.devilry.core.session.*;
 public class NodeImplTest extends AbstractDaoTst {
 	NodeRemote node;
 	TreeManagerRemote tm;
+	long uioId, matnatId;
 
 	@Before
 	public void setUp() throws NamingException {
 		setupEjbContainer();
 		tm = getRemoteBean(TreeManagerImpl.class);
 		node = getRemoteBean(NodeImpl.class);
-		tm.addNode("uio", "Universitetet i Oslo");
-		tm.addNode("matnat", "Det matematisk-naturvitenskapelige fakultet",
-				tm.getNodeIdFromPath("uio"));
-		tm.addNode("ifi", "Institutt for informatikk", 
-				tm.getNodeIdFromPath("uio.matnat"));
+		uioId = node.create("uio", "UiO");
+		matnatId = node.create("matnat", "Faculty of Mathematics", uioId);
+
 	}
 
 	@After
 	public void tearDown() {
-		long id = tm.getNodeIdFromPath("uio");
-		if(id != -1) {
-			node.init(id);
-			node.remove();
-		}
-	}
-
-
-
-	@Test
-	public void getId() {
-		node.init(tm.getNodeIdFromPath("uio.matnat"));
-		assertEquals(tm.getNodeIdFromPath("uio.matnat"), node.getId());
+		node.remove(uioId);
 	}
 
 	@Test
 	public void getName() {
-		node.init(tm.getNodeIdFromPath("uio"));
-		assertEquals("uio", node.getName());
+		assertEquals("uio", node.getName(uioId));
+		assertEquals("matnat", node.getName(matnatId));
 	}
 
 	@Test
 	public void setName() {
-		node.init(tm.getNodeIdFromPath("uio.matnat"));
-		node.setName("ifi3");
-		assertEquals("ifi3", node.getName());
-		node.setName("ifi");
+		node.setName(matnatId, "newname");
+		assertEquals("newname", node.getName(matnatId));
 	}
 
 	@Test
 	public void getDisplayName() {
-		node.init(tm.getNodeIdFromPath("uio.matnat"));
-		assertEquals("Det matematisk-naturvitenskapelige fakultet", node.getDisplayName());
+		assertEquals("Faculty of Mathematics", node.getDisplayName(matnatId));
 	}
 
 	@Test
 	public void setDisplayName() {
-		node.init(tm.getNodeIdFromPath("uio.matnat"));
-		node.setDisplayName("matnat2");
-		assertEquals("matnat2", node.getDisplayName());
-		node.setDisplayName("matnat");
+		node.setDisplayName(matnatId, "newdisp");
+		assertEquals("newdisp", node.getDisplayName(matnatId));
 	}
 
+
+	/*
 	@Test
 	public void getPath() {
 		node.init(tm.getNodeIdFromPath("uio.matnat.ifi"));
@@ -101,4 +84,5 @@ public class NodeImplTest extends AbstractDaoTst {
 		assertEquals(-1, tm.getNodeIdFromPath("uio.matnat"));
 		assertEquals(-1, tm.getNodeIdFromPath("uio.matnat.ifi"));
 	}
+	*/
 }

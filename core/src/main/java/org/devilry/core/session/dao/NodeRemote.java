@@ -5,16 +5,15 @@ import java.util.List;
 
 @Remote
 public interface NodeRemote {
-	public void init(long nodeId);	
-	public void setId(long nodeId);
-	public long getId();
-	public void setName(String name);
-	public String getName();
-	public void setDisplayName(String name);
-	public String getDisplayName();
-	public String getPath();
-	public List<Long> getChildren();
-	public List<Long> getSiblings();
-	public void remove();
+	void setName(long nodeId, String name);
+	String getName(long nodeId);
+	void setDisplayName(long nodeId, String name);
+	String getDisplayName(long nodeId);
+	String getPath(long nodeId);
+	List<Long> getChildren(long nodeId);
+	List<Long> getSiblings(long nodeId);
+	void remove(long nodeId);
+	long getParentId(long nodeId);
+	long create(String name, String displayName);
+	long create(String name, String displayName, long parentId);
 }
-
