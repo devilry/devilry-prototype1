@@ -63,7 +63,6 @@ public class DeliveryCandidateImpl implements DeliveryCandidateRemote, DeliveryC
 		return q.getResultList();
 	}
 
-
 	public int getStatus(long deliveryCandidateId) {
 		return getDeliveryCandidate(deliveryCandidateId).getStatus();
 	}

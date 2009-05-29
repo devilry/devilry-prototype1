@@ -113,13 +113,30 @@ public class RemoteClient {
             if (args.length < 2) {
                 System.out.println("id is missing, using default: uio.inf1000.spring2009.oblig1");
 
-                getFiles("uio.inf1000.spring2009.oblig1");
+                getCandidateFiles("uio.inf1000.spring2009.oblig1");
             }
             else {
                 
                 try {
                     String path = args[1];
-                    getFiles(path);
+                    getCandidateFiles(path);
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid id:" + args[1]);
+                }
+            }
+         }
+         else if (args[0].equalsIgnoreCase("listCandidates")) {
+
+            if (args.length < 2) {
+                System.out.println("id is missing, using default: uio.inf1000.spring2009.oblig1");
+
+                getCandidates("uio.inf1000.spring2009.oblig1");
+            }
+            else {
+
+                try {
+                    String path = args[1];
+                    getCandidates(path);
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid id:" + args[1]);
                 }
@@ -249,6 +266,7 @@ public class RemoteClient {
     public void help() {
          System.out.println("Available commands:" + newLine +
                                 "    - add nodeTath      filename" + newLine +
+                                "    - listCandidates    nodePath" + newLine +
                                 "    - listCandiateFiles nodePath" + newLine +
                                 "    - getlastCandidatefile nodePath outputdir" + newLine +
                                 "    - addtestnodes" + newLine +
@@ -316,8 +334,33 @@ public class RemoteClient {
         }
     }
     
-    
-    public void getFiles(String nodePath) {
+
+
+
+     public void getCandidates(String nodePath) {
+
+        try {
+
+            List<String> files =lib.getDeliveryCandidatesList(nodePath);
+
+            if (files.size() == 0) {
+                System.out.print("No files in delivery for path " + nodePath);
+            }
+            else {
+                System.out.println("Available deliveries for path " + nodePath + ":");
+            }
+
+            for (String file : files) {
+                System.out.println(file);
+            }
+
+        } catch (Exception e) {
+            System.err.println("Exception:" + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public void getCandidateFiles(String nodePath) {
 
         try {
 
