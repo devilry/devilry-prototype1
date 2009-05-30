@@ -234,8 +234,14 @@ public class DevilryCLILibrary {
         return remoteFileBean;
     }
  */
-    
 
+
+     /**
+      * Retrieves the DeliveryCandidateRemote for the last candidate for a delivery
+      * @param nodePath
+      * @return
+      * @throws java.lang.Exception
+      */
      DeliveryCandidateRemote getLastDeliveryCandidate(String nodePath) throws Exception {
 
         if (!isServerInitialized()) {
@@ -279,6 +285,64 @@ public class DevilryCLILibrary {
      }
 
 
+      /**
+      * Retrieves the DeliveryCandidateRemote for the candidate with id candidateID
+      * @param nodePath
+      * @return
+      * @throws java.lang.Exception
+      */
+     DeliveryCandidateRemote getDeliveryCandidate(String nodePath, long candidateID) throws Exception {
+
+        if (!isServerInitialized()) {
+            initializeServerConnection();
+        }
+
+        System.err.println("getLastDeliveryCandidateFile:" + nodePath);
+
+        TreeManagerRemote tm = getTreeManager();
+
+        AssignmentNodeRemote assignMent = getRemoteBean(AssignmentNodeImpl.class);
+        assignMent.init(tm.getNodeIdFromPath(nodePath));
+
+        List<Long> IDs = assignMent.getDeliveryIds();
+
+        if (IDs.size() < 0) {
+            System.err.println("No deliveries exist!");
+            return null;
+        }
+
+        DeliveryRemote delivery = getRemoteBean(DeliveryImpl.class);
+        delivery.init(IDs.get(0));
+        System.err.println("delivery id:" + IDs.get(0));
+
+
+        List<Long> candidateIDs = delivery.getDeliveryCandidateIds();
+
+        if (candidateIDs.size() < 0) {
+            System.err.println("No delivery candidates exist!");
+            return null;
+        }
+
+         if (!candidateIDs.contains(candidateID)) {
+             System.err.println("The provided ID (" + candidateID + ") is not valid!");
+             return null;
+         }
+
+         System.err.println("CandiateID:" + candidateID);
+
+         DeliveryCandidateRemote remoteBean = getRemoteBean(DeliveryCandidateImpl.class);
+         remoteBean.init(candidateID);
+
+         return remoteBean;
+     }
+
+     
+      /**
+       * Returns a list of all delivery candidates for an assignment
+       * @param nodePath
+       * @return
+       * @throws java.lang.Exception
+       */
       List<String> getDeliveryCandidatesList(String nodePath) throws Exception {
 
         if (!isServerInitialized()) {
@@ -341,7 +405,12 @@ public class DevilryCLILibrary {
     }
 
 
-
+    /**
+     * Returns a list of all the files for all delivery candidates
+     * @param nodePath
+     * @return
+     * @throws java.lang.Exception
+     */
     List<String> getDeliveryCandidateFileList(String nodePath) throws Exception {
 
         if (!isServerInitialized()) {

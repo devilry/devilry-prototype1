@@ -212,7 +212,7 @@
     <styles xmi:type="notation:ShapeStyle" xmi:id="_kTXVQUo1Ed6_X5Z1-LyYTA" fontName="Lucida Grande"/>
     <styles xmi:type="notation:CanonicalStyle" xmi:id="_kTXVQko1Ed6_X5Z1-LyYTA"/>
     <element xmi:type="uml:Class" href="entities.uml#_kTKg8Eo1Ed6_X5Z1-LyYTA"/>
-    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kTXVQ0o1Ed6_X5Z1-LyYTA" x="36" y="549"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kTXVQ0o1Ed6_X5Z1-LyYTA" x="32" y="544"/>
   </children>
   <children xmi:type="notation:Node" xmi:id="_R6aykEo2Ed6_X5Z1-LyYTA" type="2001">
     <children xmi:type="notation:Node" xmi:id="_R6aylEo2Ed6_X5Z1-LyYTA" type="5003">

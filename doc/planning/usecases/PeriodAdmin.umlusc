@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmlns:uml2tools.notation="http://www.eclipse.org/mdt/uml2tools/gmf/notation/ext/2008" xmi:id="_Bv6UYE0LEd6s740ZkHuemA" type="UMLUseCase" name="PeriodAdmin.umlusc" measurementUnit="Pixel">
+  <children xmi:type="notation:Shape" xmi:id="_CK5nQE0LEd6s740ZkHuemA" type="2001" fontName="Sans">
+    <children xmi:type="notation:DecorationNode" xmi:id="_CK5nQk0LEd6s740ZkHuemA" type="5001"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_CK6OUE0LEd6s740ZkHuemA" type="5016"/>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_CK6OUU0LEd6s740ZkHuemA" type="7001" collapsed="true">
+      <styles xmi:type="notation:SortingStyle" xmi:id="_CK6OUk0LEd6s740ZkHuemA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_CK6OU00LEd6s740ZkHuemA"/>
+      <styles xmi:type="notation:CanonicalStyle" xmi:id="_CK6OVE0LEd6s740ZkHuemA"/>
+    </children>
+    <element xmi:type="uml:Package" href="PeriodAdmin.uml#_BuKn8E0LEd6s740ZkHuemA"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_CK5nQU0LEd6s740ZkHuemA"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_WSPI8E0LEd6s740ZkHuemA" type="2006">
+    <children xmi:type="notation:DecorationNode" xmi:id="_WSQXEE0LEd6s740ZkHuemA" type="5007"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_WSQXEU0LEd6s740ZkHuemA" type="5014"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_WSQXEk0LEd6s740ZkHuemA" type="7004">
+      <children xmi:type="notation:Shape" xmi:id="_jwYwIE0LEd6s740ZkHuemA" type="3004" fontName="Sans">
+        <children xmi:type="notation:DecorationNode" xmi:id="_jwZXME0LEd6s740ZkHuemA" type="5006">
+          <styles xmi:type="notation:FontStyle" xmi:id="_jwbMYE0LEd6s740ZkHuemA" bold="true"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_jwZXMU0LEd6s740ZkHuemA" type="7005">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_jwZXMk0LEd6s740ZkHuemA" showTitle="true"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_jwZXM00LEd6s740ZkHuemA"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_jwZXNE0LEd6s740ZkHuemA"/>
+          <styles xmi:type="notation:CanonicalStyle" xmi:id="_jwZXNU0LEd6s740ZkHuemA"/>
+        </children>
+        <element xmi:type="uml:UseCase" href="PeriodAdmin.uml#_jvnUEE0LEd6s740ZkHuemA"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_jwYwIU0LEd6s740ZkHuemA" x="43" y="17"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_lxSQ4E0LEd6s740ZkHuemA" type="3004" fontName="Sans">
+        <children xmi:type="notation:DecorationNode" xmi:id="_lxS38E0LEd6s740ZkHuemA" type="5006">
+          <styles xmi:type="notation:FontStyle" xmi:id="_lxazwE0LEd6s740ZkHuemA" bold="true"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_lxTfAE0LEd6s740ZkHuemA" type="7005">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_lxTfAU0LEd6s740ZkHuemA" showTitle="true"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_lxTfAk0LEd6s740ZkHuemA"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_lxTfA00LEd6s740ZkHuemA"/>
+          <styles xmi:type="notation:CanonicalStyle" xmi:id="_lxTfBE0LEd6s740ZkHuemA"/>
+        </children>
+        <element xmi:type="uml:UseCase" href="PeriodAdmin.uml#_lwUnkE0LEd6s740ZkHuemA"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_lxSQ4U0LEd6s740ZkHuemA" x="43" y="97"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_f66MAE0OEd6s740ZkHuemA" type="3004" fontName="Sans">
+        <children xmi:type="notation:DecorationNode" xmi:id="_f66zEE0OEd6s740ZkHuemA" type="5006">
+          <styles xmi:type="notation:FontStyle" xmi:id="_f6_EgE0OEd6s740ZkHuemA" bold="true"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_f66zEU0OEd6s740ZkHuemA" type="7005">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_f66zEk0OEd6s740ZkHuemA" showTitle="true"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_f66zE00OEd6s740ZkHuemA"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_f66zFE0OEd6s740ZkHuemA"/>
+          <styles xmi:type="notation:CanonicalStyle" xmi:id="_f66zFU0OEd6s740ZkHuemA"/>
+        </children>
+        <element xmi:type="uml:UseCase" href="PeriodAdmin.uml#_f6YnkE0OEd6s740ZkHuemA"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_f66MAU0OEd6s740ZkHuemA" x="43" y="177"/>
+      </children>
+      <styles xmi:type="notation:CanonicalStyle" xmi:id="_WSQXE00LEd6s740ZkHuemA"/>
+    </children>
+    <styles xmi:type="notation:DescriptionStyle" xmi:id="_WSPI8U0LEd6s740ZkHuemA"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_WSPI8k0LEd6s740ZkHuemA" fontName="Sans"/>
+    <styles xmi:type="notation:LineStyle" xmi:id="_WSPI800LEd6s740ZkHuemA"/>
+    <element xmi:type="uml:Component" href="PeriodAdmin.uml#_WQgDkE0LEd6s740ZkHuemA"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WSPwAE0LEd6s740ZkHuemA" x="208" y="80" width="673" height="433"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_Y_eLQE0LEd6s740ZkHuemA" type="2002" fontName="Sans">
+    <children xmi:type="notation:DecorationNode" xmi:id="_Y_jDwE0LEd6s740ZkHuemA" type="5002">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Y_jDwU0LEd6s740ZkHuemA" y="5"/>
+    </children>
+    <element xmi:type="uml:Actor" href="PeriodAdmin.uml#_Y-OOEE0LEd6s740ZkHuemA"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Y_eLQU0LEd6s740ZkHuemA" x="80" y="160"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_aSQo0E0LEd6s740ZkHuemA" type="2002" fontName="Sans">
+    <children xmi:type="notation:DecorationNode" xmi:id="_aSR28E0LEd6s740ZkHuemA" type="5002">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_aSR28U0LEd6s740ZkHuemA" y="5"/>
+    </children>
+    <element xmi:type="uml:Actor" href="PeriodAdmin.uml#_aRTmkE0LEd6s740ZkHuemA"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_aSQo0U0LEd6s740ZkHuemA" x="80" y="336"/>
+  </children>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_Bv6UYU0LEd6s740ZkHuemA"/>
+  <styles xmi:type="uml2tools.notation:U2TDiagramCanonicalStyle" xmi:id="_Bv6UYk0LEd6s740ZkHuemA"/>
+  <element xmi:type="uml:Package" href="PeriodAdmin.uml#_BuKn8E0LEd6s740ZkHuemA"/>
+  <edges xmi:type="notation:Connector" xmi:id="_det9wE0LEd6s740ZkHuemA" type="4003" source="_aSQo0E0LEd6s740ZkHuemA" target="_Y_eLQE0LEd6s740ZkHuemA">
+    <styles xmi:type="notation:FontStyle" xmi:id="_det9wU0LEd6s740ZkHuemA" fontName="Sans"/>
+    <element xmi:type="uml:Generalization" href="PeriodAdmin.uml#_derhgE0LEd6s740ZkHuemA"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_det9wk0LEd6s740ZkHuemA" points="[2, 0, 0, 136]$[2, -126, 0, 10]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_de0rcE0LEd6s740ZkHuemA" id="(0.43333333333333335,0.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_de0rcU0LEd6s740ZkHuemA" id="(0.5,0.8)"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_oMxb4E0LEd6s740ZkHuemA" type="4004" source="_jwYwIE0LEd6s740ZkHuemA" target="_aSQo0E0LEd6s740ZkHuemA">
+    <children xmi:type="notation:DecorationNode" xmi:id="_oMxb5E0LEd6s740ZkHuemA" type="6003">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_oMyC8E0LEd6s740ZkHuemA" y="15"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_oMyC8U0LEd6s740ZkHuemA" type="6004">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_oMyC8k0LEd6s740ZkHuemA" y="15"/>
+    </children>
+    <styles xmi:type="notation:RoutingStyle" xmi:id="_oMxb4U0LEd6s740ZkHuemA"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_oMxb4k0LEd6s740ZkHuemA" fontName="Sans"/>
+    <element xmi:type="uml:Association" href="PeriodAdmin.uml#_oMlOoE0LEd6s740ZkHuemA"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_oMxb400LEd6s740ZkHuemA" points="[-10, 8, 193, -165]$[-204, 148, -1, -25]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_oM6l0E0LEd6s740ZkHuemA" id="(0.02610966057441253,0.4666666666666667)"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_o0gKQE0LEd6s740ZkHuemA" type="4004" source="_lxSQ4E0LEd6s740ZkHuemA" target="_aSQo0E0LEd6s740ZkHuemA">
+    <children xmi:type="notation:DecorationNode" xmi:id="_o0gxUE0LEd6s740ZkHuemA" type="6003">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_o0gxUU0LEd6s740ZkHuemA" y="15"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_o0gxUk0LEd6s740ZkHuemA" type="6004">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_o0gxU00LEd6s740ZkHuemA" y="15"/>
+    </children>
+    <styles xmi:type="notation:RoutingStyle" xmi:id="_o0gKQU0LEd6s740ZkHuemA"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_o0gKQk0LEd6s740ZkHuemA" fontName="Sans"/>
+    <element xmi:type="uml:Association" href="PeriodAdmin.uml#_o0aqsE0LEd6s740ZkHuemA"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_o0gKQ00LEd6s740ZkHuemA" points="[-3, 1, 193, -74]$[-197, 50, -1, -25]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_o0oGEE0LEd6s740ZkHuemA" id="(0.0058823529411764705,0.5)"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_kvShAE0OEd6s740ZkHuemA" type="4004" source="_f66MAE0OEd6s740ZkHuemA" target="_aSQo0E0LEd6s740ZkHuemA">
+    <children xmi:type="notation:DecorationNode" xmi:id="_kvTIEE0OEd6s740ZkHuemA" type="6003">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_kvTIEU0OEd6s740ZkHuemA" y="15"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_kvTvIE0OEd6s740ZkHuemA" type="6004">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_kvTvIU0OEd6s740ZkHuemA" y="15"/>
+    </children>
+    <styles xmi:type="notation:RoutingStyle" xmi:id="_kvShAU0OEd6s740ZkHuemA"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_kvShAk0OEd6s740ZkHuemA" fontName="Sans"/>
+    <element xmi:type="uml:Association" href="PeriodAdmin.uml#_kvLzUE0OEd6s740ZkHuemA"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_kvShA00OEd6s740ZkHuemA" points="[-2, -1, 161, 18]$[-162, -44, 1, -25]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kvac0E0OEd6s740ZkHuemA" id="(0.004545454545454545,0.4666666666666667)"/>
+  </edges>
+</notation:Diagram>
