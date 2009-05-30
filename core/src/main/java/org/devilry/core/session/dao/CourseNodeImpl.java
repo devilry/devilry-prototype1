@@ -7,7 +7,24 @@ import javax.persistence.*;
 
 import org.devilry.core.entity.*;
 
+import java.util.List;
+
 @Stateless
 public class CourseNodeImpl extends NodeImpl implements CourseNodeRemote {
 
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	public long create(String name, String displayName, long parentId) {
+		CourseNode node = new CourseNode();
+		node.setName(name.toLowerCase());
+		node.setDisplayName(displayName);
+		node.setParent(getNode(parentId));
+		em.persist(node);
+		em.flush();
+		return node.getId();
+	}
+
+	public List<Long> getAllCourseIds() {
+		Query q = em.createQuery("SELECT c.id FROM CourseNode c");
+		return q.getResultList();
+	}
 }

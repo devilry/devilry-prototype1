@@ -102,18 +102,14 @@ public class NodeImpl implements NodeRemote {
 	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-	protected long persistNode(Node node, long parentId) {
-		node.setParent(getNode(parentId));
-		em.persist(node);
-		em.flush();
-		return node.getId();
-	}
-
 	public long create(String name, String displayName, long parentId) {
 		Node node = new Node();
 		node.setName(name.toLowerCase());
 		node.setDisplayName(displayName);
-		return persistNode(node, parentId);
+		node.setParent(getNode(parentId));
+		em.persist(node);
+		em.flush();
+		return node.getId();
 	}
 
 
