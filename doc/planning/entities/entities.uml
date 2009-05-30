@@ -125,4 +125,24 @@
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-2IM0Eo2Ed6_X5Z1-LyYTA" value="1"/>
     </ownedEnd>
   </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_bLUMME0VEd6s740ZkHuemA" name="Correctors" memberEnd="_bLUzQE0VEd6s740ZkHuemA _bLVaUU0VEd6s740ZkHuemA">
+    <ownedEnd xmi:id="_bLUzQE0VEd6s740ZkHuemA" name="src" type="_dKM6MEo1Ed6_X5Z1-LyYTA" association="_bLUMME0VEd6s740ZkHuemA">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_bLVaUE0VEd6s740ZkHuemA" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_bLUzQU0VEd6s740ZkHuemA" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_bLVaUU0VEd6s740ZkHuemA" name="dst" type="_R3hW8EozEd6_X5Z1-LyYTA" aggregation="shared" association="_bLUMME0VEd6s740ZkHuemA">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_bLWBYE0VEd6s740ZkHuemA" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_bLVaUk0VEd6s740ZkHuemA" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_h3LAME0VEd6s740ZkHuemA" name="Students" memberEnd="_h3LAMU0VEd6s740ZkHuemA _h3MOUE0VEd6s740ZkHuemA">
+    <ownedEnd xmi:id="_h3LAMU0VEd6s740ZkHuemA" name="src" type="_dKM6MEo1Ed6_X5Z1-LyYTA" association="_h3LAME0VEd6s740ZkHuemA">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_h3LnQU0VEd6s740ZkHuemA" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_h3LnQE0VEd6s740ZkHuemA" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_h3MOUE0VEd6s740ZkHuemA" name="dst" type="_R3hW8EozEd6_X5Z1-LyYTA" aggregation="shared" association="_h3LAME0VEd6s740ZkHuemA">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_h3MOUk0VEd6s740ZkHuemA" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_h3MOUU0VEd6s740ZkHuemA" value="1"/>
+    </ownedEnd>
+  </packagedElement>
 </uml:Package>

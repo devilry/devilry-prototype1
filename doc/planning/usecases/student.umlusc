@@ -52,7 +52,7 @@
           <styles xmi:type="notation:FilteringStyle" xmi:id="_KULbhUqaEd6Yu7Z8u2Iruw"/>
         </children>
         <element xmi:type="uml:UseCase" href="student.uml#_KT7j4EqaEd6Yu7Z8u2Iruw"/>
-        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_KULbgUqaEd6Yu7Z8u2Iruw" x="481" y="230"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_KULbgUqaEd6Yu7Z8u2Iruw" x="715" y="223"/>
       </children>
       <children xmi:type="notation:Shape" xmi:id="_vp5UwEqaEd6Yu7Z8u2Iruw" type="3004" fontName="Lucida Grande">
         <children xmi:type="notation:DecorationNode" xmi:id="_vp5UwkqaEd6Yu7Z8u2Iruw" type="5006">
@@ -118,7 +118,7 @@
           <styles xmi:type="notation:FilteringStyle" xmi:id="_7bCt9UqiEd6Yu7Z8u2Iruw"/>
         </children>
         <element xmi:type="uml:UseCase" href="student.uml#_7a1SkEqiEd6Yu7Z8u2Iruw"/>
-        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_7bCt8UqiEd6Yu7Z8u2Iruw" x="580" y="446"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_7bCt8UqiEd6Yu7Z8u2Iruw" x="1035" y="447"/>
       </children>
     </children>
     <styles xmi:type="notation:DescriptionStyle" xmi:id="_8O-bY0qZEd6Yu7Z8u2Iruw"/>
