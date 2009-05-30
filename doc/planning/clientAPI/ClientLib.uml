@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Package xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmi:id="_n3WY8E0gEd6EVaGVkLohsg" name="ClientLib">
+  <elementImport xmi:id="_n5P2YE0gEd6EVaGVkLohsg">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+  </elementImport>
+  <elementImport xmi:id="_n5cqsE0gEd6EVaGVkLohsg">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+  </elementImport>
+  <elementImport xmi:id="_n5cqsU0gEd6EVaGVkLohsg">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#UnlimitedNatural"/>
+  </elementImport>
+  <elementImport xmi:id="_n5cqsk0gEd6EVaGVkLohsg">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+  </elementImport>
+  <packagedElement xmi:type="uml:Class" xmi:id="_qEJnsE0gEd6EVaGVkLohsg" name="Assignment">
+    <ownedAttribute xmi:id="_9w-XoE0gEd6EVaGVkLohsg" name="Time of deadline" aggregation="composite"/>
+    <ownedAttribute xmi:id="_vaT-oE0hEd6EVaGVkLohsg" name="Candidates count" aggregation="composite"/>
+    <ownedOperation xmi:id="_buQqwE0hEd6EVaGVkLohsg" name="getDeliveryCandidates">
+      <ownedParameter xmi:id="_evaHkE0hEd6EVaGVkLohsg" direction="return"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_r7sYIE0gEd6EVaGVkLohsg" name="DeliveryCandidate">
+    <ownedAttribute xmi:id="_8B94IE0gEd6EVaGVkLohsg" name="Time of delivery" aggregation="composite"/>
+    <ownedAttribute xmi:id="_xJ2poE0hEd6EVaGVkLohsg" name="File count" aggregation="composite"/>
+    <ownedOperation xmi:id="__JY8EE0gEd6EVaGVkLohsg" name="getDeliveryFiles">
+      <ownedParameter xmi:id="_BSO34E0hEd6EVaGVkLohsg" direction="return"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_s6QSIE0gEd6EVaGVkLohsg" name="DeliveryFile">
+    <ownedAttribute xmi:id="_zd8BkE0gEd6EVaGVkLohsg" name="size" aggregation="composite"/>
+    <ownedAttribute xmi:id="_15lkoE0gEd6EVaGVkLohsg" name="file path" aggregation="composite"/>
+    <ownedOperation xmi:id="_4Pu8oE0gEd6EVaGVkLohsg" name="getFileStream">
+      <ownedParameter xmi:id="_6leE8E0gEd6EVaGVkLohsg" direction="return"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_vL-dIE0gEd6EVaGVkLohsg" name="DevileryInputStream">
+    <nestedClassifier xmi:type="uml:Class" xmi:id="_3d6BoE0hEd6EVaGVkLohsg" name="Class"/>
+    <ownedOperation xmi:id="_xF5MIE0gEd6EVaGVkLohsg" name="read">
+      <ownedParameter xmi:id="_x0W0oE0gEd6EVaGVkLohsg" direction="return"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_XjTtQE0hEd6EVaGVkLohsg" memberEnd="_XjUUUE0hEd6EVaGVkLohsg _XjVicE0hEd6EVaGVkLohsg">
+    <ownedEnd xmi:id="_XjUUUE0hEd6EVaGVkLohsg" name="src" type="_r7sYIE0gEd6EVaGVkLohsg" association="_XjTtQE0hEd6EVaGVkLohsg">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_XjU7YU0hEd6EVaGVkLohsg" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_XjU7YE0hEd6EVaGVkLohsg" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_XjVicE0hEd6EVaGVkLohsg" name="dst" type="_s6QSIE0gEd6EVaGVkLohsg" aggregation="shared" association="_XjTtQE0hEd6EVaGVkLohsg">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_XjWJgE0hEd6EVaGVkLohsg" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_XjVicU0hEd6EVaGVkLohsg" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_YV0IQE0hEd6EVaGVkLohsg" memberEnd="_YV0vUE0hEd6EVaGVkLohsg _YV1WYk0hEd6EVaGVkLohsg">
+    <ownedEnd xmi:id="_YV0vUE0hEd6EVaGVkLohsg" name="src" type="_qEJnsE0gEd6EVaGVkLohsg" association="_YV0IQE0hEd6EVaGVkLohsg">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_YV1WYU0hEd6EVaGVkLohsg" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YV1WYE0hEd6EVaGVkLohsg" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_YV1WYk0hEd6EVaGVkLohsg" name="dst" type="_r7sYIE0gEd6EVaGVkLohsg" aggregation="shared" association="_YV0IQE0hEd6EVaGVkLohsg">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_YV19cU0hEd6EVaGVkLohsg" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YV19cE0hEd6EVaGVkLohsg" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_Zx5rwE0hEd6EVaGVkLohsg" memberEnd="_Zx6S0E0hEd6EVaGVkLohsg _Zx7g8E0hEd6EVaGVkLohsg">
+    <ownedEnd xmi:id="_Zx6S0E0hEd6EVaGVkLohsg" name="src" type="_vL-dIE0gEd6EVaGVkLohsg" association="_Zx5rwE0hEd6EVaGVkLohsg">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Zx654U0hEd6EVaGVkLohsg" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Zx654E0hEd6EVaGVkLohsg" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_Zx7g8E0hEd6EVaGVkLohsg" name="dst" type="_s6QSIE0gEd6EVaGVkLohsg" association="_Zx5rwE0hEd6EVaGVkLohsg">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Zx8IAE0hEd6EVaGVkLohsg" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Zx7g8U0hEd6EVaGVkLohsg" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_CmWVsE0iEd6EVaGVkLohsg" name="StudentLib">
+    <ownedOperation xmi:id="_EASkIE0iEd6EVaGVkLohsg" name="getActiveCourses">
+      <ownedParameter xmi:id="_H263cE0iEd6EVaGVkLohsg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_tEdsIE0iEd6EVaGVkLohsg" name="getAllCourses">
+      <ownedParameter xmi:id="_u8sZEE0iEd6EVaGVkLohsg" direction="return"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_RVQaIE0iEd6EVaGVkLohsg" name="Course">
+    <ownedOperation xmi:id="_mkgmIE0iEd6EVaGVkLohsg" name="getActivePeriods">
+      <ownedParameter xmi:id="_sNVP0E0iEd6EVaGVkLohsg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_wF3noE0iEd6EVaGVkLohsg" name="getPeriods">
+      <ownedParameter xmi:id="_xj_LcE0iEd6EVaGVkLohsg" direction="return"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_T8VxIE0iEd6EVaGVkLohsg" name="Period">
+    <ownedOperation xmi:id="_0p820E0iEd6EVaGVkLohsg" name="getAssignments">
+      <ownedParameter xmi:id="_167WgE0iEd6EVaGVkLohsg" direction="return"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_jHgTwE0iEd6EVaGVkLohsg" memberEnd="_jHgTwU0iEd6EVaGVkLohsg _jHhh4U0iEd6EVaGVkLohsg">
+    <ownedEnd xmi:id="_jHgTwU0iEd6EVaGVkLohsg" name="src" type="_RVQaIE0iEd6EVaGVkLohsg" association="_jHgTwE0iEd6EVaGVkLohsg">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_jHhh4E0iEd6EVaGVkLohsg" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_jHg60E0iEd6EVaGVkLohsg" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_jHhh4U0iEd6EVaGVkLohsg" name="dst" type="_T8VxIE0iEd6EVaGVkLohsg" aggregation="shared" association="_jHgTwE0iEd6EVaGVkLohsg">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_jHiI8U0iEd6EVaGVkLohsg" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_jHiI8E0iEd6EVaGVkLohsg" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_mFUvwE0iEd6EVaGVkLohsg" memberEnd="_mFVW0E0iEd6EVaGVkLohsg _mFV94U0iEd6EVaGVkLohsg">
+    <ownedEnd xmi:id="_mFVW0E0iEd6EVaGVkLohsg" name="src" type="_T8VxIE0iEd6EVaGVkLohsg" association="_mFUvwE0iEd6EVaGVkLohsg">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_mFV94E0iEd6EVaGVkLohsg" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mFVW0U0iEd6EVaGVkLohsg" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_mFV94U0iEd6EVaGVkLohsg" name="dst" type="_qEJnsE0gEd6EVaGVkLohsg" aggregation="shared" association="_mFUvwE0iEd6EVaGVkLohsg">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_mFWk8U0iEd6EVaGVkLohsg" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mFWk8E0iEd6EVaGVkLohsg" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+</uml:Package>
