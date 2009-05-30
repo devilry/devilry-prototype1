@@ -5,15 +5,15 @@ import javax.persistence.*;
 
 import org.devilry.core.entity.*;
 
-@Stateful
-public class CourseNodeImpl extends NodeImpl implements CourseNodeRemote {
-	public void setCourseCode(String courseCode) {
-		((CourseNode) node).setCourseCode(courseCode);
-		em.merge(node);
-	}
-
-	public String getCourseCode() {
-		return ((CourseNode) node).getCourseCode();
-	}
-}
-
+//@Stateful
+//public class CourseNodeImpl extends NodeImpl implements CourseNodeRemote {
+//	public void setCourseCode(String courseCode) {
+//		((CourseNode) node).setCourseCode(courseCode);
+//		em.merge(node);
+//	}
+//
+//	public String getCourseCode() {
+//		return ((CourseNode) node).getCourseCode();
+//	}
+//}
+//

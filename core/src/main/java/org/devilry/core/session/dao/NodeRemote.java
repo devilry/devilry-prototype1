@@ -10,10 +10,16 @@ public interface NodeRemote {
 	void setDisplayName(long nodeId, String name);
 	String getDisplayName(long nodeId);
 	String getPath(long nodeId);
+
 	List<Long> getChildren(long nodeId);
 	List<Long> getSiblings(long nodeId);
+
 	void remove(long nodeId);
 	long getParentId(long nodeId);
+	boolean exists(long nodeId);
+
 	long create(String name, String displayName);
 	long create(String name, String displayName, long parentId);
+	List<Long> getToplevelNodeIds();
+	public long getNodeIdFromPath(String path);	
 }

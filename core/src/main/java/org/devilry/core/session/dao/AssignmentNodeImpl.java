@@ -9,22 +9,22 @@ import javax.persistence.*;
 
 import org.devilry.core.entity.*;
 
-@Stateful
-public class AssignmentNodeImpl extends NodeImpl implements AssignmentNodeRemote {
-	
-	public List<Long> getDeliveryIds() {
-		Query q = em.createQuery("SELECT d.id FROM Delivery d "
-				+ "WHERE d.assignment.id = :id");
-		q.setParameter("id", node.getId());
-		return q.getResultList();
-	}
-
-
-	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)	
-	public long addDelivery() {
-		Delivery d = new Delivery((AssignmentNode) node);
-		em.persist(d);
-		em.flush();
-		return d.getId();
-	}
-}
+//@Stateful
+//public class AssignmentNodeImpl extends NodeImpl implements AssignmentNodeRemote {
+//
+//	public List<Long> getDeliveryIds() {
+//		Query q = em.createQuery("SELECT d.id FROM Delivery d "
+//				+ "WHERE d.assignment.id = :id");
+//		q.setParameter("id", node.getId());
+//		return q.getResultList();
+//	}
+//
+//
+//	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+//	public long addDelivery() {
+//		Delivery d = new Delivery((AssignmentNode) node);
+//		em.persist(d);
+//		em.flush();
+//		return d.getId();
+//	}
+//}

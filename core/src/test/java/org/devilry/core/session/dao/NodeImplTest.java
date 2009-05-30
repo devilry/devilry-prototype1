@@ -9,6 +9,8 @@ import static org.junit.Assert.*;
 
 import org.devilry.core.session.*;
 
+import java.util.List;
+
 public class NodeImplTest extends AbstractDaoTst {
 	NodeRemote node;
 	TreeManagerRemote tm;
@@ -36,14 +38,14 @@ public class NodeImplTest extends AbstractDaoTst {
 	}
 
 	@Test
-	public void setName() {
-		node.setName(matnatId, "newname");
-		assertEquals("newname", node.getName(matnatId));
+	public void getDisplayName() {
+		assertEquals("Faculty of Mathematics", node.getDisplayName(matnatId));
 	}
 
 	@Test
-	public void getDisplayName() {
-		assertEquals("Faculty of Mathematics", node.getDisplayName(matnatId));
+	public void setName() {
+		node.setName(matnatId, "newname");
+		assertEquals("newname", node.getName(matnatId));
 	}
 
 	@Test
@@ -53,36 +55,57 @@ public class NodeImplTest extends AbstractDaoTst {
 	}
 
 
-	/*
 	@Test
 	public void getPath() {
-		node.init(tm.getNodeIdFromPath("uio.matnat.ifi"));
-		assertEquals("uio.matnat.ifi", node.getPath());
+		assertEquals("uio.matnat", node.getPath(matnatId));
 	}
 
 	@Test
 	public void getChildren() {
-		node.init(tm.getNodeIdFromPath("uio.matnat"));
-		assertEquals(1, node.getChildren().size());
-		tm.addNode("ifi2", "ifi2", tm.getNodeIdFromPath("uio.matnat"));
-		assertEquals(2, node.getChildren().size());
+		List<Long> children = node.getChildren(uioId);
+		assertEquals(1, children.size());
+		assertEquals(matnatId, (long) children.get(0));
+
+		node.create("hf", "Huma....", uioId);
+		assertEquals(2, node.getChildren(uioId).size());
 	}
 
 	@Test
 	public void getSiblings() {
-		node.init(tm.getNodeIdFromPath("uio.matnat.ifi"));
-		assertEquals(0, node.getSiblings().size());
-		tm.addNode("ifi2", "ifi2", tm.getNodeIdFromPath("uio.matnat"));
-		assertEquals(1, node.getSiblings().size());
+		assertEquals(0, node.getSiblings(matnatId).size());
+		node.create("hf", "Huma....", uioId);
+		assertEquals(1, node.getSiblings(matnatId).size());
 	}
+
+
+	@Test
+	public void exists() {
+		assertTrue(node.exists(uioId));
+		assertTrue(node.exists(matnatId));
+		assertFalse(node.exists(uioId + matnatId));
+	}
+
 
 	@Test
 	public void remove() {
-		node.init(tm.getNodeIdFromPath("uio"));
-		node.remove();
-		assertEquals(-1, tm.getNodeIdFromPath("uio"));
-		assertEquals(-1, tm.getNodeIdFromPath("uio.matnat"));
-		assertEquals(-1, tm.getNodeIdFromPath("uio.matnat.ifi"));
+		node.remove(uioId);
+		assertFalse(node.exists(uioId));
+		assertFalse(node.exists(matnatId));
 	}
-	*/
+
+
+	@Test
+	public void getNodeIdFromPath() {
+		assertEquals(uioId, node.getNodeIdFromPath("uio"));
+		assertEquals(matnatId, node.getNodeIdFromPath("uio.matnat"));
+	}
+
+	@Test
+	public void getToplevelNodeIds() {
+		List<Long> toplevel = node.getToplevelNodeIds();
+		assertEquals(1, toplevel.size());
+		assertEquals(uioId, (long) toplevel.get(0));
+		node.create("a", "A");
+		assertEquals(2, node.getToplevelNodeIds().size());
+	}
 }
