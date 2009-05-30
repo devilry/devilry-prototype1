@@ -38,17 +38,17 @@ public class TreeManagerImpl implements TreeManagerRemote {
 		return persistNode(node, parentId);
 	}
 
-	public long addCourseNode(String name, String displayName, long parentId) {
-		return addCourseNode(name, name, displayName, parentId);
-	}
+//	public long addCourseNode(String name, String displayName, long parentId) {
+//		return addCourseNode(name, name, displayName, parentId);
+//	}
 
-	public long addCourseNode(String name, String courseCode, String displayName, long parentId) {
-		CourseNode node = new CourseNode();
-		node.setName(name.toLowerCase());
-		node.setDisplayName(displayName);
-		node.setCourseCode(courseCode);
-		return persistNode(node, parentId);
-	}
+//	public long addCourseNode(String name, String courseCode, String displayName, long parentId) {
+//		CourseNode node = new CourseNode();
+//		node.setName(name.toLowerCase());
+//		node.setDisplayName(displayName);
+//		node.setCourseCode(courseCode);
+//		return persistNode(node, parentId);
+//	}
 
 	public long addPeriodNode(String name, Date start, Date end, long parentId) {
 		return addPeriodNode(name, name, start, end, parentId);

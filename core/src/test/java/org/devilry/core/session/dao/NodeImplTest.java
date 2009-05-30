@@ -12,14 +12,12 @@ import org.devilry.core.session.*;
 import java.util.List;
 
 public class NodeImplTest extends AbstractDaoTst {
-	NodeRemote node;
-	TreeManagerRemote tm;
-	long uioId, matnatId;
+	protected NodeRemote node;
+	protected long uioId, matnatId;
 
 	@Before
 	public void setUp() throws NamingException {
 		setupEjbContainer();
-		tm = getRemoteBean(TreeManagerImpl.class);
 		node = getRemoteBean(NodeImpl.class);
 		uioId = node.create("uio", "UiO");
 		matnatId = node.create("matnat", "Faculty of Mathematics", uioId);
