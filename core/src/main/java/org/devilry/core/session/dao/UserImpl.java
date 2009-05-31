@@ -2,6 +2,7 @@ package org.devilry.core.session.dao;
 
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
@@ -11,6 +12,7 @@ import javax.persistence.Query;
 import org.devilry.core.entity.Identity;
 import org.devilry.core.entity.User;
 
+@Stateless
 public class UserImpl implements UserRemote {
 	@PersistenceContext(unitName = "DevilryCore")
 	protected EntityManager em;
@@ -36,7 +38,8 @@ public class UserImpl implements UserRemote {
 		u.setEmail(email);
 		u.setPhoneNumber(phoneNumber);
 		em.persist(u);
-		return 0;
+		em.flush();
+		return u.getId();
 	}
 
 	public long findUser(String identity) {
@@ -70,7 +73,7 @@ public class UserImpl implements UserRemote {
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void remove(long userId) {
-		Query q = em.createQuery("REMOVE FROM Identity i WHERE i.user.id = :userId");
+		Query q = em.createQuery("DELETE FROM Identity i WHERE i.user.id = :userId");
 		q.setParameter("userId", userId);
 		q.executeUpdate();		
 		em.remove(getUser(userId));
