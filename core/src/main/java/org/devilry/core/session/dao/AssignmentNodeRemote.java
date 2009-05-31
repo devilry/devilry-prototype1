@@ -6,7 +6,7 @@ import java.util.List;
 import javax.ejb.Remote;
 
 @Remote
-public interface AssignmentNodeRemote extends NodeRemote {
+public interface AssignmentNodeRemote extends AbstractNodeRemote {
 	
 	/**
 	 * Get deliveries 
@@ -14,21 +14,21 @@ public interface AssignmentNodeRemote extends NodeRemote {
 	 * @return list of ids for the deliveries
 	 */
 	public List<Long> getDeliveries(long assignmentId);
-	
+
 	/**
 	 * Get the deadline for this assignment
 	 * @param nodeId
 	 * @return the date/time of the deadline.
 	 */
 	public Date getDeadline(long nodeId);
-	
+
 	/**
 	 * Set the deadline for this assignment
 	 * @param nodeId
 	 * @param deadline The date/time of the deadline.
 	 */
 	public void setDeadline(long nodeId, Date deadline);
-	
+
 	/** Create a new assignment node.
 	 * 
 	 * @param name
