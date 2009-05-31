@@ -37,13 +37,13 @@ public interface DeliveryCandidateRemote {
 	 * @param deliveryCandiateId
 	 * @param status
 	 */
-	public void setStatus(long deliveryCandidateId, short status);
+	public void setStatus(long deliveryCandidateId, int status);
 	
 	/**
 	 * Get the status of the delivery.
 	 * @param deliveryCandiateId
 	 * @return
 	 */
-	public short getStatus(long deliveryCandidateId);
+	public int getStatus(long deliveryCandidateId);
 	
 }
