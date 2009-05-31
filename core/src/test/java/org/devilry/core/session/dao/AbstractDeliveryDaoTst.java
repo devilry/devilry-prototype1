@@ -11,9 +11,7 @@ import java.util.GregorianCalendar;
 public class AbstractDeliveryDaoTst extends AbstractDaoTst {
 
 	long uioId, matnatId;
-	
-	DeliveryRemote delivery;
-	
+		
 	PeriodNodeRemote periodNode;
 	long periodId;
 	long periodId2;
