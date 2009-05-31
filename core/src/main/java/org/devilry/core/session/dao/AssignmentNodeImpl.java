@@ -11,7 +11,7 @@ import javax.persistence.*;
 import org.devilry.core.entity.*;
 
 @Stateless
-public class AssignmentNodeImpl extends NodeImpl implements AssignmentNodeRemote {
+public class AssignmentNodeImpl extends AbstractNodeImpl implements AssignmentNodeRemote {
 	
 	private AssignmentNode getAssignmentNode(long nodeId) {
 		return (AssignmentNode) getNode(nodeId);
