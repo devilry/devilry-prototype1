@@ -27,23 +27,23 @@ public interface DeliveryCandidateRemote {
 		
 	/**
 	 * Get all the files in the delivery candidate.
-	 * @param deliveryCandiateID
+	 * @param deliveryCandiateId
 	 * @return
 	 */
-	public List<Long> getFiles(long deliveryCandiateID);
+	public List<Long> getFiles(long deliveryCandiateId);
 	
 	/**
 	 * Set the status of the delivery
-	 * @param deliveryCandiateID
+	 * @param deliveryCandiateId
 	 * @param status
 	 */
-	public void setStatus(long deliveryCandiateID, short status);
+	public void setStatus(long deliveryCandiateId, short status);
 	
 	/**
 	 * Get the status of the delivery.
-	 * @param deliveryCandiateID
+	 * @param deliveryCandiateId
 	 * @return
 	 */
-	public short getStatus(long deliveryCandiateID);
+	public short getStatus(long deliveryCandiateId);
 	
 }
