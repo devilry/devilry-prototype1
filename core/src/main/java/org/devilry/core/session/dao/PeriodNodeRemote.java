@@ -12,6 +12,5 @@ public interface PeriodNodeRemote extends NodeRemote {
 	public void setEndDate(long nodeId, Date end);
 	public Date getEndDate(long nodeId);
 	public long create(String name, String displayName, Date start, Date end, long parentId);
-	public List<Long> getAllPeriodIds();
 }
 

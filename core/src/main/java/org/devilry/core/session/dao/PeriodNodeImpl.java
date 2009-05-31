@@ -28,11 +28,6 @@ public class PeriodNodeImpl extends NodeImpl implements PeriodNodeRemote {
 		return node.getId();
 	}
 
-	public List<Long> getAllPeriodIds() {
-		Query q = em.createQuery("SELECT p.id FROM PeriodNode p");
-		return q.getResultList();
-	}
-
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void setStartDate(long nodeId, Date start) {
 		PeriodNode node = getPeriodNode(nodeId);

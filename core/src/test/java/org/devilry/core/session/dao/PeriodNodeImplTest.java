@@ -54,12 +54,5 @@ public class PeriodNodeImplTest extends NodeImplTest {
 		periodNode.setEndDate(periodId, end.getTime());
 		assertEquals(end.getTime().toString(), periodNode.getEndDate(periodId).toString());
 	}
-
-	@Test
-	public void getAllCourseIds() {
-		List<Long> ids = periodNode.getAllPeriodIds();
-		assertEquals(1, ids.size());
-		assertEquals(periodId, (long) ids.get(0));
-	}
 }
 

@@ -6,6 +6,5 @@ import javax.ejb.Remote;
 
 @Remote
 public interface AssignmentNodeRemote extends NodeRemote {
-	public List<Long> getDeliveryIds();
-	public long addDelivery();
+	public List<Long> getDeliveries(long nodeId);
 }
