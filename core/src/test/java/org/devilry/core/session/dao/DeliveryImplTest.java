@@ -6,46 +6,48 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import javax.naming.NamingException;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
-//public class DeliveryImplTest extends AbstractDeliveryDaoTst {
-//
-//	@Before
-//	public void setUp() throws NamingException {
-//		setupEjbContainer();
-//	}
-//
-//	@Test
-//	public void getId() {
-//		assertTrue(delivery.getId() > 0);
-//	}
-//
-//	@Test
-//	public void getAssignmentId() {
-//		assertEquals(assignmentId, delivery.getAssignmentId());
-//	}
-//
-//	@Test
-//	public void getDeliveryCandidateIds() {
-//		delivery.addDeliveryCandidate();
-//		delivery.addDeliveryCandidate();
-//		delivery.addDeliveryCandidate();
-//		assertEquals(3, delivery.getDeliveryCandidateIds().size());
-//	}
-//
-//	@Test
-//	public void addDeliveryCandidate() throws NamingException {
-//		long id = delivery.addDeliveryCandidate();
-//
-//		List<Long> c = delivery.getDeliveryCandidateIds();
-//		assertEquals(1, c.size());
-//		assertEquals(id, (long)c.get(0));
-//		DeliveryCandidateRemote d = getRemoteBean(DeliveryCandidateImpl.class);
-//		d.init(id);
-//		assertEquals(id, d.getId());
-//	}
-//
-//	@After
-//	public void tearDown() {
-//	}
-//}
+public class DeliveryImplTest extends AbstractDeliveryDaoTst {
+	
+	DeliveryRemote delivery;
+	long deliveryId;
+	
+	@Before
+	public void setUp() throws NamingException {
+		setupEjbContainer();
+			
+		delivery = getRemoteBean(DeliveryImpl.class);
+	}
+
+	@Test
+	public void getAssignmentId() {
+		assertEquals(assignmentId, delivery.getAssignment(deliveryId));
+	}
+
+	@Test
+	public void getDeliveryCandidateIds() {
+		delivery.create(assignmentId);
+		delivery.create(assignmentId);
+		delivery.create(assignmentId);
+		assertEquals(3, delivery.getDeliveryCandidates(deliveryId).size());
+	}
+
+	@Test
+	public void addDeliveryCandidate() throws NamingException {
+		long id = delivery.create(assignmentId);
+
+		List<Long> c = delivery.getDeliveryCandidates(deliveryId);
+		assertEquals(1, c.size());
+		assertEquals(id, (long)c.get(0));
+		DeliveryCandidateRemote d = getRemoteBean(DeliveryCandidateImpl.class);
+		
+	}
+
+	@After
+	public void tearDown() {
+	}
+}
