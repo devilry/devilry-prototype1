@@ -15,7 +15,7 @@ public interface NodeRemote {
 	List<Long> getSiblings(long nodeId);
 
 	void remove(long nodeId);
-	long getParentId(long nodeId);
+	long getParent(long nodeId);
 	boolean exists(long nodeId);
 
 	long create(String name, String displayName);

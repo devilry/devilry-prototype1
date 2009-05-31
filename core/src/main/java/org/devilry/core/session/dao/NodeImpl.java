@@ -67,7 +67,7 @@ public class NodeImpl implements NodeRemote {
 	}
 
 
-	public long getParentId(long nodeId) {
+	public long getParent(long nodeId) {
 		return getNode(nodeId).getParent().getId();
 	}
 
