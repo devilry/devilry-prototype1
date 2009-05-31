@@ -21,7 +21,7 @@ public class DeliveryCandidateImplTest extends AbstractDeliveryDaoTst {
 		
 		// Set up a delivery
 		delivery = getRemoteBean(DeliveryImpl.class);
-		deliveryId = delivery.create(deliveryCandidateId);
+		deliveryId = delivery.create(assignmentId);
 		
 		// Add delivery candidate
 		deliveryCandidate = getRemoteBean(DeliveryCandidateImpl.class);
