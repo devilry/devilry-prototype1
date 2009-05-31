@@ -51,5 +51,19 @@ public interface DeliveryRemote {
 	 * @return
 	 */
 	public long getLastValidDeliveryCandidate(long deliveryID);
+	
+	/**
+	 * Get id of all correctors assigned for this delivery
+	 * @param deliveryID
+	 * @return
+	 */
+	public List<Long> getCorrectors(long deliveryID);
+	
+	/**
+	 * Get id of all students registered for this delivery
+	 * @param deliveryID
+	 * @return
+	 */
+	public List<Long> getStudents(long deliveryID);
 		
 }
