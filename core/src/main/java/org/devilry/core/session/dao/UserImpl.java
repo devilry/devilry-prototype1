@@ -95,10 +95,16 @@ public class UserImpl implements UserRemote {
 	}
 
 	public boolean emailExists(String email) {
-		return false;
+		Query q = em.createQuery("SELECT u.email FROM User u WHERE u.email = :email");
+		q.setParameter("email", email);
+		List<String> l = q.getResultList();
+		return l.size() == 1;
 	}
 
 	public boolean identityExists(String identity) {
-		return false;
+		Query q = em.createQuery("SELECT i.identity FROM Identity i WHERE i.identity = :identity");
+		q.setParameter("identity", identity);
+		List<String> l = q.getResultList();
+		return l.size() == 1;
 	}
 }
