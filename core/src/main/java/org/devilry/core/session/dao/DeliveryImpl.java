@@ -1,5 +1,6 @@
 package org.devilry.core.session.dao;
 
+import org.devilry.core.entity.AssignmentNode;
 import org.devilry.core.entity.Delivery;
 import org.devilry.core.entity.DeliveryCandidate;
 
@@ -38,8 +39,10 @@ public class DeliveryImpl implements DeliveryRemote {
 
 	
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-	public long create() {
+	public long create(long assignmentId) {
 		Delivery d = new Delivery();
+		AssignmentNode a = em.find(AssignmentNode.class, assignmentId);
+		d.setAssignment(a);
 		em.persist(d);
 		em.flush();
 		return d.getId();
@@ -64,5 +67,15 @@ public class DeliveryImpl implements DeliveryRemote {
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void setStatus(long deliveryId, int status) {
 		getDelivery(deliveryId).setStatus(status);
+	}
+
+	public List<Long> getCorrectors(long deliveryId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<Long> getStudents(long deliveryId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

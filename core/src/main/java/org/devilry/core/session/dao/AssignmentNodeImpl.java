@@ -1,5 +1,6 @@
 package org.devilry.core.session.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.TransactionAttribute;
@@ -17,5 +18,15 @@ public class AssignmentNodeImpl extends NodeImpl implements AssignmentNodeRemote
 		Query q = em.createQuery("SELECT d.id FROM Delivery d WHERE d.assignment.id = :id");
 		q.setParameter("id", nodeId);
 		return q.getResultList();
+	}
+
+	public Date getDeadline(long assignmentId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setDeadline(long assignmentId, Date date) {
+		// TODO Auto-generated method stub
+		
 	}
 }
