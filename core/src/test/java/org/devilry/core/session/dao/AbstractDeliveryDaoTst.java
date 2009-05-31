@@ -40,15 +40,20 @@ public class AbstractDeliveryDaoTst extends AbstractDaoTst {
 
 		// Period
 		periodNode = getRemoteBean(PeriodNodeImpl.class);
-		periodId1 = periodNode.create("spring09", "Spring 2009", start.getTime(), end.getTime(), inf1000Id);
+		periodId = periodNode.create("spring09", "Spring 2009", start.getTime(), end.getTime(), inf1000Id);
 		periodId2 = periodNode.create("fall09", "Fall 2009", start.getTime(), end.getTime(), inf1000Id);
+		
+		Calendar deadline = new GregorianCalendar(2009, 05, 17);
 		
 		// Assignment
 		assignmentNode = getRemoteBean(AssignmentNodeImpl.class);
-		assignmentId = assignmentNode.create("Oblig1", "Obligatory assignment 1", periodId);
-		assignmentId2 = assignmentNode.create("Oblig2", "Obligatory assignment 2", periodId);
+		assignmentId = assignmentNode.create("Oblig1", "Obligatory assignment 1", deadline.getTime(), periodId);
 		
-		assignmentId2 = assignmentNode.create("Oblig1", "Obligatory assignment 1", periodId2);
+		deadline = new GregorianCalendar(2009, 06, 17);
+		assignmentId2 = assignmentNode.create("Oblig2", "Obligatory assignment 2", deadline.getTime(), periodId);
+		
+		deadline = new GregorianCalendar(2009, 07, 17);
+		assignmentId2 = assignmentNode.create("Oblig1", "Obligatory assignment 1", deadline.getTime(), periodId2);
 		
 		
 		
