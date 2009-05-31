@@ -23,7 +23,8 @@ public class CourseNodeImpl extends NodeImpl implements CourseNodeRemote {
 		return node.getId();
 	}
 
-	public List<Long> getAllCourseIds() {
+	@SuppressWarnings("unchecked")
+	public List<Long> getAllCourses() {
 		Query q = em.createQuery("SELECT c.id FROM CourseNode c");
 		return q.getResultList();
 	}

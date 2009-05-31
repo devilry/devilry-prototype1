@@ -5,5 +5,5 @@ import java.util.List;
 
 @Remote
 public interface CourseNodeRemote extends NodeRemote {
-	public List<Long> getAllCourseIds();
+	public List<Long> getAllCourses();
 }
