@@ -7,7 +7,49 @@ import java.util.List;
 
 @Remote
 public interface DeliveryRemote {
+	
+	/** 
+	 * Create a new Delivery in the database.
+	 */
 	public long create();
-	public long getAssignment();
-	public List<Long> getDeliveryCandidates();
+	
+	/**
+	 * Get parent (Assignment) node
+	 * @return
+	 */
+	public long getAssignment(long deliveryID);
+	
+	/**
+	 * Set status of the delivery
+	 * @param deliveryID
+	 * @param status
+	 */
+	public void setStatus(long deliveryID, short status);
+	
+	/**
+	 * Get status of the delivery
+	 * @return
+	 */
+	public short getStatus(long deliveryID);
+	
+	/**
+	 * Get IDs of all delivery candidates for the delivery
+	 * @return
+	 */
+	public List<Long> getDeliveryCandidates(long deliveryID);
+	
+	/**
+	 * Get the Id of the delivery that was delivered latest (in time) 
+	 * @param deliveryID
+	 * @return
+	 */
+	public long getLastDeliveryCandidate(long deliveryID);
+	
+	/**
+	 * Get the delivery that was delivered latest (in time) that was before the deadline of the assignment.
+	 * @param deliveryID
+	 * @return
+	 */
+	public long getLastValidDeliveryCandidate(long deliveryID);
+		
 }
