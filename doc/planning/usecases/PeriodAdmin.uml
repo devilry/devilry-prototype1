@@ -12,10 +12,14 @@
   <elementImport xmi:id="_Bv4fMk0LEd6s740ZkHuemA">
     <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
   </elementImport>
-  <packagedElement xmi:type="uml:Component" xmi:id="_WQgDkE0LEd6s740ZkHuemA" name="Devilry Core" useCase="_jvnUEE0LEd6s740ZkHuemA _lwUnkE0LEd6s740ZkHuemA _f6YnkE0OEd6s740ZkHuemA">
+  <packagedElement xmi:type="uml:Component" xmi:id="_WQgDkE0LEd6s740ZkHuemA" name="Devilry Core" useCase="_jvnUEE0LEd6s740ZkHuemA _lwUnkE0LEd6s740ZkHuemA _f6YnkE0OEd6s740ZkHuemA _PX78sE4xEd6bWcwC_b1DzQ _S_UTEE4xEd6bWcwC_b1DzQ _YiY6EE4xEd6bWcwC_b1DzQ _a2tGEE4xEd6bWcwC_b1DzQ">
     <ownedUseCase xmi:id="_jvnUEE0LEd6s740ZkHuemA" name="Add an assignment node to a period node" subject="_WQgDkE0LEd6s740ZkHuemA"/>
     <ownedUseCase xmi:id="_lwUnkE0LEd6s740ZkHuemA" name="Remove an assignment node from a period node" subject="_WQgDkE0LEd6s740ZkHuemA"/>
     <ownedUseCase xmi:id="_f6YnkE0OEd6s740ZkHuemA" name="Change properties of an assignment node" subject="_WQgDkE0LEd6s740ZkHuemA"/>
+    <ownedUseCase xmi:id="_PX78sE4xEd6bWcwC_b1DzQ" name="Remove a delivery candidate from a Delivery" subject="_WQgDkE0LEd6s740ZkHuemA"/>
+    <ownedUseCase xmi:id="_S_UTEE4xEd6bWcwC_b1DzQ" name="Add delivery to assignment" subject="_WQgDkE0LEd6s740ZkHuemA"/>
+    <ownedUseCase xmi:id="_YiY6EE4xEd6bWcwC_b1DzQ" name="Remove delivery from assignment" subject="_WQgDkE0LEd6s740ZkHuemA"/>
+    <ownedUseCase xmi:id="_a2tGEE4xEd6bWcwC_b1DzQ" name="Change properties of a delivery" subject="_WQgDkE0LEd6s740ZkHuemA"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Actor" xmi:id="_Y-OOEE0LEd6s740ZkHuemA" name="User"/>
   <packagedElement xmi:type="uml:Actor" xmi:id="_aRTmkE0LEd6s740ZkHuemA" name="PeriodAdmin">
