@@ -20,6 +20,6 @@ public interface NodeRemote {
 
 	long create(String name, String displayName);
 	long create(String name, String displayName, long parentId);
-	List<Long> getToplevelNodeIds();
+	List<Long> getToplevelNodes();
 	public long getNodeIdFromPath(String path);	
 }

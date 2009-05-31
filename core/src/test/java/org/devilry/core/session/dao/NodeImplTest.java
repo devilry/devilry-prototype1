@@ -100,10 +100,10 @@ public class NodeImplTest extends AbstractDaoTst {
 
 	@Test
 	public void getToplevelNodeIds() {
-		List<Long> toplevel = node.getToplevelNodeIds();
+		List<Long> toplevel = node.getToplevelNodes();
 		assertEquals(1, toplevel.size());
 		assertEquals(uioId, (long) toplevel.get(0));
 		node.create("a", "A");
-		assertEquals(2, node.getToplevelNodeIds().size());
+		assertEquals(2, node.getToplevelNodes().size());
 	}
 }

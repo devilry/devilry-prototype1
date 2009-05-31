@@ -132,7 +132,7 @@ public class NodeImpl implements NodeRemote {
 	}
 
 
-	public List<Long> getToplevelNodeIds() {
+	public List<Long> getToplevelNodes() {
 		Query q = em.createQuery("SELECT n.id FROM Node n WHERE n.parent IS NULL");
 		return q.getResultList();
 	}
