@@ -17,6 +17,8 @@ public class DeliveryCandidate implements Serializable {
 	@GeneratedValue
 	protected long id;
 
+	private int status;
+	
 	@ManyToOne(optional = false)
 	private Delivery delivery;
 
@@ -49,5 +51,13 @@ public class DeliveryCandidate implements Serializable {
 	
 	public void setDelivery(Delivery delivery) {
 		this.delivery = delivery;
+	}
+	
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
 	}
 }
