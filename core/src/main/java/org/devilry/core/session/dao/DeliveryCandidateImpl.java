@@ -17,6 +17,7 @@ public class DeliveryCandidateImpl implements DeliveryCandidateRemote {
 	@PersistenceContext(unitName = "DevilryCore")
 	protected EntityManager em;
 		
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public long create(long deliveryId) {
 		
 		Delivery delivery = em.find(Delivery.class, deliveryId);
