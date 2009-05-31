@@ -10,7 +10,7 @@ public interface DeliveryCandidateRemote {
 	 * Get parent (Delivery) node
 	 * @return
 	 */
-	public long getDelivery();
+	public long getDelivery(long deliveryCandiateId);
 	
 	/**
 	 * Creates a delivery candidate in the database

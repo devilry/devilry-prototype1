@@ -8,17 +8,17 @@ import java.util.List;
 @Remote
 public interface DeliveryRemote {
 	
-	/** 
-	 * Create a new Delivery in the database.
-	 */
-	public long create();
-	
 	/**
 	 * Get parent (Assignment) node
 	 * @return
 	 */
 	public long getAssignment(long deliveryID);
 	
+	/** 
+	 * Create a new Delivery in the database.
+	 */
+	public long create();
+		
 	/**
 	 * Set status of the delivery
 	 * @param deliveryID
