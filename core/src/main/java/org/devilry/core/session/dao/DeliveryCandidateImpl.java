@@ -1,46 +1,73 @@
 package org.devilry.core.session.dao;
 
+import org.devilry.core.entity.Delivery;
 import org.devilry.core.entity.FileMeta;
 import org.devilry.core.entity.DeliveryCandidate;
 import java.util.List;
-import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-//@Stateful
-//public class DeliveryCandidateImpl implements DeliveryCandidateRemote {
-//
-//	@PersistenceContext(unitName = "DevilryCore")
-//	protected EntityManager em;
-//	protected DeliveryCandidate deliveryCandidate = null;
-//
-//	public void init(long deliveryCandidateId) {
-//		deliveryCandidate = em.find(DeliveryCandidate.class, deliveryCandidateId);
-//	}
-//
-//	public long getId() {
-//		return deliveryCandidate.getId();
-//	}
-//
-//	public long getDeliveryId() {
-//		return deliveryCandidate.getDelivery().getId();
-//	}
-//
-//	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-//	public long addFile(String filePath) {
-//		FileMeta f = new FileMeta(deliveryCandidate, filePath);
-//		em.persist(f);
-//		em.flush();
-//		return f.getId();
-//	}
-//
-//	public List<Long> getFileIds() {
-//		Query q = em.createQuery("SELECT f.id FROM FileMeta f "
-//				+ "WHERE f.deliveryCandidate.id = :id ORDER BY f.filePath");
-//		q.setParameter("id", deliveryCandidate.getId());
-//		return q.getResultList();
-//	}
-//}
+@Stateless
+public class DeliveryCandidateImpl implements DeliveryCandidateRemote {
+
+	@PersistenceContext(unitName = "DevilryCore")
+	protected EntityManager em;
+		
+	public long create(long deliveryId) {
+		
+		Delivery delivery = em.find(Delivery.class, deliveryId);
+		
+		DeliveryCandidate candidate = new DeliveryCandidate();
+		// Set parent
+		candidate.setDelivery(delivery);
+		
+		em.persist(candidate);
+		em.flush();
+		
+		return candidate.getId();
+	}
+	
+	protected DeliveryCandidate getDeliveryCandidate(long deliveryCandidateId) {
+		return em.find(DeliveryCandidate.class, deliveryCandidateId);
+	}
+	
+
+	public long getDelivery(long deliveryCandidateId) {
+		return getDeliveryCandidate(deliveryCandidateId).getDelivery().getId();
+	}
+	
+
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	public long addFile(long deliveryCandidateId, String filePath) {
+		FileMeta f = new FileMeta(getDeliveryCandidate(deliveryCandidateId), filePath);
+		
+		DeliveryCandidate deliveryCandidate = getDeliveryCandidate(deliveryCandidateId);
+		f.setDeliveryCandidate(deliveryCandidate);
+		
+		em.persist(f);
+		em.flush();
+		return f.getId();
+	}
+
+	public List<Long> getFiles(long deliveryCandidateId) {
+		Query q = em.createQuery("SELECT f.id FROM FileMeta f "
+				+ "WHERE f.deliveryCandidate.id = :id ORDER BY f.filePath");
+		q.setParameter("id", deliveryCandidateId);
+		return q.getResultList();
+	}
+
+
+	public int getStatus(long deliveryCandidateId) {
+		return getDeliveryCandidate(deliveryCandidateId).getStatus();
+	}
+
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	public void setStatus(long deliveryCandidateId, int status) {
+		getDeliveryCandidate(deliveryCandidateId).setStatus(status);
+	}
+
+}
