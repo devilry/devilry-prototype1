@@ -17,15 +17,25 @@ public interface AssignmentNodeRemote extends NodeRemote {
 	
 	/**
 	 * Get the deadline for this assignment
-	 * @param assignmentId
-	 * @return the deadline in Date format
+	 * @param nodeId
+	 * @return the date/time of the deadline.
 	 */
-	public Date getDeadline(long assignmentId);
+	public Date getDeadline(long nodeId);
 	
 	/**
 	 * Set the deadline for this assignment
-	 * @param assignmentId
-	 * @param date
+	 * @param nodeId
+	 * @param deadline The date/time of the deadline.
 	 */
-	public void setDeadline(long assignmentId, Date date);
+	public void setDeadline(long nodeId, Date deadline);
+	
+	/** Create a new assignment node.
+	 * 
+	 * @param name
+	 * @param displayName
+	 * @param deadline
+	 * @param parentId
+	 * @return
+	 */
+	public long create(String name, String displayName, Date deadline, long parentId);
 }

@@ -12,6 +12,10 @@ import org.devilry.core.entity.*;
 
 @Stateless
 public class AssignmentNodeImpl extends NodeImpl implements AssignmentNodeRemote {
+	
+	private AssignmentNode getAssignmentNode(long nodeId) {
+		return (AssignmentNode) getNode(nodeId);
+	}
 
 	@SuppressWarnings("unchecked")
 	public List<Long> getDeliveries(long nodeId) {
@@ -20,13 +24,26 @@ public class AssignmentNodeImpl extends NodeImpl implements AssignmentNodeRemote
 		return q.getResultList();
 	}
 
-	public Date getDeadline(long assignmentId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Date getDeadline(long nodeId) {
+		return getAssignmentNode(nodeId).getDeadline();
 	}
 
-	public void setDeadline(long assignmentId, Date date) {
-		// TODO Auto-generated method stub
-		
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	public void setDeadline(long nodeId, Date deadline) {
+		AssignmentNode a = getAssignmentNode(nodeId);
+		a.setDeadline(deadline);
+		em.persist(a);
+	}
+	
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	public long create(String name, String displayName, Date deadline, long parentId) {
+		AssignmentNode node = new AssignmentNode();
+		node.setName(name.toLowerCase());
+		node.setDisplayName(displayName);
+		node.setDeadline(deadline);
+		node.setParent(getNode(parentId));
+		em.persist(node);
+		em.flush();
+		return node.getId();
 	}
 }
