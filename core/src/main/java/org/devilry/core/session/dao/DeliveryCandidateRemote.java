@@ -16,34 +16,34 @@ public interface DeliveryCandidateRemote {
 	 * Get parent (Delivery) node
 	 * @return
 	 */
-	public long getDelivery(long deliveryCandiateId);
+	public long getDelivery(long deliveryCandidateId);
 		
 	/**
 	 * Add a file to the delivery candidate with ID deliveryCandiateId
 	 * @param filePath
 	 * @return the ID of the file that was added
 	 */
-	public long addFile(long deliveryCandiateId, String filePath);
+	public long addFile(long deliveryCandidateId, String filePath);
 		
 	/**
 	 * Get all the files in the delivery candidate.
 	 * @param deliveryCandiateId
 	 * @return
 	 */
-	public List<Long> getFiles(long deliveryCandiateId);
+	public List<Long> getFiles(long deliveryCandidateId);
 	
 	/**
 	 * Set the status of the delivery
 	 * @param deliveryCandiateId
 	 * @param status
 	 */
-	public void setStatus(long deliveryCandiateId, short status);
+	public void setStatus(long deliveryCandidateId, short status);
 	
 	/**
 	 * Get the status of the delivery.
 	 * @param deliveryCandiateId
 	 * @return
 	 */
-	public short getStatus(long deliveryCandiateId);
+	public short getStatus(long deliveryCandidateId);
 	
 }
