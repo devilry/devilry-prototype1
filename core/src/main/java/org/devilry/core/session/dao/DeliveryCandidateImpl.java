@@ -3,6 +3,8 @@ package org.devilry.core.session.dao;
 import org.devilry.core.entity.Delivery;
 import org.devilry.core.entity.FileMeta;
 import org.devilry.core.entity.DeliveryCandidate;
+
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -25,6 +27,9 @@ public class DeliveryCandidateImpl implements DeliveryCandidateRemote {
 		DeliveryCandidate candidate = new DeliveryCandidate();
 		// Set parent
 		candidate.setDelivery(delivery);
+		
+		// Set time of delivery
+		setTimeOfDelivery(candidate.getId(), new Date());
 		
 		em.persist(candidate);
 		em.flush();
@@ -71,4 +76,12 @@ public class DeliveryCandidateImpl implements DeliveryCandidateRemote {
 		getDeliveryCandidate(deliveryCandidateId).setStatus(status);
 	}
 
+	public Date getTimeOfDelivery(long deliveryCandidateId) {
+		return getDeliveryCandidate(deliveryCandidateId).getTimeOfDelivery();
+	}
+
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	public void setTimeOfDelivery(long deliveryCandidateId, Date timeOfDelivery) {
+		getDeliveryCandidate(deliveryCandidateId).setTimeOfDelivery(timeOfDelivery);
+	}
 }
