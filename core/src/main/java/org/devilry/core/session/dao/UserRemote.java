@@ -80,14 +80,13 @@ public interface UserRemote {
 	 */
 	void addIdentity(long userId, String identity);
 	
-	/** Remove the given identity from a user.
+	/** Remove the given identity.
 	 * 
 	 * Note that you can remove all identities from a user.
 	 * 
-	 * @param userId The unique number identifying an existing user. 
 	 * @param identity An existing identity.
 	 */
-	void removeIdentity(long userId, String identity);
+	void removeIdentity(String identity);
 	
 	/** Find a user by identity.
 	 *

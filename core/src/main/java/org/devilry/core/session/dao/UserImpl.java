@@ -25,10 +25,14 @@ public class UserImpl implements UserRemote {
 		return em.find(Identity.class, identity);
 	}
 
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void addIdentity(long userId, String identity) {
 		Identity i = new Identity();
 		i.setIdentity(identity);
-		i.setUser(getUser(userId));
+		User u = getUser(userId);
+		i.setUser(u);
+		em.persist(i);
+		em.flush();
 	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
@@ -44,15 +48,19 @@ public class UserImpl implements UserRemote {
 
 	public long findUser(String identity) {
 		Identity i = getIdentity(identity);
-		return i.getUser().getId();
+		User u = i.getUser(); 
+		return u.getId();
 	}
 
 	public String getEmail(long userId) {
 		return getUser(userId).getEmail();
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<String> getIdentities(long userId) {
-		return null;
+		Query q = em.createQuery("SELECT i.identity FROM Identity i WHERE i.user.id = :userId");
+		q.setParameter("userId", userId);
+		return q.getResultList();
 	}
 
 	public String getName(long userId) {
@@ -80,7 +88,7 @@ public class UserImpl implements UserRemote {
 	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-	public void removeIdentity(long userId, String identity) {
+	public void removeIdentity(String identity) {
 		Identity i = getIdentity(identity);
 		em.remove(i);
 	}
