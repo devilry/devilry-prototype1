@@ -12,6 +12,7 @@ import org.devilry.core.entity.*;
 @Stateless
 public class AssignmentNodeImpl extends NodeImpl implements AssignmentNodeRemote {
 
+	@SuppressWarnings("unchecked")
 	public List<Long> getDeliveries(long nodeId) {
 		Query q = em.createQuery("SELECT d.id FROM Delivery d WHERE d.assignment.id = :id");
 		q.setParameter("id", nodeId);

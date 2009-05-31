@@ -17,39 +17,39 @@ public interface DeliveryRemote {
 	 * Get parent (Assignment) node
 	 * @return
 	 */
-	public long getAssignment(long deliveryID);
+	public long getAssignment(long deliveryId);
 		
 	/**
 	 * Get status of the delivery
 	 * @return
 	 */
-	public short getStatus(long deliveryID);
+	public int getStatus(long deliveryId);
 	
 	/**
 	 * Set status of the delivery
-	 * @param deliveryID
+	 * @param deliveryId
 	 * @param status
 	 */
-	public void setStatus(long deliveryID, short status);
+	public void setStatus(long deliveryId, int status);
 		
 	/**
 	 * Get IDs of all delivery candidates for the delivery
 	 * @return
 	 */
-	public List<Long> getDeliveryCandidates(long deliveryID);
+	public List<Long> getDeliveryCandidates(long deliveryId);
 	
 	/**
 	 * Get the Id of the delivery that was delivered latest (in time) 
-	 * @param deliveryID
+	 * @param deliveryId
 	 * @return
 	 */
-	public long getLastDeliveryCandidate(long deliveryID);
+	public long getLastDeliveryCandidate(long deliveryId);
 	
 	/**
 	 * Get the delivery that was delivered latest (in time) that was before the deadline of the assignment.
-	 * @param deliveryID
+	 * @param deliveryId
 	 * @return
 	 */
-	public long getLastValidDeliveryCandidate(long deliveryID);
+	public long getLastValidDeliveryCandidate(long deliveryId);
 		
 }

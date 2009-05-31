@@ -11,40 +11,58 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
 
-//@Stateful
-//public class DeliveryImpl implements DeliveryRemote {
-//	@PersistenceContext(unitName = "DevilryCore")
-//	protected EntityManager em;
-//
-//	protected Delivery delivery;
-//
-//	public DeliveryImpl() {
-//	}
-//
-//	public void init(long deliveryId) {
-//		delivery = em.find(Delivery.class, deliveryId);
-//	}
-//
-//	public long getId() {
-//		return delivery.getId();
-//	}
-//
-//	public long getAssignmentId() {
-//		return delivery.getAssignment().getId();
-//	}
-//
-//	public List<Long> getDeliveryCandidateIds() {
-//		Query q = em.createQuery("SELECT d.id FROM DeliveryCandidate d "
-//				+ "WHERE d.delivery.id = :id");
-//		q.setParameter("id", delivery.getId());
-//		return q.getResultList();
-//	}
-//
-//	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-//	public long addDeliveryCandidate() {
-//		DeliveryCandidate d = new DeliveryCandidate(delivery);
-//		em.persist(d);
-//		em.flush();
-//		return d.getId();
-//	}
-//}
+@Stateful
+public class DeliveryImpl implements DeliveryRemote {
+	@PersistenceContext(unitName = "DevilryCore")
+	protected EntityManager em;
+
+	public DeliveryImpl() {
+	}
+
+	protected Delivery getDelivery(long deliveryId) {
+		return em.find(Delivery.class, deliveryId);
+	}
+
+	public long getAssignment(long deliveryId) {
+		return getDelivery(deliveryId).getAssignment().getId();
+	}
+
+	
+	@SuppressWarnings("unchecked")
+	public List<Long> getDeliveryCandidates(long deliveryId) {
+		Query q = em.createQuery("SELECT d.id FROM DeliveryCandidate d "
+				+ "WHERE d.delivery.id = :id");
+		q.setParameter("id", getDelivery(deliveryId).getId());
+		return q.getResultList();
+	}
+
+	
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	public long create() {
+		Delivery d = new Delivery();
+		em.persist(d);
+		em.flush();
+		return d.getId();
+	}
+
+	
+	public long getLastDeliveryCandidate(long deliveryId) {
+		Query q = em.createQuery("SELECT d.id FROM DeliveryCandidate d WHERE d.timeOfDelivery = MAX(d.timeOfDelivery)");
+		return (Long) q.getSingleResult();
+	}
+
+	public long getLastValidDeliveryCandidate(long deliveryId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	
+	public int getStatus(long deliveryId) {
+		return getDelivery(deliveryId).getStatus();
+	}
+
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	public void setStatus(long deliveryId, int status) {
+		getDelivery(deliveryId).setStatus(status);
+	}
+}
