@@ -8,9 +8,10 @@ public interface DeliveryCandidateRemote {
 	
 	/**
 	 * Creates a delivery candidate in the database
+	 * @param deliveryId
 	 * @return the database id of the delivery candidate
 	 */
-	public long create();
+	public long create(long deliveryId);
 		
 	/**
 	 * Get parent (Delivery) node
