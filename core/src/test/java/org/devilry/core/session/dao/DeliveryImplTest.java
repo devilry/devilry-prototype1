@@ -25,6 +25,12 @@ public class DeliveryImplTest extends AbstractDeliveryDaoTst {
 		deliveryId = delivery.create(assignmentId);
 	}
 
+	@After
+	public void tearDown() {
+		periodNode.remove(uioId);
+	}
+
+
 	@Test
 	public void getAssignment() {
 		assertEquals(assignmentId, delivery.getAssignment(deliveryId));
@@ -79,8 +85,4 @@ public class DeliveryImplTest extends AbstractDeliveryDaoTst {
 	}
 	
 
-	@After
-	public void tearDown() {
-		periodNode.remove(uioId);
-	}
 }
