@@ -78,4 +78,8 @@ public class DeliveryImpl implements DeliveryRemote {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public boolean exists(long deliveryId) {
+		return getDelivery(deliveryId) != null;
+	}
 }

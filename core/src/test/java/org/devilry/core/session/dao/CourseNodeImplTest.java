@@ -31,4 +31,11 @@ public class CourseNodeImplTest extends NodeImplTest {
 		List<Long> ids = courseNode.getAllCourses();
 		assertEquals(2, ids.size());
 	}
+	
+	@Test
+	public void remove() {
+		long id = courseNode.create("inf1000", "Object oriented programming", matnatId);
+		super.remove();
+		assertFalse(node.exists(id));
+	}
 }

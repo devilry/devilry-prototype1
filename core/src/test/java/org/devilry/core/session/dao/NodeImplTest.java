@@ -91,7 +91,6 @@ public class NodeImplTest extends AbstractDaoTst {
 		assertFalse(node.exists(matnatId));
 	}
 
-
 	@Test
 	public void getNodeIdFromPath() {
 		assertEquals(uioId, node.getNodeIdFromPath("uio"));

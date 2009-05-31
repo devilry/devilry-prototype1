@@ -57,15 +57,18 @@ public interface DeliveryRemote {
 	
 	/**
 	 * Get id of all correctors assigned for this delivery
-	 * @param deliveryID
+	 * @param deliveryIs
 	 * @return
 	 */
 	public List<Long> getCorrectors(long deliveryId);
 	
 	/**
 	 * Get id of all students registered for this delivery
-	 * @param deliveryID
+	 * @param deliveryId
 	 * @return
 	 */
 	public List<Long> getStudents(long deliveryId);
+	
+	/** Check if a delivery with the given id exists. */
+	public boolean exists(long deliveryId);
 }

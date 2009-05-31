@@ -37,13 +37,13 @@ public class AssignmentNodeImplTest extends NodeImplTest {
 		
 		deadline = new GregorianCalendar(2009, 07, 20);
 				
-		// Add assignemnt
+		// Add assignment
 		assignmentNode = getRemoteBean(AssignmentNodeImpl.class);
 		assignmentId = assignmentNode.create("Oblig1", "Obligatory assignemnt 1", deadline.getTime(), periodId);
 	}
 
 	@Test
-	public void getDeliveryIds() throws NamingException {
+	public void getDeliveries() throws NamingException {
 		
 		DeliveryRemote delivery = getRemoteBean(DeliveryImpl.class);
 		long deliveryId = delivery.create(assignmentId);
@@ -69,5 +69,10 @@ public class AssignmentNodeImplTest extends NodeImplTest {
 		assignmentNode.setDeadline(assignmentId, newDeadline.getTime());
 		assertEquals(newDeadline.getTime(), assignmentNode.getDeadline(assignmentId));
 	}
-		
+	
+	@Test
+	public void remove() {
+		super.remove();
+		assertFalse(node.exists(assignmentId));
+	}
 }

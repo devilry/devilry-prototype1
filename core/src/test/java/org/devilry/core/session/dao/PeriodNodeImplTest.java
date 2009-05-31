@@ -54,5 +54,11 @@ public class PeriodNodeImplTest extends NodeImplTest {
 		periodNode.setEndDate(periodId, end.getTime());
 		assertEquals(end.getTime().toString(), periodNode.getEndDate(periodId).toString());
 	}
+
+	@Test
+	public void remove() {
+		super.remove();
+		assertFalse(node.exists(periodId));
+	}
 }
 
