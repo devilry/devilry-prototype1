@@ -24,7 +24,7 @@ public class CourseNodeImplTest extends NodeImplTest {
 	}
 
 	@Test
-	public void getAllCourseIds() {
+	public void getAllCourses() {
 		long id = courseNode.create("inf1000", "Object oriented programming", matnatId);
 		assertEquals(id, (long) courseNode.getAllCourses().get(0));
 		courseNode.create("inf1010", "More object oriented programming", matnatId);

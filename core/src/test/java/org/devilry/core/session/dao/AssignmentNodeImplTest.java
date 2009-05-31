@@ -10,16 +10,18 @@ import static org.junit.Assert.*;
 
 import org.devilry.core.session.*;
 
-public class AssignmentNodeImplTest extends AbstractDaoTst {
-	AssignmentNodeRemote node;
+public class AssignmentNodeImplTest extends NodeImplTest {
+	AssignmentNodeRemote assignmentNode;
 
-//	@Before
-//	public void setUp() throws NamingException {
-//	}
+	@Before
+	public void setUp() throws NamingException {
+		super.setUp();
+		assignmentNode = getRemoteBean(AssignmentNodeImpl.class);
+	}
 
-	@Test
-	public void getDeliveryIds() {
+//	@Test
+//	public void getDeliveryIds() {
 //		List<Long> ids = node.getDeliveryIds();
 //		assertEquals(3, ids.size());
-	}
+//	}
 }
