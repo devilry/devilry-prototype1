@@ -8,30 +8,30 @@ import java.util.List;
 @Remote
 public interface DeliveryRemote {
 	
-	/**
-	 * Get parent (Assignment) node
-	 * @return
-	 */
-	public long getAssignment(long deliveryID);
-	
 	/** 
 	 * Create a new Delivery in the database.
 	 */
 	public long create();
 		
 	/**
-	 * Set status of the delivery
-	 * @param deliveryID
-	 * @param status
+	 * Get parent (Assignment) node
+	 * @return
 	 */
-	public void setStatus(long deliveryID, short status);
-	
+	public long getAssignment(long deliveryID);
+		
 	/**
 	 * Get status of the delivery
 	 * @return
 	 */
 	public short getStatus(long deliveryID);
 	
+	/**
+	 * Set status of the delivery
+	 * @param deliveryID
+	 * @param status
+	 */
+	public void setStatus(long deliveryID, short status);
+		
 	/**
 	 * Get IDs of all delivery candidates for the delivery
 	 * @return

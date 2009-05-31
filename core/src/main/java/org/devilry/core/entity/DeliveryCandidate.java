@@ -1,10 +1,14 @@
 package org.devilry.core.entity;
 
 import java.io.Serializable;
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class DeliveryCandidate implements Serializable {
@@ -16,11 +20,11 @@ public class DeliveryCandidate implements Serializable {
 	@ManyToOne(optional = false)
 	private Delivery delivery;
 
-	protected DeliveryCandidate() {
-	}
+	@Temporal(TemporalType.DATE)
+	private Date timeOfDelivery;
+	
+	public DeliveryCandidate() {
 
-	public DeliveryCandidate(Delivery delivery) {
-		this.delivery = delivery;
 	}
 
 	public long getId() {
@@ -31,7 +35,19 @@ public class DeliveryCandidate implements Serializable {
 		this.id = id;
 	}
 
+	public Date getTimeOfDelivery() {
+		return this.timeOfDelivery;
+	}
+
+	public void setTimeOfDelivery(Date timeOfDelivery) {
+		this.timeOfDelivery = timeOfDelivery;
+	}
+	
 	public Delivery getDelivery() {
 		return delivery;
+	}
+	
+	public void setDelivery(Delivery delivery) {
+		this.delivery = delivery;
 	}
 }

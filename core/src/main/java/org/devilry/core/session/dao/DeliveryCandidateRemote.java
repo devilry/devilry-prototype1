@@ -7,17 +7,17 @@ import javax.ejb.Remote;
 public interface DeliveryCandidateRemote {
 	
 	/**
-	 * Get parent (Delivery) node
-	 * @return
-	 */
-	public long getDelivery(long deliveryCandiateId);
-	
-	/**
 	 * Creates a delivery candidate in the database
 	 * @return the database id of the delivery candidate
 	 */
 	public long create();
-	
+		
+	/**
+	 * Get parent (Delivery) node
+	 * @return
+	 */
+	public long getDelivery(long deliveryCandiateId);
+		
 	/**
 	 * Add a file to the delivery candidate with ID deliveryCandiateId
 	 * @param filePath
