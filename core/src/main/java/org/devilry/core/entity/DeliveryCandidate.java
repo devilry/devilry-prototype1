@@ -27,6 +27,7 @@ public class DeliveryCandidate implements Serializable {
 	private Date timeOfDelivery;
 	
 	public DeliveryCandidate() {
+	}
 
 	public long getId() {
 		return id;
