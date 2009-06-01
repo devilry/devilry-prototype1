@@ -3,6 +3,7 @@ package org.devilry.core.session.dao;
 import java.util.Date;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.ejb.Stateless;
@@ -14,7 +15,8 @@ import org.devilry.core.entity.*;
 public class AssignmentNodeImpl extends BaseNodeImpl implements
 		AssignmentNodeRemote, AssignmentNodeLocal {
 
-	
+	@EJB
+	private DeliveryLocal deliveryBean;
 	
 	
 	private AssignmentNode getAssignmentNode(long nodeId) {
@@ -58,13 +60,11 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 		return node.getId();
 	}
 
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public void remove(long nodeId) {
-		for(long id: getDeliveries(nodeId)) {
-			
-		}
-		Query q = em.createQuery("DELETE FROM Node n WHERE n.id = :id");
-		q.setParameter("id", nodeId);
-		q.executeUpdate();
-	}
+//	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+//	public void remove(long nodeId) {
+//		// TODO: Find out why this also deletes Delivery objects with this assignment as parent!
+//		Query q = em.createQuery("DELETE FROM Node n WHERE n.id = :id");
+//		q.setParameter("id", nodeId);
+//		q.executeUpdate();
+//	}
 }

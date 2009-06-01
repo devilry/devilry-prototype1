@@ -99,15 +99,17 @@ public class BaseNodeImpl implements BaseNodeInterface {
 
 	
 	private void removeNode(Long nodeId) {
-		Node node = getNode(nodeId);
 		
-		// Handle assignment nodes different because they do not have nodes below them.
-		if(node instanceof AssignmentNode) {
+	
+// TODO: find out why this is not required!
+//		// Handle assignment nodes different because they do not have nodes below them.
+//		Node node = getNode(nodeId);
+//		if(node instanceof AssignmentNode) {
 //			System.out.println("********* REMOVING ASSIGNMENT " + node + " #### " + assignmentBean); //+ node.getName());
-			long id = node.getId();
-			assignmentBean.remove(id);
-			return;
-		}
+//			long id = node.getId();
+//			assignmentBean.remove(id);
+//			return;
+//		}
 		
 		// Remove childnodes first
 		Query q = em.createQuery("SELECT n.id FROM Node n WHERE n.parent IS NOT NULL AND n.parent.id=:parentId");

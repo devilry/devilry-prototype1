@@ -29,8 +29,16 @@ public class DeliveryImplTest extends AbstractDeliveryDaoTst {
 
 	@Test
 	public void remove() {
+		delivery.remove(deliveryId);
+		assertFalse(delivery.exists(deliveryId));
+
+		long id1 = delivery.create(assignmentId);
+		long id2 = delivery.create(assignmentId);
 		periodNode.remove(uioId);
-//		assertFalse();
+		assertFalse(assignmentNode.exists(assignmentId));
+		System.out.println("####### " + id1);
+		assertFalse(delivery.exists(id1));
+		assertFalse(delivery.exists(id2));
 	}
 
 	@Test
@@ -67,18 +75,18 @@ public class DeliveryImplTest extends AbstractDeliveryDaoTst {
 	
 	@Test
 	public void getLastValidDeliveryCandidate() {
-		// TODO		
+		// TODO
 	}
 
 	
 	@Test
 	public void getCorrectors() {
-		// TODO		
+		// TODO
 	}
 	
 	@Test
 	public void getStudents() {
-		// TODO		
+		// TODO
 	}
 
 	@Test

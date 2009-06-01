@@ -82,4 +82,9 @@ public class DeliveryImpl implements DeliveryRemote, DeliveryLocal {
 	public boolean exists(long deliveryId) {
 		return getDelivery(deliveryId) != null;
 	}
+
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public void remove(long deliveryId) {
+		em.remove(getDelivery(deliveryId));
+	}
 }
