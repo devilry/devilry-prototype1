@@ -3,7 +3,7 @@ package org.devilry.core.session.dao;
 import java.util.List;
 
 
-public interface AbstractNodeRemote {
+public interface BaseNodeInterface {
 	void setName(long nodeId, String name);
 	String getName(long nodeId);
 	void setDisplayName(long nodeId, String name);

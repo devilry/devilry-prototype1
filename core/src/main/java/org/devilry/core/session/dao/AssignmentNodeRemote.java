@@ -6,7 +6,7 @@ import java.util.List;
 import javax.ejb.Remote;
 
 @Remote
-public interface AssignmentNodeRemote extends AbstractNodeRemote {
+public interface AssignmentNodeRemote extends BaseNodeInterface {
 	
 	/**
 	 * Get deliveries 

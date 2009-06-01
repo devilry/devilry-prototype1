@@ -2,6 +2,7 @@ package org.devilry.core.session.dao;
 
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
@@ -9,11 +10,15 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.devilry.core.entity.AssignmentNode;
 import org.devilry.core.entity.Node;
 
-public class AbstractNodeImpl implements AbstractNodeRemote {
+public class BaseNodeImpl implements BaseNodeInterface {
 	@PersistenceContext(unitName = "DevilryCore")
 	protected EntityManager em;
+	
+	@EJB
+	private DeliveryLocal deliveryBean;
 
 	protected Node getNode(long nodeId) {
 		return em.find(Node.class, nodeId);
@@ -92,23 +97,28 @@ public class AbstractNodeImpl implements AbstractNodeRemote {
 	}
 
 
-
-
-	private void removeRec(Long curId) {
+	
+	private void removeNode(Long nodeId) {
 		Query q = em.createQuery("SELECT n.id FROM Node n WHERE n.parent IS NOT NULL AND n.parent.id=:parentId");
-		q.setParameter("parentId", curId);
+		q.setParameter("parentId", nodeId);
 		List<Long> children = q.getResultList();
-		for (Long n : children) {
-			remove(n);
+//		Node node = getNode(nodeId);
+		for (Long childNodeId : children) {
+//			if(node instanceof AssignmentNode) {
+//				System.out.printf("********* REMOVING DELIVERY %s --> %s%n", node.getName());				
+//			} else {
+				removeNode(childNodeId);
+//			}
 		}
+
 		q = em.createQuery("DELETE FROM Node n WHERE n.id = :id");
-		q.setParameter("id", curId);
+		q.setParameter("id", nodeId);
 		q.executeUpdate();
 	}
 
-	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void remove(long nodeId) {
-		removeRec(nodeId);
+		removeNode(nodeId);
 	}
 
 

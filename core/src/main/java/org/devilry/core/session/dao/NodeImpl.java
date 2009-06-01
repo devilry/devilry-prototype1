@@ -7,7 +7,7 @@ import javax.ejb.Stateless;
 import org.devilry.core.entity.*;
 
 @Stateless
-public class NodeImpl extends AbstractNodeImpl implements NodeRemote {
+public class NodeImpl extends BaseNodeImpl implements NodeRemote {
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public long create(String name, String displayName) {
 		Node node = new Node();

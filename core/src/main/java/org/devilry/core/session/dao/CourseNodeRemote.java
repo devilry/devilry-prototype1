@@ -4,7 +4,7 @@ import javax.ejb.Remote;
 import java.util.List;
 
 @Remote
-public interface CourseNodeRemote extends AbstractNodeRemote {
+public interface CourseNodeRemote extends BaseNodeInterface {
 	public List<Long> getAllCourses();
 	long create(String name, String displayName, long parentId);
 }
