@@ -12,7 +12,6 @@ import org.devilry.core.daointerfaces.DeliveryCandidateRemote;
 import org.devilry.core.daointerfaces.DeliveryRemote;
 import org.devilry.core.daointerfaces.FileDataBlockRemote;
 import org.devilry.core.daointerfaces.FileMetaRemote;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -30,6 +29,7 @@ public class FileMetaImplTest extends AbstractDeliveryDaoTst {
 	long fileMetaId;
 	
 	@Before
+	@Override
 	public void setUp() throws NamingException {
 		super.setUp();
 		
@@ -91,5 +91,23 @@ public class FileMetaImplTest extends AbstractDeliveryDaoTst {
 	
 		assertEquals(size, data1.length + data2.length + data3.length);
 	}
-	
+
+
+	@Test
+	public void remove() {
+		fileMeta.remove(fileMetaId);
+		assertFalse(fileMeta.exists(fileMetaId));
+
+		long id = fileMeta.create(deliveryCandidateId, "hello.txt");
+		long id2 = fileMeta.create(deliveryCandidateId, "hello2.txt");
+		node.remove(uioId);
+		assertFalse(fileMeta.exists(id));
+		assertFalse(fileMeta.exists(id2));
+	}
+
+	@Test
+	public void exists() {
+		assertTrue(fileMeta.exists(fileMetaId));
+		assertFalse(fileMeta.exists(fileMetaId + 1));
+	}
 }
