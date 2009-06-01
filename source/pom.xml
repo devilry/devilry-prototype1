@@ -13,6 +13,7 @@
     <modules>
         <module>core</module>
         <module>cli</module>
+		<module>clientapi</module>
     </modules>
 
     <properties>
