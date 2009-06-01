@@ -58,11 +58,11 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 		return node.getId();
 	}
 
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public void remove(long nodeId) {
-		for(long id: getDeliveries(nodeId)) {
-			
-		}
-		em.remove(getAssignmentNode(nodeId));
-	}
+//	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+//	public void remove(long nodeId) {
+//		for(long id: getDeliveries(nodeId)) {
+//			
+//		}
+//		em.remove(getAssignmentNode(nodeId));
+//	}
 }
