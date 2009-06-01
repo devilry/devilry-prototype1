@@ -1,9 +1,16 @@
 package org.devilry.core.session.dao;
 
-import org.devilry.core.session.TreeManagerRemote;
-import org.devilry.core.session.TreeManagerImpl;
 
 import javax.naming.NamingException;
+
+import org.devilry.core.dao.AssignmentNodeImpl;
+import org.devilry.core.dao.CourseNodeImpl;
+import org.devilry.core.dao.NodeImpl;
+import org.devilry.core.dao.PeriodNodeImpl;
+import org.devilry.core.daointerfaces.AssignmentNodeRemote;
+import org.devilry.core.daointerfaces.CourseNodeRemote;
+import org.devilry.core.daointerfaces.NodeRemote;
+import org.devilry.core.daointerfaces.PeriodNodeRemote;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;

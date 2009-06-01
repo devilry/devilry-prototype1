@@ -1,7 +1,0 @@
-package org.devilry.core.session.dao;
-
-import javax.ejb.*;
-
-@Remote
-public interface NodeRemote extends NodeLocal {
-}

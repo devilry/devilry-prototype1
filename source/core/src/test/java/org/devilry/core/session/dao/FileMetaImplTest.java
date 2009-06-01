@@ -3,6 +3,15 @@ package org.devilry.core.session.dao;
 import java.util.List;
 
 import javax.naming.NamingException;
+
+import org.devilry.core.dao.DeliveryCandidateImpl;
+import org.devilry.core.dao.DeliveryImpl;
+import org.devilry.core.dao.FileDataBlockImpl;
+import org.devilry.core.dao.FileMetaImpl;
+import org.devilry.core.daointerfaces.DeliveryCandidateRemote;
+import org.devilry.core.daointerfaces.DeliveryRemote;
+import org.devilry.core.daointerfaces.FileDataBlockRemote;
+import org.devilry.core.daointerfaces.FileMetaRemote;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
