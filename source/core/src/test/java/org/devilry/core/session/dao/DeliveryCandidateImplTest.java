@@ -79,5 +79,23 @@ public class DeliveryCandidateImplTest extends AbstractDeliveryDaoTst {
 		Date delivery = deliveryCandidate.getTimeOfDelivery(deliveryCandidateId);
 		assert(now.after(delivery));
 	}
-	
+
+	@Test
+	public void remove() {
+		deliveryCandidate.remove(deliveryCandidateId);
+		assertFalse(deliveryCandidate.exists(deliveryCandidateId));
+
+		long did = delivery.create(assignmentId);
+		long dcid = deliveryCandidate.create(deliveryId);
+		periodNode.remove(uioId);
+		assertFalse(assignmentNode.exists(assignmentId));
+		assertFalse(deliveryCandidate.exists(did));
+		assertFalse(deliveryCandidate.exists(dcid));
+	}
+
+	@Test
+	public void exists() {
+		assertTrue(deliveryCandidate.exists(deliveryCandidateId));
+		assertFalse(deliveryCandidate.exists(deliveryCandidateId + 1));
+	}
 }

@@ -77,4 +77,13 @@ public class DeliveryCandidateImpl implements DeliveryCandidateRemote, DeliveryC
 	public Date getTimeOfDelivery(long deliveryCandidateId) {
 		return getDeliveryCandidate(deliveryCandidateId).getTimeOfDelivery();
 	}
+
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public void remove(long deliveryCandidateId) {
+		em.remove(getDeliveryCandidate(deliveryCandidateId));
+	}
+
+	public boolean exists(long deliveryCandidateId) {
+		return getDeliveryCandidate(deliveryCandidateId) != null;
+	}
 }

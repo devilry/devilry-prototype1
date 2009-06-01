@@ -50,4 +50,13 @@ public interface DeliveryCandidateLocal {
 	/** Get the server-time when the delivery was created. */
 	public Date getTimeOfDelivery(long deliveryCandidateId);
 	
+	
+	/** Remove a delivery candidate.
+	 * 
+	 * @param deliveryCandidateId The id of an existing delviery-candidate.
+	 */
+	public void remove(long deliveryCandidateId);
+
+	/** Check if a delivery-candidate with the given id exists. */
+	boolean exists(long deliveryCandidateId);
 }
