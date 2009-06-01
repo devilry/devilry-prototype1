@@ -1,4 +1,4 @@
-package org.devilry.core.session.dao;
+package org.devilry.core.dao;
 
 public interface NodeLocal extends BaseNodeInterface {
 	long create(String name, String displayName);

@@ -1,4 +1,4 @@
-package org.devilry.core.session.dao;
+package org.devilry.core.dao;
 
 import java.util.List;
 import javax.ejb.Remote;

@@ -12,6 +12,8 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import org.devilry.core.dao.CourseNodeImpl;
+import org.devilry.core.dao.CourseNodeRemote;
 import org.devilry.core.session.*;
 
 public class CourseNodeImplTest extends NodeImplTest {

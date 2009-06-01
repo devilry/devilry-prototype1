@@ -1,4 +1,4 @@
-package org.devilry.core.session.dao;
+package org.devilry.core.dao;
 
 import org.devilry.core.entity.Delivery;
 import org.devilry.core.entity.FileMeta;
