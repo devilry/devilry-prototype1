@@ -38,7 +38,7 @@ public class FileDataBlockImpl implements FileDataBlockRemote {
 		return em.find(FileDataBlock.class, fileDataBlockId);
 	}
 	
-	public long getFileMetaId(long fileDataBlockId) {
+	public long getFileMeta(long fileDataBlockId) {
 		return getFileDataBlock(fileDataBlockId).getFileMeta().getId();
 	}
 
