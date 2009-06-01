@@ -29,4 +29,7 @@ public interface FileDataBlockLocal {
 	 * @return the size of data in number of bytes
 	 */
 	int getSize(long fileDataBlockId);
+
+	/** Check if a file data block with the given id exists. */
+	boolean exists(long fileDataBlockId);
 }

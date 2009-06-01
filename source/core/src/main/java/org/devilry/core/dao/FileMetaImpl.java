@@ -54,7 +54,7 @@ public class FileMetaImpl implements FileMetaRemote {
 		FileMeta fileMeta = getFileMeta(fileMetaId);
 
 		Query q = em.createQuery(
-				"SELECT d.id FROM FileDataBlock d WHERE d.fileMeta.id = :fileId");
+				"SELECT d.id FROM FileDataBlock d WHERE d.fileMeta.id = :fileId ORDER BY d.id");
 		q.setParameter("fileId", fileMeta.getId());
 		List<Long> r = q.getResultList();
 

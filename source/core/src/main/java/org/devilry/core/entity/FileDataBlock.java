@@ -24,7 +24,7 @@ public class FileDataBlock implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FILEDATANODE_SEQUENCE")
 	private long id;
 
-	@ManyToOne(optional = false, fetch=FetchType.LAZY)
+	@ManyToOne(optional = false, fetch=FetchType.EAGER)
 	@Column(nullable = false)
 	private FileMeta fileMeta;
 

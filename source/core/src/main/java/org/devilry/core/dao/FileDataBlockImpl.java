@@ -1,6 +1,5 @@
 package org.devilry.core.dao;
 
-import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -43,24 +42,6 @@ public class FileDataBlockImpl implements FileDataBlockRemote {
 		return getFileDataBlock(fileDataBlockId).getFileMeta().getId();
 	}
 
-	/*
-	public byte[] read() {
-		if(readIter == null) {
-			Query q = em.createQuery(
-					"SELECT d.id FROM FileData d WHERE d.fileMeta.id = :fileId");
-			q.setParameter("fileId", fileMeta.getId());
-			List<Long> r = q.getResultList();
-			readIter = r.iterator();
-		}
-		Long id = readIter.next();
-		Query q = em.createQuery(
-				"SELECT d FROM FileData d WHERE d.id = :id");
-		q.setParameter("id", id);
-		FileData d = (FileData) q.getSingleResult();
-		return d.getDataBlock();
-	}
-	*/
-
 	public byte[] getFileData(long fileDataBlockId) {
 		
 		Query q = em.createQuery(
@@ -74,4 +55,7 @@ public class FileDataBlockImpl implements FileDataBlockRemote {
 		return getFileDataBlock(fileDataBlockId).getSize();
 	}
 
+	public boolean exists(long fileDataBlockId) {
+		return getFileDataBlock(fileDataBlockId) != null;
+	}
 }
