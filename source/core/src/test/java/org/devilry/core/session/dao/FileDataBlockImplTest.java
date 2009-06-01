@@ -79,4 +79,9 @@ public class FileDataBlockImplTest extends AbstractDeliveryDaoTst {
 		assertEquals(data.length, fileDataBlock.getSize(fileDataBlockId));
 	}
 	
+	@Test
+	public void exists() {
+		assertTrue(fileDataBlock.exists(fileDataBlockId2));
+		assertFalse(fileDataBlock.exists(fileDataBlockId2 + 1));
+	}
 }
