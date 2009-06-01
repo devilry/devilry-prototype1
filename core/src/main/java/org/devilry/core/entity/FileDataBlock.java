@@ -1,6 +1,9 @@
 package org.devilry.core.entity;
 
 import java.io.Serializable;
+
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,16 +31,36 @@ public class FileDataBlock implements Serializable {
 	@Lob
 	@Column(nullable = false)
 	private byte[] dataBlock;
-
-	protected FileDataBlock() {
+	
+	private int dataBlockSize;
+	
+	public FileDataBlock() {
+		
 	}
 
-	public FileDataBlock(FileMeta fileMeta, byte[] dataBlock) {
+	public long getId() {
+		return id;
+	}
+	
+	public FileMeta getFileMeta() {
+		return fileMeta;
+	}
+
+	public void setFileMeta(FileMeta fileMeta) {
 		this.fileMeta = fileMeta;
-		this.dataBlock = dataBlock;
 	}
-
+	
+	public void setDataBlock(byte[] dataBlock) {
+		this.dataBlock = dataBlock;
+		dataBlockSize = dataBlock.length;
+	}
+	
 	public byte[] getDataBlock() {
 		return dataBlock;
 	}
+	
+	public int getSize() {
+		return dataBlockSize;
+	}
+	
 }
