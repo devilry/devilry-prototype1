@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.devilry.core.daointerfaces.UserRemote;
 import org.devilry.core.entity.Identity;
 import org.devilry.core.entity.User;
 

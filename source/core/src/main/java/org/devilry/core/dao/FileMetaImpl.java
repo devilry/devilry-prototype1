@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.devilry.core.daointerfaces.FileMetaRemote;
 import org.devilry.core.entity.Delivery;
 import org.devilry.core.entity.DeliveryCandidate;
 import org.devilry.core.entity.FileDataBlock;

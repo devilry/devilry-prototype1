@@ -9,6 +9,8 @@ import javax.ejb.TransactionAttributeType;
 import javax.ejb.Stateless;
 import javax.persistence.*;
 
+import org.devilry.core.daointerfaces.AssignmentNodeLocal;
+import org.devilry.core.daointerfaces.AssignmentNodeRemote;
 import org.devilry.core.entity.*;
 
 @Stateless

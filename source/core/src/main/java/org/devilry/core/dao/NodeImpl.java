@@ -4,6 +4,8 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.ejb.Stateless;
 
+import org.devilry.core.daointerfaces.NodeLocal;
+import org.devilry.core.daointerfaces.NodeRemote;
 import org.devilry.core.entity.*;
 
 @Stateless

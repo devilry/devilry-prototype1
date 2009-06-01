@@ -3,7 +3,7 @@ package org.devilry.core.session.dao;
 import javax.naming.*;
 
 import org.devilry.core.dao.UserImpl;
-import org.devilry.core.dao.UserRemote;
+import org.devilry.core.daointerfaces.UserRemote;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;

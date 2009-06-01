@@ -9,9 +9,9 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import org.devilry.core.dao.CourseNodeImpl;
-import org.devilry.core.dao.CourseNodeRemote;
 import org.devilry.core.dao.PeriodNodeImpl;
-import org.devilry.core.dao.PeriodNodeRemote;
+import org.devilry.core.daointerfaces.CourseNodeRemote;
+import org.devilry.core.daointerfaces.PeriodNodeRemote;
 import org.devilry.core.session.*;
 
 public class PeriodNodeImplTest extends NodeImplTest {

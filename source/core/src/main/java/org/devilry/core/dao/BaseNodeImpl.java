@@ -10,6 +10,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.devilry.core.daointerfaces.BaseNodeInterface;
 import org.devilry.core.entity.AssignmentNode;
 import org.devilry.core.entity.Node;
 

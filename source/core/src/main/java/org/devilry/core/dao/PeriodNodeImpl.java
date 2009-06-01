@@ -7,6 +7,8 @@ import javax.persistence.Query;
 import java.util.Date;
 import java.util.List;
 
+import org.devilry.core.daointerfaces.PeriodNodeLocal;
+import org.devilry.core.daointerfaces.PeriodNodeRemote;
 import org.devilry.core.entity.*;
 
 @Stateless

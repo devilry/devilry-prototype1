@@ -8,7 +8,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import org.devilry.core.dao.NodeImpl;
-import org.devilry.core.dao.NodeRemote;
+import org.devilry.core.daointerfaces.NodeRemote;
 import org.devilry.core.session.*;
 
 import java.util.List;

@@ -5,9 +5,9 @@ import java.util.List;
 import javax.naming.NamingException;
 
 import org.devilry.core.dao.DeliveryCandidateImpl;
-import org.devilry.core.dao.DeliveryCandidateRemote;
 import org.devilry.core.dao.DeliveryImpl;
-import org.devilry.core.dao.DeliveryRemote;
+import org.devilry.core.daointerfaces.DeliveryCandidateRemote;
+import org.devilry.core.daointerfaces.DeliveryRemote;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

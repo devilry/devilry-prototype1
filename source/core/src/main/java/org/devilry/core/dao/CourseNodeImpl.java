@@ -5,6 +5,8 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.*;
 
+import org.devilry.core.daointerfaces.CourseNodeLocal;
+import org.devilry.core.daointerfaces.CourseNodeRemote;
 import org.devilry.core.entity.*;
 
 import java.util.List;

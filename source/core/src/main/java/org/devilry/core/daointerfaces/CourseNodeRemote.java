@@ -1,4 +1,4 @@
-package org.devilry.core.dao;
+package org.devilry.core.daointerfaces;
 
 import javax.ejb.Remote;
 

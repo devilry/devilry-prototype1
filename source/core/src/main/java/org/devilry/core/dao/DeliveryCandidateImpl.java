@@ -1,5 +1,7 @@
 package org.devilry.core.dao;
 
+import org.devilry.core.daointerfaces.DeliveryCandidateLocal;
+import org.devilry.core.daointerfaces.DeliveryCandidateRemote;
 import org.devilry.core.entity.Delivery;
 import org.devilry.core.entity.FileMeta;
 import org.devilry.core.entity.DeliveryCandidate;
