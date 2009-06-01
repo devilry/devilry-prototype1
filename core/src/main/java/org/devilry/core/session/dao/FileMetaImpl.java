@@ -22,14 +22,15 @@ public class FileMetaImpl implements FileMetaRemote {
 	@PersistenceContext(unitName = "DevilryCore")
 	protected EntityManager em;
 
-	public long create(long deliveryCandidateId) {
+	public long create(long deliveryCandidateId, String filePath) {
 		
 		DeliveryCandidate deliveryCandidate = em.find(DeliveryCandidate.class, deliveryCandidateId);
 		
 		FileMeta fileMeta = new FileMeta();
 		// Set parent
 		fileMeta.setDeliveryCandidate(deliveryCandidate);
-						
+		fileMeta.setFilePath(filePath);				
+				
 		em.persist(fileMeta);
 		em.flush();
 		
@@ -88,6 +89,11 @@ public class FileMetaImpl implements FileMetaRemote {
 		
 		long size = (Long) q.getSingleResult();
 		
-		return size;
+		return (int) size;
+	}
+
+	public long getDeliveryCandidate(long fileMetaId) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
