@@ -25,7 +25,7 @@ public interface FileDataBlockRemote {
 	 * @param fileDataId
 	 * @return id of FileMeta
 	 */
-	long getFileMetaId(long fileDataBlockId);
+	long getFileMeta(long fileDataBlockId);
 	
 	/**
 	 * Get data from datablock with id fileDataId

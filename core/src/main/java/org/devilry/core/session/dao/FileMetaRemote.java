@@ -15,8 +15,9 @@ public interface FileMetaRemote {
 	/**
 	 * Create new FileMeta with deliveryCandidate parent deliveryCandidateId
 	 * @param deliveryCandidateId
+	 * @param filePath
 	 */
-	long create(long deliveryCandidateId);
+	long create(long deliveryCandidateId, String filePath);
 		
 	/**
 	 * Get id of parent deliveryCandidate
