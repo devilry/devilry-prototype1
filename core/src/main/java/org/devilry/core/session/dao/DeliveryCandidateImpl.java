@@ -19,18 +19,12 @@ public class DeliveryCandidateImpl implements DeliveryCandidateRemote, DeliveryC
 	@PersistenceContext(unitName = "DevilryCore")
 	protected EntityManager em;
 		
-	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public long create(long deliveryId) {
-		
-		Delivery delivery = em.find(Delivery.class, deliveryId);
-		
 		DeliveryCandidate candidate = new DeliveryCandidate();
-		// Set parent
+		Delivery delivery = em.find(Delivery.class, deliveryId);
 		candidate.setDelivery(delivery);
-		
-		// Set time of delivery
-		setTimeOfDelivery(candidate.getId(), new Date());
-		
+		candidate.setTimeOfDelivery(new Date());
 		em.persist(candidate);
 		em.flush();
 		
@@ -47,7 +41,7 @@ public class DeliveryCandidateImpl implements DeliveryCandidateRemote, DeliveryC
 	}
 	
 
-	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public long addFile(long deliveryCandidateId, String filePath) {
 		
 		DeliveryCandidate deliveryCandidate = getDeliveryCandidate(deliveryCandidateId);
@@ -73,19 +67,12 @@ public class DeliveryCandidateImpl implements DeliveryCandidateRemote, DeliveryC
 		return getDeliveryCandidate(deliveryCandidateId).getStatus();
 	}
 
-	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void setStatus(long deliveryCandidateId, int status) {
 		getDeliveryCandidate(deliveryCandidateId).setStatus(status);
 	}
 
 	public Date getTimeOfDelivery(long deliveryCandidateId) {
 		return getDeliveryCandidate(deliveryCandidateId).getTimeOfDelivery();
-	}
-
-	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-	public void setTimeOfDelivery(long deliveryCandidateId, Date timeOfDelivery) {
-		System.err.println("getDeliveryCandidate("+deliveryCandidateId+"):" + getDeliveryCandidate(deliveryCandidateId));
-		
-		getDeliveryCandidate(deliveryCandidateId).setTimeOfDelivery(timeOfDelivery);
 	}
 }

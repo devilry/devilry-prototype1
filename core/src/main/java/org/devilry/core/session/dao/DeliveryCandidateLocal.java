@@ -1,5 +1,6 @@
 package org.devilry.core.session.dao;
 
+import java.util.Date;
 import java.util.List;
 
 public interface DeliveryCandidateLocal {
@@ -44,5 +45,9 @@ public interface DeliveryCandidateLocal {
 	 * @return
 	 */
 	public int getStatus(long deliveryCandidateId);
+	
+	
+	/** Get the server-time when the delivery was created. */
+	public Date getTimeOfDelivery(long deliveryCandidateId);
 	
 }
