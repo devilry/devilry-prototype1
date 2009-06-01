@@ -18,14 +18,10 @@ public class FileMeta implements Serializable {
 
 	private String filePath;
 
-	protected FileMeta() {
+	public FileMeta() {
+		
 	}
-
-	public FileMeta(DeliveryCandidate deliveryCandidate, String filePath) {
-		this.deliveryCandidate = deliveryCandidate;
-		this.filePath = filePath;
-	}
-
+		
 	public long getId() {
 		return id;
 	}
