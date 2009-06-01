@@ -31,7 +31,7 @@ public class FileMetaImplTest extends AbstractDeliveryDaoTst {
 	
 	@Before
 	public void setUp() throws NamingException {
-		setupEjbContainer();
+		super.setUp();
 		
 		// Set up a delivery
 		delivery = getRemoteBean(DeliveryImpl.class);
@@ -46,10 +46,6 @@ public class FileMetaImplTest extends AbstractDeliveryDaoTst {
 		fileMetaId = fileMeta.create(deliveryCandidateId, "test.txt");
 	}
 
-	@After
-	public void tearDown() {
-		periodNode.remove(uioId);
-	}
 
 	@Test
 	public void getDeliveryCandidate() {

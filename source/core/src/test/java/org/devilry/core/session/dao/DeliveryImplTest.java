@@ -20,16 +20,12 @@ public class DeliveryImplTest extends AbstractDeliveryDaoTst {
 
 	@Before
 	public void setUp() throws NamingException {
-		setupEjbContainer();
+		super.setUp();
 		delivery = getRemoteBean(DeliveryImpl.class);
 		deliveryCandidate = getRemoteBean(DeliveryCandidateImpl.class);
 		deliveryId = delivery.create(assignmentId);
 	}
 
-	@After
-	public void tearDown() {
-		periodNode.remove(uioId);
-	}
 
 	@Test
 	public void remove() {

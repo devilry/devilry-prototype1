@@ -39,7 +39,7 @@ public class FileDataBlockImplTest extends AbstractDeliveryDaoTst {
 	
 	@Before
 	public void setUp() throws NamingException {
-		setupEjbContainer();
+		super.setUp();
 		
 		// Set up a delivery
 		delivery = getRemoteBean(DeliveryImpl.class);

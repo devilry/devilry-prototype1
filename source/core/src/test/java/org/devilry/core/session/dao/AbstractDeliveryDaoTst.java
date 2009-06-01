@@ -11,14 +11,12 @@ import org.devilry.core.daointerfaces.AssignmentNodeRemote;
 import org.devilry.core.daointerfaces.CourseNodeRemote;
 import org.devilry.core.daointerfaces.NodeRemote;
 import org.devilry.core.daointerfaces.PeriodNodeRemote;
+import org.junit.Before;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class AbstractDeliveryDaoTst extends AbstractDaoTst {
-
-	long uioId, matnatId;
-		
+public class AbstractDeliveryDaoTst extends AbstractNodeDaoTst {
 	PeriodNodeRemote periodNode;
 	long periodId;
 	long periodId2;
@@ -28,21 +26,16 @@ public class AbstractDeliveryDaoTst extends AbstractDaoTst {
 	long assignmentId2;
 	
 	
-	protected void setupEjbContainer() throws NamingException {
-		super.setupEjbContainer();
-		
-		// Nodes
-		NodeRemote node = getRemoteBean(NodeImpl.class);
-		uioId = node.create("uio", "UiO");
-		matnatId = node.create("matnat", "Faculty of Mathematics", uioId);
-		
+	@Before
+	public void setUp() throws NamingException {
+		super.setUp();
 		// Course
 		CourseNodeRemote courseNode = getRemoteBean(CourseNodeImpl.class);
 		long inf1000Id = courseNode.create("inf1000", "Object oriented programming", matnatId);
-
+		
 		Calendar start = new GregorianCalendar(2009, 00, 01);
 		Calendar end = new GregorianCalendar(2009, 05, 15);
-
+		
 		// Period
 		periodNode = getRemoteBean(PeriodNodeImpl.class);
 		periodId = periodNode.create("spring09", "Spring 2009", start.getTime(), end.getTime(), inf1000Id);
@@ -59,5 +52,5 @@ public class AbstractDeliveryDaoTst extends AbstractDaoTst {
 		
 		deadline = new GregorianCalendar(2009, 07, 17);
 		assignmentId2 = assignmentNode.create("Oblig1", "Obligatory assignment 1", deadline.getTime(), periodId2);
-	}
+	}		
 }
