@@ -74,20 +74,4 @@ public class FileDataBlockImplTest extends AbstractDeliveryDaoTst {
 		assertEquals(data.length, fileDataBlock.getSize(fileDataBlockId));
 	}
 	
-	
-	/*
-	@Test
-	public void readwrite() {
-		fileMeta.write("a".getBytes());
-		fileMeta.write("b".getBytes());
-		fileMeta.write("c".getBytes());
-		assertEquals("a", new String(fileMeta.read()));
-		assertEquals("b", new String(fileMeta.read()));
-		assertEquals("c", new String(fileMeta.read()));
-
-		fileMeta.resetReadState();
-		assertEquals("a", new String(fileMeta.read()));
-	}
-	*/
-	
 }
