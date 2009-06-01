@@ -28,7 +28,8 @@ public class NodeImplTest extends AbstractDaoTst {
 
 	@After
 	public void tearDown() {
-		node.remove(uioId);
+		for(long id: node.getToplevelNodes())
+			node.remove(id);
 	}
 
 	@Test

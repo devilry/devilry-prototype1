@@ -8,19 +8,27 @@ import javax.naming.NamingException;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
-
 public abstract class AbstractDaoTst {
 	protected InitialContext localCtx;
 
+	public static InitialContext CTX = null;
+
+	public static InitialContext getCtx() throws NamingException {
+		if (CTX == null) {
+			Properties p = new Properties();
+			p.put(Context.INITIAL_CONTEXT_FACTORY,
+					"org.apache.openejb.client.LocalInitialContextFactory");
+			p.put("openejb.deploymentId.format",
+					"{ejbName}{interfaceType.annotationName}");
+			p.put("openejb.jndiname.format",
+					"{ejbName}{interfaceType.annotationName}");
+			CTX = new InitialContext(p);
+		}
+		return CTX;
+	}
+
 	protected void setupEjbContainer() throws NamingException {
-		Properties p = new Properties();
-		p.put(Context.INITIAL_CONTEXT_FACTORY,
-				"org.apache.openejb.client.LocalInitialContextFactory");
-		p.put("openejb.deploymentId.format",
-				"{ejbName}{interfaceType.annotationName}");
-		p.put("openejb.jndiname.format",
-				"{ejbName}{interfaceType.annotationName}");
-		localCtx = new InitialContext(p);
+		localCtx = AbstractDaoTst.getCtx();
 	}
 
 	@SuppressWarnings("unchecked")

@@ -62,7 +62,7 @@ public class FileDataBlockImplTest extends AbstractDeliveryDaoTst {
 
 	@After
 	public void tearDown() {
-		periodNode.remove(deliveryId);
+		periodNode.remove(uioId);
 	}
 	
 	@Test
