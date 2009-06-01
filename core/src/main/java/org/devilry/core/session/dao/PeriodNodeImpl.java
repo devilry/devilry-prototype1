@@ -10,7 +10,7 @@ import java.util.List;
 import org.devilry.core.entity.*;
 
 @Stateless
-public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote {
+public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote, PeriodNodeLocal {
 	protected PeriodNode getPeriodNode(long nodeId) {
 		return (PeriodNode) getNode(nodeId);
 	}

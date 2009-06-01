@@ -5,6 +5,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
 
@@ -31,11 +32,5 @@ public abstract class AbstractDaoTst {
 	protected <E> E getRemoteBean(Class<E> beanImplClass)
 			throws NamingException {
 		return (E) localCtx.lookup(beanImplClass.getSimpleName() + "Remote");
-	}
-	
-	/** Make the test-output a bit more readable by adding a whitespace before each test. */
-	@BeforeClass
-	public static void addWhiteSpace() {
-		System.out.println();
 	}
 }

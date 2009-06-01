@@ -13,7 +13,7 @@ import javax.persistence.Query;
 import java.util.List;
 
 @Stateful
-public class DeliveryImpl implements DeliveryRemote {
+public class DeliveryImpl implements DeliveryRemote, DeliveryLocal {
 	@PersistenceContext(unitName = "DevilryCore")
 	protected EntityManager em;
 
@@ -81,5 +81,10 @@ public class DeliveryImpl implements DeliveryRemote {
 
 	public boolean exists(long deliveryId) {
 		return getDelivery(deliveryId) != null;
+	}
+
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public void remove(long deliveryId) {
+		em.remove(getDelivery(deliveryId));
 	}
 }

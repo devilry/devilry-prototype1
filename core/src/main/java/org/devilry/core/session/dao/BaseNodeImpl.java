@@ -18,7 +18,7 @@ public class BaseNodeImpl implements BaseNodeInterface {
 	protected EntityManager em;
 	
 	@EJB
-	private DeliveryLocal deliveryBean;
+	private AssignmentNodeLocal assignmentBean;
 
 	protected Node getNode(long nodeId) {
 		return em.find(Node.class, nodeId);
@@ -99,18 +99,27 @@ public class BaseNodeImpl implements BaseNodeInterface {
 
 	
 	private void removeNode(Long nodeId) {
+		
+	
+// TODO: find out why this is not required!
+//		// Handle assignment nodes different because they do not have nodes below them.
+//		Node node = getNode(nodeId);
+//		if(node instanceof AssignmentNode) {
+//			System.out.println("********* REMOVING ASSIGNMENT " + node + " #### " + assignmentBean); //+ node.getName());
+//			long id = node.getId();
+//			assignmentBean.remove(id);
+//			return;
+//		}
+		
+		// Remove childnodes first
 		Query q = em.createQuery("SELECT n.id FROM Node n WHERE n.parent IS NOT NULL AND n.parent.id=:parentId");
 		q.setParameter("parentId", nodeId);
 		List<Long> children = q.getResultList();
-//		Node node = getNode(nodeId);
 		for (Long childNodeId : children) {
-//			if(node instanceof AssignmentNode) {
-//				System.out.printf("********* REMOVING DELIVERY %s --> %s%n", node.getName());				
-//			} else {
-				removeNode(childNodeId);
-//			}
+			removeNode(childNodeId);
 		}
 
+		// Remove *this* node
 		q = em.createQuery("DELETE FROM Node n WHERE n.id = :id");
 		q.setParameter("id", nodeId);
 		q.executeUpdate();
