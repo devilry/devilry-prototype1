@@ -34,11 +34,6 @@ public class DeliveryCandidateImplTest extends AbstractDeliveryDaoTst {
 		deliveryCandidateId = deliveryCandidate.create(deliveryId);
 	}
 
-	@After
-	public void tearDown() {
-		periodNode.remove(uioId);
-	}
-
 	@Test
 	public void addFile() {
 		
@@ -87,7 +82,7 @@ public class DeliveryCandidateImplTest extends AbstractDeliveryDaoTst {
 
 		long did = delivery.create(assignmentId);
 		long dcid = deliveryCandidate.create(deliveryId);
-		periodNode.remove(uioId);
+		node.remove(uioId);
 		assertFalse(assignmentNode.exists(assignmentId));
 		assertFalse(deliveryCandidate.exists(did));
 		assertFalse(deliveryCandidate.exists(dcid));

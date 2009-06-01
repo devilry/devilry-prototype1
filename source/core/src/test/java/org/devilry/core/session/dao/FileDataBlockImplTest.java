@@ -60,10 +60,6 @@ public class FileDataBlockImplTest extends AbstractDeliveryDaoTst {
 				
 	}
 
-	@After
-	public void tearDown() {
-		periodNode.remove(uioId);
-	}
 	
 	@Test
 	public void getFileMeta() {
