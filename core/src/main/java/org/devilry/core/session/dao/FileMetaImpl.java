@@ -79,8 +79,15 @@ public class FileMetaImpl implements FileMetaRemote {
 	}
 
 	public int getSize(long fileMetaId) {
-		// TODO		
+	
+		FileMeta fileMeta = getFileMeta(fileMetaId);
 		
-		return 0;
+		Query q = em.createQuery(
+		"SELECT SUM(b.size) FROM FileDataBlock b WHERE b.fileMeta.id = :fileMetaId");
+		q.setParameter("fileMetaId", fileMeta.getId());
+		
+		long size = (Long) q.getSingleResult();
+		
+		return size;
 	}
 }
