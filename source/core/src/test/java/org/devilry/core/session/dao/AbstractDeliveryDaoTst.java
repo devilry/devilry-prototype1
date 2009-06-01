@@ -1,7 +1,5 @@
 package org.devilry.core.session.dao;
 
-import org.devilry.core.session.TreeManagerRemote;
-import org.devilry.core.session.TreeManagerImpl;
 
 import javax.naming.NamingException;
 
