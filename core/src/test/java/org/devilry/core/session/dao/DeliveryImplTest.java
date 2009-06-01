@@ -36,7 +36,6 @@ public class DeliveryImplTest extends AbstractDeliveryDaoTst {
 		long id2 = delivery.create(assignmentId);
 		periodNode.remove(uioId);
 		assertFalse(assignmentNode.exists(assignmentId));
-		System.out.println("####### " + id1);
 		assertFalse(delivery.exists(id1));
 		assertFalse(delivery.exists(id2));
 	}
