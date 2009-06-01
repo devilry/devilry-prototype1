@@ -84,6 +84,8 @@ public class DeliveryCandidateImpl implements DeliveryCandidateRemote {
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void setTimeOfDelivery(long deliveryCandidateId, Date timeOfDelivery) {
+		System.err.println("getDeliveryCandidate("+deliveryCandidateId+"):" + getDeliveryCandidate(deliveryCandidateId));
+		
 		getDeliveryCandidate(deliveryCandidateId).setTimeOfDelivery(timeOfDelivery);
 	}
 }
