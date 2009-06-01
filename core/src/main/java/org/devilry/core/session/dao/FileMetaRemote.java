@@ -1,5 +1,7 @@
 package org.devilry.core.session.dao;
 
+import java.util.List;
+
 import javax.ejb.Remote;
 
 
@@ -9,11 +11,39 @@ import javax.ejb.Remote;
  */
 @Remote
 public interface FileMetaRemote {
-	void init(long fileId);
-	long getId();
-	long getDeliveryCandidateId();
-	String getFilePath();
-	byte[] read();
-	void resetReadState();
-	void write(byte[] dataBlock);
+	
+	/**
+	 * Create new FileMeta with deliveryCandidate parent deliveryCandidateId
+	 * @param deliveryCandidateId
+	 */
+	void create(long deliveryCandidateId);
+		
+	/**
+	 * Get id of parent deliveryCandidate
+	 * @param fileMetaId
+	 * @return
+	 */
+	long getDeliveryCandidateId(long fileMetaId);
+	
+	/**
+	 * Get the filepath for the FileMeta with id fileMetaId
+	 * @param fileMetaId
+	 * @return the path
+	 */
+	String getFilePath(long fileMetaId);
+		
+	/**
+	 * Get size of all FileDataBlocks referencing the FileMeta with id fileMetaId
+	 * @param fileMetaId
+	 * @return
+	 */
+	int getSize(long fileMetaId);
+	
+	/**
+	 * Get list of ids of all FileDataBlocks refencing the FileMeta with id fileMetaId
+	 * @param fileMetaId
+	 * @return
+	 */
+	List<Long> getFileDataBlocks(long fileMetaId);
+	
 }
