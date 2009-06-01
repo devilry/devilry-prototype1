@@ -23,7 +23,7 @@ public interface FileMetaRemote {
 	 * @param fileMetaId
 	 * @return
 	 */
-	long getDeliveryCandidateId(long fileMetaId);
+	long getDeliveryCandidate(long fileMetaId);
 	
 	/**
 	 * Get the filepath for the FileMeta with id fileMetaId
