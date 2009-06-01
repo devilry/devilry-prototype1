@@ -12,14 +12,38 @@ import javax.ejb.Remote;
 @Remote
 public interface FileMetaRemote {
 	
+	/**
+	 * Create new FileMeta with deliveryCandidate parent deliveryCandidateId
+	 * @param deliveryCandidateId
+	 */
 	void create(long deliveryCandidateId);
 		
+	/**
+	 * Get id of parent deliveryCandidate
+	 * @param fileMetaId
+	 * @return
+	 */
 	long getDeliveryCandidateId(long fileMetaId);
 	
+	/**
+	 * Get the filepath for the FileMeta with id fileMetaId
+	 * @param fileMetaId
+	 * @return the path
+	 */
 	String getFilePath(long fileMetaId);
 		
+	/**
+	 * Get size of all FileDataBlocks referencing the FileMeta with id fileMetaId
+	 * @param fileMetaId
+	 * @return
+	 */
 	int getSize(long fileMetaId);
 	
+	/**
+	 * Get list of ids of all FileDataBlocks refencing the FileMeta with id fileMetaId
+	 * @param fileMetaId
+	 * @return
+	 */
 	List<Long> getFileDataBlocks(long fileMetaId);
 	
 }
