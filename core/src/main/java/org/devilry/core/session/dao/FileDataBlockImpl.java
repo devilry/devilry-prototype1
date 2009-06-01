@@ -26,7 +26,8 @@ public class FileDataBlockImpl implements FileDataBlockRemote {
 		FileDataBlock fileDataBlock = new FileDataBlock();
 		// Set parent
 		fileDataBlock.setFileMeta(fileMeta);
-						
+		fileDataBlock.setDataBlock(data);				
+		
 		em.persist(fileDataBlock);
 		em.flush();
 		
