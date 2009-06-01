@@ -7,16 +7,13 @@ import static org.junit.Assert.*;
 
 import javax.naming.NamingException;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
 
 public class DeliveryImplTest extends AbstractDeliveryDaoTst {
 	
 	DeliveryRemote delivery;
 	DeliveryCandidateRemote deliveryCandidate;
 	long deliveryId;
-	
+
 	@Before
 	public void setUp() throws NamingException {
 		setupEjbContainer();
@@ -30,6 +27,11 @@ public class DeliveryImplTest extends AbstractDeliveryDaoTst {
 		periodNode.remove(uioId);
 	}
 
+	@Test
+	public void remove() {
+		periodNode.remove(uioId);
+//		assertFalse();
+	}
 
 	@Test
 	public void getAssignment() {
@@ -82,7 +84,6 @@ public class DeliveryImplTest extends AbstractDeliveryDaoTst {
 	@Test
 	public void exists() {
 		assertTrue(delivery.exists(deliveryId));
+		assertFalse(delivery.exists(deliveryId + 1));
 	}
-	
-
 }

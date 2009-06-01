@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 @Remote
-public interface PeriodNodeRemote extends AbstractNodeRemote {
+public interface PeriodNodeRemote extends BaseNodeInterface {
 	public void setStartDate(long nodeId, Date start);
 	public Date getStartDate(long nodeId);
 	public void setEndDate(long nodeId, Date end);

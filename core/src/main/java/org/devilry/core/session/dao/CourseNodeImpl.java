@@ -10,7 +10,7 @@ import org.devilry.core.entity.*;
 import java.util.List;
 
 @Stateless
-public class CourseNodeImpl extends AbstractNodeImpl implements CourseNodeRemote {
+public class CourseNodeImpl extends BaseNodeImpl implements CourseNodeRemote {
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public long create(String name, String displayName, long parentId) {

@@ -11,7 +11,11 @@ import javax.persistence.*;
 import org.devilry.core.entity.*;
 
 @Stateless
-public class AssignmentNodeImpl extends AbstractNodeImpl implements AssignmentNodeRemote {
+public class AssignmentNodeImpl extends BaseNodeImpl implements
+		AssignmentNodeRemote {
+
+	
+	
 	
 	private AssignmentNode getAssignmentNode(long nodeId) {
 		return (AssignmentNode) getNode(nodeId);
@@ -19,9 +23,15 @@ public class AssignmentNodeImpl extends AbstractNodeImpl implements AssignmentNo
 
 	@SuppressWarnings("unchecked")
 	public List<Long> getDeliveries(long nodeId) {
-		Query q = em.createQuery("SELECT d.id FROM Delivery d WHERE d.assignment.id = :id");
+		Query q = em
+				.createQuery("SELECT d.id FROM Delivery d WHERE d.assignment.id = :id");
 		q.setParameter("id", nodeId);
 		return q.getResultList();
+	}
+
+	public List<Long> getChildren(long nodeId) {
+		throw new UnsupportedOperationException(
+				"AssignmentNode does not have any children. Did you mean getDeliveries?");
 	}
 
 	public Date getDeadline(long nodeId) {
@@ -34,9 +44,10 @@ public class AssignmentNodeImpl extends AbstractNodeImpl implements AssignmentNo
 		a.setDeadline(deadline);
 		em.persist(a);
 	}
-	
+
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-	public long create(String name, String displayName, Date deadline, long parentId) {
+	public long create(String name, String displayName, Date deadline,
+			long parentId) {
 		AssignmentNode node = new AssignmentNode();
 		node.setName(name.toLowerCase());
 		node.setDisplayName(displayName);
@@ -45,5 +56,13 @@ public class AssignmentNodeImpl extends AbstractNodeImpl implements AssignmentNo
 		em.persist(node);
 		em.flush();
 		return node.getId();
+	}
+
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public void remove(long nodeId) {
+		for(long id: getDeliveries(nodeId)) {
+			
+		}
+		em.remove(getAssignmentNode(nodeId));
 	}
 }
