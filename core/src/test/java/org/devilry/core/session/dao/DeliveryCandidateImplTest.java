@@ -1,5 +1,6 @@
 package org.devilry.core.session.dao;
 
+import java.util.Date;
 import java.util.List;
 import javax.naming.NamingException;
 import org.junit.After;
@@ -64,6 +65,14 @@ public class DeliveryCandidateImplTest extends AbstractDeliveryDaoTst {
 	public void getAndSetStatus() {
 		deliveryCandidate.setStatus(deliveryCandidateId, 0);
 		assertEquals(0, deliveryCandidate.getStatus(deliveryCandidateId));
+	}
+	
+	
+	@Test
+	public void getTimeOfDelivery() {
+		Date now = new Date();
+		Date delivery = deliveryCandidate.getTimeOfDelivery(deliveryCandidateId);
+		assert(now.after(delivery));
 	}
 	
 }
