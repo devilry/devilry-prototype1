@@ -14,7 +14,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 @Stateless
-public class DeliveryCandidateImpl implements DeliveryCandidateRemote {
+public class DeliveryCandidateImpl implements DeliveryCandidateRemote, DeliveryCandidateLocal {
 
 	@PersistenceContext(unitName = "DevilryCore")
 	protected EntityManager em;

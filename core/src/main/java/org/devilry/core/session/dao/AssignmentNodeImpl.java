@@ -12,7 +12,7 @@ import org.devilry.core.entity.*;
 
 @Stateless
 public class AssignmentNodeImpl extends BaseNodeImpl implements
-		AssignmentNodeRemote {
+		AssignmentNodeRemote, AssignmentNodeLocal {
 
 	
 	
@@ -58,11 +58,13 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 		return node.getId();
 	}
 
-//	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-//	public void remove(long nodeId) {
-//		for(long id: getDeliveries(nodeId)) {
-//			
-//		}
-//		em.remove(getAssignmentNode(nodeId));
-//	}
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public void remove(long nodeId) {
+		for(long id: getDeliveries(nodeId)) {
+			
+		}
+		Query q = em.createQuery("DELETE FROM Node n WHERE n.id = :id");
+		q.setParameter("id", nodeId);
+		q.executeUpdate();
+	}
 }
