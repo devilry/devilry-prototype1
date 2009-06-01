@@ -32,7 +32,7 @@ public class FileDataBlock implements Serializable {
 	@Column(nullable = false)
 	private byte[] dataBlock;
 	
-	private int dataBlockSize;
+	private int size;
 	
 	public FileDataBlock() {
 		
@@ -52,7 +52,7 @@ public class FileDataBlock implements Serializable {
 	
 	public void setDataBlock(byte[] dataBlock) {
 		this.dataBlock = dataBlock;
-		dataBlockSize = dataBlock.length;
+		size = dataBlock.length;
 	}
 	
 	public byte[] getDataBlock() {
@@ -60,7 +60,7 @@ public class FileDataBlock implements Serializable {
 	}
 	
 	public int getSize() {
-		return dataBlockSize;
+		return size;
 	}
 	
 }
