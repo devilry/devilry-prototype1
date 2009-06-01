@@ -15,9 +15,6 @@ import org.devilry.core.entity.*;
 public class AssignmentNodeImpl extends BaseNodeImpl implements
 		AssignmentNodeRemote, AssignmentNodeLocal {
 
-	@EJB
-	private DeliveryLocal deliveryBean;
-	
 	
 	private AssignmentNode getAssignmentNode(long nodeId) {
 		return (AssignmentNode) getNode(nodeId);

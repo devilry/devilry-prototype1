@@ -17,9 +17,6 @@ public class BaseNodeImpl implements BaseNodeInterface {
 	@PersistenceContext(unitName = "DevilryCore")
 	protected EntityManager em;
 	
-	@EJB
-	private AssignmentNodeLocal assignmentBean;
-
 	protected Node getNode(long nodeId) {
 		return em.find(Node.class, nodeId);
 	}
