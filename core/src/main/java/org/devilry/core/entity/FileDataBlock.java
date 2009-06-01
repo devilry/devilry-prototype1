@@ -14,7 +14,7 @@ import javax.persistence.SequenceGenerator;
 
 
 @Entity
-public class FileData implements Serializable {
+public class FileDataBlock implements Serializable {
 
 	@Id
 	@SequenceGenerator(name = "FILEDATANODE_SEQUENCE")
@@ -29,10 +29,10 @@ public class FileData implements Serializable {
 	@Column(nullable = false)
 	private byte[] dataBlock;
 
-	protected FileData() {
+	protected FileDataBlock() {
 	}
 
-	public FileData(FileMeta fileMeta, byte[] dataBlock) {
+	public FileDataBlock(FileMeta fileMeta, byte[] dataBlock) {
 		this.fileMeta = fileMeta;
 		this.dataBlock = dataBlock;
 	}

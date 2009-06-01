@@ -1,5 +1,7 @@
 package org.devilry.core.session.dao;
 
+import java.util.List;
+
 import javax.ejb.Remote;
 
 
@@ -9,11 +11,15 @@ import javax.ejb.Remote;
  */
 @Remote
 public interface FileMetaRemote {
-	void init(long fileId);
-	long getId();
-	long getDeliveryCandidateId();
-	String getFilePath();
-	byte[] read();
-	void resetReadState();
-	void write(byte[] dataBlock);
+	
+	void create(long deliveryCandidateId);
+		
+	long getDeliveryCandidateId(long fileMetaId);
+	
+	String getFilePath(long fileMetaId);
+		
+	int getSize(long fileMetaId);
+	
+	List<Long> getFileDataBlocks(long fileMetaId);
+	
 }
