@@ -49,14 +49,16 @@ public class DeliveryCandidateImpl implements DeliveryCandidateRemote {
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public long addFile(long deliveryCandidateId, String filePath) {
-		FileMeta f = new FileMeta(getDeliveryCandidate(deliveryCandidateId), filePath);
 		
 		DeliveryCandidate deliveryCandidate = getDeliveryCandidate(deliveryCandidateId);
-		f.setDeliveryCandidate(deliveryCandidate);
 		
-		em.persist(f);
+		FileMeta fileMeta = new FileMeta();
+		fileMeta.setDeliveryCandidate(deliveryCandidate);
+		fileMeta.setFilePath(filePath);		
+		
+		em.persist(fileMeta);
 		em.flush();
-		return f.getId();
+		return fileMeta.getId();
 	}
 
 	public List<Long> getFiles(long deliveryCandidateId) {
