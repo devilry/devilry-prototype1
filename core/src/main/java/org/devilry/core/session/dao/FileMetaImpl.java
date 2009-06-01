@@ -41,7 +41,7 @@ public class FileMetaImpl implements FileMetaRemote {
 		return em.find(FileMeta.class, fileMetaId);
 	}
 	
-	public long getDeliveryCandidateId(long fileMetaId) {
+	public long getDeliveryCandidate(long fileMetaId) {
 		return getFileMeta(fileMetaId).getDeliveryCandidate().getId();
 	}
 
@@ -90,10 +90,5 @@ public class FileMetaImpl implements FileMetaRemote {
 		long size = (Long) q.getSingleResult();
 		
 		return (int) size;
-	}
-
-	public long getDeliveryCandidate(long fileMetaId) {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 }

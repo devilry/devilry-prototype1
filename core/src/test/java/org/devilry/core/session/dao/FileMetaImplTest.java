@@ -28,9 +28,13 @@ public class FileMetaImplTest extends AbstractDeliveryDaoTst {
 		delivery = getRemoteBean(DeliveryImpl.class);
 		deliveryId = delivery.create(assignmentId);
 		
+		System.err.println("create deliverycandiate with deliveryid:" + deliveryId);
+		
 		// Add delivery candidate
 		deliveryCandidate = getRemoteBean(DeliveryCandidateImpl.class);
 		deliveryCandidateId = deliveryCandidate.create(deliveryId);
+		
+		System.err.println("create fileMeta with deliveryCandidateId:" + deliveryCandidateId);
 		
 		// Add file meta data
 		fileMeta = getRemoteBean(FileMetaImpl.class);
@@ -44,7 +48,7 @@ public class FileMetaImplTest extends AbstractDeliveryDaoTst {
 	}
 
 	@Test
-	public void getDeliveryCandidateId() {
+	public void getDeliveryCandidate() {
 		assertEquals(deliveryCandidateId, fileMeta.getDeliveryCandidate(fileMetaId));
 	}
 
