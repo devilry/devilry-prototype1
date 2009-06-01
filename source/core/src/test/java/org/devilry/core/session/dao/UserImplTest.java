@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserImplTest extends AbstractDaoTst {
-	protected UserRemote node;
+	protected UserRemote userBean;
 	protected long testUser0, testUser1, testUser2;
 
 	ArrayList<String> names = new ArrayList<String>();
@@ -24,7 +24,7 @@ public class UserImplTest extends AbstractDaoTst {
 	@Before
 	public void setUp() throws NamingException {
 		setupEjbContainer();
-		node = getRemoteBean(UserImpl.class);
+		userBean = getRemoteBean(UserImpl.class);
 		
 		names.add("Bendik");
 		names.add("Espen");
@@ -39,16 +39,16 @@ public class UserImplTest extends AbstractDaoTst {
 		phoneNumbers.add("80012345");
 		
 		// Create some test users
-		testUser0 = node.create(names.get(0), emails.get(0), phoneNumbers.get(0));
-		testUser1 = node.create(names.get(1),  emails.get(1), phoneNumbers.get(1));
-		testUser2 = node.create(names.get(2), emails.get(2), phoneNumbers.get(2));
+		testUser0 = userBean.create(names.get(0), emails.get(0), phoneNumbers.get(0));
+		testUser1 = userBean.create(names.get(1),  emails.get(1), phoneNumbers.get(1));
+		testUser2 = userBean.create(names.get(2), emails.get(2), phoneNumbers.get(2));
 	}
 
 	@After
 	public void tearDown() {
-		node.remove(testUser0);
-		node.remove(testUser1);
-		node.remove(testUser2);
+		for(long userId: userBean.getUsers()) {
+			userBean.remove(userId);
+		}
 		
 		names.clear();
 		emails.clear();
@@ -57,53 +57,53 @@ public class UserImplTest extends AbstractDaoTst {
 
 	@Test
 	public void getName() {
-		assertEquals(names.get(0), node.getName(testUser0));
-		assertEquals(names.get(1), node.getName(testUser1));
-		assertEquals(names.get(2), node.getName(testUser2));
+		assertEquals(names.get(0), userBean.getName(testUser0));
+		assertEquals(names.get(1), userBean.getName(testUser1));
+		assertEquals(names.get(2), userBean.getName(testUser2));
 	}
 
 	@Test
 	public void getEmail() {
-		assertEquals(emails.get(0), node.getEmail(testUser0));
-		assertEquals(emails.get(1), node.getEmail(testUser1));
-		assertEquals(emails.get(2), node.getEmail(testUser2));
+		assertEquals(emails.get(0), userBean.getEmail(testUser0));
+		assertEquals(emails.get(1), userBean.getEmail(testUser1));
+		assertEquals(emails.get(2), userBean.getEmail(testUser2));
 	}
 
 	@Test
 	public void getPhoneNumber() {
-		assertEquals(phoneNumbers.get(0), node.getPhoneNumber(testUser0));
-		assertEquals(phoneNumbers.get(1), node.getPhoneNumber(testUser1));
-		assertEquals(phoneNumbers.get(2), node.getPhoneNumber(testUser2));
+		assertEquals(phoneNumbers.get(0), userBean.getPhoneNumber(testUser0));
+		assertEquals(phoneNumbers.get(1), userBean.getPhoneNumber(testUser1));
+		assertEquals(phoneNumbers.get(2), userBean.getPhoneNumber(testUser2));
 	}
 
 	
 	@Test
 	public void setName() {
-		node.setName(testUser0, "newname");
-		assertEquals("newname", node.getName(testUser0));
+		userBean.setName(testUser0, "newname");
+		assertEquals("newname", userBean.getName(testUser0));
 	}
 
 	@Test
 	public void setEmail() {
-		node.setEmail(testUser0, "newemail");
-		assertEquals("newemail", node.getEmail(testUser0));
+		userBean.setEmail(testUser0, "newemail");
+		assertEquals("newemail", userBean.getEmail(testUser0));
 	}
 
 	@Test
 	public void setPhoneNumber() {
-		node.setPhoneNumber(testUser0, "newphone");
-		assertEquals("newphone", node.getPhoneNumber(testUser0));
+		userBean.setPhoneNumber(testUser0, "newphone");
+		assertEquals("newphone", userBean.getPhoneNumber(testUser0));
 	}
 	
 	
 	@Test
 	public void remove() {
-		List<Long> users = node.getUsers();
+		List<Long> users = userBean.getUsers();
 		assertTrue(users.size() == names.size());
 		
-		node.remove(testUser0);
+		userBean.remove(testUser0);
 		
-		List<Long> users2 = node.getUsers();
+		List<Long> users2 = userBean.getUsers();
 		assertTrue(users2.size() == names.size()-1);
 	}
 	
@@ -111,54 +111,54 @@ public class UserImplTest extends AbstractDaoTst {
 
 	@Test
 	public void addIdentity() {
-		node.addIdentity(testUser0, "laban");
+		userBean.addIdentity(testUser0, "laban");
 		
-		long id = node.findUser("laban");
+		long id = userBean.findUser("laban");
 		assertTrue(testUser0 == id);
 	}
 	
 	@Test
 	public void removeIdentity() {
-		node.addIdentity(testUser0, "laban");
-		node.addIdentity(testUser0, "tull");
+		userBean.addIdentity(testUser0, "laban");
+		userBean.addIdentity(testUser0, "tull");
 		
-		node.removeIdentity("laban");
-		assertFalse(node.identityExists("laban"));
+		userBean.removeIdentity("laban");
+		assertFalse(userBean.identityExists("laban"));
 		
-		node.removeIdentity("tull");
-		assertFalse(node.identityExists("tull"));
+		userBean.removeIdentity("tull");
+		assertFalse(userBean.identityExists("tull"));
 		
-		List<String> identities = node.getIdentities(testUser0);
+		List<String> identities = userBean.getIdentities(testUser0);
 		assertTrue(identities.size() == 0);
 	}
 	
 	
 	@Test
 	public void identityExists() {
-		node.addIdentity(testUser0, "laban");
-		node.addIdentity(testUser0, "tull");
+		userBean.addIdentity(testUser0, "laban");
+		userBean.addIdentity(testUser0, "tull");
 		
-		assertTrue(node.identityExists("laban"));
-		assertTrue(node.identityExists("tull"));
-		assertFalse(node.identityExists("nonexistantidentity"));
+		assertTrue(userBean.identityExists("laban"));
+		assertTrue(userBean.identityExists("tull"));
+		assertFalse(userBean.identityExists("nonexistantidentity"));
 	}
 	
 	
 	@Test
 	public void emailExists() {
-		assertTrue(node.emailExists(emails.get(0)));
-		assertTrue(node.emailExists(emails.get(1)));
+		assertTrue(userBean.emailExists(emails.get(0)));
+		assertTrue(userBean.emailExists(emails.get(1)));
 		
-		assertFalse(node.emailExists("nonexistantemail"));
+		assertFalse(userBean.emailExists("nonexistantemail"));
 	}
 		
 	
 	@Test
 	public void getIdentities() {
-		node.addIdentity(testUser0, "laban");
-		node.addIdentity(testUser0, "tull");
+		userBean.addIdentity(testUser0, "laban");
+		userBean.addIdentity(testUser0, "tull");
 		
-		List<String> identities = node.getIdentities(testUser0);
+		List<String> identities = userBean.getIdentities(testUser0);
 		
 		assertTrue(identities.size() == 2);
 		assertTrue(identities.contains("laban"));
@@ -168,9 +168,9 @@ public class UserImplTest extends AbstractDaoTst {
 	
 	@Test
 	public void findUser() {
-		node.addIdentity(testUser0, "laban");
+		userBean.addIdentity(testUser0, "laban");
 
-		long id = node.findUser("laban");
+		long id = userBean.findUser("laban");
 		assertTrue(testUser0 == id);
 		
 		//long id2 = node.findUser("nonexistantuser");
@@ -180,7 +180,7 @@ public class UserImplTest extends AbstractDaoTst {
 	
 	@Test
 	public void getUsers() {
-		List<Long> users = node.getUsers();
+		List<Long> users = userBean.getUsers();
 	
 		assertTrue(users.size() == names.size());
 		assertTrue(users.contains(testUser0));
