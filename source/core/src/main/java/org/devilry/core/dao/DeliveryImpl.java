@@ -35,7 +35,7 @@ public class DeliveryImpl implements DeliveryRemote, DeliveryLocal {
 	public List<Long> getDeliveryCandidates(long deliveryId) {
 		Query q = em.createQuery("SELECT d.id FROM DeliveryCandidate d "
 				+ "WHERE d.delivery.id = :id");
-		q.setParameter("id", getDelivery(deliveryId).getId());
+		q.setParameter("id", deliveryId);
 		return q.getResultList();
 	}
 

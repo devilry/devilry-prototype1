@@ -5,8 +5,6 @@
 package org.devilry.cli;
 
 import java.util.*;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.GregorianCalendar;
@@ -17,17 +15,25 @@ import java.util.logging.Logger;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import org.devilry.core.session.dao.DeliveryCandidateRemote;
+import org.devilry.core.dao.CourseNodeImpl;
+import org.devilry.core.dao.FileDataBlockImpl;
+import org.devilry.core.dao.FileMetaImpl;
+import org.devilry.core.dao.NodeImpl;
+import org.devilry.core.dao.PeriodNodeImpl;
+import org.devilry.core.dao.UserImpl;
+import org.devilry.core.daointerfaces.AssignmentNodeLocal;
+import org.devilry.core.daointerfaces.CourseNodeLocal;
+import org.devilry.core.daointerfaces.DeliveryCandidateLocal;
+import org.devilry.core.daointerfaces.DeliveryLocal;
+import org.devilry.core.daointerfaces.FileDataBlockLocal;
+import org.devilry.core.daointerfaces.FileMetaLocal;
+import org.devilry.core.daointerfaces.NodeLocal;
+import org.devilry.core.daointerfaces.NodeRemote;
+import org.devilry.core.daointerfaces.PeriodNodeLocal;
+import org.devilry.core.daointerfaces.UserLocal;
 import org.devilry.core.entity.FileMeta;
-import org.devilry.core.session.TreeManagerImpl;
-import org.devilry.core.session.TreeManagerRemote;
-import org.devilry.core.session.dao.AssignmentNodeImpl;
-import org.devilry.core.session.dao.AssignmentNodeRemote;
-import org.devilry.core.session.dao.DeliveryCandidateImpl;
-import org.devilry.core.session.dao.DeliveryImpl;
-import org.devilry.core.session.dao.DeliveryRemote;
-import org.devilry.core.session.dao.FileImpl;
-import org.devilry.core.session.dao.FileMetaRemote;
+
+import org.devilry.core.daointerfaces.*;
 
 /**
  *
@@ -57,7 +63,7 @@ public class DevilryCLILibrary {
 
        // System.err.println("addFile:" + deliveryPath + " file:" + filePath);
 
-        TreeManagerRemote tm = getTreeManager();
+         NodeRemote tm = getTreeManager();
 
         long deliveryId = tm.getNodeIdFromPath(deliveryPath);
         //System.err.println(deliveryPath + " id:" + deliveryId);
@@ -250,7 +256,7 @@ public class DevilryCLILibrary {
 
         System.err.println("getLastDeliveryCandidateFile:" + nodePath);
 
-        TreeManagerRemote tm = getTreeManager();
+        NodeRemote tm = getTreeManager();
 
         AssignmentNodeRemote assignMent = getRemoteBean(AssignmentNodeImpl.class);
         assignMent.init(tm.getNodeIdFromPath(nodePath));
@@ -299,12 +305,13 @@ public class DevilryCLILibrary {
 
         System.err.println("getLastDeliveryCandidateFile:" + nodePath);
 
-        TreeManagerRemote tm = getTreeManager();
+        NodeRemote tm = getTreeManager();
 
-        AssignmentNodeRemote assignMent = getRemoteBean(AssignmentNodeImpl.class);
-        assignMent.init(tm.getNodeIdFromPath(nodePath));
-
-        List<Long> IDs = assignMent.getDeliveryIds();
+        //AssignmentNodeRemote assignMent = getRemoteBean(AssignmentNodeImpl.class);
+        //assignMent.init(tm.getNodeIdFromPath(nodePath));
+        AssignmentNodeRemote assignMent = getAssignmentNode();
+        
+        List<Long> IDs = assignMent.getDeliveries(tm.getNodeIdFromPath(nodePath));
 
         if (IDs.size() < 0) {
             System.err.println("No deliveries exist!");
@@ -351,9 +358,10 @@ public class DevilryCLILibrary {
 
         System.err.println("getDeliveryCandidatesList:" + nodePath);
 
-        TreeManagerRemote tm = getTreeManager();
+        NodeRemote tm = getTreeManager();
 
-        AssignmentNodeRemote assignMent = getRemoteBean(AssignmentNodeImpl.class);
+       // AssignmentNodeRemote assignMent = getRemoteBean(AssignmentNodeImpl.class);
+        AssignmentNodeRemote assignMent = getAssignmentNode();
         System.err.println("tm.getNodeIdFromPath(nodePath):" + tm.getNodeIdFromPath(nodePath));
 
         long nodeID = tm.getNodeIdFromPath(nodePath);
@@ -363,21 +371,23 @@ public class DevilryCLILibrary {
             return null;
         }
 
-        assignMent.init(nodeID);
+        //assignMent.init(nodeID);
 
-        List<Long> ids = assignMent.getDeliveryIds();
+        List<Long> ids = assignMent.getDeliveries(nodeID);
 
         if (ids.size() < 0) {
             System.err.println("No deliveries exist!");
             return null;
         }
 
-        DeliveryRemote delivery = getRemoteBean(DeliveryImpl.class);
-        delivery.init(ids.get(0));
+        //DeliveryRemote delivery = getRemoteBean(DeliveryImpl.class);
+        //delivery.init(ids.get(0));
+        DeliveryRemote delivery = getDelivery();
+        
         System.err.println("delivery id:" + ids.get(0));
 
 
-        List<Long> candidateIDs = delivery.getDeliveryCandidateIds();
+        List<Long> candidateIDs = delivery.getDeliveryCandidates(ids.get(0));
 
         if (candidateIDs.size() < 0) {
             System.err.println("No delivery candidates exist!");
@@ -391,12 +401,13 @@ public class DevilryCLILibrary {
 
            // System.err.println("CandiateID:" + cID);
 
-            DeliveryCandidateRemote remoteBean = getRemoteBean(DeliveryCandidateImpl.class);
-            remoteBean.init(cID);
+            //DeliveryCandidateRemote remoteBean = getRemoteBean(DeliveryCandidateImpl.class);
+            //remoteBean.init(cID);
+        	DeliveryCandidateRemote remoteBean = getDeliveryCandidate();
+        	
+            List<Long> fileIDs = remoteBean.getFiles(cID);
 
-            List<Long> fileIDs = remoteBean.getFileIds();
-
-            fileNames.add("Candiate " + cID + " with " +fileIDs.size()+ " files  handed in " + remoteBean.getDeliveryTime() );
+            fileNames.add("Candiate " + cID + " with " +fileIDs.size()+ " files  handed in " + remoteBean.getTimeOfDelivery(cID) );
             
         }
 
@@ -419,33 +430,35 @@ public class DevilryCLILibrary {
 
         System.err.println("getDeliveryCandidateFiles:" + nodePath);
 
-        TreeManagerRemote tm = getTreeManager();
-
-        AssignmentNodeRemote assignMent = getRemoteBean(AssignmentNodeImpl.class);
-        System.err.println("tm.getNodeIdFromPath(nodePath):" + tm.getNodeIdFromPath(nodePath));
+        NodeRemote tm = getTreeManager();
 
         long nodeID = tm.getNodeIdFromPath(nodePath);
+        
+        System.err.println("tm.getNodeIdFromPath(nodePath):" + nodeID);
 
         if (nodeID == -1) {
             log.warning("No valid id for nodepath " + nodePath);
             return null;
         }
 
-        assignMent.init(nodeID);
+        AssignmentNodeRemote assignMent = getAssignmentNode();
+        //assignMent.init(nodeID);
 
-        List<Long> ids = assignMent.getDeliveryIds();
+        List<Long> ids = assignMent.getDeliveries(nodeID);
 
         if (ids.size() < 0) {
             System.err.println("No deliveries exist!");
             return null;
         }
 
-        DeliveryRemote delivery = getRemoteBean(DeliveryImpl.class);
-        delivery.init(ids.get(0));
+        //DeliveryRemote delivery = getRemoteBean(DeliveryImpl.class);
+        //delivery.init(ids.get(0));
+        
+        DeliveryRemote delivery = getDelivery();
+                
         System.err.println("delivery id:" + ids.get(0));
 
-
-        List<Long> candidateIDs = delivery.getDeliveryCandidateIds();
+        List<Long> candidateIDs = delivery.getDeliveryCandidates(ids.get(0));
 
         if (candidateIDs.size() < 0) {
             System.err.println("No delivery candidates exist!");
@@ -459,19 +472,21 @@ public class DevilryCLILibrary {
 
            // System.err.println("CandiateID:" + cID);
 
-            DeliveryCandidateRemote remoteBean = getRemoteBean(DeliveryCandidateImpl.class);
-            remoteBean.init(cID);
-
-            List<Long> fileIDs = remoteBean.getFileIds();
+            //DeliveryCandidateRemote remoteBean = getRemoteBean(DeliveryCandidateImpl.class);
+            //remoteBean.init(cID);
+        	DeliveryCandidateRemote remoteBean = getDeliveryCandidate();
+        	
+            List<Long> fileIDs = remoteBean.getFiles(cID);
 
             for (long fID : fileIDs) {
 
                 //System.err.println("Candiate " +cID + " FileID:" + fID);
 
-                FileMetaRemote remoteFileBean = getRemoteBean(FileImpl.class);
-                remoteFileBean.init(fID);
-
-                fileNames.add("Candiate " + cID + ":" + remoteFileBean.getFilePath());
+                //FileMetaRemote remoteFileBean = getRemoteBean(FileImpl.class);
+                //remoteFileBean.init(fID);
+            	FileMetaRemote remoteFileBean = getFileMeta();
+            	            	
+                fileNames.add("Candiate " + cID + ":" + remoteFileBean.getFilePath(fID));
             }
 
         }
@@ -530,45 +545,44 @@ public class DevilryCLILibrary {
 
         try {
 
-            TreeManagerRemote tm = getTreeManager();
+        	NodeRemote tm = getTreeManager();
 
             String nodeName = "";
             
             try {
                 nodeName = "uio";
-                tm.addNode(nodeName, "Universitetet i Oslo");
+                tm.create(nodeName, "Universitetet i Oslo");
             } catch (Exception e) {
                 System.err.println("Exception when adding test node " + nodeName);
             }
 
             try {
                 nodeName = "inf1000";
-                tm.addCourseNode(nodeName, "INF1000", "First programming course.",
-                        tm.getNodeIdFromPath("uio"));
+                CourseNodeLocal courseNode = getCourseNode();
+                long courseId = courseNode.create(nodeName, "First programming course.", tm.getNodeIdFromPath("uio"));
+                
             } catch (Exception e) {
              System.err.println("Exception when adding test node " + nodeName);
             }
             
             try {
                 nodeName = "spring2009";
-                tm.addPeriodNode(nodeName, new GregorianCalendar(2009, 1, 1).getTime(),
-                        new GregorianCalendar(2009, 6, 15).getTime(),
-                        tm.getNodeIdFromPath("uio.inf1000"));
+                PeriodNodeLocal periodNode = getPeriodNode();
+                long periodId = periodNode.create(nodeName, nodeName, 
+                		new GregorianCalendar(2009, 1, 1).getTime(), 
+                		new GregorianCalendar(2009, 6, 15).getTime(), 
+                		tm.getNodeIdFromPath("uio.inf1000"));
             } catch (Exception e) {
                  System.err.println("Exception when adding test node " + nodeName);
             }
 
             try {
                 nodeName = "oblig1";
-                tm.addAssignmentNode(nodeName, "Obligatory assignment 1",
-                        tm.getNodeIdFromPath("uio.inf1000.spring2009"));
-            } catch (Exception e) {
-                 System.err.println("Exception when adding test node " + nodeName);
-            }
-
-            try {
-                AssignmentNodeRemote node = getRemoteBean(AssignmentNodeImpl.class);
-                node.init(tm.getNodeIdFromPath("uio.inf1000.spring2009.oblig1"));
+                AssignmentNodeLocal assignmentNode = getAssignmentNode();
+                long assignmentId = assignmentNode.create(nodeName, "Obligatory assignment 1", 
+                		new GregorianCalendar(2009, 1, 1).getTime(), 
+                		tm.getNodeIdFromPath("uio.inf1000.spring2009"));
+                
             } catch (Exception e) {
                  System.err.println("Exception when adding test node " + nodeName);
             }
@@ -579,18 +593,37 @@ public class DevilryCLILibrary {
         }
     }
 
-    public TreeManagerRemote setUpTestTreeManager() throws NamingException, Exception {
+    public NodeRemote setUpTestTreeManager() throws NamingException, Exception {
 
-        TreeManagerRemote tm = getTreeManager();
+    	NodeRemote tm = getTreeManager();
 
+        tm.create("uio", "Universitetet i Oslo");
 
-        tm.addNode("uio", "Universitetet i Oslo");
-        tm.addNode("matnat", "Matematisk...", tm.getNodeIdFromPath("uio"));
-        tm.addNode("ifi", "Institutt for informatikk", tm.getNodeIdFromPath("uio.matnat"));
+        CourseNodeLocal courseNode = getCourseNode();
+        long courseId = courseNode.create("inf1000", "First programming course.", tm.getNodeIdFromPath("uio"));
+       
 
-        tm.addCourseNode("inf1000", "INF1000", "First programming course.",
-                tm.getNodeIdFromPath("uio.matnat.ifi"));
+        PeriodNodeLocal periodNode = getPeriodNode();
+        long periodId = periodNode.create("spring2009", "spring2009", 
+        		new GregorianCalendar(2009, 1, 1).getTime(), 
+        		new GregorianCalendar(2009, 6, 15).getTime(), 
+        		tm.getNodeIdFromPath("uio.inf1000"));
+      
+        
+        AssignmentNodeLocal assignmentNode = getAssignmentNode();
+        long assignmentId = assignmentNode.create("oblig1", "Obligatory assignment 1", 
+        		new GregorianCalendar(2009, 1, 1).getTime(), 
+        		tm.getNodeIdFromPath("uio.inf1000.spring2009"));
+        
+        
+        
+        /*
+        tm.create("uio", "Universitetet i Oslo");
+        //tm.create("matnat", "Matematisk...", tm.getNodeIdFromPath("uio"));
+        //tm.create("ifi", "Institutt for informatikk", tm.getNodeIdFromPath("uio.matnat"));
 
+        //tm.addCourseNode("inf1000", "INF1000", "First programming course.", tm.getNodeIdFromPath("uio.matnat.ifi"));
+        
         tm.addPeriodNode("spring2009", new GregorianCalendar(2009, 1, 1).getTime(),
                 new GregorianCalendar(2009, 6, 15).getTime(),
                 tm.getNodeIdFromPath("uio.inf1000"));
@@ -601,11 +634,15 @@ public class DevilryCLILibrary {
         AssignmentNodeRemote node = getRemoteBean(AssignmentNodeImpl.class);
 
         node.init(tm.getNodeIdFromPath("uio.inf1000.spring2009.oblig1"));
+        
+        */
+        
         return tm;
     }
+    
 
-    private TreeManagerRemote getTreeManager() throws NamingException, Exception {
-        TreeManagerRemote tm = getRemoteBean(TreeManagerImpl.class);
+    private NodeRemote getTreeManager() throws NamingException, Exception {
+        NodeRemote tm = getRemoteBean(NodeImpl.class);
         return tm;
     }
 
@@ -616,6 +653,7 @@ public class DevilryCLILibrary {
     return (E) localCtx.lookup(beanImplClass.getSimpleName() + "Remote");
     }
      */
+    
     @SuppressWarnings("unchecked")
     protected <E> E getRemoteBean(Class<E> beanImplClass)
             throws NamingException, Exception {
@@ -626,7 +664,8 @@ public class DevilryCLILibrary {
 
         return (E) serverConnection.lookup(beanImplClass.getSimpleName() + "Remote");
     }
-
+    
+    
     public Context getRemoteServerConnection1() throws NamingException {
         Properties p = new Properties();
 //
@@ -671,5 +710,43 @@ public class DevilryCLILibrary {
 				"{ejbName}{interfaceType.annotationName}");
 
 		return new InitialContext(p);
+	}
+    
+   
+    
+    public AssignmentNodeRemote getAssignmentNode() throws Exception {
+		return getRemoteBean(org.devilry.core.dao.AssignmentNodeImpl.class);
+	}
+	
+	public CourseNodeRemote getCourseNode() throws Exception {
+		return getRemoteBean(CourseNodeImpl.class);
+	}
+
+	public DeliveryCandidateRemote getDeliveryCandidate() throws Exception {
+		return getRemoteBean(org.devilry.core.dao.DeliveryCandidateImpl.class);
+	}
+
+	public DeliveryRemote getDelivery() throws Exception {
+		return getRemoteBean(org.devilry.core.dao.DeliveryImpl.class);
+	}
+
+	public FileDataBlockRemote getFileDataBlock() throws Exception {
+		return getRemoteBean(FileDataBlockImpl.class);
+	}
+
+	public FileMetaRemote getFileMeta() throws Exception {
+		return getRemoteBean(FileMetaImpl.class);
+	}
+
+	public NodeRemote getNode() throws Exception {
+		return getRemoteBean(NodeImpl.class);
+	}
+
+	public PeriodNodeRemote getPeriodNode() throws Exception {
+		return getRemoteBean(PeriodNodeImpl.class);
+	}
+
+	public UserRemote getUser() throws Exception {
+		return getRemoteBean(UserImpl.class);
 	}
 }
