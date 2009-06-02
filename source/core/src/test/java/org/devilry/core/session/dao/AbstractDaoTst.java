@@ -28,6 +28,7 @@ public abstract class AbstractDaoTst {
 	}
 
 	protected void setupEjbContainer() throws NamingException {
+//		System.setProperty("java.util.logging.config.file", "test-classes/logging.properties");
 		localCtx = AbstractDaoTst.getCtx();
 	}
 
