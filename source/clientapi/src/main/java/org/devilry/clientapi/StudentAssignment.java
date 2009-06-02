@@ -20,4 +20,8 @@ public class StudentAssignment extends AbstractAssignment {
 		StudentDelivery delivery = new StudentDelivery(ids.get(0), connection);
 		return delivery;
 	}
+	
+	public String getPath() throws NamingException {
+		return getAssignmentNodeBean().getPath(assignmentId);
+	}
 }
