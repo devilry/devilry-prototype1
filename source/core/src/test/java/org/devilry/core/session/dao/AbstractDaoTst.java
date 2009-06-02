@@ -6,8 +6,15 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import org.devilry.core.dao.UserImpl;
+import org.devilry.core.daointerfaces.UserLocal;
+
 public abstract class AbstractDaoTst {
 	protected InitialContext localCtx;
+
+	protected UserLocal userBean;
+	protected long homerId;
+
 
 	public static InitialContext CTX = null;
 
@@ -30,6 +37,9 @@ public abstract class AbstractDaoTst {
 	protected void setupEjbContainer() throws NamingException {
 //		System.setProperty("java.util.logging.config.file", "test-classes/logging.properties");
 		localCtx = AbstractDaoTst.getCtx();
+		userBean = getRemoteBean(UserImpl.class);
+		homerId = userBean.create("Homer Simpson", "homr@doh.com", "123");
+		userBean.addIdentity(homerId, "homer");
 	}
 
 	@SuppressWarnings("unchecked")

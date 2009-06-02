@@ -9,12 +9,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.devilry.core.daointerfaces.UserLocal;
 import org.devilry.core.daointerfaces.UserRemote;
 import org.devilry.core.entity.Identity;
 import org.devilry.core.entity.User;
 
 @Stateless
-public class UserImpl implements UserRemote {
+public class UserImpl implements UserRemote, UserLocal {
 	@PersistenceContext(unitName = "DevilryCore")
 	protected EntityManager em;
 
