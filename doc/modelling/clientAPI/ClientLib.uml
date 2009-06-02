@@ -276,4 +276,14 @@
       <ownedParameter xmi:id="_cU6nEE8OEd6hSe6rOFC7Zw" direction="return"/>
     </ownedOperation>
   </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_QtdxcE9_Ed6QXpaQJdYe2A" memberEnd="_Qtrz4E9_Ed6QXpaQJdYe2A _QtuQIE9_Ed6QXpaQJdYe2A">
+    <ownedEnd xmi:id="_Qtrz4E9_Ed6QXpaQJdYe2A" name="src" type="_Xu43IE8OEd6hSe6rOFC7Zw" association="_QtdxcE9_Ed6QXpaQJdYe2A">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_QttpEU9_Ed6QXpaQJdYe2A" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_QttpEE9_Ed6QXpaQJdYe2A" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_QtuQIE9_Ed6QXpaQJdYe2A" name="dst" type="_s6QSIE0gEd6EVaGVkLohsg" association="_QtdxcE9_Ed6QXpaQJdYe2A">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Qtu3MU9_Ed6QXpaQJdYe2A" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Qtu3ME9_Ed6QXpaQJdYe2A" value="1"/>
+    </ownedEnd>
+  </packagedElement>
 </uml:Package>
