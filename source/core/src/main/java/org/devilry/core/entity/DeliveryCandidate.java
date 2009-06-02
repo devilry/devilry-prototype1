@@ -23,7 +23,7 @@ public class DeliveryCandidate implements Serializable {
 	@ManyToOne(optional = false)
 	private Delivery delivery;
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date timeOfDelivery;
 	
 	public DeliveryCandidate() {
