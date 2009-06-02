@@ -26,7 +26,7 @@ public class RemoteClient {
 
      String defaultNodePath = "uio.inf1000.spring2009.oblig1";
 
-    DevilryCLILibrary lib = new DevilryCLILibrary();
+    DevilryCLILibrary lib;
 
 	public static void main (String args[]) throws Exception {
 
@@ -41,14 +41,35 @@ public class RemoteClient {
            return;
         }
         else
-            new RemoteClient(args);
-    }
+        	new RemoteClient(args);
+	}
 
-    RemoteClient() {
-        runDevilryShell();
-    }
+	RemoteClient() {
+		
+		try {
+		
+			Scanner scan = new Scanner(System.in);
+			
+			System.out.print("Username:");
+			String user = scan.nextLine();
+			
+			System.out.print("Password:");
+			String pass = scan.nextLine();
+						
+			lib = new DevilryCLILibrary(user, pass);
+		
+			runDevilryShell();
+	
+		} catch (Exception e) {
+			System.err.println("Exception:" + e.getMessage());
+		}
+	}
 
-    public void runDevilryShell() {
+	RemoteClient(String args []) throws FileNotFoundException {
+		handleCommand(args);
+	}
+
+	public void runDevilryShell() {
 
         try {
 
@@ -81,9 +102,6 @@ public class RemoteClient {
         }
     }
 
-     RemoteClient(String args []) throws FileNotFoundException {
-         handleCommand(args);
-     }
 
     public boolean handleCommand(String [] args) {
 
