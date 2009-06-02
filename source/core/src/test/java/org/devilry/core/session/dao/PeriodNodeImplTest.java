@@ -21,6 +21,7 @@ import org.devilry.core.session.*;
 public class PeriodNodeImplTest extends NodeImplTest {
 	PeriodNodeRemote periodNode;
 	long periodId;
+	long periodId2;
 	
 	@Before
 	public void setUp() throws NamingException {
@@ -33,7 +34,8 @@ public class PeriodNodeImplTest extends NodeImplTest {
 		Calendar end = new GregorianCalendar(2009, 05, 15);
 
 		periodId = periodNode.create("fall09", "Fall 2009", start.getTime(), end.getTime(), inf1000Id);
-	}
+		periodId2 = periodNode.create("spring09", "Spring 2009", start.getTime(), end.getTime(), inf1000Id);
+		}
 
 	@Test
 	public void getAssignments() throws NamingException {
@@ -87,6 +89,22 @@ public class PeriodNodeImplTest extends NodeImplTest {
 	public void remove() {
 		super.remove();
 		assertFalse(node.exists(periodId));
+	}
+	
+	@Test
+	public void getNodesWhereIsStudent() {
+		periodNode.addStudent(periodId, homerId);
+		List<Long> l = periodNode.getNodesWhereIsStudent(homerId);
+		assertEquals(1, l.size());
+		assertEquals(periodId, (long) l.get(0));
+
+		long margeId = userBean.create("marge", "marge@doh.com", "123");
+		periodNode.addStudent(periodId, margeId);
+		assertEquals(1, periodNode.getNodesWhereIsStudent(homerId).size());
+
+		periodNode.addStudent(periodId2, homerId);
+		assertEquals(2, periodNode.getNodesWhereIsStudent(homerId).size());
+		assertEquals(1, periodNode.getNodesWhereIsStudent(margeId).size());
 	}
 }
 

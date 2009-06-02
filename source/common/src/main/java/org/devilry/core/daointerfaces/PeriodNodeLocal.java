@@ -34,4 +34,8 @@ public interface PeriodNodeLocal extends BaseNodeInterface {
 	 * @param userId The unique number identifying an existing user.
 	 */
 	void removeStudent(long nodeId, long userId);
+
+
+	/** Get a list of nodes where the given user is admin. */
+	List<Long> getNodesWhereIsStudent(long userId);
 }
