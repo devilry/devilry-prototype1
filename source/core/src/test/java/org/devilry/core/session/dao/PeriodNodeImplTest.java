@@ -2,14 +2,18 @@ package org.devilry.core.session.dao;
 
 import javax.naming.*;
 import javax.persistence.*;
+
 import java.util.*;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import org.devilry.core.dao.AssignmentNodeImpl;
 import org.devilry.core.dao.CourseNodeImpl;
 import org.devilry.core.dao.PeriodNodeImpl;
+import org.devilry.core.daointerfaces.AssignmentNodeRemote;
 import org.devilry.core.daointerfaces.CourseNodeRemote;
 import org.devilry.core.daointerfaces.PeriodNodeRemote;
 import org.devilry.core.session.*;
@@ -17,7 +21,7 @@ import org.devilry.core.session.*;
 public class PeriodNodeImplTest extends NodeImplTest {
 	PeriodNodeRemote periodNode;
 	long periodId;
-
+	
 	@Before
 	public void setUp() throws NamingException {
 		super.setUp();
@@ -31,6 +35,26 @@ public class PeriodNodeImplTest extends NodeImplTest {
 		periodId = periodNode.create("fall09", "Fall 2009", start.getTime(), end.getTime(), inf1000Id);
 	}
 
+	@Test
+	public void getAssignments() throws NamingException {
+		
+		List<Long> assignments = periodNode.getAssignments(periodId);
+		assertEquals(0, assignments.size());
+		
+		AssignmentNodeRemote assignmentNode = getRemoteBean(AssignmentNodeImpl.class);
+				
+		Calendar deadline = new GregorianCalendar(2009, 8, 15);		
+		long assignmentId = assignmentNode.create("Oblig 1", "Obligatory assignment 1", deadline.getTime(), periodId);
+		long assignmentId2 = assignmentNode.create("Oblig 2", "Obligatory assignment 2", deadline.getTime(), periodId);
+		long assignmentId3 = assignmentNode.create("Oblig 3", "Obligatory assignment 3", deadline.getTime(), periodId);
+				
+		assignments = periodNode.getAssignments(periodId);
+		
+		assertEquals(3, assignments.size());
+		assertTrue(assignments.contains(assignmentId));
+		assertTrue(assignments.contains(assignmentId2));
+		assertTrue(assignments.contains(assignmentId3));
+	}
 
 	@Test
 	public void getStartDate() {
