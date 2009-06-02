@@ -28,14 +28,14 @@
       <ownedParameter xmi:id="_MVnI8E0lEd6EVaGVkLohsg" direction="return"/>
     </ownedOperation>
   </packagedElement>
-  <packagedElement xmi:type="uml:Class" xmi:id="_s6QSIE0gEd6EVaGVkLohsg" name="DeliveryFile">
+  <packagedElement xmi:type="uml:Class" xmi:id="_s6QSIE0gEd6EVaGVkLohsg" name="DevilryFile">
     <ownedAttribute xmi:id="_zd8BkE0gEd6EVaGVkLohsg" name="size" aggregation="composite"/>
     <ownedAttribute xmi:id="_15lkoE0gEd6EVaGVkLohsg" name="file path" aggregation="composite"/>
     <ownedOperation xmi:id="_4Pu8oE0gEd6EVaGVkLohsg" name="getFileStream">
       <ownedParameter xmi:id="_6leE8E0gEd6EVaGVkLohsg" direction="return"/>
     </ownedOperation>
   </packagedElement>
-  <packagedElement xmi:type="uml:Class" xmi:id="_vL-dIE0gEd6EVaGVkLohsg" name="DevileryInputStream">
+  <packagedElement xmi:type="uml:Class" xmi:id="_vL-dIE0gEd6EVaGVkLohsg" name="DevilryInputStream">
     <nestedClassifier xmi:type="uml:Class" xmi:id="_3d6BoE0hEd6EVaGVkLohsg" name="Class"/>
     <ownedOperation xmi:id="_xF5MIE0gEd6EVaGVkLohsg" name="read">
       <ownedParameter xmi:id="_x0W0oE0gEd6EVaGVkLohsg" direction="return"/>
@@ -61,7 +61,7 @@
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Zx7g8U0hEd6EVaGVkLohsg" value="1"/>
     </ownedEnd>
   </packagedElement>
-  <packagedElement xmi:type="uml:Class" xmi:id="_CmWVsE0iEd6EVaGVkLohsg" name="StudentLib">
+  <packagedElement xmi:type="uml:Class" xmi:id="_CmWVsE0iEd6EVaGVkLohsg" name="Student">
     <ownedOperation xmi:id="_EASkIE0iEd6EVaGVkLohsg" name="getActiveCourses">
       <ownedParameter xmi:id="_H263cE0iEd6EVaGVkLohsg" direction="return"/>
     </ownedOperation>
@@ -117,6 +117,9 @@
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_APs1IE0nEd6EVaGVkLohsg" name="StudentDeliveryCandidate">
     <generalization xmi:id="_DZXUwE0nEd6EVaGVkLohsg" general="_r7sYIE0gEd6EVaGVkLohsg"/>
+    <ownedOperation xmi:id="_XA2h4E8NEd6hSe6rOFC7Zw" name="addFile">
+      <ownedParameter xmi:id="_ZShCgE8NEd6hSe6rOFC7Zw" direction="return"/>
+    </ownedOperation>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_HTb9oE0nEd6EVaGVkLohsg" name="CorrectorDeliveryCandidate">
     <generalization xmi:id="_JxX_sE0nEd6EVaGVkLohsg" general="_r7sYIE0gEd6EVaGVkLohsg"/>
@@ -140,7 +143,7 @@
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_b5hbYU0oEd6EVaGVkLohsg" value="1"/>
     </ownedEnd>
   </packagedElement>
-  <packagedElement xmi:type="uml:Class" xmi:id="_jhsGoE0oEd6EVaGVkLohsg" name="CorrectorLib">
+  <packagedElement xmi:type="uml:Class" xmi:id="_jhsGoE0oEd6EVaGVkLohsg" name="Corrector">
     <ownedOperation xmi:id="_o5KhoE0oEd6EVaGVkLohsg" name="getAllCourses">
       <ownedParameter xmi:id="_AbIXIE0pEd6EVaGVkLohsg" direction="return"/>
     </ownedOperation>
@@ -243,8 +246,8 @@
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_HALRIE0sEd6EVaGVkLohsg" name="StudentDelivery">
     <generalization xmi:id="_26X1wE0sEd6EVaGVkLohsg" general="_DTXoME0sEd6EVaGVkLohsg"/>
-    <ownedOperation xmi:id="_IZ95IE0tEd6EVaGVkLohsg" name="addDeliveryCandidate">
-      <ownedParameter xmi:id="_JFe7UE0tEd6EVaGVkLohsg" direction="return"/>
+    <ownedOperation xmi:id="_IZ95IE0tEd6EVaGVkLohsg" name="createDeliveryCandidate">
+      <ownedParameter xmi:id="_HuOP4E8OEd6hSe6rOFC7Zw" direction="return"/>
     </ownedOperation>
   </packagedElement>
   <packagedElement xmi:type="uml:Association" xmi:id="_3c23wE0sEd6EVaGVkLohsg" memberEnd="_3c3e0E0sEd6EVaGVkLohsg _3c4F4E0sEd6EVaGVkLohsg">
@@ -266,5 +269,11 @@
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_4KDU8E0sEd6EVaGVkLohsg" value="1"/>
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_4KCt4k0sEd6EVaGVkLohsg" value="1"/>
     </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_PCr60E70Ed6hSe6rOFC7Zw" name="DevilryConnection"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_Xu43IE8OEd6hSe6rOFC7Zw" name="DevilryOutputStream">
+    <ownedOperation xmi:id="_a6MVgE8OEd6hSe6rOFC7Zw" name="write">
+      <ownedParameter xmi:id="_cU6nEE8OEd6hSe6rOFC7Zw" direction="return"/>
+    </ownedOperation>
   </packagedElement>
 </uml:Package>
