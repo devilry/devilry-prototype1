@@ -219,7 +219,7 @@ public class BaseNodeImpl implements BaseNodeInterface {
 		return (User) em.find(User.class, userId);
 	}
 	
-	public boolean hasAdmin(long nodeId, long userId) {
+	public boolean isAdmin(long nodeId, long userId) {
 		return getNode(nodeId).getAdmins().contains(getUser(userId));
 	}
 	

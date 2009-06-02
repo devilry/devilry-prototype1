@@ -20,7 +20,7 @@ public class AuthorizationInterceptor {
 		String userName = sessionCtx.getCallerPrincipal().getName();
 		String methodName = invocationCtx.getMethod().getName();
 		String className = invocationCtx.getTarget().getClass().getName();
-		l.info(String.format("User: '%s' called the '%s' method in class '%s'%n", userName, methodName, className));
+//		l.info(String.format("User: '%s' called the '%s' method in class '%s'%n", userName, methodName, className));
 		return invocationCtx.proceed();
 	}
 }

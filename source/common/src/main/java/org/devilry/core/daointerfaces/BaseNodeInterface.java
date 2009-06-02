@@ -20,15 +20,15 @@ public interface BaseNodeInterface {
 	List<Long> getToplevelNodes();
 	long getNodeIdFromPath(String path);
 	
-	/** Get id of all administrator registered for the given node.
+	/** Get id of all administrators registered for the given node.
 	 * 
 	 * @param nodeId The unique number identifying an existing node.
 	 * @return A list with the id of all administrators for the given node.
 	 */
 	List<Long> getAdmins(long nodeId);
 
-	/** Check if the given node has the given user registered as admin. */
-	public boolean hasAdmin(long nodeId, long userId);
+	/** Check if a user is admin on the given node. */
+	boolean isAdmin(long nodeId, long userId);
 
 	/** Add a new administrator to the given node.
 	 * 
