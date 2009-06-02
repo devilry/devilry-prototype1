@@ -1,15 +1,18 @@
 package org.devilry.core.dao;
 
+import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
-import javax.ejb.Stateless;
+import javax.interceptor.Interceptors;
 
 import org.devilry.core.daointerfaces.NodeLocal;
 import org.devilry.core.daointerfaces.NodeRemote;
-import org.devilry.core.entity.*;
+import org.devilry.core.entity.Node;
 
 @Stateless
+@Interceptors({AuthorizationInterceptor.class})
 public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
+
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public long create(String name, String displayName) {
 		Node node = new Node();
@@ -19,7 +22,7 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 		em.flush();
 		return node.getId();
 	}
-	
+
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public long create(String name, String displayName, long parentId) {
 		Node node = new Node();

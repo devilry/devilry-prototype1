@@ -1,12 +1,11 @@
 package org.devilry.core.session.dao;
 
+import java.util.Enumeration;
+import java.util.Hashtable;
 import java.util.Properties;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 
 public abstract class AbstractDaoTst {
 	protected InitialContext localCtx;
@@ -22,6 +21,8 @@ public abstract class AbstractDaoTst {
 					"{ejbName}{interfaceType.annotationName}");
 			p.put("openejb.jndiname.format",
 					"{ejbName}{interfaceType.annotationName}");
+			p.put(Context.SECURITY_PRINCIPAL, "homer");
+			p.put(Context.SECURITY_CREDENTIALS, "doh");
 			CTX = new InitialContext(p);
 		}
 		return CTX;
