@@ -44,6 +44,6 @@ public interface BaseNodeInterface {
 	 */
 	void removeAdmin(long nodeId, long userId);
 
-	/** Get a list of nodes where the given user is admin. */
-	List<Long> getNodesWhereIsAdmin(long userId);
+	/** Get a list of nodes where the authenticated user is admin. */
+	List<Long> getNodesWhereIsAdmin();
 }

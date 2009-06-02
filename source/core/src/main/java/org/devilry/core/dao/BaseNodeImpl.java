@@ -3,6 +3,9 @@ package org.devilry.core.dao;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.annotation.Resource;
+import javax.ejb.EJB;
+import javax.ejb.SessionContext;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
@@ -11,12 +14,20 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.devilry.core.daointerfaces.BaseNodeInterface;
+import org.devilry.core.daointerfaces.UserLocal;
+import org.devilry.core.daointerfaces.UserRemote;
 import org.devilry.core.entity.Node;
 import org.devilry.core.entity.User;
 
 public class BaseNodeImpl implements BaseNodeInterface {
 	@PersistenceContext(unitName = "DevilryCore")
 	protected EntityManager em;
+
+	@Resource
+	SessionContext sessionCtx;
+	
+	@EJB
+	UserLocal userBean;
 	
 	protected Node getNode(long nodeId) {
 		return em.find(Node.class, nodeId);
@@ -233,7 +244,10 @@ public class BaseNodeImpl implements BaseNodeInterface {
 		em.merge(n);
 	}
 
-	public List<Long> getNodesWhereIsAdmin(long userId) {
+	public List<Long> getNodesWhereIsAdmin() {
+		String identity = sessionCtx.getCallerPrincipal().getName();
+		long userId = userBean.findUser(identity);
+
 		Query q = em.createQuery("SELECT n.id FROM Node n INNER JOIN n.admins user WHERE user.id = :userId");
 		q.setParameter("userId", userId);
 		return q.getResultList();
