@@ -15,6 +15,7 @@
         <module>cli</module>
 		<module>clientapi</module>
         <module>common</module>
+        <module>webcli</module>
     </modules>
 
     <properties>
