@@ -30,12 +30,12 @@ public class PeriodNodeImplTest extends NodeImplTest {
 		CourseNodeRemote courseNode = getRemoteBean(CourseNodeImpl.class);
 		long inf1000Id = courseNode.create("inf1000", "Object oriented programming", matnatId);
 
-		Calendar start = new GregorianCalendar(2009, 00, 01);
+		Calendar start = new GregorianCalendar(2009, 00, 01, 10, 15);
 		Calendar end = new GregorianCalendar(2009, 05, 15);
 
 		periodId = periodNode.create("fall09", "Fall 2009", start.getTime(), end.getTime(), inf1000Id);
 		periodId2 = periodNode.create("spring09", "Spring 2009", start.getTime(), end.getTime(), inf1000Id);
-		}
+	}
 
 	@Test
 	public void getAssignments() throws NamingException {
@@ -60,8 +60,9 @@ public class PeriodNodeImplTest extends NodeImplTest {
 
 	@Test
 	public void getStartDate() {
-		assertEquals(new GregorianCalendar(2009, 00, 01).getTime().toString(),
-				periodNode.getStartDate(periodId).toString());
+		Date expected = new GregorianCalendar(2009, 00, 01, 10, 15).getTime();
+		Date actual = periodNode.getStartDate(periodId);
+		assertEquals(expected.toString(), actual.toString());
 	}
 
 	@Test

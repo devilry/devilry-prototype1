@@ -1,18 +1,21 @@
 package org.devilry.core.entity;
 
-import javax.persistence.*;
-
-import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
+
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @DiscriminatorValue("PN")
 public class PeriodNode extends Node {
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date startDate;
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date endDate;
 
 	@ManyToMany(cascade={})
