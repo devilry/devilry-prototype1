@@ -1,8 +1,7 @@
 package org.devilry.core.session.dao;
 
-import java.util.Enumeration;
-import java.util.Hashtable;
 import java.util.Properties;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
