@@ -24,4 +24,10 @@ public class StudentDeliveryCandidate extends AbstractDeliveryCandidate {
 		
 		return deliveryCandidate;
 	}
+	
+	/*
+	public addFile() {
+		
+	}
+	*/
 }
