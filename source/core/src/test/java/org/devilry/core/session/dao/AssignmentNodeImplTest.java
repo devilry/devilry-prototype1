@@ -88,6 +88,28 @@ public class AssignmentNodeImplTest extends NodeImplTest {
 	}
 	
 	@Test
+	public void getDeliveriesWhereIsExaminer() throws NamingException {
+		
+		DeliveryRemote delivery = getRemoteBean(DeliveryImpl.class);
+		long deliveryId = delivery.create(assignmentId);
+		long deliveryId2 = delivery.create(assignmentId);
+				
+		delivery.addExaminer(deliveryId, homerId);
+		delivery.addExaminer(deliveryId2, homerId);
+		
+		long bartId = userBean.create("Bart Simpson", "bart@doh.com", "1232");
+		userBean.addIdentity(bartId, "Bart");
+		
+		delivery.addStudent(deliveryId, bartId);
+		
+		List<Long> ids = assignmentNode.getDeliveriesWhereIsExaminer(assignmentId);
+		assertEquals(2, ids.size());
+		assertTrue(ids.contains(deliveryId));
+		assertTrue(ids.contains(deliveryId2));
+	}
+	
+	
+	@Test
 	public void getDeadline() throws NamingException {
 		assertEquals(deadline.getTime(), assignmentNode.getDeadline(assignmentId));
 	}
