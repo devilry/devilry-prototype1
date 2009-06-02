@@ -191,8 +191,13 @@ public class UserImplTest extends AbstractDaoTst {
 	}
 
 	
-//	@Test
-//	public void getAuthenticatedUser() {
-//		asser
-//	}
+	@Test
+	public void getAuthenticatedUser() {
+		assertEquals(homerId, userBean.getAuthenticatedUser());
+	}
+
+	@Test
+	public void getAuthenticatedIdentity() {
+		assertEquals("homer", userBean.getAuthenticatedIdentity());
+	}
 }
