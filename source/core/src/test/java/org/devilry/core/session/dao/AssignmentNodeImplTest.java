@@ -13,6 +13,7 @@ import org.devilry.core.dao.AssignmentNodeImpl;
 import org.devilry.core.dao.CourseNodeImpl;
 import org.devilry.core.dao.DeliveryImpl;
 import org.devilry.core.dao.PeriodNodeImpl;
+import org.devilry.core.dao.UserImpl;
 import org.devilry.core.daointerfaces.AssignmentNodeRemote;
 import org.devilry.core.daointerfaces.CourseNodeRemote;
 import org.devilry.core.daointerfaces.DeliveryRemote;
@@ -63,6 +64,27 @@ public class AssignmentNodeImplTest extends NodeImplTest {
 		assertTrue(ids.contains(deliveryId));
 		assertTrue(ids.contains(deliveryId2));
 		assertTrue(ids.contains(deliveryId3));
+	}
+	
+	@Test
+	public void getDeliveriesWhereIsStudent() throws NamingException {
+		
+		DeliveryRemote delivery = getRemoteBean(DeliveryImpl.class);
+		long deliveryId = delivery.create(assignmentId);
+		long deliveryId2 = delivery.create(assignmentId);
+				
+		delivery.addStudent(deliveryId, homerId);
+		delivery.addStudent(deliveryId2, homerId);
+		
+		long bartId = userBean.create("Bart Simpson", "bart@doh.com", "1232");
+		userBean.addIdentity(bartId, "Bart");
+		
+		delivery.addStudent(deliveryId, bartId);
+		
+		List<Long> ids = assignmentNode.getDeliveriesWhereIsStudent(assignmentId);
+		assertEquals(2, ids.size());
+		assertTrue(ids.contains(deliveryId));
+		assertTrue(ids.contains(deliveryId2));
 	}
 	
 	@Test
