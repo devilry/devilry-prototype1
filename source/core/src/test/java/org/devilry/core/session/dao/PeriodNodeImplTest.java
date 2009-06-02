@@ -92,19 +92,44 @@ public class PeriodNodeImplTest extends NodeImplTest {
 	}
 	
 	@Test
-	public void getNodesWhereIsStudent() {
+	public void isStudent() {
+		assertFalse(periodNode.isStudent(periodId, homerId));
 		periodNode.addStudent(periodId, homerId);
-		List<Long> l = periodNode.getNodesWhereIsStudent(homerId);
+		assertTrue(periodNode.isStudent(periodId, homerId));
+	}
+
+	@Test
+	public void addStudent() {
+		periodNode.addStudent(periodId, homerId);
+		assertTrue(periodNode.isStudent(periodId, homerId));
+
+		assertEquals(1, periodNode.getStudents(periodId).size());
+		periodNode.addStudent(periodId, homerId);
+		assertEquals(1, periodNode.getStudents(periodId).size());
+	}
+
+	@Test
+	public void removeStudent() {
+		periodNode.addStudent(periodId, homerId);
+		periodNode.removeStudent(periodId, homerId);
+		assertFalse(periodNode.isStudent(periodId, homerId));
+		assertTrue(userBean.userExists(homerId)); // make sure the user is not removed from the system as well!
+	}
+	
+	@Test
+	public void getPeriodsWhereIsStudent() {
+		periodNode.addStudent(periodId, homerId);
+		List<Long> l = periodNode.getPeriodsWhereIsStudent(homerId);
 		assertEquals(1, l.size());
 		assertEquals(periodId, (long) l.get(0));
 
 		long margeId = userBean.create("marge", "marge@doh.com", "123");
 		periodNode.addStudent(periodId, margeId);
-		assertEquals(1, periodNode.getNodesWhereIsStudent(homerId).size());
+		assertEquals(1, periodNode.getPeriodsWhereIsStudent(homerId).size());
 
 		periodNode.addStudent(periodId2, homerId);
-		assertEquals(2, periodNode.getNodesWhereIsStudent(homerId).size());
-		assertEquals(1, periodNode.getNodesWhereIsStudent(margeId).size());
+		assertEquals(2, periodNode.getPeriodsWhereIsStudent(homerId).size());
+		assertEquals(1, periodNode.getPeriodsWhereIsStudent(margeId).size());
 	}
 }
 
