@@ -58,25 +58,66 @@ public interface DeliveryLocal {
 	 */
 	long getLastValidDeliveryCandidate(long deliveryId);
 
-	/**
-	 * Get id of all correctors assigned for this delivery
-	 * 
-	 * @param deliveryIs
-	 * @return
-	 */
-	List<Long> getCorrectors(long deliveryId);
-
-	/**
-	 * Get id of all students registered for this delivery
-	 * 
-	 * @param deliveryId
-	 * @return
-	 */
-	List<Long> getStudents(long deliveryId);
-
 	/** Check if a delivery with the given id exists. */
 	boolean exists(long deliveryId);
 	
 	/** Remove the delivery with the given id. */
 	public void remove(long deliveryId);
+
+	/** Get id of all students registered for the given delivery.
+	 * 
+	 * @param deliveryId The unique number identifying an existing delivery.
+	 * @return A list with the id of all administrators for the given delivery.
+	 */
+	List<Long> getStudents(long deliveryId);
+
+	/** Check if a user is student on the given delivery. */
+	boolean isStudent(long deliveryId, long userId);
+
+	/** Add a new student to the given delivery.
+	 * 
+	 * @param deliveryId The unique number identifying an existing delivery.
+	 * @param userId The unique number identifying an existing user.
+	 */
+	void addStudent(long deliveryId, long userId);
+
+	/** Remove an student from the given delivery.
+	 * 
+	 * @param deliveryId The unique number identifying an existing delivery.
+	 * @param userId The unique number identifying an existing user.
+	 */
+	void removeStudent(long deliveryId, long userId);
+
+
+	/** Get a list of deliveries where the authenticated user is student. */
+	List<Long> getDeliveriesWhereIsStudent();
+
+
+	/** Get id of all Examiners registered for the given delivery.
+	 * 
+	 * @param deliveryId The unique number identifying an existing delivery.
+	 * @return A list with the id of all administrators for the given delivery.
+	 */
+	List<Long> getExaminers(long deliveryId);
+
+	
+	/** Check if a user is Examiner on the given delivery. */
+	boolean isExaminer(long deliveryId, long userId);
+
+	/** Add a new Examiner to the given delivery.
+	 * 
+	 * @param deliveryId The unique number identifying an existing delivery.
+	 * @param userId The unique number identifying an existing user.
+	 */
+	void addExaminer(long deliveryId, long userId);
+
+	/** Remove an Examiner from the given delivery.
+	 * 
+	 * @param deliveryId The unique number identifying an existing delivery.
+	 * @param userId The unique number identifying an existing user.
+	 */
+	void removeExaminer(long deliveryId, long userId);
+	
+	/** Get a list of deliveries where the authenticated user is examiner. */
+	List<Long> getDeliveriesWhereIsExaminer();
 }
