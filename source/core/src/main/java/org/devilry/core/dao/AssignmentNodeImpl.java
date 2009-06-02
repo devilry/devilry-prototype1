@@ -47,7 +47,7 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 		long userId = userBean.getAuthenticatedUser();
 		
 		Query q = em.createQuery("SELECT d.id FROM Delivery d INNER JOIN d.examiners user WHERE user.id = :userId AND d.assignment.id =:assignmentId");
-		q.setParameter("assignmentId", userId);
+		q.setParameter("assignmentId", assignmentId);
 		q.setParameter("userId", userId);
 		
 		return q.getResultList();
