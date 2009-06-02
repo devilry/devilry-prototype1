@@ -43,4 +43,7 @@ public interface BaseNodeInterface {
 	 * @param userId The unique number identifying an existing user.
 	 */
 	void removeAdmin(long nodeId, long userId);
+
+	/** Get a list of nodes where the given user is admin. */
+	List<Long> getNodesWhereIsAdmin(long userId);
 }

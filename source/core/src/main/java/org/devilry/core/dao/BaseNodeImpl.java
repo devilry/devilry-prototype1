@@ -158,10 +158,6 @@ public class BaseNodeImpl implements BaseNodeInterface {
 	}
 
 
-	private long getNodeId(String name) {
-		return getNodeId(name, -1);
-	}
-
 	private long getNodeId(String name, long parentId) {
 		Query q;
 
@@ -215,7 +211,7 @@ public class BaseNodeImpl implements BaseNodeInterface {
 		return l;
 	}
 
-	private User getUser(long userId) {
+	protected User getUser(long userId) {
 		return (User) em.find(User.class, userId);
 	}
 	
@@ -235,5 +231,11 @@ public class BaseNodeImpl implements BaseNodeInterface {
 		Node n = getNode(nodeId);
 		n.getAdmins().remove(getUser(userId));
 		em.merge(n);
+	}
+
+	public List<Long> getNodesWhereIsAdmin(long userId) {
+		Query q = em.createQuery("SELECT n.id FROM Node n INNER JOIN n.admins user WHERE user.id = :userId");
+		q.setParameter("userId", userId);
+		return q.getResultList();
 	}
 }

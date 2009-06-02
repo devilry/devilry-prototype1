@@ -104,7 +104,7 @@ public class NodeImplTest extends AbstractNodeDaoTst {
 	public void removeAdmin() {
 		node.addAdmin(uioId, homerId);
 		node.removeAdmin(uioId, homerId);
-		node.isAdmin(uioId, homerId);
-		userBean.userExists(homerId); // make sure the user is not removed from the system as well!
+		assertTrue(node.isAdmin(uioId, homerId));
+		assertTrue(userBean.userExists(homerId)); // make sure the user is not removed from the system as well!
 	}
 }
