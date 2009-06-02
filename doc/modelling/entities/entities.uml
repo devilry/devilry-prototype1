@@ -85,7 +85,7 @@
     </ownedEnd>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_R6OlUEo2Ed6_X5Z1-LyYTA" name="Delivery"/>
-  <packagedElement xmi:type="uml:Association" xmi:id="_YFemoEo2Ed6_X5Z1-LyYTA" name="Correcters" memberEnd="_YFf0wEo2Ed6_X5Z1-LyYTA _YFf0w0o2Ed6_X5Z1-LyYTA">
+  <packagedElement xmi:type="uml:Association" xmi:id="_YFemoEo2Ed6_X5Z1-LyYTA" name="Examiner" memberEnd="_YFf0wEo2Ed6_X5Z1-LyYTA _YFf0w0o2Ed6_X5Z1-LyYTA">
     <ownedEnd xmi:id="_YFf0wEo2Ed6_X5Z1-LyYTA" name="src" type="_R6OlUEo2Ed6_X5Z1-LyYTA" association="_YFemoEo2Ed6_X5Z1-LyYTA">
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_YFf0wko2Ed6_X5Z1-LyYTA" value="1"/>
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YFf0wUo2Ed6_X5Z1-LyYTA" value="1"/>
@@ -125,7 +125,7 @@
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-2IM0Eo2Ed6_X5Z1-LyYTA" value="1"/>
     </ownedEnd>
   </packagedElement>
-  <packagedElement xmi:type="uml:Association" xmi:id="_bLUMME0VEd6s740ZkHuemA" name="Correctors" memberEnd="_bLUzQE0VEd6s740ZkHuemA _bLVaUU0VEd6s740ZkHuemA">
+  <packagedElement xmi:type="uml:Association" xmi:id="_bLUMME0VEd6s740ZkHuemA" name="Examiner" memberEnd="_bLUzQE0VEd6s740ZkHuemA _bLVaUU0VEd6s740ZkHuemA">
     <ownedEnd xmi:id="_bLUzQE0VEd6s740ZkHuemA" name="src" type="_dKM6MEo1Ed6_X5Z1-LyYTA" association="_bLUMME0VEd6s740ZkHuemA">
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_bLVaUE0VEd6s740ZkHuemA" value="1"/>
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_bLUzQU0VEd6s740ZkHuemA" value="1"/>
