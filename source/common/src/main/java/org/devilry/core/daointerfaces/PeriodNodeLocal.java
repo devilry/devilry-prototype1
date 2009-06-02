@@ -10,4 +10,28 @@ public interface PeriodNodeLocal extends BaseNodeInterface {
 	public Date getEndDate(long periodNodeId);
 	public long create(String name, String displayName, Date start, Date end, long parentId);
 	public List<Long> getAssignments(long periodNodeId);
+	
+	/** Get id of all students registered for the given node.
+	 * 
+	 * @param nodeId The unique number identifying an existing node.
+	 * @return A list with the id of all administrators for the given node.
+	 */
+	List<Long> getStudents(long nodeId);
+
+	/** Check if a user is student on the given node. */
+	boolean isStudent(long nodeId, long userId);
+
+	/** Add a new student to the given node.
+	 * 
+	 * @param nodeId The unique number identifying an existing node.
+	 * @param userId The unique number identifying an existing user.
+	 */
+	void addStudent(long nodeId, long userId);
+
+	/** Remove an student from the given node.
+	 * 
+	 * @param nodeId The unique number identifying an existing node.
+	 * @param userId The unique number identifying an existing user.
+	 */
+	void removeStudent(long nodeId, long userId);
 }
