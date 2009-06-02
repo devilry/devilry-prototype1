@@ -24,12 +24,35 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 
 	@SuppressWarnings("unchecked")
 	public List<Long> getDeliveries(long nodeId) {
-		Query q = em
-				.createQuery("SELECT d.id FROM Delivery d WHERE d.assignment.id = :id");
+		Query q = em.createQuery("SELECT d.id FROM Delivery d WHERE d.assignment.id = :id");
 		q.setParameter("id", nodeId);
 		return q.getResultList();
 	}
 
+	
+	public List<Long> getDeliveriesWhereIsStudent(long assignmentId) {
+		long userId = userBean.getAuthenticatedUser();
+		
+		System.err.println("authenticated user:" + userId);
+		//System.err.println("authenticated user:" + );
+		
+		Query q = em.createQuery("SELECT d.id FROM Delivery d INNER JOIN d.students user WHERE user.id = :userId AND d.assignment.id =:assignmentId");
+		q.setParameter("assignmentId", assignmentId);
+		q.setParameter("userId", userId);
+		
+		return q.getResultList();
+	}
+	
+	public List<Long> getDeliveriesWhereIsExaminer(long assignmentId) {
+		long userId = userBean.getAuthenticatedUser();
+		
+		Query q = em.createQuery("SELECT d.id FROM Delivery d INNER JOIN d.examiners user WHERE user.id = :userId AND d.assignment.id =:assignmentId");
+		q.setParameter("assignmentId", userId);
+		q.setParameter("userId", userId);
+		
+		return q.getResultList();
+	}
+		
 	public List<Long> getChildren(long nodeId) {
 		throw new UnsupportedOperationException(
 				"AssignmentNode does not have any children. Did you mean getDeliveries?");
