@@ -122,17 +122,18 @@ public class PeriodNodeImplTest extends NodeImplTest {
 	@Test
 	public void getPeriodsWhereIsStudent() {
 		periodNode.addStudent(periodId, homerId);
-		List<Long> l = periodNode.getPeriodsWhereIsStudent(homerId);
+		List<Long> l = periodNode.getPeriodsWhereIsStudent();
 		assertEquals(1, l.size());
 		assertEquals(periodId, (long) l.get(0));
 
+		// Make sure adding another student does not affect the authenticated student.
 		long margeId = userBean.create("marge", "marge@doh.com", "123");
 		periodNode.addStudent(periodId, margeId);
-		assertEquals(1, periodNode.getPeriodsWhereIsStudent(homerId).size());
+		assertEquals(1, periodNode.getPeriodsWhereIsStudent().size());
 
+		// It works with more than one period?
 		periodNode.addStudent(periodId2, homerId);
-		assertEquals(2, periodNode.getPeriodsWhereIsStudent(homerId).size());
-		assertEquals(1, periodNode.getPeriodsWhereIsStudent(margeId).size());
+		assertEquals(2, periodNode.getPeriodsWhereIsStudent().size());
 	}
 }
 

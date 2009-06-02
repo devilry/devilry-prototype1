@@ -99,12 +99,12 @@ public class UserImplTest extends AbstractDaoTst {
 	@Test
 	public void remove() {
 		List<Long> users = userBean.getUsers();
-		assertTrue(users.size() == names.size());
+		assertTrue(users.size() == names.size()+1); // +1 because of the user created in super
 		
 		userBean.remove(testUser0);
 		
 		List<Long> users2 = userBean.getUsers();
-		assertTrue(users2.size() == names.size()-1);
+		assertTrue(users2.size() == names.size()); // not -1 because of the user created in super
 	}
 	
 	
@@ -184,7 +184,7 @@ public class UserImplTest extends AbstractDaoTst {
 	public void getUsers() {
 		List<Long> users = userBean.getUsers();
 	
-		assertTrue(users.size() == names.size());
+		assertTrue(users.size() == names.size() + 1); // +1 because of the user created in super
 		assertTrue(users.contains(testUser0));
 		assertTrue(users.contains(testUser1));
 		assertTrue(users.contains(testUser2));

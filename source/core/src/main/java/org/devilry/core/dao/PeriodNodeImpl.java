@@ -90,7 +90,10 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote, Pe
 		em.merge(n);
 	}
 	
-	public List<Long> getPeriodsWhereIsStudent(long userId) {
+	public List<Long> getPeriodsWhereIsStudent() {
+		String identity = sessionCtx.getCallerPrincipal().getName();
+		long userId = userBean.findUser(identity);
+
 		Query q = em.createQuery("SELECT p.id FROM PeriodNode p INNER JOIN p.students user WHERE user.id = :userId");
 		q.setParameter("userId", userId);
 		return q.getResultList();
