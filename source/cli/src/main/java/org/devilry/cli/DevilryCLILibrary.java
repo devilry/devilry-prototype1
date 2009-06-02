@@ -450,7 +450,8 @@ public class DevilryCLILibrary {
             List<Long> fileIDs = remoteBean.getFiles(cID);
 
             fileNames.add("Candiate " + cID + " with " +fileIDs.size()+ " files  handed in " + remoteBean.getTimeOfDelivery(cID) );
-            
+                       
+            //System.err.println("Time:" + remoteBean.getTimeOfDelivery(cID).getTime());
         }
 
         return fileNames;
