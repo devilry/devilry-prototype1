@@ -1,8 +1,12 @@
 package org.devilry.core.session.dao;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.util.List;
+
+import org.junit.Test;
 
 public class NodeImplTest extends AbstractNodeDaoTst {
 	@Test
@@ -80,5 +84,27 @@ public class NodeImplTest extends AbstractNodeDaoTst {
 		assertEquals(uioId, (long) toplevel.get(0));
 		node.create("a", "A");
 		assertEquals(2, node.getToplevelNodes().size());
+	}
+	
+
+	@Test
+	public void hasAdmin() {
+		assertFalse(node.hasAdmin(uioId, homerId));
+		node.addAdmin(uioId, homerId);
+		assertTrue(node.hasAdmin(uioId, homerId));
+	}
+
+	@Test
+	public void addAdmin() {
+		node.addAdmin(uioId, homerId);
+		assertTrue(node.hasAdmin(uioId, homerId));
+	}
+
+	@Test
+	public void removeAdmin() {
+		node.addAdmin(uioId, homerId);
+		node.removeAdmin(uioId, homerId);
+		node.hasAdmin(uioId, homerId);
+		userBean.userExists(homerId); // make sure the user is not removed from the system as well!
 	}
 }

@@ -148,10 +148,15 @@ public class UserImplTest extends AbstractDaoTst {
 	public void emailExists() {
 		assertTrue(userBean.emailExists(emails.get(0)));
 		assertTrue(userBean.emailExists(emails.get(1)));
-		
 		assertFalse(userBean.emailExists("nonexistantemail"));
 	}
-		
+
+	@Test
+	public void userExists() {
+		assertTrue(userBean.userExists(testUser0));
+		assertFalse(userBean.userExists(testUser0+testUser1+testUser2));
+	}
+
 	
 	@Test
 	public void getIdentities() {
@@ -172,9 +177,6 @@ public class UserImplTest extends AbstractDaoTst {
 
 		long id = userBean.findUser("laban");
 		assertTrue(testUser0 == id);
-		
-		//long id2 = node.findUser("nonexistantuser");
-		//assertTrue(id2 == -1);
 	}
 
 	

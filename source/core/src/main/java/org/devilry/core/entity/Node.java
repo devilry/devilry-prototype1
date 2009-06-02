@@ -1,6 +1,7 @@
 package org.devilry.core.entity;
 
 import javax.persistence.*;
+
 import java.util.Collection;
 import java.util.LinkedList;
 
@@ -19,6 +20,9 @@ public class Node implements java.io.Serializable {
 
 	@Column(name="name")
 	protected String name;
+
+	@ManyToMany(cascade={})
+	private Collection<User> admins;
 
 	protected String displayName;
 
@@ -62,17 +66,12 @@ public class Node implements java.io.Serializable {
 		this.parent = parent;
 	}
 
-//	public Collection<Node> getChildren() {
-//		return children;
-//	}
-//
-//	public void setChildren(Collection<Node> children) {
-//		this.children = children;
-//	}
-//
-//	public void addChild(Node child) {
-//		child.setParent(this);
-//		children.add(child);
-//	}
+	public void setAdmins(Collection<User> admins) {
+		this.admins = admins;
+	}
+
+	public Collection<User> getAdmins() {
+		return admins;
+	}
 }
 

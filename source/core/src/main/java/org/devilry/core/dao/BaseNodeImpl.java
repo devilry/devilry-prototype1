@@ -1,8 +1,8 @@
 package org.devilry.core.dao;
 
+import java.util.LinkedList;
 import java.util.List;
 
-import javax.ejb.EJB;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
@@ -11,8 +11,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.devilry.core.daointerfaces.BaseNodeInterface;
-import org.devilry.core.entity.AssignmentNode;
 import org.devilry.core.entity.Node;
+import org.devilry.core.entity.User;
 
 public class BaseNodeImpl implements BaseNodeInterface {
 	@PersistenceContext(unitName = "DevilryCore")
@@ -206,5 +206,34 @@ public class BaseNodeImpl implements BaseNodeInterface {
 		}
 
 		return node == null ? -1 : node.getId();
+	}
+
+	public List<Long> getAdmins(long nodeId) {
+		LinkedList<Long> l = new LinkedList<Long>();
+		for(User u: getNode(nodeId).getAdmins())
+			l.add(u.getId());
+		return l;
+	}
+
+	private User getUser(long userId) {
+		return (User) em.find(User.class, userId);
+	}
+	
+	public boolean hasAdmin(long nodeId, long userId) {
+		return getNode(nodeId).getAdmins().contains(getUser(userId));
+	}
+	
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public void addAdmin(long nodeId, long userId) {
+		Node n = getNode(nodeId);
+		n.getAdmins().add(getUser(userId));
+		em.merge(n);
+	}
+
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public void removeAdmin(long nodeId, long userId) {
+		Node n = getNode(nodeId);
+		n.getAdmins().remove(getUser(userId));
+		em.merge(n);
 	}
 }
