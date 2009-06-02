@@ -1,6 +1,8 @@
 package org.devilry.core.entity;
 
 import javax.persistence.*;
+
+import java.util.Collection;
 import java.util.Date;
 
 @Entity
@@ -12,6 +14,9 @@ public class PeriodNode extends Node {
 	@Temporal(TemporalType.DATE)
 	private Date endDate;
 
+	@ManyToMany(cascade={})
+	private Collection<User> students;
+	
 	public PeriodNode() {
 	
 	}
@@ -30,6 +35,14 @@ public class PeriodNode extends Node {
 
 	public void setEndDate(Date end) {
 		this.endDate = end;
+	}
+	
+	public void setStudents(Collection<User> students) {
+		this.students = students;
+	}
+
+	public Collection<User> getStudents() {
+		return students;
 	}
 }
 
