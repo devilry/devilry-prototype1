@@ -38,4 +38,33 @@ public interface PeriodNodeLocal extends BaseNodeInterface {
 
 	/** Get a list of nodes where the authenticated user is student. */
 	List<Long> getPeriodsWhereIsStudent();
+
+
+	/** Get id of all Examiners registered for the given node.
+	 * 
+	 * @param nodeId The unique number identifying an existing node.
+	 * @return A list with the id of all administrators for the given node.
+	 */
+	List<Long> getExaminers(long nodeId);
+
+	
+	/** Check if a user is Examiner on the given node. */
+	boolean isExaminer(long nodeId, long userId);
+
+	/** Add a new Examiner to the given node.
+	 * 
+	 * @param nodeId The unique number identifying an existing node.
+	 * @param userId The unique number identifying an existing user.
+	 */
+	void addExaminer(long nodeId, long userId);
+
+	/** Remove an Examiner from the given node.
+	 * 
+	 * @param nodeId The unique number identifying an existing node.
+	 * @param userId The unique number identifying an existing user.
+	 */
+	void removeExaminer(long nodeId, long userId);
+	
+	/** Get a list of nodes where the authenticated user is examiner. */
+	List<Long> getPeriodsWhereIsExaminer();
 }

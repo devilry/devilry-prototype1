@@ -135,5 +135,49 @@ public class PeriodNodeImplTest extends NodeImplTest {
 		periodNode.addStudent(periodId2, homerId);
 		assertEquals(2, periodNode.getPeriodsWhereIsStudent().size());
 	}
-}
 
+
+	@Test
+	public void isExaminer() {
+		assertFalse(periodNode.isExaminer(periodId, homerId));
+		periodNode.addExaminer(periodId, homerId);
+		assertTrue(periodNode.isExaminer(periodId, homerId));
+	}
+
+	@Test
+	public void addExaminer() {
+		periodNode.addExaminer(periodId, homerId);
+		assertTrue(periodNode.isExaminer(periodId, homerId));
+
+		assertEquals(1, periodNode.getExaminers(periodId).size());
+		periodNode.addExaminer(periodId, homerId);
+		
+		// Check that duplicate value isn't added
+		assertEquals(1, periodNode.getExaminers(periodId).size());
+	}
+
+	@Test
+	public void removeExaminer() {
+		periodNode.addExaminer(periodId, homerId);
+		periodNode.removeExaminer(periodId, homerId);
+		assertFalse(periodNode.isExaminer(periodId, homerId));
+		assertTrue(userBean.userExists(homerId)); // make sure the user is not removed from the system as well!
+	}
+	
+	@Test
+	public void getPeriodsWhereIsExaminer() {
+		periodNode.addExaminer(periodId, homerId);
+		List<Long> l = periodNode.getPeriodsWhereIsExaminer();
+		assertEquals(1, l.size());
+		assertEquals(periodId, (long) l.get(0));
+
+		// Make sure adding another Examiner does not affect the authenticated Examiner.
+		long margeId = userBean.create("marge", "marge@doh.com", "123");
+		periodNode.addExaminer(periodId, margeId);
+		assertEquals(1, periodNode.getPeriodsWhereIsExaminer().size());
+
+		// It works with more than one period?
+		periodNode.addExaminer(periodId2, homerId);
+		assertEquals(2, periodNode.getPeriodsWhereIsExaminer().size());
+	}
+}

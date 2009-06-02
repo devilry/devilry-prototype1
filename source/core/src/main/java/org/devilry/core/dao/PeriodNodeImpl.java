@@ -13,13 +13,15 @@ import org.devilry.core.daointerfaces.PeriodNodeRemote;
 import org.devilry.core.entity.*;
 
 @Stateless
-public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote, PeriodNodeLocal {
+public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
+		PeriodNodeLocal {
 	protected PeriodNode getPeriodNode(long nodeId) {
 		return (PeriodNode) getNode(nodeId);
 	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-	public long create(String name, String displayName, Date start, Date end, long parentId) {
+	public long create(String name, String displayName, Date start, Date end,
+			long parentId) {
 		PeriodNode node = new PeriodNode();
 		node.setName(name.toLowerCase());
 		node.setDisplayName(displayName);
@@ -45,7 +47,6 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote, Pe
 		em.merge(node);
 	}
 
-
 	public Date getStartDate(long nodeId) {
 		return getPeriodNode(nodeId).getStartDate();
 	}
@@ -60,22 +61,26 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote, Pe
 		q.setParameter("id", periodNodeId);
 		return q.getResultList();
 	}
-	
+
 	protected PeriodNode getPeriod(long periodId) {
 		return em.find(PeriodNode.class, periodId);
 	}
-	
+
+	//
+	// Student
+	// ///////////////////////////
+
 	public List<Long> getStudents(long periodId) {
 		LinkedList<Long> l = new LinkedList<Long>();
-		for(User u: getPeriod(periodId).getStudents())
+		for (User u : getPeriod(periodId).getStudents())
 			l.add(u.getId());
 		return l;
 	}
-	
+
 	public boolean isStudent(long periodId, long userId) {
 		return getPeriod(periodId).getStudents().contains(getUser(userId));
 	}
-	
+
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void addStudent(long periodId, long userId) {
 		PeriodNode n = getPeriod(periodId);
@@ -89,11 +94,48 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote, Pe
 		n.getStudents().remove(getUser(userId));
 		em.merge(n);
 	}
-	
+
 	public List<Long> getPeriodsWhereIsStudent() {
 		long userId = userBean.getAuthenticatedUser();
+		Query q = em
+				.createQuery("SELECT p.id FROM PeriodNode p INNER JOIN p.students stud WHERE stud.id = :userId");
+		q.setParameter("userId", userId);
+		return q.getResultList();
+	}
 
-		Query q = em.createQuery("SELECT p.id FROM PeriodNode p INNER JOIN p.students user WHERE user.id = :userId");
+	//
+	// Examiner
+	// /////////////////////
+
+	public List<Long> getExaminers(long periodId) {
+		LinkedList<Long> l = new LinkedList<Long>();
+		for (User u : getPeriod(periodId).getExaminers())
+			l.add(u.getId());
+		return l;
+	}
+
+	public boolean isExaminer(long periodId, long userId) {
+		return getPeriod(periodId).getExaminers().contains(getUser(userId));
+	}
+
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public void addExaminer(long periodId, long userId) {
+		PeriodNode n = getPeriod(periodId);
+		n.getExaminers().add(getUser(userId));
+		em.merge(n);
+	}
+
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public void removeExaminer(long periodId, long userId) {
+		PeriodNode n = getPeriod(periodId);
+		n.getExaminers().remove(getUser(userId));
+		em.merge(n);
+	}
+
+	public List<Long> getPeriodsWhereIsExaminer() {
+		long userId = userBean.getAuthenticatedUser();
+		Query q = em
+				.createQuery("SELECT p.id FROM PeriodNode p INNER JOIN p.examiners ex WHERE ex.id = :userId");
 		q.setParameter("userId", userId);
 		return q.getResultList();
 	}

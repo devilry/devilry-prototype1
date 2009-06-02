@@ -2,6 +2,7 @@ package org.devilry.core.entity;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -22,11 +23,11 @@ public class Delivery implements Serializable {
 	@ManyToOne(optional = false)
 	private AssignmentNode assignment;
 	
-	@ManyToMany
-	private Collection<User> students;
+	@ManyToMany(cascade={})
+	private Set<User> students;
 
-	@ManyToMany
-	private Collection<User> correctors;
+	@ManyToMany(cascade={})
+	private Set<User> examiners;
 
 	public Delivery() {
 	}
@@ -47,27 +48,27 @@ public class Delivery implements Serializable {
 		this.assignment = assignment;
 	}
 
-	public Collection<User> getStudents() {
-		return students;
-	}
-
-	public void setStudents(Collection<User> students) {
-		this.students = students;
-	}
-
-	public Collection<User> getCorrectors() {
-		return correctors;
-	}
-
-	public void setCorrectors(Collection<User> correctors) {
-		this.correctors = correctors;
-	}
-
 	public int getStatus() {
 		return status;
 	}
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	public void setExaminers(Set<User> examiners) {
+		this.examiners = examiners;
+	}
+
+	public Set<User> getExaminers() {
+		return examiners;
+	}
+
+	public void setStudents(Set<User> students) {
+		this.students = students;
+	}
+
+	public Set<User> getStudents() {
+		return students;
 	}
 }

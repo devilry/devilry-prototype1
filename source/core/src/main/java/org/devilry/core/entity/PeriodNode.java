@@ -20,6 +20,9 @@ public class PeriodNode extends Node {
 
 	@ManyToMany(cascade={})
 	private Set<User> students;
+
+	@ManyToMany(cascade={})
+	private Set<User> examiners;
 	
 	public PeriodNode() {
 	
@@ -47,6 +50,14 @@ public class PeriodNode extends Node {
 
 	public Set<User> getStudents() {
 		return students;
+	}
+
+	public void setExaminers(Set<User> examiners) {
+		this.examiners = examiners;
+	}
+
+	public Set<User> getExaminers() {
+		return examiners;
 	}
 }
 
