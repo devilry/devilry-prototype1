@@ -28,11 +28,14 @@
       <ownedParameter xmi:id="_MVnI8E0lEd6EVaGVkLohsg" direction="return"/>
     </ownedOperation>
   </packagedElement>
-  <packagedElement xmi:type="uml:Class" xmi:id="_s6QSIE0gEd6EVaGVkLohsg" name="DevilryFile">
+  <packagedElement xmi:type="uml:Class" xmi:id="_s6QSIE0gEd6EVaGVkLohsg" name="AbstractDevilryFileStream">
     <ownedAttribute xmi:id="_zd8BkE0gEd6EVaGVkLohsg" name="size" aggregation="composite"/>
     <ownedAttribute xmi:id="_15lkoE0gEd6EVaGVkLohsg" name="file path" aggregation="composite"/>
-    <ownedOperation xmi:id="_4Pu8oE0gEd6EVaGVkLohsg" name="getFileStream">
-      <ownedParameter xmi:id="_6leE8E0gEd6EVaGVkLohsg" direction="return"/>
+    <ownedOperation xmi:id="_iuQZME-GEd6QXpaQJdYe2A" name="getSize">
+      <ownedParameter xmi:id="_jWQNUE-GEd6QXpaQJdYe2A" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_kl5QQE-GEd6QXpaQJdYe2A" name="getFilePath">
+      <ownedParameter xmi:id="_odOHIE-GEd6QXpaQJdYe2A" direction="return"/>
     </ownedOperation>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_vL-dIE0gEd6EVaGVkLohsg" name="DevilryInputStream">
@@ -62,11 +65,11 @@
     </ownedEnd>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_CmWVsE0iEd6EVaGVkLohsg" name="Student">
-    <ownedOperation xmi:id="_EASkIE0iEd6EVaGVkLohsg" name="getActiveCourses">
-      <ownedParameter xmi:id="_H263cE0iEd6EVaGVkLohsg" direction="return"/>
+    <ownedOperation xmi:id="_EASkIE0iEd6EVaGVkLohsg" name="getActivePeriods">
+      <ownedParameter xmi:id="_rdLsoE-QEd6QXpaQJdYe2A" direction="return"/>
     </ownedOperation>
-    <ownedOperation xmi:id="_tEdsIE0iEd6EVaGVkLohsg" name="getAllCourses">
-      <ownedParameter xmi:id="_u8sZEE0iEd6EVaGVkLohsg" direction="return"/>
+    <ownedOperation xmi:id="_tEdsIE0iEd6EVaGVkLohsg" name="getPeriods">
+      <ownedParameter xmi:id="_96dloE-jEd6QXpaQJdYe2A" direction="return"/>
     </ownedOperation>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_RVQaIE0iEd6EVaGVkLohsg" name="StudentCourse">
