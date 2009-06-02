@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @DiscriminatorValue("PN")
@@ -15,7 +16,7 @@ public class PeriodNode extends Node {
 	private Date endDate;
 
 	@ManyToMany(cascade={})
-	private Collection<User> students;
+	private Set<User> students;
 	
 	public PeriodNode() {
 	
@@ -37,11 +38,11 @@ public class PeriodNode extends Node {
 		this.endDate = end;
 	}
 	
-	public void setStudents(Collection<User> students) {
+	public void setStudents(Set<User> students) {
 		this.students = students;
 	}
 
-	public Collection<User> getStudents() {
+	public Set<User> getStudents() {
 		return students;
 	}
 }

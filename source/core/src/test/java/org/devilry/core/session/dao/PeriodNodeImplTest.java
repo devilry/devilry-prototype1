@@ -105,6 +105,8 @@ public class PeriodNodeImplTest extends NodeImplTest {
 
 		assertEquals(1, periodNode.getStudents(periodId).size());
 		periodNode.addStudent(periodId, homerId);
+		
+		// Check that duplicate value isn't added
 		assertEquals(1, periodNode.getStudents(periodId).size());
 	}
 
