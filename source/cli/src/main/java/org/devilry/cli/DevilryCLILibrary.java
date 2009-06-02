@@ -69,7 +69,7 @@ public class DevilryCLILibrary {
         long assignmentId = tm.getNodeIdFromPath("uio.inf1000.spring2009.oblig1");
         
         // All deliveries for all users
-        List<Long> deliveries = assignMent.getDeliveries(assignmentId);
+        List<Long> deliveries = assignMent.getDeliveriesWhereIsStudent(assignmentId);
 
         long deliveryID = -1;
 
@@ -236,7 +236,7 @@ public class DevilryCLILibrary {
     	NodeRemote tm = getTreeManager();
     	AssignmentNodeRemote assignMent = getAssignmentNode();
 
-    	List<Long> ids = assignMent.getDeliveries(tm.getNodeIdFromPath(nodePath));
+    	List<Long> ids = assignMent.getDeliveriesWhereIsStudent(tm.getNodeIdFromPath(nodePath));
 
     	if (ids.size() == 0) {
     		System.err.println("No deliveries exist!");
@@ -274,7 +274,7 @@ public class DevilryCLILibrary {
     	NodeRemote tm = getTreeManager();
     	AssignmentNodeRemote assignMent = getAssignmentNode();
 
-    	List<Long> IDs = assignMent.getDeliveries(tm.getNodeIdFromPath(nodePath));
+    	List<Long> IDs = assignMent.getDeliveriesWhereIsStudent(tm.getNodeIdFromPath(nodePath));
 
     	if (IDs.size() < 0) {
     		System.err.println("No deliveries exist!");
@@ -324,7 +324,7 @@ public class DevilryCLILibrary {
             return new ArrayList<String>();
         }
 
-        List<Long> ids = assignMent.getDeliveries(nodeID);
+        List<Long> ids = assignMent.getDeliveriesWhereIsStudent(nodeID);
 
         if (ids.size() == 0) {
             System.err.println("No deliveries exist!");
@@ -384,7 +384,7 @@ public class DevilryCLILibrary {
 
         AssignmentNodeRemote assignMent = getAssignmentNode();
 
-        List<Long> ids = assignMent.getDeliveries(nodeID);
+        List<Long> ids = assignMent.getDeliveriesWhereIsStudent(nodeID);
 
         if (ids.size() == 0) {
             System.err.println("No deliveries exist!");
