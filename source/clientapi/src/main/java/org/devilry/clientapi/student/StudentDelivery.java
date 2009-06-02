@@ -13,7 +13,7 @@ public class StudentDelivery extends AbstractDelivery {
 	long deliveryId;
 	
 	StudentDelivery(long deliveryId, DevilryConnection connection) {
-		super(connection);
+		super(deliveryId, connection);
 		this.deliveryId = deliveryId;
 	}
 	
