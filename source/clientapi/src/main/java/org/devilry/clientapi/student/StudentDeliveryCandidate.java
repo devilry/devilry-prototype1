@@ -16,11 +16,8 @@ public class StudentDeliveryCandidate extends AbstractDeliveryCandidate {
 	
 	
 	public DevilryOutputStream addFile() {
-		
-		DevilryOutputStream outputStream = new DevilryOutputStream();
-		
-		
-		return null;
+		DevilryOutputStream outputStream = new DevilryOutputStream(deliveryCandidateId, connection);
+		return outputStream;
 	}
 	
 }

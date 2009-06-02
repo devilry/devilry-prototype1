@@ -13,7 +13,7 @@ public class AbstractDeliveryCandidate {
 	int fileCount = 0;
 	
 	DeliveryCandidateLocal deliveryCandidate;
-	long deliveryCandidateId;
+	protected long deliveryCandidateId;
 	
 	protected DevilryConnection connection;
 	
