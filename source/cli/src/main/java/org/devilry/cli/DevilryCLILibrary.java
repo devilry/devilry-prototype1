@@ -44,23 +44,17 @@ public class DevilryCLILibrary {
     java.util.logging.Logger log = java.util.logging.Logger.getLogger(getClass().getName());
     protected InitialContext localCtx;
     Context serverConnection = null;
-
-    private void initializeServerConnection() throws Exception {
+    
+    public DevilryCLILibrary(String user, String password) throws Exception {
+    	initializeServerConnection(user, password);
+    }
+    
+    private void initializeServerConnection(String user, String password) throws Exception {
         log.info("initializeServerConnection");
-        serverConnection = getRemoteServerConnection();
+        serverConnection = getRemoteServerConnection(user, password);
     }
 
-    private boolean isServerInitialized() {
-        return serverConnection != null;
-    }
-
-
-    //private DeliveryRemote getDelivery(String deliveryPath) throws Exception {
     private long getDeliveryId(String deliveryPath) throws Exception {
-
-         if (!isServerInitialized()) {
-            initializeServerConnection();
-        }
          
          System.err.println("deliveryPath:" + deliveryPath);
 
@@ -69,12 +63,9 @@ public class DevilryCLILibrary {
          NodeRemote tm = getTreeManager();
 
         long deliveryId = tm.getNodeIdFromPath(deliveryPath);
-        //System.err.println(deliveryPath + " id:" + deliveryId);
 
 
-        //AssignmentNodeRemote assignMent = getRemoteBean(AssignmentNodeImpl.class);
         AssignmentNodeRemote assignMent = getAssignmentNode();
-        //assignMent.init(tm.getNodeIdFromPath("uio.inf1000.spring2009.oblig1"));
         long assignmentId = tm.getNodeIdFromPath("uio.inf1000.spring2009.oblig1");
         
         // All deliveries for all users
@@ -93,13 +84,7 @@ public class DevilryCLILibrary {
             deliveryID = deliveries.get(0);
         }
 
-        //DeliveryRemote delivery = getRemoteBean(DeliveryImpl.class);
-        //System.err.println("deliveryID:" + deliveryID);
-
-        //delivery.init(deliveryID);
-
         return deliveryID;
-        //return delivery;
     }
     
 
@@ -112,19 +97,13 @@ public class DevilryCLILibrary {
     	
     	System.err.println("assignmentId:" + assignmentId);
     	    	
-        //DeliveryRemote delivery = getDelivery(deliveryPath);
     	DeliveryRemote delivery = getDelivery();
     	long deliveryId = getDeliveryId(assignmentPath);
 
     	System.err.println("deliveryId:" + deliveryId);
     	    	
     	DeliveryCandidateRemote deliveryCandidate = getDeliveryCandidate();
-        //long deliveryCandidateId = delivery.addDeliveryCandidate();
         long deliveryCandidateId = deliveryCandidate.create(deliveryId);
-
-        //DeliveryCandidateRemote remoteBean = getRemoteBean(DeliveryCandidateImpl.class);
-        //remoteBean.init(deliveryCandidateId);
-        //remoteBean.setDeliveryTime();
 
         long fileId = addFileToDelivery(deliveryCandidateId, filePath, fileData);
 
@@ -153,13 +132,7 @@ public class DevilryCLILibrary {
 
         DeliveryCandidateRemote deliveryCandidate = getDeliveryCandidate();
         long deliveryCandidateId = deliveryCandidate.create(deliveryId);
-        
-       // long deliveryCandidateId = delivery.addDeliveryCandidate();
-
-        //DeliveryCandidateRemote remoteBean = getRemoteBean(DeliveryCandidateImpl.class);
-        //remoteBean.init(deliveryCandidateId);
-        //remoteBean.setDeliveryTime();
-        
+                
         ArrayList<Long> fileIDs = new ArrayList<Long>();
 
         Map <String, File> filesMap = getFileMap(dir);
@@ -199,17 +172,10 @@ public class DevilryCLILibrary {
     	System.err.println("deliveryCandidateId:" + deliveryCandidateId);
     	System.err.println("filePath:" + filePath);
     	long fileMetaId = deliveryCandidateNode.addFile(deliveryCandidateId, filePath);
-        //FileMetaRemote fileMeta = getRemoteBean(FileImpl.class);
-        //fileMeta.init(fileId);
-    	//FileMetaRemote fileMeta = getFileMeta();
-    	//long fileId = fileMeta.create(deliveryCandidateId, filePath);
     	
     	FileDataBlockRemote dataBlock = getFileDataBlock();
     	long blockId = dataBlock.create(fileMetaId, fileData);
     	
-        //fileMeta.write(fileId, fileData);
-    	// fileMeta.resetReadState();
-
         return blockId;
     }
     
@@ -256,136 +222,86 @@ public class DevilryCLILibrary {
         }
     }
 
-  
 
-    /*
-    FileMetaRemote getLastDeliveryCandidateFile(String nodePath) throws Exception {
+    /**
+     * Retrieves the DeliveryCandidateRemote for the last candidate for a delivery
+     * @param nodePath
+     * @return
+     * @throws java.lang.Exception
+     */
+    long getLastDeliveryCandidateId(String nodePath) throws Exception {
 
-        List<Long> fileIDs = remoteBean.getFileIds();
+    	System.err.println("getLastDeliveryCandidateFile:" + nodePath);
 
-        long fID = fileIDs.get(0);
+    	NodeRemote tm = getTreeManager();
+    	AssignmentNodeRemote assignMent = getAssignmentNode();
 
-        System.err.println("FileID:" + fID);
+    	List<Long> ids = assignMent.getDeliveries(tm.getNodeIdFromPath(nodePath));
 
-        FileMetaRemote remoteFileBean = getRemoteBean(FileImpl.class);
-        remoteFileBean.init(fID);
-
-        fileNames.add("Candidate " + cID + ":" + remoteFileBean.getFilePath());
-
-        return remoteFileBean;
-    }
- */
-
-
-     /**
-      * Retrieves the DeliveryCandidateRemote for the last candidate for a delivery
-      * @param nodePath
-      * @return
-      * @throws java.lang.Exception
-      */
-     //DeliveryCandidateRemote getLastDeliveryCandidate(String nodePath) throws Exception {
-    	long getLastDeliveryCandidateId(String nodePath) throws Exception {
-
-        if (!isServerInitialized()) {
-            initializeServerConnection();
-        }
-
-        System.err.println("getLastDeliveryCandidateFile:" + nodePath);
-
-        NodeRemote tm = getTreeManager();
-
-        //AssignmentNodeRemote assignMent = getRemoteBean(AssignmentNodeImpl.class);
-        //assignMent.init(tm.getNodeIdFromPath(nodePath));
-        AssignmentNodeRemote assignMent = getAssignmentNode();
-        
-        List<Long> ids = assignMent.getDeliveries(tm.getNodeIdFromPath(nodePath));
-
-        if (ids.size() < 0) {
-            System.err.println("No deliveries exist!");
-            return -1;
-        }
-
-        //DeliveryRemote delivery = getRemoteBean(DeliveryImpl.class);
-        //delivery.init(ids.get(0));
-        DeliveryRemote delivery = getDelivery();
-        
-        System.err.println("delivery id:" + ids.get(0));
-
-
-        List<Long> candidateIDs = delivery.getDeliveryCandidates(ids.get(0));
-
-        if (candidateIDs.size() < 0) {
-            System.err.println("No delivery candidates exist!");
-            return -1;
-        }
-
-         long cID = candidateIDs.get(candidateIDs.size() -1);
-
-         System.err.println("CandidateID:" + cID);
-
-        // DeliveryCandidateRemote remoteBean = getRemoteBean(DeliveryCandidateImpl.class);
-         //remoteBean.init(cID);
-
-         return cID;
-     }
-
-
-      /**
-      * Retrieves the DeliveryCandidateRemote for the candidate with id candidateID
-      * @param nodePath
-      * @return
-      * @throws java.lang.Exception
-      */
-     //DeliveryCandidateRemote getDeliveryCandidate(String nodePath, long candidateID) throws Exception {
-    	long getDeliveryCandidateId(String nodePath, long candidateID) throws Exception {
-
-    		if (!isServerInitialized()) {
-    			initializeServerConnection();
-    		}
-
-    		System.err.println("getLastDeliveryCandidateFile:" + nodePath);
-
-    		NodeRemote tm = getTreeManager();
-
-    		//AssignmentNodeRemote assignMent = getRemoteBean(AssignmentNodeImpl.class);
-    		//assignMent.init(tm.getNodeIdFromPath(nodePath));
-    		AssignmentNodeRemote assignMent = getAssignmentNode();
-
-    		List<Long> IDs = assignMent.getDeliveries(tm.getNodeIdFromPath(nodePath));
-
-    		if (IDs.size() < 0) {
-    			System.err.println("No deliveries exist!");
-    			return -1;
-    		}
-
-    		//DeliveryRemote delivery = getRemoteBean(DeliveryImpl.class);
-    		//delivery.init(IDs.get(0));
-    		DeliveryRemote delivery = getDelivery();
-
-    		System.err.println("delivery id:" + IDs.get(0));
-
-
-    		List<Long> candidateIDs = delivery.getDeliveryCandidates(IDs.get(0));
-
-    		if (candidateIDs.size() < 0) {
-    			System.err.println("No delivery candidates exist!");
-    			return -1;
-    		}
-
-    		if (!candidateIDs.contains(candidateID)) {
-    			System.err.println("The provided ID (" + candidateID + ") is not valid!");
-    			return -1;
-    		}
-
-    		System.err.println("CandidateID:" + candidateID);
-
-    		//DeliveryCandidateRemote remoteBean = getRemoteBean(DeliveryCandidateImpl.class);
-    		//remoteBean.init(candidateID);
-
-    		return candidateID;
+    	if (ids.size() == 0) {
+    		System.err.println("No deliveries exist!");
+    		return -1;
     	}
 
-     
+    	DeliveryRemote delivery = getDelivery();
+    	System.err.println("delivery id:" + ids.get(0));
+
+    	List<Long> candidateIDs = delivery.getDeliveryCandidates(ids.get(0));
+
+    	if (candidateIDs.size() < 0) {
+    		System.err.println("No delivery candidates exist!");
+    		return -1;
+    	}
+
+    	long cID = candidateIDs.get(candidateIDs.size() -1);
+
+    	System.err.println("CandidateID:" + cID);
+
+    	return cID;
+    }
+
+
+    /**
+     * Retrieves the DeliveryCandidateRemote for the candidate with id candidateID
+     * @param nodePath
+     * @return
+     * @throws java.lang.Exception
+     */
+    long getDeliveryCandidateId(String nodePath, long candidateID) throws Exception {
+
+    	System.err.println("getLastDeliveryCandidateFile:" + nodePath);
+
+    	NodeRemote tm = getTreeManager();
+    	AssignmentNodeRemote assignMent = getAssignmentNode();
+
+    	List<Long> IDs = assignMent.getDeliveries(tm.getNodeIdFromPath(nodePath));
+
+    	if (IDs.size() < 0) {
+    		System.err.println("No deliveries exist!");
+    		return -1;
+    	}
+
+    	DeliveryRemote delivery = getDelivery();
+    	System.err.println("delivery id:" + IDs.get(0));
+
+    	List<Long> candidateIDs = delivery.getDeliveryCandidates(IDs.get(0));
+
+    	if (candidateIDs.size() < 0) {
+    		System.err.println("No delivery candidates exist!");
+    		return -1;
+    	}
+
+    	if (!candidateIDs.contains(candidateID)) {
+    		System.err.println("The provided ID (" + candidateID + ") is not valid!");
+    		return -1;
+    	}
+
+    	System.err.println("CandidateID:" + candidateID);
+
+    	return candidateID;
+    }
+
+
       /**
        * Returns a list of all delivery candidates for an assignment
        * @param nodePath
@@ -394,15 +310,10 @@ public class DevilryCLILibrary {
        */
       List<String> getDeliveryCandidatesList(String nodePath) throws Exception {
 
-        if (!isServerInitialized()) {
-            initializeServerConnection();
-        }
-
         System.err.println("getDeliveryCandidatesList:" + nodePath);
 
         NodeRemote tm = getTreeManager();
 
-       // AssignmentNodeRemote assignMent = getRemoteBean(AssignmentNodeImpl.class);
         AssignmentNodeRemote assignMent = getAssignmentNode();
         System.err.println("tm.getNodeIdFromPath(nodePath):" + tm.getNodeIdFromPath(nodePath));
 
@@ -413,8 +324,6 @@ public class DevilryCLILibrary {
             return new ArrayList<String>();
         }
 
-        //assignMent.init(nodeID);
-
         List<Long> ids = assignMent.getDeliveries(nodeID);
 
         if (ids.size() == 0) {
@@ -422,12 +331,8 @@ public class DevilryCLILibrary {
             return new ArrayList<String>();
         }
 
-        //DeliveryRemote delivery = getRemoteBean(DeliveryImpl.class);
-        //delivery.init(ids.get(0));
         DeliveryRemote delivery = getDelivery();
-        
         System.err.println("delivery id:" + ids.get(0));
-
 
         List<Long> candidateIDs = delivery.getDeliveryCandidates(ids.get(0));
 
@@ -443,10 +348,7 @@ public class DevilryCLILibrary {
 
            // System.err.println("CandidateID:" + cID);
 
-            //DeliveryCandidateRemote remoteBean = getRemoteBean(DeliveryCandidateImpl.class);
-            //remoteBean.init(cID);
         	DeliveryCandidateRemote remoteBean = getDeliveryCandidate();
-        	
             List<Long> fileIDs = remoteBean.getFiles(cID);
 
             fileNames.add("Candidate " + cID + " with " +fileIDs.size()+ " files  handed in " + remoteBean.getTimeOfDelivery(cID) );
@@ -467,10 +369,6 @@ public class DevilryCLILibrary {
      */
     List<String> getDeliveryCandidateFileList(String nodePath) throws Exception {
 
-        if (!isServerInitialized()) {
-            initializeServerConnection();
-        }
-
         System.err.println("getDeliveryCandidateFiles:" + nodePath);
 
         NodeRemote tm = getTreeManager();
@@ -485,7 +383,6 @@ public class DevilryCLILibrary {
         }
 
         AssignmentNodeRemote assignMent = getAssignmentNode();
-        //assignMent.init(nodeID);
 
         List<Long> ids = assignMent.getDeliveries(nodeID);
 
@@ -494,11 +391,7 @@ public class DevilryCLILibrary {
             return new ArrayList<String>();
         }
 
-        //DeliveryRemote delivery = getRemoteBean(DeliveryImpl.class);
-        //delivery.init(ids.get(0));
-        
         DeliveryRemote delivery = getDelivery();
-                
         System.err.println("delivery id:" + ids.get(0));
 
         List<Long> candidateIDs = delivery.getDeliveryCandidates(ids.get(0));
@@ -515,8 +408,6 @@ public class DevilryCLILibrary {
 
            // System.err.println("CandidateID:" + cID);
 
-            //DeliveryCandidateRemote remoteBean = getRemoteBean(DeliveryCandidateImpl.class);
-            //remoteBean.init(cID);
         	DeliveryCandidateRemote remoteBean = getDeliveryCandidate();
         	
             List<Long> fileIDs = remoteBean.getFiles(cID);
@@ -524,12 +415,8 @@ public class DevilryCLILibrary {
             for (long fID : fileIDs) {
 
                 //System.err.println("Candidate " +cID + " FileID:" + fID);
-
-                //FileMetaRemote remoteFileBean = getRemoteBean(FileImpl.class);
-                //remoteFileBean.init(fID);
             	FileMetaRemote remoteFileBean = getFileMeta();
-            	            	
-                fileNames.add("Candidate " + cID + ":" + remoteFileBean.getFilePath(fID));
+            	fileNames.add("Candidate " + cID + ":" + remoteFileBean.getFilePath(fID));
             }
 
         }
@@ -564,19 +451,6 @@ public class DevilryCLILibrary {
      */
 
     Collection<FileMeta> getFiles(long id) throws Exception {
-
-        if (!isServerInitialized()) {
-            initializeServerConnection();
-        }
-
-        /*
-        DeliveryCandidate d = deliveryManager.getFull(id);
-        return d == null ? null : d.getFiles();
-         */
-
-
-        //getFileIds
-
         return null;
     }
 
@@ -657,29 +531,7 @@ public class DevilryCLILibrary {
         long assignmentId = assignmentNode.create("oblig1", "Obligatory assignment 1", 
         		new GregorianCalendar(2009, 1, 1).getTime(), 
         		tm.getNodeIdFromPath("uio.inf1000.spring2009"));
-        
-        
-        
-        /*
-        tm.create("uio", "Universitetet i Oslo");
-        //tm.create("matnat", "Matematisk...", tm.getNodeIdFromPath("uio"));
-        //tm.create("ifi", "Institutt for informatikk", tm.getNodeIdFromPath("uio.matnat"));
-
-        //tm.addCourseNode("inf1000", "INF1000", "First programming course.", tm.getNodeIdFromPath("uio.matnat.ifi"));
-        
-        tm.addPeriodNode("spring2009", new GregorianCalendar(2009, 1, 1).getTime(),
-                new GregorianCalendar(2009, 6, 15).getTime(),
-                tm.getNodeIdFromPath("uio.inf1000"));
-
-        tm.addAssignmentNode("oblig1", "Obligatory assignment 1",
-                tm.getNodeIdFromPath("uio.inf1000.spring2009"));
-
-        AssignmentNodeRemote node = getRemoteBean(AssignmentNodeImpl.class);
-
-        node.init(tm.getNodeIdFromPath("uio.inf1000.spring2009.oblig1"));
-        
-        */
-        
+                
         return tm;
     }
     
@@ -698,14 +550,8 @@ public class DevilryCLILibrary {
      */
     
     @SuppressWarnings("unchecked")
-    protected <E> E getRemoteBean(Class<E> beanImplClass)
-            throws NamingException, Exception {
-
-        if (!isServerInitialized()) {
-            initializeServerConnection();
-        }
-
-        return (E) serverConnection.lookup(beanImplClass.getSimpleName() + "Remote");
+    protected <E> E getRemoteBean(Class<E> beanImplClass) throws NamingException, Exception {
+    	return (E) serverConnection.lookup(beanImplClass.getSimpleName() + "Remote");
     }
     
     
@@ -731,11 +577,18 @@ public class DevilryCLILibrary {
     }
 
     public Context getRemoteServerConnection() throws NamingException {
+    	return getRemoteServerConnection("homer", "doh");
+    }
+    	
+    public Context getRemoteServerConnection(String user, String password) throws NamingException {
 		Properties p = new Properties();
 		p.put(Context.INITIAL_CONTEXT_FACTORY,
 				"org.apache.openejb.client.RemoteInitialContextFactory");
 		p.put(Context.PROVIDER_URL, "ejbd://127.0.0.1:4201");
-
+		
+		p.put(Context.SECURITY_PRINCIPAL, user);
+		p.put(Context.SECURITY_CREDENTIALS, password);
+		
 		return new InitialContext(p);
 	}
 
