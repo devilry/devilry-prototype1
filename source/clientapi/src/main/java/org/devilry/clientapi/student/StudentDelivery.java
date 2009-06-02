@@ -5,6 +5,7 @@ import javax.naming.NamingException;
 import org.devilry.clientapi.AbstractDelivery;
 import org.devilry.clientapi.DevilryConnection;
 import org.devilry.core.daointerfaces.CourseNodeLocal;
+import org.devilry.core.daointerfaces.DeliveryCandidateLocal;
 import org.devilry.core.daointerfaces.DeliveryLocal;
 
 public class StudentDelivery extends AbstractDelivery {
@@ -25,7 +26,13 @@ public class StudentDelivery extends AbstractDelivery {
 		return delivery;
 	}
 	
-	public StudentDeliveryCandidate addDeliveryCandidate() {
-		return null;
+	public StudentDeliveryCandidate createDeliveryCandidate() throws NamingException {
+		
+		DeliveryCandidateLocal deliveryCandidate = connection.getDeliveryCandidate();
+		
+		long candidateId = deliveryCandidate.create(deliveryId);
+		StudentDeliveryCandidate candidate = new StudentDeliveryCandidate(candidateId, connection);
+		
+		return candidate;
 	}
 }
