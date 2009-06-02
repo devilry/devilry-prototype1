@@ -18,13 +18,7 @@ public class StudentDelivery extends AbstractDelivery {
 		this.deliveryId = deliveryId;
 	}
 	
-	private DeliveryLocal getDeliveryBean() throws NamingException {
-		
-		if (delivery == null)
-			delivery = connection.getDelivery();
-		
-		return delivery;
-	}
+	
 	
 	public StudentDeliveryCandidate createDeliveryCandidate() throws NamingException {
 		

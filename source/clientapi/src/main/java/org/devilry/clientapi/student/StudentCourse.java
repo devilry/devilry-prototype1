@@ -23,11 +23,7 @@ public class StudentCourse {
 	}	
 	
 	private CourseNodeLocal getCourseNodeBean() throws NamingException {
-		
-		if (courseNode == null)
-			courseNode = connection.getCourseNode();
-		
-		return courseNode;
+		return courseNode == null ? courseNode = connection.getCourseNode() : courseNode;
 	}
 	
 	public List<StudentPeriod> getActivePeriods() {

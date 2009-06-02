@@ -5,7 +5,7 @@ import org.devilry.clientapi.DevilryConnection;
 
 public class CorrectorDeliveryCandidate extends AbstractDeliveryCandidate {
 
-	CorrectorDeliveryCandidate(DevilryConnection connection) {
-		super(connection);
+	CorrectorDeliveryCandidate(long deliveryCandidateId, DevilryConnection connection) {
+		super(deliveryCandidateId, connection);
 	}
 }

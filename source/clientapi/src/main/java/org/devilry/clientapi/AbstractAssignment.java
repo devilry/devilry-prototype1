@@ -24,11 +24,7 @@ public abstract class AbstractAssignment {
 	
 	
 	protected AssignmentNodeLocal getAssignmentNodeBean() throws NamingException {
-		
-		if (assignment == null)
-			assignment = connection.getAssignmentNode();
-		
-		return assignment;
+		return assignment == null ? assignment = connection.getAssignmentNode() : assignment;
 	}
 	
 	public Date getDeadline() {

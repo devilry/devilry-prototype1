@@ -24,11 +24,7 @@ public class StudentPeriod {
 	}
 	
 	private PeriodNodeLocal getPeriodBean() throws NamingException {
-		
-		if (periodNode == null)
-			periodNode = connection.getPeriodNode();
-		
-		return periodNode;
+		return periodNode == null ? periodNode = connection.getPeriodNode() : periodNode;
 	}
 	
 	public Collection<StudentAssignment> getAssignments() throws NamingException {

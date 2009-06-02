@@ -3,19 +3,27 @@ package org.devilry.clientapi;
 import java.util.Date;
 import java.util.List;
 
+import javax.naming.NamingException;
+
+import org.devilry.core.daointerfaces.DeliveryCandidateLocal;
 import org.devilry.core.daointerfaces.DeliveryCandidateRemote;
 
 public class AbstractDeliveryCandidate {
 
-	Date timeOfDelivery;
 	int fileCount = 0;
 	
-	DeliveryCandidateRemote deliveryCandidate;
+	DeliveryCandidateLocal deliveryCandidate;
+	long deliveryCandidateId;
 	
 	protected DevilryConnection connection;
 	
-	protected AbstractDeliveryCandidate(DevilryConnection connection) {
+	protected AbstractDeliveryCandidate(long deliveryCandidateId, DevilryConnection connection) {
+		this.deliveryCandidateId = deliveryCandidateId;
 		this.connection = connection;
+	}
+	
+	protected DeliveryCandidateLocal getDeliveryBean() throws NamingException {
+		return deliveryCandidate == null ? deliveryCandidate = connection.getDeliveryCandidate() : deliveryCandidate;
 	}
 	
 	public List<AbstractDeliveryCandidate> getDeliveryFiles() {
@@ -27,7 +35,7 @@ public class AbstractDeliveryCandidate {
 	}
 	
 	public Date getTimeOfDelivery() {
-		return timeOfDelivery;
+		return deliveryCandidate.getTimeOfDelivery(deliveryCandidateId);
 	}
 	
 	public int getFileCount() {
