@@ -218,7 +218,7 @@ public class BaseNodeImpl implements BaseNodeInterface {
 	public boolean isAdmin(long nodeId, long userId) {
 		return getNode(nodeId).getAdmins().contains(getUser(userId));
 	}
-	
+
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void addAdmin(long nodeId, long userId) {
 		Node n = getNode(nodeId);

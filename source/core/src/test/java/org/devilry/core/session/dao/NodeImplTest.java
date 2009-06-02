@@ -98,6 +98,10 @@ public class NodeImplTest extends AbstractNodeDaoTst {
 	public void addAdmin() {
 		node.addAdmin(uioId, homerId);
 		assertTrue(node.isAdmin(uioId, homerId));
+
+		assertEquals(1, node.getAdmins(uioId).size());
+		node.addAdmin(uioId, homerId);
+		assertEquals(1, node.getAdmins(uioId).size());
 	}
 
 	@Test
@@ -106,5 +110,21 @@ public class NodeImplTest extends AbstractNodeDaoTst {
 		node.removeAdmin(uioId, homerId);
 		assertFalse(node.isAdmin(uioId, homerId));
 		assertTrue(userBean.userExists(homerId)); // make sure the user is not removed from the system as well!
+	}
+	
+	@Test
+	public void getNodesWhereIsAdmin() {
+		node.addAdmin(uioId, homerId);
+		List<Long> l = node.getNodesWhereIsAdmin(homerId);
+		assertEquals(1, l.size());
+		assertEquals(uioId, (long) l.get(0));
+
+		long margeId = userBean.create("marge", "marge@doh.com", "123");
+		node.addAdmin(uioId, margeId);
+		assertEquals(1, node.getNodesWhereIsAdmin(homerId).size());
+
+		node.addAdmin(matnatId, homerId);
+		assertEquals(2, node.getNodesWhereIsAdmin(homerId).size());
+		assertEquals(1, node.getNodesWhereIsAdmin(margeId).size());
 	}
 }

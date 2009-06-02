@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.Set;
 
 @Entity
 @Table(
@@ -22,7 +23,7 @@ public class Node implements java.io.Serializable {
 	protected String name;
 
 	@ManyToMany(cascade={})
-	private Collection<User> admins;
+	private Set<User> admins;
 
 	protected String displayName;
 
@@ -66,12 +67,11 @@ public class Node implements java.io.Serializable {
 		this.parent = parent;
 	}
 
-	public void setAdmins(Collection<User> admins) {
+	public void setAdmins(Set<User> admins) {
 		this.admins = admins;
 	}
 
-	public Collection<User> getAdmins() {
+	public Set<User> getAdmins() {
 		return admins;
 	}
 }
-
