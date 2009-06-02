@@ -16,10 +16,6 @@ import org.apache.commons.cli.Options;
 
 import org.apache.commons.cli.PosixParser;
 import org.devilry.core.entity.FileMeta;
-import org.devilry.core.session.TreeManagerRemote;
-import org.devilry.core.session.dao.DeliveryCandidateRemote;
-import org.devilry.core.session.dao.FileImpl;
-import org.devilry.core.session.dao.FileMetaRemote;
 
 public class RemoteClient {
 
@@ -308,22 +304,26 @@ public class RemoteClient {
                 outputDirFile.mkdir();
             }
 
-            //FileMetaRemote remoteFile = lib.getLastDeliveryCandidateFile(nodePath);
-            DeliveryCandidateRemote remoteBean = lib.getLastDeliveryCandidate(nodePath);
+            //FileMetaRemote remoteFile = lib.getLastDeliveryCandidateFile(nodePath);d
+            //DeliveryCandidateRemote remoteBean = lib.getLastDeliveryCandidate(nodePath);
+            org.devilry.core.daointerfaces.DeliveryCandidateRemote deliveryCandidate = lib.getDeliveryCandidate();
+            long deliveryCandidateId = lib.getLastDeliveryCandidateId(nodePath);
 
-            List<Long> fileIDs = remoteBean.getFileIds();
+            List<Long> fileIDs = deliveryCandidate.getFiles(deliveryCandidateId);
 
             for (int i = 0; i < fileIDs.size(); i++) {
                 long fID = fileIDs.get(i);
 
-                FileMetaRemote remoteFileBean = lib.getRemoteBean(FileImpl.class);
-                remoteFileBean.init(fID);
-
-                byte[] data = remoteFileBean.read();
-
-                System.err.println("remoteFile.getFilePath():" + remoteFileBean.getFilePath());
-
-                FileUtil.writeToFile(data, new File(outputDirFile, remoteFileBean.getFilePath()));
+                //FileMetaRemote remoteFileBean = lib.getRemoteBean(FileImpl.class);
+                //remoteFileBean.init(fID);
+                org.devilry.core.daointerfaces.FileMetaRemote fileMetaBean = lib.getFileMeta();
+                String filePath = fileMetaBean.getFilePath(fID);
+                List<Long> fileBlocksId = fileMetaBean.getFileDataBlocks(fID);
+                
+                org.devilry.core.daointerfaces.FileDataBlockRemote fileDataBlockBean = lib.getFileDataBlock();
+                byte[] data = fileDataBlockBean.getFileData(fileBlocksId.get(0));
+                                
+                FileUtil.writeToFile(data, new File(outputDirFile, filePath));
             }
 
             //fileNames.add("Candiate " + cID + ":" + remoteFileBean.getFilePath());
@@ -341,10 +341,12 @@ public class RemoteClient {
 
         try {
 
-            List<String> files =lib.getDeliveryCandidatesList(nodePath);
+        	System.err.println("lib:" + lib);
+        	
+            List<String> files = lib.getDeliveryCandidatesList(nodePath);
 
             if (files.size() == 0) {
-                System.out.print("No files in delivery for path " + nodePath);
+                System.out.println("No files in delivery for path " + nodePath);
             }
             else {
                 System.out.println("Available deliveries for path " + nodePath + ":");
@@ -359,6 +361,7 @@ public class RemoteClient {
             e.printStackTrace();
         }
     }
+     
 
     public void getCandidateFiles(String nodePath) {
 

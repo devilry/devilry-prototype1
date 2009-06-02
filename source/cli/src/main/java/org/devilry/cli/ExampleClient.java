@@ -1,9 +1,5 @@
 package org.devilry.cli;
 
-import org.devilry.core.session.TreeManagerRemote;
-import org.devilry.core.session.TreeManagerImpl;
-import org.devilry.core.session.dao.NodeRemote;
-import org.devilry.core.session.dao.NodeImpl;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -21,6 +17,7 @@ public class ExampleClient {
 	public ExampleClient() throws NamingException {
 		serverConnection = getEmbeddedServerConnection();
 
+		/*
 		// Get the tree mananger bean
 		// same as:
 		// TreeManagerRemote tm = (TreeManagerRemote) serverConnection.lookup("TreeManagerImplRemote");
@@ -39,6 +36,7 @@ public class ExampleClient {
 			faculty.init(facultyId);
 			System.out.println(faculty.getPath());
 		}
+		*/
 	}
 
 	public Context getEmbeddedServerConnection() throws NamingException {
