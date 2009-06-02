@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+&<?xml version="1.0" encoding="UTF-8"?>
 <project>
     <parent>
         <groupId>devilry</groupId>
@@ -18,6 +18,13 @@
             <groupId>devilry</groupId>
             <artifactId>common</artifactId>
             <version>0.1</version>
+        </dependency>
+
+		 <dependency>
+            <groupId>devilry</groupId>
+            <artifactId>core</artifactId>
+            <version>0.1</version>
+            <scope>test</scope>
         </dependency>
 
         <!-- Required to run the client. -->
@@ -42,7 +49,7 @@
             <groupId>org.apache.openejb</groupId>
             <artifactId>openejb-core</artifactId>
             <version>${openejb-version}</version>
-            <scope>compile</scope>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
