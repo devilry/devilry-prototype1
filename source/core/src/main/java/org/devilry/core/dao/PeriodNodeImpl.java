@@ -52,4 +52,9 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote, Pe
 	public Date getEndDate(long nodeId) {
 		return getPeriodNode(nodeId).getEndDate();
 	}
+
+	public List<Long> getAssignments(long periodNodeId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

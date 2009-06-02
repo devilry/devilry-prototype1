@@ -119,4 +119,8 @@ public class UserImpl implements UserRemote {
 		List<String> l = q.getResultList();
 		return l.size() == 1;
 	}
+
+	public boolean userExists(long userId) {
+		return getUser(userId) != null;
+	}
 }

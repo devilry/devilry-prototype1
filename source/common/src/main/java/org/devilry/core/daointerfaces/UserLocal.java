@@ -101,5 +101,8 @@ public interface UserLocal {
 	boolean identityExists(String identity);
 	
 	/** Check if a user with the given email-address exists. */
-	boolean emailExists(String email);	
+	boolean emailExists(String email);
+	
+	/** Check if a user with the given userId exists. */
+	boolean userExists(long userId);
 }
