@@ -18,7 +18,7 @@ public class DeliveryImplTest extends AbstractDeliveryDaoTst {
 	
 	DeliveryRemote delivery;
 	DeliveryCandidateRemote deliveryCandidate;
-	long deliveryId;
+	long deliveryId, deliveryId2;
 
 	@Before
 	public void setUp() throws NamingException {
@@ -26,6 +26,7 @@ public class DeliveryImplTest extends AbstractDeliveryDaoTst {
 		delivery = getRemoteBean(DeliveryImpl.class);
 		deliveryCandidate = getRemoteBean(DeliveryCandidateImpl.class);
 		deliveryId = delivery.create(assignmentId);
+		deliveryId2 = delivery.create(assignmentId);
 	}
 
 
@@ -82,7 +83,7 @@ public class DeliveryImplTest extends AbstractDeliveryDaoTst {
 	@Test
 	public void exists() {
 		assertTrue(delivery.exists(deliveryId));
-		assertFalse(delivery.exists(deliveryId + 1));
+		assertFalse(delivery.exists(deliveryId + deliveryId2));
 	}
 
 
@@ -126,8 +127,8 @@ public class DeliveryImplTest extends AbstractDeliveryDaoTst {
 		assertEquals(1, delivery.getDeliveriesWhereIsStudent().size());
 
 		// It works with more than one delivery?
-//		delivery.addStudent(deliveryId2, homerId);
-//		assertEquals(2, delivery.getDeliveriesWhereIsStudent().size());
+		delivery.addStudent(deliveryId2, homerId);
+		assertEquals(2, delivery.getDeliveriesWhereIsStudent().size());
 	}
 
 
@@ -171,7 +172,7 @@ public class DeliveryImplTest extends AbstractDeliveryDaoTst {
 		assertEquals(1, delivery.getDeliveriesWhereIsExaminer().size());
 
 		// It works with more than one delivery?
-//		delivery.addExaminer(deliveryId2, homerId);
-//		assertEquals(2, delivery.getDeliveriesWhereIsExaminer().size());
+		delivery.addExaminer(deliveryId2, homerId);
+		assertEquals(2, delivery.getDeliveriesWhereIsExaminer().size());
 	}
 }
