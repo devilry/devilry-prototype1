@@ -89,6 +89,12 @@ public class UserImplTest extends AbstractDaoTst {
 		assertEquals("newemail", userBean.getEmail(testUser0));
 	}
 
+	@Test(expected=Exception.class)
+	public void setExistingEmail() {
+		userBean.setEmail(testUser0, "newemail");
+		userBean.setEmail(testUser1, "newemail");
+	}
+
 	@Test
 	public void setPhoneNumber() {
 		userBean.setPhoneNumber(testUser0, "newphone");
