@@ -30,4 +30,12 @@ public class CourseNodeImpl extends BaseNodeImpl implements CourseNodeRemote, Co
 		Query q = em.createQuery("SELECT c.id FROM CourseNode c");
 		return q.getResultList();
 	}
+
+	public List<Long> getPeriods(long courseId) {
+		Query q = em.createQuery("SELECT p.id FROM PeriodNode p "
+				+ "WHERE p.parent.id = :id");
+		q.setParameter("id", courseId);
+		return q.getResultList();
+	}
+
 }
