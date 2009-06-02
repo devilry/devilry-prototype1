@@ -5,6 +5,7 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.Query;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.devilry.core.daointerfaces.PeriodNodeLocal;
@@ -58,5 +59,34 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote, Pe
 				+ "WHERE a.parent.id = :id");
 		q.setParameter("id", periodNodeId);
 		return q.getResultList();
+	}
+	
+	protected PeriodNode getPeriod(long periodId) {
+		return em.find(PeriodNode.class, periodId);
+	}
+	
+	public List<Long> getStudents(long periodId) {
+		LinkedList<Long> l = new LinkedList<Long>();
+		for(User u: getPeriod(periodId).getStudents())
+			l.add(u.getId());
+		return l;
+	}
+	
+	public boolean isStudent(long periodId, long userId) {
+		return getPeriod(periodId).getStudents().contains(getUser(userId));
+	}
+	
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public void addStudent(long periodId, long userId) {
+		PeriodNode n = getPeriod(periodId);
+		n.getStudents().add(getUser(userId));
+		em.merge(n);
+	}
+
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public void removeStudent(long periodId, long userId) {
+		PeriodNode n = getPeriod(periodId);
+		n.getStudents().remove(getUser(userId));
+		em.merge(n);
 	}
 }
