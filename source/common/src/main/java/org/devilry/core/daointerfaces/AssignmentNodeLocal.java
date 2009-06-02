@@ -8,10 +8,24 @@ public interface AssignmentNodeLocal extends BaseNodeInterface {
 	/**
 	 * Get deliveries 
 	 * @param nodeId
-	 * @return list of ids for the deliveries
+	 * @return list of IDs for the deliveries
 	 */
 	public List<Long> getDeliveries(long assignmentId);
 
+	/**
+	 * Get deliveries where the user is student
+	 * @param assignmentId
+	 * @return id the of the delivery
+	 */
+	public List<Long> getDeliveriesWhereIsStudent(long assignmentId);
+	
+	/**
+	 * Get deliveries where the user is examiner
+	 * @param assignmentId
+	 * @return
+	 */
+	public List<Long> getDeliveriesWhereIsExaminer(long assignmentId);
+	
 	/**
 	 * Get the deadline for this assignment
 	 * @param nodeId
