@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.File;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -57,6 +58,8 @@ public class RemoteClient {
 
             for (;;) {
 
+            	//System.err.println(new Date());
+            	
                 System.out.print("Devilry>");
 
                 while (!scan.hasNextLine()) {
