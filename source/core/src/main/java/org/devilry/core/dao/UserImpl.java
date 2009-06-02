@@ -29,6 +29,11 @@ public class UserImpl implements UserRemote, UserLocal {
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void addIdentity(long userId, String identity) {
+		
+		// Do not add if identity exists
+		if (identityExists(identity))
+			return;
+			
 		Identity i = new Identity();
 		i.setIdentity(identity);
 		User u = getUser(userId);

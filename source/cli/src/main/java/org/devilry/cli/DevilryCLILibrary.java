@@ -270,7 +270,7 @@ public class DevilryCLILibrary {
         FileMetaRemote remoteFileBean = getRemoteBean(FileImpl.class);
         remoteFileBean.init(fID);
 
-        fileNames.add("Candiate " + cID + ":" + remoteFileBean.getFilePath());
+        fileNames.add("Candidate " + cID + ":" + remoteFileBean.getFilePath());
 
         return remoteFileBean;
     }
@@ -321,7 +321,7 @@ public class DevilryCLILibrary {
 
          long cID = candidateIDs.get(candidateIDs.size() -1);
 
-         System.err.println("CandiateID:" + cID);
+         System.err.println("CandidateID:" + cID);
 
         // DeliveryCandidateRemote remoteBean = getRemoteBean(DeliveryCandidateImpl.class);
          //remoteBean.init(cID);
@@ -377,7 +377,7 @@ public class DevilryCLILibrary {
     			return -1;
     		}
 
-    		System.err.println("CandiateID:" + candidateID);
+    		System.err.println("CandidateID:" + candidateID);
 
     		//DeliveryCandidateRemote remoteBean = getRemoteBean(DeliveryCandidateImpl.class);
     		//remoteBean.init(candidateID);
@@ -441,7 +441,7 @@ public class DevilryCLILibrary {
 
         for (long cID : candidateIDs) {
 
-           // System.err.println("CandiateID:" + cID);
+           // System.err.println("CandidateID:" + cID);
 
             //DeliveryCandidateRemote remoteBean = getRemoteBean(DeliveryCandidateImpl.class);
             //remoteBean.init(cID);
@@ -449,7 +449,7 @@ public class DevilryCLILibrary {
         	
             List<Long> fileIDs = remoteBean.getFiles(cID);
 
-            fileNames.add("Candiate " + cID + " with " +fileIDs.size()+ " files  handed in " + remoteBean.getTimeOfDelivery(cID) );
+            fileNames.add("Candidate " + cID + " with " +fileIDs.size()+ " files  handed in " + remoteBean.getTimeOfDelivery(cID) );
                        
             //System.err.println("Time:" + remoteBean.getTimeOfDelivery(cID).getTime());
         }
@@ -513,7 +513,7 @@ public class DevilryCLILibrary {
 
         for (long cID : candidateIDs) {
 
-           // System.err.println("CandiateID:" + cID);
+           // System.err.println("CandidateID:" + cID);
 
             //DeliveryCandidateRemote remoteBean = getRemoteBean(DeliveryCandidateImpl.class);
             //remoteBean.init(cID);
@@ -523,13 +523,13 @@ public class DevilryCLILibrary {
 
             for (long fID : fileIDs) {
 
-                //System.err.println("Candiate " +cID + " FileID:" + fID);
+                //System.err.println("Candidate " +cID + " FileID:" + fID);
 
                 //FileMetaRemote remoteFileBean = getRemoteBean(FileImpl.class);
                 //remoteFileBean.init(fID);
             	FileMetaRemote remoteFileBean = getFileMeta();
             	            	
-                fileNames.add("Candiate " + cID + ":" + remoteFileBean.getFilePath(fID));
+                fileNames.add("Candidate " + cID + ":" + remoteFileBean.getFilePath(fID));
             }
 
         }

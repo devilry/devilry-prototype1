@@ -43,4 +43,8 @@ public class StudentPeriod {
 		return studentAssignments;
 	}
 	
+	public String getPath() throws NamingException {
+		return getPeriodBean().getPath(periodId);
+	}
+	
 }
