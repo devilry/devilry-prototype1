@@ -37,5 +37,5 @@ public interface PeriodNodeLocal extends BaseNodeInterface {
 
 
 	/** Get a list of nodes where the given user is admin. */
-	List<Long> getNodesWhereIsStudent(long userId);
+	List<Long> getPeriodsWhereIsStudent(long userId);
 }
