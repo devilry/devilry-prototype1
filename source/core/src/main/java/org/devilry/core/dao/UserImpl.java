@@ -2,6 +2,9 @@ package org.devilry.core.dao;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+import javax.ejb.EJB;
+import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -18,6 +21,12 @@ import org.devilry.core.entity.User;
 public class UserImpl implements UserRemote, UserLocal {
 	@PersistenceContext(unitName = "DevilryCore")
 	protected EntityManager em;
+
+	@Resource
+	SessionContext sessionCtx;
+	
+	@EJB
+	UserLocal userBean;
 
 	protected User getUser(long userId) {
 		return em.find(User.class, userId);
@@ -128,5 +137,13 @@ public class UserImpl implements UserRemote, UserLocal {
 
 	public boolean userExists(long userId) {
 		return getUser(userId) != null;
+	}
+
+	public long getAuthenticatedUser() {
+		return userBean.findUser(getAuthenticatedIdentity());
+	}
+
+	public String getAuthenticatedIdentity() {
+		return sessionCtx.getCallerPrincipal().getName();
 	}
 }

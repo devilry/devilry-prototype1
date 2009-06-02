@@ -105,4 +105,10 @@ public interface UserLocal {
 	
 	/** Check if a user with the given userId exists. */
 	boolean userExists(long userId);
+	
+	/** Get the userId of the authenticated user. */
+	long getAuthenticatedUser();
+
+	/** Get the identity of the authenticated user. */
+	String getAuthenticatedIdentity();
 }

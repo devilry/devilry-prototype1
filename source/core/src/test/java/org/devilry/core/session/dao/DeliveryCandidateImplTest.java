@@ -69,10 +69,11 @@ public class DeliveryCandidateImplTest extends AbstractDeliveryDaoTst {
 	
 	
 	@Test
-	public void getTimeOfDelivery() {
+	public void getTimeOfDelivery() throws InterruptedException {
+		Thread.sleep(10); // To avoid now and delivery from having same timestamp with the presision provided by sql timestamp. 
 		Date now = new Date();
 		Date delivery = deliveryCandidate.getTimeOfDelivery(deliveryCandidateId);
-		assert(now.after(delivery));
+		assertTrue(now.after(delivery));
 	}
 
 	@Test

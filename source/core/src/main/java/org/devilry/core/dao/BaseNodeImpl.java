@@ -23,9 +23,6 @@ public class BaseNodeImpl implements BaseNodeInterface {
 	@PersistenceContext(unitName = "DevilryCore")
 	protected EntityManager em;
 
-	@Resource
-	SessionContext sessionCtx;
-	
 	@EJB
 	UserLocal userBean;
 	
@@ -245,8 +242,7 @@ public class BaseNodeImpl implements BaseNodeInterface {
 	}
 
 	public List<Long> getNodesWhereIsAdmin() {
-		String identity = sessionCtx.getCallerPrincipal().getName();
-		long userId = userBean.findUser(identity);
+		long userId = userBean.getAuthenticatedUser();
 
 		Query q = em.createQuery("SELECT n.id FROM Node n INNER JOIN n.admins user WHERE user.id = :userId");
 		q.setParameter("userId", userId);

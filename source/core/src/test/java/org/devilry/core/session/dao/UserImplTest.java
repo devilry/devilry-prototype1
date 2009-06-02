@@ -190,4 +190,9 @@ public class UserImplTest extends AbstractDaoTst {
 		assertTrue(users.contains(testUser2));
 	}
 
+	
+//	@Test
+//	public void getAuthenticatedUser() {
+//		asser
+//	}
 }
