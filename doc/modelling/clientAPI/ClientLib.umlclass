@@ -122,7 +122,7 @@
     </children>
     <styles xmi:type="notation:CanonicalStyle" xmi:id="_s7MtUU0gEd6EVaGVkLohsg"/>
     <element xmi:type="uml:Class" href="ClientLib.uml#_s6QSIE0gEd6EVaGVkLohsg"/>
-    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_s7MtUk0gEd6EVaGVkLohsg" x="848" y="400" width="177" height="129"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_s7MtUk0gEd6EVaGVkLohsg" x="832" y="400" width="177" height="129"/>
   </children>
   <children xmi:type="notation:Shape" xmi:id="_vM0KoE0gEd6EVaGVkLohsg" type="2001" fontName="Sans" fillColor="10265827">
     <children xmi:type="notation:DecorationNode" xmi:id="_vM0xsE0gEd6EVaGVkLohsg" type="5003">
