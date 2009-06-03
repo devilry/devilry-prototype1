@@ -23,11 +23,16 @@
 	</repositories>
 
 	<dependencies>
-        <dependency>
-            <groupId>devilry</groupId>
-            <artifactId>common</artifactId>
-            <version>0.1</version>
-        </dependency>
+		<dependency>
+			<groupId>devilry</groupId>
+			<artifactId>common</artifactId>
+			<version>0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>devilry</groupId>
+			<artifactId>core</artifactId>
+			<version>0.1</version>
+		</dependency>
 
 		<dependency>
 			<groupId>jstl</groupId>
@@ -35,12 +40,12 @@
 			<version>1.2</version>
 		</dependency>
 
-        <dependency>
-            <groupId>org.apache.openejb</groupId>
-            <artifactId>javaee-api</artifactId>
-            <version>${javaee-api-version}</version>
-			<scope>provided</scope>
-        </dependency>
+		<dependency>
+			<groupId>org.apache.openejb</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>${javaee-api-version}</version>
+<!--			<scope>provided</scope>-->
+		</dependency>
 	</dependencies>
 
 	<build>

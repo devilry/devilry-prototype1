@@ -4,22 +4,43 @@
 	<display-name>Devilry web interface</display-name>
 
 	<welcome-file-list>
-		<welcome-file>main.jsp</welcome-file>
+		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
 
+	<servlet>
+		<servlet-name>ShowAll</servlet-name>
+		<servlet-class>org.devilry.webcli.ShowAll</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>CreateTestData</servlet-name>
+		<servlet-class>org.devilry.webcli.CreateTestData</servlet-class>
+	</servlet>
 	<servlet>
 		<servlet-name>Main</servlet-name>
 		<jsp-file>/main.jsp</jsp-file>
 	</servlet>
-	<servlet-mapping>
-		<servlet-name>Main</servlet-name>
-		<url-pattern>/Main</url-pattern>
-	</servlet-mapping>
-
 	<servlet>
 		<servlet-name>Error</servlet-name>
 		<jsp-file>/error.jsp</jsp-file>
 	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CreateTestData</servlet-name>
+		<url-pattern>/CreateTestData</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ShowAll</servlet-name>
+		<url-pattern>/ShowAll</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ShowAll</servlet-name>
+		<url-pattern>/index.html</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Main</servlet-name>
+		<url-pattern>/Main</url-pattern>
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>Error</servlet-name>
 		<url-pattern>/Error</url-pattern>
