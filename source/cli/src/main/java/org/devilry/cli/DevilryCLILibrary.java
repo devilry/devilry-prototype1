@@ -131,12 +131,8 @@ public class DevilryCLILibrary {
             return new ArrayList<Long>();
         }
 
-
         DeliveryRemote delivery = getDelivery();
         long deliveryId = getDeliveryId(deliveryPath);
-
-        System.err.println("New delivery registered to " + deliveryPath);
-        System.err.println("Following files are added to new delivery id:" + deliveryId);
 
         DeliveryCandidateRemote deliveryCandidate = getDeliveryCandidate();
         long deliveryCandidateId = deliveryCandidate.create(deliveryId);
@@ -164,8 +160,7 @@ public class DevilryCLILibrary {
             byte[] fileData = FileUtil.getFileAsByteArray(f);
 
             long fileId = addFileToDelivery(deliveryCandidateId, filePath, fileData);
-            //System.err.println("File id:" + fileId + " size:"+ fileData.length + " " + filePath);
-            System.err.printf("File id:%5d size:%7d %s\n", + fileId, fileData.length, filePath);
+           System.err.printf("File id:%5d size:%7d %s\n", + fileId, fileData.length, filePath);
             fileIDs.add(fileId);
          }
 
@@ -177,8 +172,6 @@ public class DevilryCLILibrary {
         
     	DeliveryCandidateRemote deliveryCandidateNode = getDeliveryCandidate();
     	
-    	System.err.println("deliveryCandidateId:" + deliveryCandidateId);
-    	System.err.println("filePath:" + filePath);
     	long fileMetaId = deliveryCandidateNode.addFile(deliveryCandidateId, filePath);
     	
     	FileDataBlockRemote dataBlock = getFileDataBlock();
@@ -239,8 +232,6 @@ public class DevilryCLILibrary {
      */
     long getLastDeliveryCandidateId(String nodePath) throws Exception {
 
-    	System.err.println("getLastDeliveryCandidateFile:" + nodePath);
-
     	NodeRemote tm = getTreeManager();
     	AssignmentNodeRemote assignMent = getAssignmentNode();
 
@@ -252,8 +243,7 @@ public class DevilryCLILibrary {
     	}
 
     	DeliveryRemote delivery = getDelivery();
-    	System.err.println("delivery id:" + ids.get(0));
-
+   
     	List<Long> candidateIDs = delivery.getDeliveryCandidates(ids.get(0));
 
     	if (candidateIDs.size() < 0) {
@@ -262,8 +252,6 @@ public class DevilryCLILibrary {
     	}
 
     	long cID = candidateIDs.get(candidateIDs.size() -1);
-
-    	System.err.println("CandidateID:" + cID);
 
     	return cID;
     }
@@ -277,8 +265,6 @@ public class DevilryCLILibrary {
      */
     long getDeliveryCandidateId(String nodePath, long candidateID) throws Exception {
 
-    	System.err.println("getLastDeliveryCandidateFile:" + nodePath);
-
     	NodeRemote tm = getTreeManager();
     	AssignmentNodeRemote assignMent = getAssignmentNode();
 
@@ -290,8 +276,7 @@ public class DevilryCLILibrary {
     	}
 
     	DeliveryRemote delivery = getDelivery();
-    	System.err.println("delivery id:" + IDs.get(0));
-
+    
     	List<Long> candidateIDs = delivery.getDeliveryCandidates(IDs.get(0));
 
     	if (candidateIDs.size() < 0) {
@@ -303,8 +288,6 @@ public class DevilryCLILibrary {
     		System.err.println("The provided ID (" + candidateID + ") is not valid!");
     		return -1;
     	}
-
-    	System.err.println("CandidateID:" + candidateID);
 
     	return candidateID;
     }
@@ -318,13 +301,10 @@ public class DevilryCLILibrary {
        */
       List<String> getDeliveryCandidatesList(String nodePath) throws Exception {
 
-        System.err.println("getDeliveryCandidatesList:" + nodePath);
-
         NodeRemote tm = getTreeManager();
 
         AssignmentNodeRemote assignMent = getAssignmentNode();
-        System.err.println("tm.getNodeIdFromPath(nodePath):" + tm.getNodeIdFromPath(nodePath));
-
+      
         long nodeID = tm.getNodeIdFromPath(nodePath);
 
         if (nodeID == -1) {
@@ -340,8 +320,7 @@ public class DevilryCLILibrary {
         }
 
         DeliveryRemote delivery = getDelivery();
-        System.err.println("delivery id:" + ids.get(0));
-
+      
         List<Long> candidateIDs = delivery.getDeliveryCandidates(ids.get(0));
 
         if (candidateIDs.size() < 0) {
@@ -354,20 +333,69 @@ public class DevilryCLILibrary {
 
         for (long cID : candidateIDs) {
 
-           // System.err.println("CandidateID:" + cID);
-
         	DeliveryCandidateRemote remoteBean = getDeliveryCandidate();
             List<Long> fileIDs = remoteBean.getFiles(cID);
 
             fileNames.add("Candidate " + cID + " with " +fileIDs.size()+ " files  handed in " + remoteBean.getTimeOfDelivery(cID) );
-                       
-            //System.err.println("Time:" + remoteBean.getTimeOfDelivery(cID).getTime());
         }
 
         return fileNames;
 
     }
 
+      
+      /**
+       * Returns a list of all the files for all delivery candidates
+       * @param nodePath
+       * @return
+       * @throws java.lang.Exception
+       */
+      List<String> getPeriodList() throws Exception {
+
+          NodeRemote tm = getTreeManager();
+
+          PeriodNodeLocal periodBean = getPeriodNode();
+                   
+          List<Long> periodIds = periodBean.getPeriodsWhereIsStudent();
+          
+          System.err.println("period counnt:" + periodIds.size());
+          
+          List<String> periods = new ArrayList<String>();
+
+          for (long cID : periodIds) {
+        	  String path = periodBean.getPath(cID);
+        	  periods.add(path);
+          }
+
+          return periods;
+      }
+      
+      
+      /**
+       * Returns a list of all the files for all delivery candidates
+       * @param nodePath
+       * @return
+       * @throws java.lang.Exception
+       */
+      List<String> getAssignmentList() throws Exception {
+
+          NodeRemote tm = getTreeManager();
+
+          DeliveryRemote deliveryBean = getDelivery();
+                   
+          List<Long> deliveryIds = deliveryBean.getDeliveriesWhereIsStudent();
+          
+          List<String> periods = new ArrayList<String>();
+
+          for (long cID : deliveryIds) {
+        	  long assigmentId = deliveryBean.getAssignment(cID);
+        	  String path = getAssignmentNode().getPath(assigmentId);
+        	  periods.add(path);
+          }
+
+          return periods;
+      }
+      
 
     /**
      * Returns a list of all the files for all delivery candidates
@@ -377,14 +405,10 @@ public class DevilryCLILibrary {
      */
     List<String> getDeliveryCandidateFileList(String nodePath) throws Exception {
 
-        System.err.println("getDeliveryCandidateFiles:" + nodePath);
-
         NodeRemote tm = getTreeManager();
 
         long nodeID = tm.getNodeIdFromPath(nodePath);
-        
-        System.err.println("tm.getNodeIdFromPath(nodePath):" + nodeID);
-
+       
         if (nodeID == -1) {
             log.warning("No valid id for nodepath " + nodePath);
             return new ArrayList<String>();
@@ -400,8 +424,7 @@ public class DevilryCLILibrary {
         }
 
         DeliveryRemote delivery = getDelivery();
-        System.err.println("delivery id:" + ids.get(0));
-
+     
         List<Long> candidateIDs = delivery.getDeliveryCandidates(ids.get(0));
 
         if (candidateIDs.size() < 0) {
@@ -414,15 +437,11 @@ public class DevilryCLILibrary {
 
         for (long cID : candidateIDs) {
 
-           // System.err.println("CandidateID:" + cID);
-
         	DeliveryCandidateRemote remoteBean = getDeliveryCandidate();
         	
             List<Long> fileIDs = remoteBean.getFiles(cID);
 
             for (long fID : fileIDs) {
-
-                //System.err.println("Candidate " +cID + " FileID:" + fID);
             	FileMetaRemote remoteFileBean = getFileMeta();
             	fileNames.add("Candidate " + cID + ":" + remoteFileBean.getFilePath(fID));
             }
@@ -491,12 +510,32 @@ public class DevilryCLILibrary {
             }
             
             try {
+                nodeName = "inf1010";
+                CourseNodeLocal courseNode = getCourseNode();
+                long courseId = courseNode.create(nodeName, "Second programming course.", tm.getNodeIdFromPath("uio"));
+                
+            } catch (Exception e) {
+             System.err.println("Exception when adding test node " + nodeName);
+            }
+            
+            try {
                 nodeName = "spring2009";
                 PeriodNodeLocal periodNode = getPeriodNode();
                 long periodId = periodNode.create(nodeName, nodeName, 
                 		new GregorianCalendar(2009, 1, 1).getTime(), 
                 		new GregorianCalendar(2009, 6, 15).getTime(), 
                 		tm.getNodeIdFromPath("uio.inf1000"));
+            } catch (Exception e) {
+                 System.err.println("Exception when adding test node " + nodeName);
+            }
+            
+            try {
+                nodeName = "spring2009";
+                PeriodNodeLocal periodNode = getPeriodNode();
+                long periodId = periodNode.create(nodeName, nodeName, 
+                		new GregorianCalendar(2009, 1, 1).getTime(), 
+                		new GregorianCalendar(2009, 6, 15).getTime(), 
+                		tm.getNodeIdFromPath("uio.inf1010"));
             } catch (Exception e) {
                  System.err.println("Exception when adding test node " + nodeName);
             }
@@ -522,7 +561,19 @@ public class DevilryCLILibrary {
             } catch (Exception e) {
                  System.err.println("Exception when adding test node " + nodeName);
             }
+            
+            try {
+                nodeName = "oblig3";
+                AssignmentNodeLocal assignmentNode = getAssignmentNode();
+                long assignmentId = assignmentNode.create(nodeName, "Obligatory assignment 1", 
+                		new GregorianCalendar(2009, 1, 1).getTime(), 
+                		tm.getNodeIdFromPath("uio.inf1010.spring2009"));
+                
+            } catch (Exception e) {
+                 System.err.println("Exception when adding test node " + nodeName);
+            }
 
+           // tm.getNodeIdFromPath("uio.inf1010.spring2009.oblig1");
 
         } catch (Exception ex) {
             Logger.getLogger(DevilryCLILibrary.class.getName()).log(Level.SEVERE, null, ex);
@@ -557,39 +608,38 @@ public class DevilryCLILibrary {
     		userBean.addIdentity(userId, user);
     		    		
     		NodeRemote tm = getTreeManager();
+    		String nodeName = "uio.inf1000.spring2009";
     		
-    		long nodeId = tm.getNodeIdFromPath("uio.inf1000.spring2009");
+    		long periodId = tm.getNodeIdFromPath(nodeName);
+    		addStudentToPeriod(periodId, userId);
+    		System.err.println("Adding " + user + " to " + nodeName);
     		
-    		try {
-    			getPeriodNode().addStudent(nodeId, userId);
-    		} catch (Exception e) {
-    			e.printStackTrace();
-    		}
-    		
-    		long assignmentId = tm.getNodeIdFromPath("uio.inf1000.spring2009.oblig1");
-    		System.err.println("nodeId (oblig1):" + nodeId);
-    		    		
-    		//List<Long> deliveries = getAssignmentNode().getDeliveries(assignmentId);
-    		
-    		// Add delivery
+    		nodeName = "uio.inf1000.spring2009.oblig1";
+    		long assignmentId = tm.getNodeIdFromPath(nodeName);
+    		// Create delivery
     		long deliveryId = getDelivery().create(assignmentId);
-    		    		    		
-    		try {
-    			getDelivery().addStudent(deliveryId, userId);
-    		} catch (Exception e) {
-    			e.printStackTrace();
-    		}
+    		addStudentToDelivery(deliveryId, userId);
+    		System.err.println("Adding " + user + " to " + nodeName);    		
     		
-    		assignmentId = tm.getNodeIdFromPath("uio.inf1000.spring2009.oblig2");
-    		System.err.println("nodeId (oblig2):" + nodeId);
-    		
+    		nodeName = "uio.inf1000.spring2009.oblig2";
+    		assignmentId = tm.getNodeIdFromPath(nodeName);
     		deliveryId = getDelivery().create(assignmentId);
+    		addStudentToDelivery(deliveryId, userId);
+    		System.err.println("Adding " + user + " to " + nodeName);    	
     		
-    		try {
-    			getDelivery().addStudent(deliveryId, userId);
-    		} catch (Exception e) {
-    			e.printStackTrace();
-    		}
+    		
+    		nodeName = "uio.inf1010.spring2009";
+    		periodId = tm.getNodeIdFromPath(nodeName);
+    		addStudentToPeriod(periodId, userId);
+    		System.err.println("Adding " + user + " to " + nodeName);
+    		
+    		nodeName = "uio.inf1010.spring2009.oblig3";
+    		assignmentId = tm.getNodeIdFromPath(nodeName);
+    		// Create delivery
+    		deliveryId = getDelivery().create(assignmentId);
+    		addStudentToDelivery(deliveryId, userId);
+    		System.err.println("Adding " + user + " to " + nodeName);    	
+    		
     	}
     }
     
@@ -599,25 +649,20 @@ public class DevilryCLILibrary {
     	UserRemote userBean = getUser();
     	
     	System.err.println("Adding user " + user);
-    	
-    	System.err.println("user exists:" + userBean.identityExists(user));
-    	
+    	    	
     	if (!userBean.identityExists(user)) {
     		long userId = userBean.create("Name="+user, user+"@example.com", user + "-phone");
     		userBean.addIdentity(userId, user);
     		    		
     		NodeRemote tm = getTreeManager();
+    		String nodeName = "uio.inf1000.spring2009";
     		
-    		long nodeId = tm.getNodeIdFromPath("uio.inf1000.spring2009");
+    		long periodId = tm.getNodeIdFromPath(nodeName);
+    		addStudentToPeriod(periodId, userId);
+    		System.err.println("Adding " + user + " to " + nodeName);    	
     		
-    		try {
-    			getPeriodNode().addStudent(nodeId, userId);
-    		} catch (Exception e) {
-    			e.printStackTrace();
-    		}
-    		
-    		long assignmentId = tm.getNodeIdFromPath("uio.inf1000.spring2009.oblig1");
-    		System.err.println("nodeId (oblig1):" + nodeId);
+    		nodeName = "uio.inf1000.spring2009.oblig1";
+    		long assignmentId = tm.getNodeIdFromPath(nodeName);
     		    		
     		List<Long> deliveries = getAssignmentNode().getDeliveries(assignmentId);
     		
@@ -627,23 +672,41 @@ public class DevilryCLILibrary {
     			deliveries.add(id);
     		}
     		
-    		try {
-    			getDelivery().addStudent(deliveries.get(0), userId);
-    		} catch (Exception e) {
-    			e.printStackTrace();
+    		addStudentToDelivery(deliveries.get(0), userId);
+    		System.err.println("Adding " + user + " to " + nodeName);   	
+    		
+    		nodeName = "uio.inf1000.spring2009.oblig2";
+    		assignmentId = tm.getNodeIdFromPath(nodeName);
+    		
+    		deliveries = getAssignmentNode().getDeliveries(assignmentId);
+    		
+    		// Add delivery
+    		if (deliveries.size() == 0) {
+    			long id = getDelivery().create(assignmentId);
+    			deliveries.add(id);
     		}
     		
-    		nodeId = tm.getNodeIdFromPath("uio.inf1000.spring2009.oblig2");
-    		System.err.println("nodeId (oblig2):" + nodeId);
-    		
-    		try {
-    			getDelivery().addStudent(deliveries.get(0), userId);
-    		} catch (Exception e) {
-    			e.printStackTrace();
-    		}
+    		addStudentToDelivery(deliveries.get(0), userId);
+    		System.err.println("Adding " + user + " to " + nodeName);
     	}
     }
     
+    
+    public void addStudentToPeriod(long periodId, long userId) {
+    	try {
+			getPeriodNode().addStudent(periodId, userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
+    
+    public void addStudentToDelivery(long deliveryId, long userId) {
+    	try {
+			getDelivery().addStudent(deliveryId, userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
     
     public NodeRemote setUpTestTreeManager() throws NamingException, Exception {
 

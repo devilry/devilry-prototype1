@@ -130,12 +130,18 @@ public class RemoteClient {
              add(args);
          } else if (args[0].equalsIgnoreCase("devil")) {
              printDevil();
+         } else if (args[0].equalsIgnoreCase("devil2")) {
+             printDevil2();
          } else if (args[0].equalsIgnoreCase("addtestnodes")) {
              lib.addTestNodes();
              lib.addTestUsers(user);
+         } else if (args[0].equalsIgnoreCase("listperiods")) {
+        	 printPeriodList();
+         } else if (args[0].equalsIgnoreCase("listassignments")) {
+        	 printAssignmentList();
          }
          else if (args[0].equalsIgnoreCase("listCandidateFiles")) {
-            
+
             if (args.length < 2) {
                 System.out.println("id is missing, using default: uio.inf1000.spring2009.oblig1");
 
@@ -173,7 +179,7 @@ public class RemoteClient {
              String nodePath = defaultNodePath;
              String defaultOutputDir = "output";
 
-             if (args.length < 2) {
+             if (args.length < 3) {
                  System.out.println("node path is missing, using default " + nodePath);
                  System.out.println("outputdir is missing, using default " + defaultOutputDir);
 
@@ -192,6 +198,47 @@ public class RemoteClient {
         return true;
     }
 
+    public void printPeriodList() {
+
+    	try {
+    		List<String> periods = lib.getPeriodList();
+
+    		if (periods.size() == 0) {
+    			System.out.println("You are not registered on any courses.");
+    		}
+    		else {
+    			System.out.println("You are registered on the following courses:");
+
+    			for (String path : periods) {
+    				System.out.println(path);
+    			}
+    		}
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
+    }
+
+    public void printAssignmentList() {
+
+    	try {
+    		List<String> periods = lib.getAssignmentList();
+
+    		if (periods.size() == 0) {
+    			System.out.println("You are not registered with any assignments.");
+    		}
+    		else {
+    			System.out.println("You are registered with the following assignments:");
+
+    			for (String path : periods) {
+    				System.out.println(path);
+    			}
+    		}
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
+    }
+    
+    
     /*
     public void parseOptions(String[] args) {
 
@@ -289,9 +336,17 @@ public class RemoteClient {
         System.out.println(getDevil());
     }
 
+    void printDevil2() {
+        System.out.println(getDevil2());
+    }
+
+    
+    
     public void help() {
          System.out.println("Available commands:" + newLine +
-                                "    - add nodeTath      filename" + newLine +
+        		 				"    - listperiods" + newLine +
+        		 				"    - listassignments" + newLine +
+        		 				"    - add nodeTath      filename" + newLine +
                                 "    - listCandidates    nodePath" + newLine +
                                 "    - listCandiateFiles nodePath" + newLine +
                                 "    - getlastCandidatefile nodePath outputdir" + newLine +
@@ -306,21 +361,51 @@ public class RemoteClient {
     public String getDevil() {
 
         String devil =
-                "  (\\-\"````\"-/)" + newLine +
-                "  //^\\    /^\\\\" + newLine +
-                " ;/ ~_\\  /_~ \\;" + newLine +
-                " |  / \\\\// \\  |" + newLine +
-                "(,  \\0/  \\0/  ,)" + newLine +
-                " |   /    \\   |" + newLine +
-                " | (_\\.__./_) |" + newLine +
-                "  \\ \\-v..v-/ /" + newLine +
-                "   \\ `====' /" + newLine +
-                "    `\\\\\\///'" + newLine +
-                "     '\\\\//'" + newLine +
-                "       \\/";
+        		newLine +
+                "          (\\-\"````\"-/)" + newLine +
+                "          //^\\    /^\\\\" + newLine +
+                "         ;/ ~_\\  /_~ \\;" + newLine +
+                "         |  / \\\\// \\  |" + newLine +
+                "        (,  \\0/  \\0/  ,)" + newLine +
+                "         |   /    \\   |" + newLine +
+                "         | (_\\.__./_) |" + newLine +
+                "          \\ \\-v..v-/ /" + newLine +
+                "           \\ `====' /" + newLine +
+                "            `\\\\\\///'" + newLine +
+                "             '\\\\//'" + newLine +
+                "               \\/" + newLine;
 
         return devil;
     }
+    
+    public String getDevil2() {
+
+        String devil =
+        	newLine +
+        	"                  ,       ," + newLine +
+        	"                 /(       )`" + newLine +
+        	"                 \\ \\__   / |" + newLine +
+        	"                 /- _ `-/  '" + newLine +
+        	"                (/\\/ \\ \\   /\\"  + newLine +
+        	"                / /   | `    \\"   + newLine +
+        	"                O O   )      |"    + newLine +
+        	"                `-^--'`<     '" + newLine +
+        	"               (_.)  _ )    /  I'm just"  + newLine +
+        	"                `.___/`    /   a Wittle" + newLine +
+        	"                  `-----' /    Devil!!!"  + newLine +
+        	"        <----. __  / __   \\   " + newLine +
+        	"        <----|====O)))==) \\) /=============" + newLine +
+        	"        <----'    `--' `.__,' \\" + newLine +
+        	"                  |         |" + newLine +
+        	"                   \\       /  " + newLine +
+        	"               ____( (_   / \\______" + newLine +
+        	"               ,----'   |        \\ " + newLine +
+        	"             `--{__________)       \\/" + newLine;
+        	
+        return devil;
+    }
+    
+   
     
     public void getLastDelivery(String nodePath, String outputDir) {
 
@@ -370,9 +455,7 @@ public class RemoteClient {
      public void getCandidates(String nodePath) {
 
         try {
-
-        	System.err.println("lib:" + lib);
-        	
+	
             List<String> files = lib.getDeliveryCandidatesList(nodePath);
 
             if (files.size() == 0) {
@@ -416,39 +499,32 @@ public class RemoteClient {
         }
     }
 
-    
+
     public void addFile(String deliveryPath, File f, byte[] fileData) {
 
-        try {
+    	try {
 
-            long id = lib.addDeliveryFile(deliveryPath, f.getName(), fileData);
+    		long id = lib.addDeliveryFile(deliveryPath, f.getName(), fileData);
 
-            log.info("Added file " + f.getName() + " with id:" + id);
+    		log.info("Added file " + f.getName() + " with id:" + id);
 
-        } catch (Exception e) {
-            System.err.println("Exception:" + e.getMessage());
-            e.printStackTrace();
-        }
+    	} catch (Exception e) {
+    		System.err.println("Exception:" + e.getMessage());
+    		e.printStackTrace();
+    	}
     }
 
-     public void addDirectory(String deliveryPath, File dir) {
+    public void addDirectory(String deliveryPath, File dir) {
 
-        try {
+    	try {
+    		List<Long> fileIDs = lib.addDeliveryDir(deliveryPath, dir);
 
-            List<Long> fileIDs = lib.addDeliveryDir(deliveryPath, dir);
+    		log.info("Added directory " + dir.getName());
 
-           // long id = lib.addDeliveryFile(deliveryPath, f.getName(), fileData);
-
-            log.info("Added directory " + dir.getName());
-
-        } catch (Exception e) {
-            System.err.println("Exception:" + e.getMessage());
-            e.printStackTrace();
-        }
+    	} catch (Exception e) {
+    		System.err.println("Exception:" + e.getMessage());
+    		e.printStackTrace();
+    	}
     }
 
-  
-
-
-  
 }
