@@ -15,7 +15,11 @@ import java.util.logging.Logger;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+
+import org.devilry.core.dao.AssignmentNodeImpl;
 import org.devilry.core.dao.CourseNodeImpl;
+import org.devilry.core.dao.DeliveryCandidateImpl;
+import org.devilry.core.dao.DeliveryImpl;
 import org.devilry.core.dao.FileDataBlockImpl;
 import org.devilry.core.dao.FileMetaImpl;
 import org.devilry.core.dao.NodeImpl;
@@ -47,7 +51,11 @@ public class DevilryCLILibrary {
     
     public DevilryCLILibrary(String user, String password) throws Exception {
     	initializeServerConnection(user, password);
+    	
+    	
     }
+    
+    
     
     private void initializeServerConnection(String user, String password) throws Exception {
         log.info("initializeServerConnection");
@@ -503,13 +511,140 @@ public class DevilryCLILibrary {
             } catch (Exception e) {
                  System.err.println("Exception when adding test node " + nodeName);
             }
+            
+            try {
+                nodeName = "oblig2";
+                AssignmentNodeLocal assignmentNode = getAssignmentNode();
+                long assignmentId = assignmentNode.create(nodeName, "Obligatory assignment 2", 
+                		new GregorianCalendar(2009, 1, 1).getTime(), 
+                		tm.getNodeIdFromPath("uio.inf1000.spring2009"));
+                
+            } catch (Exception e) {
+                 System.err.println("Exception when adding test node " + nodeName);
+            }
 
 
         } catch (Exception ex) {
             Logger.getLogger(DevilryCLILibrary.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void addTestUsers(String user) {
 
+    	try {
+    		addTestUserWithSameDelivery("bart");
+    		addTestUserWithSameDelivery("lisa");
+
+    		addTestUser("homer");
+    		addTestUser("marge");
+    		    		
+    	} catch (Exception ex) {
+    		Logger.getLogger(DevilryCLILibrary.class.getName()).log(Level.SEVERE, null, ex);
+    	}
+    }
+    
+    
+    public void addTestUser(String user) throws Exception {
+    	
+    	UserRemote userBean = getUser();
+    	
+    	System.err.println("Adding user " + user);
+    	
+    	System.err.println("user exists:" + userBean.identityExists(user));
+    	
+    	if (!userBean.identityExists(user)) {
+    		long userId = userBean.create("Name="+user, user+"@example.com", user + "-phone");
+    		userBean.addIdentity(userId, user);
+    		    		
+    		NodeRemote tm = getTreeManager();
+    		
+    		long nodeId = tm.getNodeIdFromPath("uio.inf1000.spring2009");
+    		
+    		try {
+    			getPeriodNode().addStudent(nodeId, userId);
+    		} catch (Exception e) {
+    			e.printStackTrace();
+    		}
+    		
+    		long assignmentId = tm.getNodeIdFromPath("uio.inf1000.spring2009.oblig1");
+    		System.err.println("nodeId (oblig1):" + nodeId);
+    		    		
+    		//List<Long> deliveries = getAssignmentNode().getDeliveries(assignmentId);
+    		
+    		// Add delivery
+    		long deliveryId = getDelivery().create(assignmentId);
+    		    		    		
+    		try {
+    			getDelivery().addStudent(deliveryId, userId);
+    		} catch (Exception e) {
+    			e.printStackTrace();
+    		}
+    		
+    		assignmentId = tm.getNodeIdFromPath("uio.inf1000.spring2009.oblig2");
+    		System.err.println("nodeId (oblig2):" + nodeId);
+    		
+    		deliveryId = getDelivery().create(assignmentId);
+    		
+    		try {
+    			getDelivery().addStudent(deliveryId, userId);
+    		} catch (Exception e) {
+    			e.printStackTrace();
+    		}
+    	}
+    }
+    
+    
+    public void addTestUserWithSameDelivery(String user) throws Exception {
+    	
+    	UserRemote userBean = getUser();
+    	
+    	System.err.println("Adding user " + user);
+    	
+    	System.err.println("user exists:" + userBean.identityExists(user));
+    	
+    	if (!userBean.identityExists(user)) {
+    		long userId = userBean.create("Name="+user, user+"@example.com", user + "-phone");
+    		userBean.addIdentity(userId, user);
+    		    		
+    		NodeRemote tm = getTreeManager();
+    		
+    		long nodeId = tm.getNodeIdFromPath("uio.inf1000.spring2009");
+    		
+    		try {
+    			getPeriodNode().addStudent(nodeId, userId);
+    		} catch (Exception e) {
+    			e.printStackTrace();
+    		}
+    		
+    		long assignmentId = tm.getNodeIdFromPath("uio.inf1000.spring2009.oblig1");
+    		System.err.println("nodeId (oblig1):" + nodeId);
+    		    		
+    		List<Long> deliveries = getAssignmentNode().getDeliveries(assignmentId);
+    		
+    		// Add delivery
+    		if (deliveries.size() == 0) {
+    			long id = getDelivery().create(assignmentId);
+    			deliveries.add(id);
+    		}
+    		
+    		try {
+    			getDelivery().addStudent(deliveries.get(0), userId);
+    		} catch (Exception e) {
+    			e.printStackTrace();
+    		}
+    		
+    		nodeId = tm.getNodeIdFromPath("uio.inf1000.spring2009.oblig2");
+    		System.err.println("nodeId (oblig2):" + nodeId);
+    		
+    		try {
+    			getDelivery().addStudent(deliveries.get(0), userId);
+    		} catch (Exception e) {
+    			e.printStackTrace();
+    		}
+    	}
+    }
+    
+    
     public NodeRemote setUpTestTreeManager() throws NamingException, Exception {
 
     	NodeRemote tm = getTreeManager();
@@ -611,7 +746,7 @@ public class DevilryCLILibrary {
    
     
     public AssignmentNodeRemote getAssignmentNode() throws Exception {
-		return getRemoteBean(org.devilry.core.dao.AssignmentNodeImpl.class);
+		return getRemoteBean(AssignmentNodeImpl.class);
 	}
 	
 	public CourseNodeRemote getCourseNode() throws Exception {
@@ -619,11 +754,11 @@ public class DevilryCLILibrary {
 	}
 
 	public DeliveryCandidateRemote getDeliveryCandidate() throws Exception {
-		return getRemoteBean(org.devilry.core.dao.DeliveryCandidateImpl.class);
+		return getRemoteBean(DeliveryCandidateImpl.class);
 	}
 
 	public DeliveryRemote getDelivery() throws Exception {
-		return getRemoteBean(org.devilry.core.dao.DeliveryImpl.class);
+		return getRemoteBean(DeliveryImpl.class);
 	}
 
 	public FileDataBlockRemote getFileDataBlock() throws Exception {

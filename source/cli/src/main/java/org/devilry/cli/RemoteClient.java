@@ -28,6 +28,8 @@ public class RemoteClient {
 
     DevilryCLILibrary lib;
 
+    String user = "";
+    
 	public static void main (String args[]) throws Exception {
 
         if (args.length == 0) {
@@ -51,10 +53,16 @@ public class RemoteClient {
 			Scanner scan = new Scanner(System.in);
 			
 			System.out.print("Username:");
-			String user = scan.nextLine();
+			user = scan.nextLine();
+			
+			if (user.equals(""))
+				user = "homer";
 			
 			System.out.print("Password:");
 			String pass = scan.nextLine();
+			
+			if (pass.equals(""))
+				pass = "doh";
 						
 			lib = new DevilryCLILibrary(user, pass);
 		
@@ -81,7 +89,7 @@ public class RemoteClient {
 
             	//System.err.println(new Date());
             	
-                System.out.print("Devilry>");
+                System.out.print("Devilry "+user+">");
 
                 while (!scan.hasNextLine()) {
                     System.err.println("sleeping");
@@ -124,6 +132,7 @@ public class RemoteClient {
              printDevil();
          } else if (args[0].equalsIgnoreCase("addtestnodes")) {
              lib.addTestNodes();
+             lib.addTestUsers(user);
          }
          else if (args[0].equalsIgnoreCase("listCandidateFiles")) {
             
@@ -391,7 +400,7 @@ public class RemoteClient {
             List<String> files =lib.getDeliveryCandidateFileList(nodePath);
 
             if (files.size() == 0) {
-                System.out.print("No files in delivery for path " + nodePath);
+                System.out.println("No files in delivery for path " + nodePath);
             }
             else {
                 System.out.println("Files in delivery with path " + nodePath + ":");
