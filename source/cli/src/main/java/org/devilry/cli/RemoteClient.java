@@ -137,9 +137,11 @@ public class RemoteClient {
              lib.addTestUsers(user);
          } else if (args[0].equalsIgnoreCase("listperiods")) {
         	 printPeriodList();
+         } else if (args[0].equalsIgnoreCase("listassignments")) {
+        	 printAssignmentList();
          }
          else if (args[0].equalsIgnoreCase("listCandidateFiles")) {
-            
+
             if (args.length < 2) {
                 System.out.println("id is missing, using default: uio.inf1000.spring2009.oblig1");
 
@@ -216,6 +218,27 @@ public class RemoteClient {
     	}
     }
 
+    public void printAssignmentList() {
+
+    	try {
+    		List<String> periods = lib.getAssignmentList();
+
+    		if (periods.size() == 0) {
+    			System.out.println("You are not registered with any assignments.");
+    		}
+    		else {
+    			System.out.println("You are registered with the following assignments:");
+
+    			for (String path : periods) {
+    				System.out.println(path);
+    			}
+    		}
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
+    }
+    
+    
     /*
     public void parseOptions(String[] args) {
 
@@ -322,7 +345,8 @@ public class RemoteClient {
     public void help() {
          System.out.println("Available commands:" + newLine +
         		 				"    - listperiods" + newLine +
-                                "    - add nodeTath      filename" + newLine +
+        		 				"    - listassignments" + newLine +
+        		 				"    - add nodeTath      filename" + newLine +
                                 "    - listCandidates    nodePath" + newLine +
                                 "    - listCandiateFiles nodePath" + newLine +
                                 "    - getlastCandidatefile nodePath outputdir" + newLine +
