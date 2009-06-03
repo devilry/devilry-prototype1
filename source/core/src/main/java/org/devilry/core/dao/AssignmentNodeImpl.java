@@ -78,6 +78,14 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 		em.flush();
 		return node.getId();
 	}
+	
+	public boolean exists(long nodeId) {
+		try {
+			return getAssignmentNode(nodeId) != null;
+		} catch(ClassCastException e) {
+			return false;
+		}
+	}
 
 //	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 //	public void remove(long nodeId) {

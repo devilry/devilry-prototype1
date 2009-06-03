@@ -127,4 +127,10 @@ public class AssignmentNodeImplTest extends NodeImplTest {
 		super.remove();
 		assertFalse(node.exists(assignmentId));
 	}
+
+	@Test
+	public void exists() {
+		assertTrue(assignmentNode.exists(assignmentId));
+		assertFalse(assignmentNode.exists(uioId));
+	}
 }

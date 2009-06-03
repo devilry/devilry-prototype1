@@ -37,5 +37,16 @@ public class CourseNodeImpl extends BaseNodeImpl implements CourseNodeRemote, Co
 		q.setParameter("id", courseId);
 		return q.getResultList();
 	}
+	
+	private CourseNode getCourseNode(long courseId) {
+		return (CourseNode) getNode(courseId);
+	}
 
+	public boolean exists(long nodeId) {
+		try {
+			return getCourseNode(nodeId) != null;
+		} catch(ClassCastException e) {
+			return false;
+		}
+	}
 }

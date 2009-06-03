@@ -180,4 +180,10 @@ public class PeriodNodeImplTest extends NodeImplTest {
 		periodNode.addExaminer(periodId2, homerId);
 		assertEquals(2, periodNode.getPeriodsWhereIsExaminer().size());
 	}
+
+	@Test
+	public void exists() {
+		assertTrue(periodNode.exists(periodId));
+		assertFalse(periodNode.exists(uioId));
+	}
 }

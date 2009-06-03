@@ -62,8 +62,13 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 		return q.getResultList();
 	}
 
-	protected PeriodNode getPeriod(long periodId) {
-		return em.find(PeriodNode.class, periodId);
+
+	public boolean exists(long nodeId) {
+		try {
+			return getPeriodNode(nodeId) != null;
+		} catch(ClassCastException e) {
+			return false;
+		}
 	}
 
 	//
@@ -72,25 +77,25 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 
 	public List<Long> getStudents(long periodId) {
 		LinkedList<Long> l = new LinkedList<Long>();
-		for (User u : getPeriod(periodId).getStudents())
+		for (User u : getPeriodNode(periodId).getStudents())
 			l.add(u.getId());
 		return l;
 	}
 
 	public boolean isStudent(long periodId, long userId) {
-		return getPeriod(periodId).getStudents().contains(getUser(userId));
+		return getPeriodNode(periodId).getStudents().contains(getUser(userId));
 	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void addStudent(long periodId, long userId) {
-		PeriodNode n = getPeriod(periodId);
+		PeriodNode n = getPeriodNode(periodId);
 		n.getStudents().add(getUser(userId));
 		em.merge(n);
 	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void removeStudent(long periodId, long userId) {
-		PeriodNode n = getPeriod(periodId);
+		PeriodNode n = getPeriodNode(periodId);
 		n.getStudents().remove(getUser(userId));
 		em.merge(n);
 	}
@@ -109,25 +114,25 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 
 	public List<Long> getExaminers(long periodId) {
 		LinkedList<Long> l = new LinkedList<Long>();
-		for (User u : getPeriod(periodId).getExaminers())
+		for (User u : getPeriodNode(periodId).getExaminers())
 			l.add(u.getId());
 		return l;
 	}
 
 	public boolean isExaminer(long periodId, long userId) {
-		return getPeriod(periodId).getExaminers().contains(getUser(userId));
+		return getPeriodNode(periodId).getExaminers().contains(getUser(userId));
 	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void addExaminer(long periodId, long userId) {
-		PeriodNode n = getPeriod(periodId);
+		PeriodNode n = getPeriodNode(periodId);
 		n.getExaminers().add(getUser(userId));
 		em.merge(n);
 	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void removeExaminer(long periodId, long userId) {
-		PeriodNode n = getPeriod(periodId);
+		PeriodNode n = getPeriodNode(periodId);
 		n.getExaminers().remove(getUser(userId));
 		em.merge(n);
 	}

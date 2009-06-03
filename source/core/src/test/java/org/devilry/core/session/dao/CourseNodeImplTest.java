@@ -18,17 +18,18 @@ import org.devilry.core.session.*;
 
 public class CourseNodeImplTest extends NodeImplTest {
 	CourseNodeRemote courseNode;
+	long courseId;
 
 	@Before
 	public void setUp() throws NamingException {
 		super.setUp();
 		courseNode = getRemoteBean(CourseNodeImpl.class);
+		courseId = courseNode.create("inf1000", "Object oriented programming", matnatId);
 	}
 
 	@Test
 	public void getAllCourses() {
-		long id = courseNode.create("inf1000", "Object oriented programming", matnatId);
-		assertEquals(id, (long) courseNode.getAllCourses().get(0));
+		assertEquals(courseId, (long) courseNode.getAllCourses().get(0));
 		courseNode.create("inf1010", "More object oriented programming", matnatId);
 		List<Long> ids = courseNode.getAllCourses();
 		assertEquals(2, ids.size());
@@ -36,8 +37,13 @@ public class CourseNodeImplTest extends NodeImplTest {
 	
 	@Test
 	public void remove() {
-		long id = courseNode.create("inf1000", "Object oriented programming", matnatId);
 		super.remove();
-		assertFalse(node.exists(id));
+		assertFalse(node.exists(courseId));
+	}
+
+	@Test
+	public void exists() {
+		assertTrue(courseNode.exists(courseId));
+		assertFalse(courseNode.exists(uioId));
 	}
 }
