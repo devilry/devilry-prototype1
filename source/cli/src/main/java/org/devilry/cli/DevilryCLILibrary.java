@@ -782,10 +782,11 @@ public class DevilryCLILibrary {
 		Properties p = new Properties();
 		p.put(Context.INITIAL_CONTEXT_FACTORY,
 				"org.apache.openejb.client.RemoteInitialContextFactory");
-		p.put(Context.PROVIDER_URL, "ejbd://127.0.0.1:4201");
+//		p.put(Context.PROVIDER_URL, "ejbd://127.0.0.1:4201");
+		p.put(Context.PROVIDER_URL, "http://localhost:8080/openejb/ejb");
 		
-		p.put(Context.SECURITY_PRINCIPAL, user);
-		p.put(Context.SECURITY_CREDENTIALS, password);
+//		p.put(Context.SECURITY_PRINCIPAL, user);
+//		p.put(Context.SECURITY_CREDENTIALS, password);
 		
 		return new InitialContext(p);
 	}

@@ -119,10 +119,10 @@ public class ShowAll extends HttpServlet {
 	private void addFileMeta(StringBuffer b, long fileMetaId) {
 		String info = fileMeta.getFilePath(fileMetaId);
 		b.append("<div class='fileMeta'>");
-		b.append("<h2>" + info + "</h2>");
+		b.append("<h2>" + info + "</h2><pre>");
 		for (long id : fileMeta.getFileDataBlocks(fileMetaId))
 			addFileDataBlock(b, id);
-		b.append("</div>");
+		b.append("</pre></div>");
 	}
 
 	private void addFileDataBlock(StringBuffer b, long fileDataBlockId) {
