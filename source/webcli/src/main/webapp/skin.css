@@ -56,3 +56,57 @@ dt {
 	border: 2px solid red;
 	padding: 20px;
 }
+
+div#tree div {
+	margin: 10px 0 10px 30px;
+	border-color: #ccc;
+	border-style: solid;
+	border-width: 0 0 0 3px;
+	background-color: #eee;
+	padding: 3px 0 0 3px;
+}
+
+div#tree h2 {
+	font-size: 1.2em;
+	border-bottom: 3px solid #ccc;
+	margin-left: -3px;
+	padding: 3px;
+}
+
+
+
+div#tree div.subsection {
+	margin: 10px 0 10px 0;
+	padding: 0 0 0 30px;
+	border: none;
+}
+div#tree h3 {
+	font-style: italic;
+	border: none;
+	font-size: 1.0em;
+	margin-left: -30px;
+}
+
+div#tree div.deliveryCandidate {
+	margin-left: 0;
+}
+
+div#tree div.AssignmentNode {
+	margin-left: 0;
+}
+
+div#tree div.fileMeta {
+	border: 1px dashed #ccc;
+	padding: 0 5px 5px 5px;
+	background-color: #fff;
+	margin-left: 30px;
+	margin-bottom: 20px;
+}
+
+div#tree div.fileMeta h2 {
+	font-size: 1.0em;
+	font-style: italic;
+	border-bottom: 1px dashed #aaa;
+	background-color: #ccc;
+	margin: 0 -5px 10px -5px;
+}

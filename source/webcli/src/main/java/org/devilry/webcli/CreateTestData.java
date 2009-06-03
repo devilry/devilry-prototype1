@@ -91,7 +91,7 @@ public class CreateTestData extends HttpServlet {
 		long dc = deliveryCandidate.create(d3);
 		long fm1 = fileMeta.create(dc, "/homers secret notes.txt");
 		fileDataBlock.create(fm1, "look at bart!".getBytes());
-		long fm2 = fileMeta.create(dc, "/the answer");
+		long fm2 = fileMeta.create(dc, "/the_answer.txt");
 		fileDataBlock.create(fm2, "Lisa probably knows.. Or 42.".getBytes());
 
 		request.getRequestDispatcher("ShowAll").forward(request, response);

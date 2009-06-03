@@ -49,10 +49,9 @@ public class ShowAll extends HttpServlet {
 
 	@EJB
 	protected FileMetaRemote fileMeta;
-	
+
 	@EJB
 	protected FileDataBlockRemote fileDataBlock;
-
 
 	private void addNode(StringBuffer b, long nodeId) {
 		String t = "Node";
@@ -65,50 +64,65 @@ public class ShowAll extends HttpServlet {
 
 		String info = String.format("%s:%s (%s)", node.getName(nodeId), node
 				.getDisplayName(nodeId), t);
-		b.append(String.format("<dt class='%s'>%s</dt>", t, info));
-		b.append(String.format("<dd class='%s'><dl>", t));
+		b.append(String.format("<div class='%s'>", t));
+		b.append(String.format("<h2>%s</h2>", info));
+		
+		if(period.exists(nodeId)) {
+			createUserList(b, period.getStudents(nodeId), "Students");
+			createUserList(b, period.getExaminers(nodeId), "Examiners");
 
-		if (assignment.exists(nodeId)) {
-			for(long id: assignment.getDeliveries(nodeId))
+			b.append("<div class='subsection'>");
+			b.append("<h3>Assignments:</h3>");
+			for (long id : node.getChildren(nodeId))
+				addNode(b, id);			
+		} else if (assignment.exists(nodeId)) {
+			for (long id : assignment.getDeliveries(nodeId))
 				addDelivery(b, id);
 		} else {
 			for (long id : node.getChildren(nodeId))
 				addNode(b, id);
 		}
-		b.append("</dl></dd>");
+		b.append("</div>");
 	}
 
 	private void addDelivery(StringBuffer b, long deliveryId) {
-		b.append("<dt class='delivery'>delivery</dt>");
-		b.append("<dd class='delivery'><dl>");
+		b.append("<div class='delivery'>");
+		b.append("<h2>Delivery</h2>");
 
 		createUserList(b, delivery.getStudents(deliveryId), "Students");
 		createUserList(b, delivery.getExaminers(deliveryId), "Examiners");
-		b.append("<dt>Delivery candidates</dt>");
-		b.append("<dd><dl>");
-		for(long id: delivery.getDeliveryCandidates(deliveryId))
-			addDeliveryCandidate(b, id);
-		b.append("</dl></dd>");
 
-		b.append("</dl></dd>");
+		b.append("<div class='subsection'>");
+		b.append("<h3>Delivery candidates:</h3>");
+		List<Long> dc = delivery.getDeliveryCandidates(deliveryId);
+		if (dc.isEmpty())
+			b.append("none");
+		else {
+			for (long id : dc)
+				addDeliveryCandidate(b, id);
+		}
+		b.append("</div>");
+
+		b.append("</div>");
 	}
 
 	private void addDeliveryCandidate(StringBuffer b, long deliveryCandidateId) {
-		String info = deliveryCandidate.getTimeOfDelivery(deliveryCandidateId).toString();
-		b.append("<dt class='deliveryCandidate'>" + info + "</dt>");
-		b.append("<dd class='deliveryCandidate'><dl>");
-		for(long id: deliveryCandidate.getFiles(deliveryCandidateId))
+		String info = deliveryCandidate.getTimeOfDelivery(deliveryCandidateId)
+				.toString();
+		b.append("<div class='deliveryCandidate'>");
+		b.append("<h2>" + info + "</h2>");
+		for (long id : deliveryCandidate.getFiles(deliveryCandidateId))
 			addFileMeta(b, id);
-		b.append("</dl></dd>");
+		b.append("</div>");
 	}
 
 	private void addFileMeta(StringBuffer b, long fileMetaId) {
 		String info = fileMeta.getFilePath(fileMetaId);
-		b.append("<dt class='fileMeta'>" + info + "</dt>");
-		b.append("<dd class='fileMeta'>");
-		for(long id: fileMeta.getFileDataBlocks(fileMetaId))
+		b.append("<div class='fileMeta'>");
+		b.append("<h2>" + info + "</h2>");
+		for (long id : fileMeta.getFileDataBlocks(fileMetaId))
 			addFileDataBlock(b, id);
-		b.append("</dd>");		
+		b.append("</div>");
 	}
 
 	private void addFileDataBlock(StringBuffer b, long fileDataBlockId) {
@@ -117,16 +131,41 @@ public class ShowAll extends HttpServlet {
 	}
 
 	private void createUserList(StringBuffer b, List<Long> students, String head) {
-		b.append("<dt>" + head + ":</dt>");
-		b.append("<dd>");
+		b.append("<div class='subsection'>");
+		b.append("<h3>" + head + ":</h3>");
 		String sep = "";
-		for(long userId: students) {
+		for (long userId : students) {
 			b.append(sep + user.getName(userId));
 			sep = ", ";
 		}
-		if(sep.equals(""))
+		if (sep.equals(""))
 			b.append("none");
-		b.append("</dd>");
+		b.append("</div>");
+	}
+	
+	private void addUsers(StringBuffer b) {
+		b.append("<div class='users'>");
+		b.append("<h2>Users</h2>");
+		for(long userId: user.getUsers())
+			addUser(b, userId);
+		b.append("</div>");
+	}
+
+	private void addUser(StringBuffer b, long userId) {
+		b.append(String.format("<div class='user'><h2>%s</h2>", user.getName(userId)));
+		b.append(String.format("<div class='subsection'><h3>Email</h3>%s</div>", user.getEmail(userId)));
+		b.append(String.format("<div class='subsection'><h3>Phone number</h3>%s</div>", user.getPhoneNumber(userId)));
+		
+		String sep = "";
+		String identities = "";
+		for(String id: user.getIdentities(userId)) {
+			identities += sep + id;
+			sep = ", ";
+		}
+		if(identities.equals(""))
+			identities = "none";
+		b.append(String.format("<div class='subsection'><h3>Identities</h3>%s</div>", identities));
+		b.append("</div>");
 	}
 
 	@Override
@@ -134,11 +173,12 @@ public class ShowAll extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		StringBuffer b = new StringBuffer();
-		b.append("<dl>");
+		b.append("<div id='tree'>");
+		addUsers(b);
 		for (long nodeId : node.getToplevelNodes()) {
 			addNode(b, nodeId);
 		}
-		b.append("</dl>");
+		b.append("</div>");
 		request.setAttribute("all", b.toString());
 		request.getRequestDispatcher("Main").forward(request, response);
 	}
