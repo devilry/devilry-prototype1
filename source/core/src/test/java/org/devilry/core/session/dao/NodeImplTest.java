@@ -126,4 +126,14 @@ public class NodeImplTest extends AbstractNodeDaoTst {
 		node.addAdmin(matnatId, homerId);
 		assertEquals(2, node.getNodesWhereIsAdmin().size());
 	}
+	
+	@Test(expected=Exception.class)
+	public void createDuplicateChild() {
+		node.create("matnat", "aaaa", uioId);
+	}
+
+	@Test(expected=Exception.class)
+	public void createDuplicateToplevel() {
+		node.create("uio", "aaaa");
+	}
 }
