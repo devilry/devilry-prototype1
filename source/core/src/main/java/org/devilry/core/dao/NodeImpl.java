@@ -19,6 +19,9 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public long create(String name, String displayName) {
+		if(getNodeIdFromPath(name) != -1) {
+			throw new RuntimeException("Node name must be unique on toplevel nodes.");
+		}
 		Node node = new Node();
 		node.setName(name.toLowerCase());
 		node.setDisplayName(displayName);
