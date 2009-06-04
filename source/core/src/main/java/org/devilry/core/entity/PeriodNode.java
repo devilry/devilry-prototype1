@@ -16,7 +16,6 @@ import javax.persistence.TemporalType;
 @DiscriminatorValue("PN")
 public class PeriodNode extends BaseNode {
 	@ManyToOne(fetch = FetchType.LAZY)
-	@Column(name = "parent")
 	private CourseNode course;
 
 	@Temporal(TemporalType.TIMESTAMP)

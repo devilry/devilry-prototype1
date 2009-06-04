@@ -1,5 +1,11 @@
 package org.devilry.core.session.dao;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+
 import javax.naming.NamingException;
 
 import org.devilry.core.dao.NodeImpl;
@@ -8,6 +14,7 @@ import org.devilry.core.daointerfaces.NodeRemote;
 import org.devilry.core.daointerfaces.UserLocal;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 
 public class AbstractNodeDaoTst extends AbstractDaoTst {
 	protected NodeRemote node;
@@ -27,5 +34,83 @@ public class AbstractNodeDaoTst extends AbstractDaoTst {
 			node.remove(nodeId);
 		for(long userId: userBean.getUsers())
 			userBean.remove(userId);
+	}
+
+	
+	@Test
+	public void getName() {
+		assertEquals("uio", node.getName(uioId));
+		assertEquals("matnat", node.getName(matnatId));
+	}
+
+	@Test
+	public void getDisplayName() {
+		assertEquals("Faculty of Mathematics", node.getDisplayName(matnatId));
+	}
+
+	@Test
+	public void setName() {
+		node.setName(matnatId, "newname");
+		assertEquals("newname", node.getName(matnatId));
+	}
+
+	@Test
+	public void setDisplayName() {
+		node.setDisplayName(matnatId, "newdisp");
+		assertEquals("newdisp", node.getDisplayName(matnatId));
+	}
+	
+	
+	@Test
+	public void exists() {
+		assertTrue(node.exists(uioId));
+		assertTrue(node.exists(matnatId));
+		assertFalse(node.exists(uioId + matnatId));
+	}
+
+
+	@Test
+	public void remove() {
+		node.remove(uioId);
+		assertFalse(node.exists(uioId));
+		assertFalse(node.exists(matnatId));
+	}
+	
+	
+	@Test
+	public void getChildren() {
+		List<Long> children = node.getChildren(uioId);
+		assertEquals(1, children.size());
+		assertEquals(matnatId, (long) children.get(0));
+
+		node.create("hf", "Huma....", uioId);
+		assertEquals(2, node.getChildren(uioId).size());
+	}
+
+	
+
+	@Test
+	public void isAdmin() {
+		assertFalse(node.isAdmin(uioId, homerId));
+		node.addAdmin(uioId, homerId);
+		assertTrue(node.isAdmin(uioId, homerId));
+	}
+
+	@Test
+	public void addAdmin() {
+		node.addAdmin(uioId, homerId);
+		assertTrue(node.isAdmin(uioId, homerId));
+
+		assertEquals(1, node.getAdmins(uioId).size());
+		node.addAdmin(uioId, homerId);
+		assertEquals(1, node.getAdmins(uioId).size());
+	}
+
+	@Test
+	public void removeAdmin() {
+		node.addAdmin(uioId, homerId);
+		node.removeAdmin(uioId, homerId);
+		assertFalse(node.isAdmin(uioId, homerId));
+		assertTrue(userBean.userExists(homerId)); // make sure the user is not removed from the system as well!
 	}
 }

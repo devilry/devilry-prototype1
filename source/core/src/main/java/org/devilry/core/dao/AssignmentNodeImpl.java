@@ -19,7 +19,7 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 
 	
 	private AssignmentNode getAssignmentNode(long nodeId) {
-		return (AssignmentNode) getNode(nodeId);
+		return getNode(AssignmentNode.class, nodeId);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -73,7 +73,7 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 		node.setName(name.toLowerCase());
 		node.setDisplayName(displayName);
 		node.setDeadline(deadline);
-		node.setParent(getNode(parentId));
+		node.setPeriod(getNode(PeriodNode.class, parentId));
 		em.persist(node);
 		em.flush();
 		return node.getId();
@@ -87,11 +87,21 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 		}
 	}
 
-//	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-//	public void remove(long nodeId) {
-//		// TODO: Find out why this also deletes Delivery objects with this assignment as parent!
-//		Query q = em.createQuery("DELETE FROM Node n WHERE n.id = :id");
-//		q.setParameter("id", nodeId);
-//		q.executeUpdate();
-//	}
+	public List<Long> getAssignmentsWhereIsAdmin() {
+		return getNodesWhereIsAdmin(AssignmentNode.class);
+	}
+
+	public long getPeriod(long nodeId) {
+		return getAssignmentNode(nodeId).getPeriod().getId();
+	}
+
+	public long getNodeIdFromPath(String path) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public String getPath(long nodeId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

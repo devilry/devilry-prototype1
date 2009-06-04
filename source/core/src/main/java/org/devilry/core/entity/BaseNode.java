@@ -16,7 +16,6 @@ import javax.persistence.ManyToMany;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "nodeType", discriminatorType = DiscriminatorType.STRING)
-@DiscriminatorValue("N")
 public abstract class BaseNode implements java.io.Serializable {
 	@Id
 	@GeneratedValue

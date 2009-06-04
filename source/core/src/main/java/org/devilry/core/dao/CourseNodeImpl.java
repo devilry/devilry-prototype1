@@ -19,7 +19,7 @@ public class CourseNodeImpl extends BaseNodeImpl implements CourseNodeRemote, Co
 		CourseNode node = new CourseNode();
 		node.setName(name.toLowerCase());
 		node.setDisplayName(displayName);
-		node.setParent(getNode(parentId));
+		node.setParent(getNode(Node.class, parentId));
 		em.persist(node);
 		em.flush();
 		return node.getId();
@@ -39,14 +39,32 @@ public class CourseNodeImpl extends BaseNodeImpl implements CourseNodeRemote, Co
 	}
 	
 	private CourseNode getCourseNode(long courseId) {
-		return (CourseNode) getNode(courseId);
+		return getNode(CourseNode.class, courseId);
 	}
 
-	public boolean exists(long nodeId) {
+	public boolean exists(long courseId) {
 		try {
-			return getCourseNode(nodeId) != null;
+			return getCourseNode(courseId) != null;
 		} catch(ClassCastException e) {
 			return false;
 		}
+	}
+
+	public long getParent(long courseId) {
+		return getCourseNode(courseId).getParent().getId();
+	}
+
+	public long getNodeIdFromPath(String path) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public String getPath(long nodeId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<Long> getCoursesWhereIsAdmin() {
+		return getNodesWhereIsAdmin(CourseNode.class);
 	}
 }

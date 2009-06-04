@@ -43,7 +43,6 @@ public abstract class BaseNodeImpl implements BaseNodeInterface {
 		return em.find(nodeEntityClass, nodeId);
 	}
 
-
 	public boolean exists(long nodeId) {
 		return getBaseNode(nodeId) != null;
 	}
@@ -111,7 +110,6 @@ public abstract class BaseNodeImpl implements BaseNodeInterface {
 		q.executeUpdate();
 	}
 
-
 	// /////////////////////////////////
 	// Admins operations
 	// /////////////////////////////////
@@ -155,12 +153,9 @@ public abstract class BaseNodeImpl implements BaseNodeInterface {
 	 */
 	protected List<Long> getNodesWhereIsAdmin(Class<?> nodeEntityClass) {
 		long userId = userBean.getAuthenticatedUser();
-
-		Query q = em
-				.createQuery(String
-						.format(
-								"SELECT n.id FROM %s n INNER JOIN n.admins user WHERE user.id = :userId",
-								nodeEntityClass.getSimpleName()));
+		String query = "SELECT n.id FROM %s n INNER JOIN n.admins user WHERE user.id = :userId";
+		Query q = em.createQuery(String.format(query, nodeEntityClass
+				.getSimpleName()));
 		q.setParameter("userId", userId);
 		return q.getResultList();
 	}

@@ -8,7 +8,6 @@ import org.devilry.core.entity.*;
 @DiscriminatorValue("CN")
 public class CourseNode extends BaseNode {
 	@ManyToOne(fetch = FetchType.LAZY)
-	@Column(name = "parent")
 	private Node parent;
 
 	public void setParent(Node parent) {

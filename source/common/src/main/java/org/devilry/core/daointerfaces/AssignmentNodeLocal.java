@@ -5,6 +5,33 @@ import java.util.List;
 
 public interface AssignmentNodeLocal extends BaseNodeInterface {
 	
+	/** Create a new assignment node.
+	 * 
+	 * @param name
+	 * @param displayName
+	 * @param deadline
+	 * @param parentId
+	 * @return
+	 */
+	public long create(String name, String displayName, Date deadline, long parentId);
+
+	/** Get the period owning this assignment. */
+	long getPeriod(long nodeId);
+	
+	/**
+	 * Get the deadline for this assignment
+	 * @param nodeId
+	 * @return the date/time of the deadline.
+	 */
+	public Date getDeadline(long nodeId);
+	
+	/**
+	 * Set the deadline for this assignment
+	 * @param nodeId
+	 * @param deadline The date/time of the deadline.
+	 */
+	public void setDeadline(long nodeId, Date deadline);
+	
 	/**
 	 * Get deliveries 
 	 * @param nodeId
@@ -25,28 +52,11 @@ public interface AssignmentNodeLocal extends BaseNodeInterface {
 	 * @return
 	 */
 	public List<Long> getDeliveriesWhereIsExaminer(long assignmentId);
-	
-	/**
-	 * Get the deadline for this assignment
-	 * @param nodeId
-	 * @return the date/time of the deadline.
-	 */
-	public Date getDeadline(long nodeId);
 
-	/**
-	 * Set the deadline for this assignment
-	 * @param nodeId
-	 * @param deadline The date/time of the deadline.
-	 */
-	public void setDeadline(long nodeId, Date deadline);
 
-	/** Create a new assignment node.
+	/** Get a list of assignments where the authenticated user is admin.
 	 * 
-	 * @param name
-	 * @param displayName
-	 * @param deadline
-	 * @param parentId
-	 * @return
-	 */
-	public long create(String name, String displayName, Date deadline, long parentId);
+	 * @return List of assignment-ids.
+	 * */
+	List<Long> getAssignmentsWhereIsAdmin();
 }

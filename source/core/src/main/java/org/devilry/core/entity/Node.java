@@ -11,7 +11,6 @@ import java.util.Set;
 @DiscriminatorValue("N")
 public class Node extends BaseNode {
 	@ManyToOne(fetch = FetchType.LAZY)
-	@Column(name = "parent")
 	private Node parent;
 
 	public Node() {

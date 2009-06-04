@@ -16,7 +16,7 @@ import org.devilry.core.entity.*;
 public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 		PeriodNodeLocal {
 	protected PeriodNode getPeriodNode(long nodeId) {
-		return (PeriodNode) getNode(nodeId);
+		return getNode(PeriodNode.class, nodeId);
 	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
@@ -27,7 +27,7 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 		node.setDisplayName(displayName);
 		node.setStartDate(start);
 		node.setEndDate(end);
-		node.setParent(getNode(parentId));
+		node.setCourse(getNode(CourseNode.class, parentId));
 		em.persist(node);
 		em.flush();
 		return node.getId();
@@ -143,5 +143,23 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 				.createQuery("SELECT p.id FROM PeriodNode p INNER JOIN p.examiners ex WHERE ex.id = :userId");
 		q.setParameter("userId", userId);
 		return q.getResultList();
+	}
+
+	public long getCourse(long periodId) {
+		return getPeriodNode(periodId).getCourse().getId();
+	}
+
+	public List<Long> getPeriodsWhereIsAdmin() {
+		return getNodesWhereIsAdmin(PeriodNode.class);
+	}
+
+	public long getNodeIdFromPath(String path) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public String getPath(long nodeId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

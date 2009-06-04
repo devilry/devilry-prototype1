@@ -8,6 +8,9 @@ import javax.persistence.*;
 @DiscriminatorValue("AN")
 public class AssignmentNode extends BaseNode {
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	private PeriodNode period;
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date deadline;
 
@@ -20,5 +23,13 @@ public class AssignmentNode extends BaseNode {
 
 	public void setDeadline(Date deadline) {
 		this.deadline = deadline;
+	}
+
+	public void setPeriod(PeriodNode period) {
+		this.period = period;
+	}
+
+	public PeriodNode getPeriod() {
+		return period;
 	}
 }

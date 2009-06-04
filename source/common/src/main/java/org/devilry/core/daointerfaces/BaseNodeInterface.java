@@ -13,7 +13,6 @@ public interface BaseNodeInterface {
 	List<Long> getChildren(long nodeId);
 
 	void remove(long nodeId);
-	long getParent(long nodeId);
 	boolean exists(long nodeId);
 
 	long getNodeIdFromPath(String path);
@@ -41,10 +40,4 @@ public interface BaseNodeInterface {
 	 * @param userId The unique number identifying an existing user.
 	 */
 	void removeAdmin(long nodeId, long userId);
-
-	/** Get a list of nodes where the authenticated user is admin.
-	 * 
-	 * @return List of user-ids.
-	 * */
-	List<Long> getNodesWhereIsAdmin();
 }
