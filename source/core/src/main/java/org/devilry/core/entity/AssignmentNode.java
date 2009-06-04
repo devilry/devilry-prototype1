@@ -6,11 +6,11 @@ import javax.persistence.*;
 
 @Entity
 @DiscriminatorValue("AN")
-public class AssignmentNode extends Node {
-	
-	@Temporal(TemporalType.DATE)
+public class AssignmentNode extends BaseNode {
+
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date deadline;
-	
+
 	public AssignmentNode() {
 	}
 

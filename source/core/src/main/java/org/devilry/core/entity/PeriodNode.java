@@ -14,11 +14,10 @@ import javax.persistence.TemporalType;
 
 @Entity
 @DiscriminatorValue("PN")
-public class PeriodNode extends Node {
-	@ManyToOne(fetch=FetchType.LAZY)
-	@Column(name="parent")
+public class PeriodNode extends BaseNode {
+	@ManyToOne(fetch = FetchType.LAZY)
+	@Column(name = "parent")
 	private CourseNode course;
-
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date startDate;
@@ -26,14 +25,14 @@ public class PeriodNode extends Node {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date endDate;
 
-	@ManyToMany(cascade={})
+	@ManyToMany(cascade = {})
 	private Set<User> students;
 
-	@ManyToMany(cascade={})
+	@ManyToMany(cascade = {})
 	private Set<User> examiners;
-	
+
 	public PeriodNode() {
-	
+
 	}
 
 	public Date getStartDate() {
@@ -51,7 +50,7 @@ public class PeriodNode extends Node {
 	public void setEndDate(Date end) {
 		this.endDate = end;
 	}
-	
+
 	public void setStudents(Set<User> students) {
 		this.students = students;
 	}
@@ -76,4 +75,3 @@ public class PeriodNode extends Node {
 		return course;
 	}
 }
-

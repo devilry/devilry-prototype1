@@ -14,22 +14,21 @@ import javax.persistence.InheritanceType;
 import javax.persistence.ManyToMany;
 
 @Entity
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="nodeType", discriminatorType=DiscriminatorType.STRING)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "nodeType", discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("N")
 public abstract class BaseNode implements java.io.Serializable {
 	@Id
 	@GeneratedValue
 	private long id;
 
-	@Column(name="name")
+	@Column(name = "name")
 	private String name;
 
 	private String displayName;
 
-	@ManyToMany(cascade={})
+	@ManyToMany(cascade = {})
 	private Set<User> admins;
-
 
 	public BaseNode() {
 
