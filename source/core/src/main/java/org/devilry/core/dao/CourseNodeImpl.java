@@ -67,4 +67,8 @@ public class CourseNodeImpl extends BaseNodeImpl implements CourseNodeRemote, Co
 	public List<Long> getCoursesWhereIsAdmin() {
 		return getNodesWhereIsAdmin(CourseNode.class);
 	}
+
+	public void remove(long nodeId) {
+		// TODO Auto-generated method stub		
+	}
 }

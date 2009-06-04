@@ -104,4 +104,8 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public void remove(long nodeId) {
+		// TODO Auto-generated method stub
+	}
 }

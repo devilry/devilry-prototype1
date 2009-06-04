@@ -10,8 +10,6 @@ public interface BaseNodeInterface {
 	String getDisplayName(long nodeId);
 	String getPath(long nodeId);
 
-	List<Long> getChildren(long nodeId);
-
 	void remove(long nodeId);
 	boolean exists(long nodeId);
 

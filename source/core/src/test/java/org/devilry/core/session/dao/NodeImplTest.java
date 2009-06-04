@@ -56,4 +56,22 @@ public class NodeImplTest extends AbstractNodeDaoTst {
 	public void createDuplicateToplevel() {
 		node.create("uio", "aaaa");
 	}
+
+	@Test
+	public void getChildnodes() {
+		List<Long> children = node.getChildnodes(uioId);
+		assertEquals(1, children.size());
+		assertEquals(matnatId, (long) children.get(0));
+
+		node.create("hf", "Huma....", uioId);
+		assertEquals(2, node.getChildnodes(uioId).size());
+	}
+
+	@Test
+	public void remove() {
+		node.remove(uioId);
+		assertFalse(node.exists(uioId));
+		assertFalse(node.exists(matnatId));
+	}
+
 }

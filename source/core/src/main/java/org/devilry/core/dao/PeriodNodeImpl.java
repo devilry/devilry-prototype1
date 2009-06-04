@@ -162,4 +162,9 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public void remove(long nodeId) {
+		// TODO Auto-generated method stub
+		
+	}
 }

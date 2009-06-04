@@ -8,6 +8,9 @@ public interface NodeLocal extends BaseNodeInterface {
 
 	long getParent(long nodeId);
 
+	List<Long> getChildnodes(long nodeId);
+	List<Long> getChildcourses(long nodeId);
+
 	/** Get a list of all nodes without a parent-node.
 	 * 
 	 * @return List of node-ids.

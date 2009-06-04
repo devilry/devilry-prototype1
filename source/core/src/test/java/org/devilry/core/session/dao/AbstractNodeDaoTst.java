@@ -68,25 +68,6 @@ public class AbstractNodeDaoTst extends AbstractDaoTst {
 		assertFalse(node.exists(uioId + matnatId));
 	}
 
-
-	@Test
-	public void remove() {
-		node.remove(uioId);
-		assertFalse(node.exists(uioId));
-		assertFalse(node.exists(matnatId));
-	}
-	
-	
-	@Test
-	public void getChildren() {
-		List<Long> children = node.getChildren(uioId);
-		assertEquals(1, children.size());
-		assertEquals(matnatId, (long) children.get(0));
-
-		node.create("hf", "Huma....", uioId);
-		assertEquals(2, node.getChildren(uioId).size());
-	}
-
 	
 
 	@Test

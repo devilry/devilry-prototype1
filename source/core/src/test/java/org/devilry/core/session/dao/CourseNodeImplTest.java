@@ -16,7 +16,7 @@ import org.devilry.core.dao.CourseNodeImpl;
 import org.devilry.core.daointerfaces.CourseNodeRemote;
 import org.devilry.core.session.*;
 
-public class CourseNodeImplTest extends NodeImplTest {
+public class CourseNodeImplTest extends AbstractNodeDaoTst {
 	CourseNodeRemote courseNode;
 	long courseId;
 
@@ -37,8 +37,8 @@ public class CourseNodeImplTest extends NodeImplTest {
 	
 	@Test
 	public void remove() {
-		super.remove();
-		assertFalse(node.exists(courseId));
+		// TODO
+		assertFalse(courseNode.exists(courseId));
 	}
 
 	@Test
