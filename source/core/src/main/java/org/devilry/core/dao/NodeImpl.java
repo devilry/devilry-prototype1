@@ -1,5 +1,7 @@
 package org.devilry.core.dao;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
@@ -8,14 +10,21 @@ import javax.ejb.TransactionAttributeType;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptors;
 import javax.interceptor.InvocationContext;
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
 
 import org.devilry.core.daointerfaces.NodeLocal;
 import org.devilry.core.daointerfaces.NodeRemote;
+import org.devilry.core.entity.BaseNode;
 import org.devilry.core.entity.Node;
 
 @Stateless
 @Interceptors({AuthorizationInterceptor.class})
 public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
+	
+	private Node getNode(long nodeId) {
+		return getNode(Node.class, nodeId);
+	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public long create(String name, String displayName) {
@@ -39,5 +48,118 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 		em.persist(node);
 		em.flush();
 		return node.getId();
+	}
+	
+	public long getParent(long nodeId) {
+		return getNode(nodeId).getParent().getId();
+	}
+
+	public List<Long> getToplevelNodes() {
+		Query q = em
+				.createQuery("SELECT n.id FROM Node n WHERE n.parent IS NULL");
+		return q.getResultList();
+	}
+	
+	
+	public String getPath(long nodeId) {
+		Node cn = getNode(nodeId);
+		String path = null;
+
+		while (true) {
+			if (cn.getParent() != null) {
+				if (path == null)
+					path = cn.getName();
+				else
+					path = cn.getName() + "." + path;
+
+				cn = cn.getParent();
+			} else {
+				if (path == null)
+					path = cn.getName();
+				else
+					path = cn.getName() + "." + path;
+				break;
+			}
+		}
+
+		return path;
+	}
+	
+	
+	public long getNodeIdFromPath(String path) {
+		String[] sp = path.split("\\.");
+
+		if (sp.length == 1) {
+			return getNodeId(sp[0], -1);
+		} else if (sp.length > 1) {
+			int length = 0;
+			long id = 0;
+
+			while (length < sp.length - 1) {
+				id = getNodeId(sp[length + 1], sp[length]);
+				length++;
+
+				if (id == -1)
+					return id;
+			}
+
+			return id;
+		}
+
+		return -1;
+	}
+
+	private long getNodeId(String name, long parentId) {
+		Query q;
+
+		if (parentId != -1) {
+			q = em
+					.createQuery("SELECT n FROM Node n WHERE n.name=:name AND n.parent IS NOT NULL AND n.parent.id=:parentId");
+			q.setParameter("name", name);
+			q.setParameter("parentId", parentId);
+		} else {
+			q = em
+					.createQuery("SELECT n FROM Node n WHERE n.name=:name AND n.parent IS NULL");
+			q.setParameter("name", name);
+		}
+
+		Node node;
+
+		try {
+			node = (Node) q.getSingleResult();
+		} catch (NoResultException e) {
+			node = null;
+		}
+
+		return node == null ? -1 : node.getId();
+	}
+
+	private long getNodeId(String name, String parent) {
+		Query q;
+
+		if (parent != null) {
+			q = em
+					.createQuery("SELECT n FROM Node n WHERE n.name=:name AND n.parent IS NOT NULL AND n.parent.name=:parent");
+			q.setParameter("name", name);
+			q.setParameter("parent", parent);
+		} else {
+			q = em
+					.createQuery("SELECT n FROM Node n WHERE n.name=:name AND n.parent IS NULL");
+			q.setParameter("name", name);
+		}
+
+		Node node;
+
+		try {
+			node = (Node) q.getSingleResult();
+		} catch (NoResultException e) {
+			node = null;
+		}
+
+		return node == null ? -1 : node.getId();
+	}
+
+	public List<Long> getNodesWhereIsAdmin() {
+		return getNodesWhereIsAdmin(Node.class);
 	}
 }

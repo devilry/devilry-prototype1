@@ -11,13 +11,11 @@ public interface BaseNodeInterface {
 	String getPath(long nodeId);
 
 	List<Long> getChildren(long nodeId);
-	List<Long> getSiblings(long nodeId);
 
 	void remove(long nodeId);
 	long getParent(long nodeId);
 	boolean exists(long nodeId);
 
-	List<Long> getToplevelNodes();
 	long getNodeIdFromPath(String path);
 	
 	/** Get id of all administrators registered for the given node.
@@ -44,6 +42,9 @@ public interface BaseNodeInterface {
 	 */
 	void removeAdmin(long nodeId, long userId);
 
-	/** Get a list of nodes where the authenticated user is admin. */
+	/** Get a list of nodes where the authenticated user is admin.
+	 * 
+	 * @return List of user-ids.
+	 * */
 	List<Long> getNodesWhereIsAdmin();
 }
