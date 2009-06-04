@@ -1,5 +1,6 @@
 package org.devilry.core.dao;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -8,6 +9,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.devilry.core.daointerfaces.AssignmentNodeLocal;
 import org.devilry.core.daointerfaces.PeriodNodeLocal;
 import org.devilry.core.daointerfaces.PeriodNodeRemote;
 import org.devilry.core.entity.*;
@@ -15,6 +17,10 @@ import org.devilry.core.entity.*;
 @Stateless
 public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 		PeriodNodeLocal {
+	
+	@EJB
+	private AssignmentNodeLocal assignmentBean;
+	
 	protected PeriodNode getPeriodNode(long nodeId) {
 		return getNode(PeriodNode.class, nodeId);
 	}
@@ -163,8 +169,18 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 		return null;
 	}
 
-	public void remove(long nodeId) {
-		// TODO Auto-generated method stub
+	public void remove(long periodId) {
+		
+		// Remove childnodes (courses)
+		List<Long> childAssignments = getAssignments(periodId);
+		for (Long childAssignmentId : childAssignments) {
+			assignmentBean.remove(childAssignmentId);
+		}
+
+		// Remove *this* node
+		Query q = em.createQuery("DELETE FROM PeriodNode n WHERE n.id = :id");
+		q.setParameter("id", periodId);
+		q.executeUpdate();	
 		
 	}
 }
