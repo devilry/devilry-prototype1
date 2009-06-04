@@ -1,20 +1,17 @@
 package org.devilry.core.session.dao;
 
-import javax.naming.*;
-import javax.persistence.*;
-import java.util.Properties;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.util.List;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import javax.naming.NamingException;
 
 import org.devilry.core.dao.CourseNodeImpl;
 import org.devilry.core.daointerfaces.CourseNodeRemote;
-import org.devilry.core.session.*;
+import org.junit.Before;
+import org.junit.Test;
 
 public class CourseNodeImplTest extends AbstractNodeDaoTst {
 	CourseNodeRemote courseNode;
@@ -37,7 +34,9 @@ public class CourseNodeImplTest extends AbstractNodeDaoTst {
 	
 	@Test
 	public void remove() {
-		// TODO
+		long id = courseNode.create("tst", "TsT", uioId);
+		courseNode.remove(id);
+		node.remove(uioId);
 		assertFalse(courseNode.exists(courseId));
 	}
 

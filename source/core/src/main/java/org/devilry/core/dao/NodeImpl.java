@@ -65,10 +65,6 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 		return q.getResultList();
 	}
 
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public void remove(long nodeId) {
-		removeNode(nodeId);
-	}
 
 	public List<Long> getChildnodes(long nodeId) {
 		Query q = em
@@ -84,20 +80,20 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 		return q.getResultList();
 	}
 
-	private void removeNode(Long nodeId) {
-
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public void remove(long nodeId) {
 		// Remove childnodes
 		List<Long> childNodes = getChildnodes(nodeId);
 		for (Long childNodeId : childNodes) {
-			removeNode(childNodeId);
+			remove(childNodeId);
 		}
 
 		// Remove child-courses
-		List<Long> childCourses = getChildnodes(nodeId);
+		List<Long> childCourses = getChildcourses(nodeId);
 		for (Long courseId : childCourses) {
 			courseBean.remove(courseId);
 		}
-
+	
 		// Remove *this* node
 		Query q = em.createQuery("DELETE FROM Node n WHERE n.id = :id");
 		q.setParameter("id", nodeId);
