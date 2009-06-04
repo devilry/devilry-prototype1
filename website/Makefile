@@ -1,2 +1,2 @@
 sync:
-	rsync -av --exclude Makefile ./ devilry@devnull.nu:www/
+	rsync -av --exclude Makefile ./ devilry@projectdevilry.org:www/
