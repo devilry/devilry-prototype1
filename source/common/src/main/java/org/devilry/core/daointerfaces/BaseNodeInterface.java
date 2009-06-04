@@ -8,12 +8,15 @@ public interface BaseNodeInterface {
 	String getName(long nodeId);
 	void setDisplayName(long nodeId, String name);
 	String getDisplayName(long nodeId);
-	String getPath(long nodeId);
 
 	void remove(long nodeId);
 	boolean exists(long nodeId);
 
-	long getNodeIdFromPath(String path);
+	/** Get path from id. */
+	String getPath(long nodeId);
+	
+	/** Get id from path. */
+	long getIdFromPath(String path);
 	
 	/** Get id of all administrators registered for the given node.
 	 * 

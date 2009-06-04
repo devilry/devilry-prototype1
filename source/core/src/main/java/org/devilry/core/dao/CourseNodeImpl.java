@@ -54,7 +54,7 @@ public class CourseNodeImpl extends BaseNodeImpl implements CourseNodeRemote, Co
 		return getCourseNode(courseId).getParent().getId();
 	}
 
-	public long getNodeIdFromPath(String path) {
+	public long getIdFromPath(String path) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

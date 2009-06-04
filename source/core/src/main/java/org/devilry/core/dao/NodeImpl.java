@@ -32,7 +32,7 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public long create(String name, String displayName) {
-		if (getNodeIdFromPath(name) != -1) {
+		if (getIdFromPath(name) != -1) {
 			throw new RuntimeException(
 					"Node name must be unique on toplevel nodes.");
 		}
@@ -128,7 +128,7 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 		return path;
 	}
 
-	public long getNodeIdFromPath(String path) {
+	public long getIdFromPath(String path) {
 		String[] sp = path.split("\\.");
 
 		if (sp.length == 1) {

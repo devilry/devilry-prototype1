@@ -153,7 +153,7 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 		return getNodesWhereIsAdmin(PeriodNode.class);
 	}
 
-	public long getNodeIdFromPath(String path) {
+	public long getIdFromPath(String path) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

@@ -95,7 +95,7 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 		return getAssignmentNode(nodeId).getPeriod().getId();
 	}
 
-	public long getNodeIdFromPath(String path) {
+	public long getIdFromPath(String path) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

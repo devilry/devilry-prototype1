@@ -18,8 +18,8 @@ public class NodeImplTest extends AbstractNodeDaoTst {
 
 	@Test
 	public void getNodeIdFromPath() {
-		assertEquals(uioId, node.getNodeIdFromPath("uio"));
-		assertEquals(matnatId, node.getNodeIdFromPath("uio.matnat"));
+		assertEquals(uioId, node.getIdFromPath("uio"));
+		assertEquals(matnatId, node.getIdFromPath("uio.matnat"));
 	}
 
 	@Test
