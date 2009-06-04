@@ -171,7 +171,7 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 
 	public void remove(long periodId) {
 		
-		// Remove childnodes (courses)
+		// Remove childnodes (assignments)
 		List<Long> childAssignments = getAssignments(periodId);
 		for (Long childAssignmentId : childAssignments) {
 			assignmentBean.remove(childAssignmentId);

@@ -11,12 +11,15 @@ import javax.persistence.*;
 
 import org.devilry.core.daointerfaces.AssignmentNodeLocal;
 import org.devilry.core.daointerfaces.AssignmentNodeRemote;
+import org.devilry.core.daointerfaces.DeliveryLocal;
 import org.devilry.core.entity.*;
 
 @Stateless
 public class AssignmentNodeImpl extends BaseNodeImpl implements
 		AssignmentNodeRemote, AssignmentNodeLocal {
 
+	@EJB
+	private DeliveryLocal deliveryBean;
 	
 	private AssignmentNode getAssignmentNode(long nodeId) {
 		return getNode(AssignmentNode.class, nodeId);
@@ -104,8 +107,19 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 		// TODO Auto-generated method stub
 		return null;
 	}
+		
+	public void remove(long assignmentId) {
+		
+		// Remove childnodes (deliveries)
+		List<Long> childDeliveries = getDeliveries(assignmentId);
+		for (Long childDeliveryId : childDeliveries) {
+			deliveryBean.remove(childDeliveryId);
+		}
 
-	public void remove(long nodeId) {
-		// TODO Auto-generated method stub
+		// Remove *this* node
+		Query q = em.createQuery("DELETE FROM AssignmentNode n WHERE n.id = :id");
+		q.setParameter("id", assignmentId);
+		q.executeUpdate();	
+		
 	}
 }
