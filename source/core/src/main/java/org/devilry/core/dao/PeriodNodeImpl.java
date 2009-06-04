@@ -63,9 +63,10 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 
 	public List<Long> getAssignments(long periodNodeId) {
 		Query q = em.createQuery("SELECT a.id FROM AssignmentNode a "
-				+ "WHERE a.parent.id = :id");
+				+ "WHERE a.period.id = :id");
 		q.setParameter("id", periodNodeId);
-		return q.getResultList();
+		List<Long> result = q.getResultList();
+		return result;
 	}
 
 
@@ -170,17 +171,16 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 	}
 
 	public void remove(long periodId) {
-		
+				
 		// Remove childnodes (assignments)
 		List<Long> childAssignments = getAssignments(periodId);
 		for (Long childAssignmentId : childAssignments) {
 			assignmentBean.remove(childAssignmentId);
 		}
-
+		
 		// Remove *this* node
 		Query q = em.createQuery("DELETE FROM PeriodNode n WHERE n.id = :id");
 		q.setParameter("id", periodId);
-		q.executeUpdate();	
-		
+		q.executeUpdate();		
 	}
 }
