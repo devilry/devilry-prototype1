@@ -36,7 +36,7 @@
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_Teu6cEo1Ed6_X5Z1-LyYTA" name="CourseNode">
     <generalization xmi:id="_1Sw9EFDBEd6D96HM7enmlw" general="_9YI-MFDAEd6D96HM7enmlw"/>
-    <ownedAttribute xmi:id="_0DXcoFC_Ed6D96HM7enmlw" name="node" type="_2GIBsEo0Ed6_X5Z1-LyYTA" aggregation="composite"/>
+    <ownedAttribute xmi:id="_0DXcoFC_Ed6D96HM7enmlw" name="parent" type="_2GIBsEo0Ed6_X5Z1-LyYTA" aggregation="composite"/>
     <ownedAttribute xmi:id="_0qa1kFC_Ed6D96HM7enmlw" name="periods" aggregation="composite"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_dKM6MEo1Ed6_X5Z1-LyYTA" name="PeriodNode">
@@ -45,23 +45,14 @@
     <ownedAttribute xmi:id="_nZyQgFDAEd6D96HM7enmlw" name="assignments" aggregation="composite"/>
     <ownedAttribute xmi:id="_kmmsUFDCEd6D96HM7enmlw" name="students" aggregation="composite"/>
     <ownedAttribute xmi:id="_mOURAFDCEd6D96HM7enmlw" name="examiners" aggregation="composite"/>
+    <ownedAttribute xmi:id="_AMdGoFDGEd6D96HM7enmlw" name="startDate" aggregation="composite"/>
+    <ownedAttribute xmi:id="_Ay6CoFDGEd6D96HM7enmlw" name="endDate" aggregation="composite"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_kTKg8Eo1Ed6_X5Z1-LyYTA" name="AssignmentNode">
     <generalization xmi:id="_3Ja8sFDBEd6D96HM7enmlw" general="_9YI-MFDAEd6D96HM7enmlw"/>
     <ownedAttribute xmi:id="_VMUIkFDCEd6D96HM7enmlw" name="period" type="_dKM6MEo1Ed6_X5Z1-LyYTA" aggregation="composite"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_R6OlUEo2Ed6_X5Z1-LyYTA" name="Delivery"/>
-  <packagedElement xmi:type="uml:Association" xmi:id="_4oBa8FC8Ed6D96HM7enmlw" memberEnd="_4oCpEFC8Ed6D96HM7enmlw _4oCpE1C8Ed6D96HM7enmlw">
-    <ownedEnd xmi:id="_4oCpEFC8Ed6D96HM7enmlw" name="*" type="_Teu6cEo1Ed6_X5Z1-LyYTA" association="_4oBa8FC8Ed6D96HM7enmlw">
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_4oCpElC8Ed6D96HM7enmlw" value="1"/>
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_4oCpEVC8Ed6D96HM7enmlw" value="1"/>
-    </ownedEnd>
-    <ownedEnd xmi:id="_4oCpE1C8Ed6D96HM7enmlw" name="1" type="_2GIBsEo0Ed6_X5Z1-LyYTA" aggregation="shared" association="_4oBa8FC8Ed6D96HM7enmlw">
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_4oCpFVC8Ed6D96HM7enmlw" value="1"/>
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_4oCpFFC8Ed6D96HM7enmlw" value="1"/>
-      <defaultValue xmi:type="uml:LiteralString" xmi:id="_MFHs0FC9Ed6D96HM7enmlw" value=""/>
-    </ownedEnd>
-  </packagedElement>
   <packagedElement xmi:type="uml:Association" xmi:id="_RpGSwFC9Ed6D96HM7enmlw" memberEnd="_RpHg4FC9Ed6D96HM7enmlw _RpIH8FC9Ed6D96HM7enmlw">
     <ownedEnd xmi:id="_RpHg4FC9Ed6D96HM7enmlw" name="*" type="_2GIBsEo0Ed6_X5Z1-LyYTA" association="_RpGSwFC9Ed6D96HM7enmlw">
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_RpHg4lC9Ed6D96HM7enmlw" value="1"/>
@@ -82,5 +73,15 @@
       <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
     </ownedAttribute>
     <ownedAttribute xmi:id="_NnEOcFDCEd6D96HM7enmlw" name="admins" aggregation="composite"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_OYAUcFDIEd6eseOwIrwEfA" memberEnd="_OYAUcVDIEd6eseOwIrwEfA _OYA7glDIEd6eseOwIrwEfA">
+    <ownedEnd xmi:id="_OYAUcVDIEd6eseOwIrwEfA" name="1" type="_2GIBsEo0Ed6_X5Z1-LyYTA" association="_OYAUcFDIEd6eseOwIrwEfA">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_OYA7gVDIEd6eseOwIrwEfA" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_OYA7gFDIEd6eseOwIrwEfA" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_OYA7glDIEd6eseOwIrwEfA" name="*" type="_Teu6cEo1Ed6_X5Z1-LyYTA" association="_OYAUcFDIEd6eseOwIrwEfA">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_OYA7hFDIEd6eseOwIrwEfA" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_OYA7g1DIEd6eseOwIrwEfA" value="1"/>
+    </ownedEnd>
   </packagedElement>
 </uml:Package>

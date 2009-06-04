@@ -3,15 +3,23 @@ package org.devilry.core.entity;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
 @DiscriminatorValue("PN")
 public class PeriodNode extends Node {
+	@ManyToOne(fetch=FetchType.LAZY)
+	@Column(name="parent")
+	private CourseNode course;
+
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date startDate;
 
@@ -58,6 +66,14 @@ public class PeriodNode extends Node {
 
 	public Set<User> getExaminers() {
 		return examiners;
+	}
+
+	public void setCourse(CourseNode course) {
+		this.course = course;
+	}
+
+	public CourseNode getCourse() {
+		return course;
 	}
 }
 
