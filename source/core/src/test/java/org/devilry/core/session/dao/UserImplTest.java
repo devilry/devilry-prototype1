@@ -1,16 +1,19 @@
 package org.devilry.core.session.dao;
 
-import javax.naming.*;
-
-import org.devilry.core.daointerfaces.UserRemote;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.naming.NamingException;
+
+import org.devilry.core.dao.UserImpl;
+import org.devilry.core.daointerfaces.UserRemote;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 public class UserImplTest extends AbstractDaoTst {
 	protected UserRemote userBean;
