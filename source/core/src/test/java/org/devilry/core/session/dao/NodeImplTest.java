@@ -6,10 +6,22 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import javax.naming.NamingException;
+
+import org.devilry.core.dao.CourseNodeImpl;
+import org.devilry.core.daointerfaces.CourseNodeRemote;
+import org.junit.Before;
 import org.junit.Test;
 
 public class NodeImplTest extends AbstractNodeDaoTst {
+	CourseNodeRemote courseNode;
 
+	@Before
+	public void setUp() throws NamingException {
+		super.setUp();
+		courseNode = getRemoteBean(CourseNodeImpl.class);
+	}
+	
 	@Test
 	public void getPath() {
 		assertEquals("uio.matnat", node.getPath(matnatId));
@@ -66,6 +78,17 @@ public class NodeImplTest extends AbstractNodeDaoTst {
 		node.create("hf", "Huma....", uioId);
 		assertEquals(2, node.getChildnodes(uioId).size());
 	}
+	
+	@Test
+	public void getChildcourses() {
+		long exphilId = courseNode.create("exphil", "Exphil", uioId);
+		List<Long> children = node.getChildcourses(uioId);
+		assertEquals(1, children.size());
+		assertEquals(exphilId, (long) children.get(0));
+
+		courseNode.create("a", "Aaaaa", uioId);
+		assertEquals(2, node.getChildcourses(uioId).size());
+	}
 
 	@Test
 	public void remove() {
@@ -73,5 +96,4 @@ public class NodeImplTest extends AbstractNodeDaoTst {
 		assertFalse(node.exists(uioId));
 		assertFalse(node.exists(matnatId));
 	}
-
 }
