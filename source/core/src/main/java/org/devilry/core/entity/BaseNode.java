@@ -21,7 +21,6 @@ public abstract class BaseNode implements java.io.Serializable {
 	@Column(name="id")
 	private long id;
 
-	@Column(name = "name")
 	private String name;
 
 	private String displayName;
