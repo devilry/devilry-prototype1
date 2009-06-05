@@ -3,7 +3,7 @@ package org.devilry.core.daointerfaces;
 import java.util.Date;
 import java.util.List;
 
-public interface PeriodNodeLocal extends BaseNodeInterface {
+public interface PeriodNodeCommon extends BaseNodeInterface {
 	public void setStartDate(long periodperiodId, Date start);
 	public Date getStartDate(long periodperiodId);
 	public void setEndDate(long periodperiodId, Date end);
