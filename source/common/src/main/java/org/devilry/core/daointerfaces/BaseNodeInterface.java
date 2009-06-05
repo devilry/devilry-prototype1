@@ -27,18 +27,5 @@ public interface BaseNodeInterface {
 
 	/** Check if a user is admin on the given node. */
 	boolean isAdmin(long baseNodeId, long userId);
-
-	/** Add a new administrator to the given node.
-	 * 
-	 * @param baseNodeId The unique number identifying an existing node.
-	 * @param userId The unique number identifying an existing user.
-	 */
-	void addAdmin(long baseNodeId, long userId);
-
-	/** Remove an administrator from the given node.
-	 * 
-	 * @param baseNodeId The unique number identifying an existing node.
-	 * @param userId The unique number identifying an existing user.
-	 */
-	void removeAdmin(long baseNodeId, long userId);
+	
 }
