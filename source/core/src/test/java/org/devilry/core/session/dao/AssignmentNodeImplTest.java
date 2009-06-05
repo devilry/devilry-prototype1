@@ -133,4 +133,10 @@ public class AssignmentNodeImplTest extends AbstractNodeDaoTst {
 		assertTrue(assignmentNode.exists(assignmentId));
 		assertFalse(assignmentNode.exists(uioId));
 	}
+	
+	@Test(expected=Exception.class)
+	public void createDuplicate() {
+		assignmentNode.create("unique", "Unique", new GregorianCalendar().getTime(), periodId);
+		assignmentNode.create("unique", "Unique", new GregorianCalendar().getTime(), periodId);
+	}
 }

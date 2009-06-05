@@ -87,9 +87,15 @@ public class CourseNodeImplTest extends AbstractNodeDaoTst {
 		assertEquals(p1, (long) l.get(0));
 		assertEquals(1, l.size());
 
-		periodNode.create("spring2009", "Spring 2009", new GregorianCalendar()
+		periodNode.create("spring2010", "Spring 2009", new GregorianCalendar()
 				.getTime(), new GregorianCalendar().getTime(), courseId);
 		l = courseNode.getPeriods(courseId);
 		assertEquals(2, l.size());
+	}
+
+	@Test(expected=Exception.class)
+	public void createDuplicate() {
+		courseNode.create("unique", "Unique", uioId);
+		courseNode.create("unique", "Unique", uioId);
 	}
 }
