@@ -17,10 +17,10 @@ import org.devilry.core.entity.*;
 @Stateless
 public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 		PeriodNodeLocal {
-	
+
 	@EJB
 	private AssignmentNodeLocal assignmentBean;
-	
+
 	protected PeriodNode getPeriodNode(long nodeId) {
 		return getNode(PeriodNode.class, nodeId);
 	}
@@ -69,13 +69,45 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 		return result;
 	}
 
-
 	public boolean exists(long nodeId) {
 		try {
 			return getPeriodNode(nodeId) != null;
-		} catch(ClassCastException e) {
+		} catch (ClassCastException e) {
 			return false;
 		}
+	}
+
+	public long getIdFromPath(String path) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public String getPath(long nodeId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void remove(long periodId) {
+
+		// Remove childnodes (assignments)
+		List<Long> childAssignments = getAssignments(periodId);
+		for (Long childAssignmentId : childAssignments) {
+			assignmentBean.remove(childAssignmentId);
+		}
+
+		// Remove *this* node
+		removeNode(periodId, PeriodNode.class);
+
+		// Remove *this* node
+		/*
+		 * Query q =
+		 * em.createQuery("DELETE FROM PeriodNode n WHERE n.id = :id");
+		 * q.setParameter("id", periodId); q.executeUpdate();
+		 */
+	}
+
+	public long getCourse(long periodId) {
+		return getPeriodNode(periodId).getCourse().getId();
 	}
 
 	//
@@ -152,50 +184,30 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 		return q.getResultList();
 	}
 
-	public long getCourse(long periodId) {
-		return getPeriodNode(periodId).getCourse().getId();
-	}
-
+	// ///////////////////
+	// Admin
+	// ///////////////////
 	public List<Long> getPeriodsWhereIsAdmin() {
 		return getNodesWhereIsAdmin(PeriodNode.class);
 	}
 
-	
 	public void addPeriodAdmin(long periodNodeId, long userId) {
 		PeriodNode node = getPeriodNode(periodNodeId);
 		addAdmin(node, userId);
 	}
-		
+
 	public void removePeriodAdmin(long periodNodeId, long userId) {
 		PeriodNode node = getPeriodNode(periodNodeId);
 		removeAdmin(node, userId);
 	}
-	
-	
-	public long getIdFromPath(String path) {
-		// TODO Auto-generated method stub
-		return 0;
+
+	public List<Long> getPeriodAdmins(long periodId) {
+		PeriodNode node = getPeriodNode(periodId);
+		return getAdmins(node);
 	}
 
-	public String getPath(long nodeId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void remove(long periodId) {
-				
-		// Remove childnodes (assignments)
-		List<Long> childAssignments = getAssignments(periodId);
-		for (Long childAssignmentId : childAssignments) {
-			assignmentBean.remove(childAssignmentId);
-		}
-		
-		// Remove *this* node
-		removeNode(periodId, PeriodNode.class);
-		
-		// Remove *this* node
-		/*Query q = em.createQuery("DELETE FROM PeriodNode n WHERE n.id = :id");
-		q.setParameter("id", periodId);
-		q.executeUpdate();		*/
+	public boolean isPeriodAdmin(long periodId, long userId) {
+		PeriodNode courseNode = getPeriodNode(periodId);
+		return isAdmin(courseNode, userId);
 	}
 }

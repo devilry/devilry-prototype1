@@ -10,7 +10,7 @@ public interface PeriodNodeCommon extends BaseNodeInterface {
 	public Date getEndDate(long periodperiodId);
 	public long create(String name, String displayName, Date start, Date end, long parentId);
 	
-	long getCourse(long periodId);
+	public long getCourse(long periodId);
 	public List<Long> getAssignments(long periodperiodId);
 	
 	/** Get id of all students registered for the given period.
@@ -18,28 +18,28 @@ public interface PeriodNodeCommon extends BaseNodeInterface {
 	 * @param periodId The unique number identifying an existing period.
 	 * @return A list with the id of all administrators for the given node.
 	 */
-	List<Long> getStudents(long periodId);
+	public List<Long> getStudents(long periodId);
 
 	/** Check if a user is student on the given node. */
-	boolean isStudent(long periodId, long userId);
+	public boolean isStudent(long periodId, long userId);
 
 	/** Add a new student to the given node.
 	 * 
 	 * @param periodId The unique number identifying an existing period.
 	 * @param userId The unique number identifying an existing user.
 	 */
-	void addStudent(long periodId, long userId);
+	public void addStudent(long periodId, long userId);
 
 	/** Remove an student from the given node.
 	 * 
 	 * @param periodId The unique number identifying an existing period.
 	 * @param userId The unique number identifying an existing user.
 	 */
-	void removeStudent(long periodId, long userId);
+	public void removeStudent(long periodId, long userId);
 
 
 	/** Get a list of nodes where the authenticated user is student. */
-	List<Long> getPeriodsWhereIsStudent();
+	public List<Long> getPeriodsWhereIsStudent();
 
 
 	/** Get id of all Examiners registered for the given node.
@@ -47,39 +47,45 @@ public interface PeriodNodeCommon extends BaseNodeInterface {
 	 * @param periodId The unique number identifying an existing period.
 	 * @return A list with the id of all administrators for the given node.
 	 */
-	List<Long> getExaminers(long periodId);
+	public List<Long> getExaminers(long periodId);
 
 	
 	/** Check if a user is Examiner on the given node. */
-	boolean isExaminer(long periodId, long userId);
+	public boolean isExaminer(long periodId, long userId);
 
 	/** Add a new Examiner to the given node.
 	 * 
 	 * @param periodId The unique number identifying an existing period.
 	 * @param userId The unique number identifying an existing user.
 	 */
-	void addExaminer(long periodId, long userId);
+	public void addExaminer(long periodId, long userId);
 
 	/** Remove an Examiner from the given node.
 	 * 
 	 * @param periodId The unique number identifying an existing period.
 	 * @param userId The unique number identifying an existing user.
 	 */
-	void removeExaminer(long periodId, long userId);
+	public void removeExaminer(long periodId, long userId);
 	
 	/** Get a list of nodes where the authenticated user is examiner. */
 	List<Long> getPeriodsWhereIsExaminer();
+
 
 	/** Get a list of periods where the authenticated user is admin.
 	 * 
 	 * @return List of period-ids.
 	 * */
-	List<Long> getPeriodsWhereIsAdmin();
-	
+	public List<Long> getPeriodsWhereIsAdmin();
+
+
+	/** 
+	 * Check if a user is admin on the given period node. 
+	 * */
+	public boolean isPeriodAdmin(long periodNodeId, long userId);
 	
 	/** 
 	 * Add a new administrator to the given period node.
-	 * @param periodNodeId The unique number identifying an existing node.
+	 * @param periodNodeId The unique number identifying an existing period.
 	 * @param userId The unique number identifying an existing user.
 	 */
 	public void addPeriodAdmin(long periodNodeId, long userId);
@@ -87,8 +93,17 @@ public interface PeriodNodeCommon extends BaseNodeInterface {
 	
 	/** 
 	 * Remove an administrator from the given period node.
-	 * @param periodNodeId The unique number identifying an existing node.
+	 * @param periodNodeId The unique number identifying an existing period.
 	 * @param userId The unique number identifying an existing user.
 	 */
 	public void removePeriodAdmin(long periodNodeId, long userId);
+	
+	
+	/** 
+	 * Get id of all administrators registered for the given period node.
+	 * 
+	 * @param baseNodeId The unique number identifying an existing period.
+	 * @return A list with the id of all administrators for the given node.
+	 */
+	public List<Long> getPeriodAdmins(long periodNodeId);
 }

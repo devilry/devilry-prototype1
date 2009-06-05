@@ -210,4 +210,45 @@ public class PeriodNodeImplTest extends AbstractNodeDaoTst {
 				new GregorianCalendar().getTime(), new GregorianCalendar()
 						.getTime(), inf1000Id);
 	}
+
+	@Test
+	public void isPeriodAdmin() {
+		periodNode.addPeriodAdmin(periodId, homerId);
+		assertTrue(periodNode.isPeriodAdmin(periodId, homerId));
+	}
+
+	@Test
+	public void addPeriodAdmin() {
+		periodNode.addPeriodAdmin(periodId, homerId);
+		assertTrue(periodNode.isPeriodAdmin(periodId, homerId));
+
+		int adminCount = periodNode.getPeriodAdmins(periodId).size();
+
+		// Test duplicates
+		periodNode.addPeriodAdmin(periodId, homerId);
+		assertEquals(adminCount, periodNode.getPeriodAdmins(periodId).size());
+	}
+
+	@Test
+	public void removePeriodAdmin() {
+		periodNode.removePeriodAdmin(periodId, homerId);
+		assertFalse(periodNode.isPeriodAdmin(periodId, homerId));
+	}
+
+	@Test
+	public void getPeriodsWhereIsAdmin() {
+		periodNode.addPeriodAdmin(periodId, homerId);
+		List<Long> l = periodNode.getPeriodsWhereIsAdmin();
+		assertEquals(1, l.size());
+		assertEquals(periodId, (long) l.get(0));
+
+		long margeId = userBean.create("marge", "marge@doh.com", "123");
+		periodNode.addPeriodAdmin(periodId, margeId);
+		assertEquals(1, periodNode.getPeriodsWhereIsAdmin().size());
+
+		long tstId = periodNode.create("tst", "Test", new GregorianCalendar()
+				.getTime(), new GregorianCalendar().getTime(), inf1000Id);
+		periodNode.addPeriodAdmin(tstId, homerId);
+		assertEquals(2, periodNode.getPeriodsWhereIsAdmin().size());
+	}
 }
