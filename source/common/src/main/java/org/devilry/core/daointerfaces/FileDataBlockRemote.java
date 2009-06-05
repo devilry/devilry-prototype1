@@ -4,5 +4,5 @@ import javax.ejb.Remote;
 
 
 @Remote
-public interface FileDataBlockRemote extends FileDataBlockLocal {
+public interface FileDataBlockRemote extends FileDataBlockCommon {
 }
