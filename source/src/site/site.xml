@@ -14,6 +14,10 @@
 			<item name="2009-01-29" href="meetings/2009-01-29.html"/>
 		</menu>
 
+		<menu name="Docbook tests">
+			<item name="Simple 1" href="docbook_test.html"/>
+		</menu>
+
 	</body>
 </project>
 
