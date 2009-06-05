@@ -85,8 +85,8 @@ public abstract class BaseNodeImpl implements BaseNodeInterface {
 		return (User) em.find(User.class, userId);
 	}
 
-	public boolean isAdmin(long nodeId, long userId) {
-		return getBaseNode(nodeId).getAdmins().contains(getUser(userId));
+	public boolean isAdmin(BaseNode node, long userId) {
+		return node.getAdmins().contains(getUser(userId));
 	}
 
 	/** Add a new administrator to the given node.
