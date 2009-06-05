@@ -11,6 +11,7 @@ import org.devilry.core.daointerfaces.CourseNodeRemote;
 import org.devilry.core.daointerfaces.PeriodNodeLocal;
 import org.devilry.core.entity.*;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @Stateless
@@ -72,6 +73,11 @@ public class CourseNodeImpl extends BaseNodeImpl implements CourseNodeRemote, Co
 		return getNodesWhereIsAdmin(CourseNode.class);
 	}
 
+	public boolean isCourseAdmin(long nodeId, long userId) {
+		CourseNode courseNode = getCourseNode(nodeId);
+		return isAdmin(courseNode, userId);
+	}
+	
 	public void addCourseAdmin(long courseNodeId, long userId) {
 		CourseNode node = getCourseNode(courseNodeId);
 		addAdmin(node, userId);
@@ -82,6 +88,10 @@ public class CourseNodeImpl extends BaseNodeImpl implements CourseNodeRemote, Co
 		removeAdmin(node, userId);
 	}
 	
+	public List<Long> getCourseAdmins(long courseId) {
+		CourseNode node = getCourseNode(courseId);
+		return getAdmins(node);
+	}
 	
 	public void remove(long courseId) {
 		// Remove childnodes
@@ -92,10 +102,5 @@ public class CourseNodeImpl extends BaseNodeImpl implements CourseNodeRemote, Co
 
 		// Remove *this* node
 		removeNode(courseId, CourseNode.class);
-		
-		// Remove *this* node
-		/*Query q = em.createQuery("DELETE FROM CourseNode n WHERE n.id = :id");
-		q.setParameter("id", courseId);
-		q.executeUpdate();	*/
 	}
 }
