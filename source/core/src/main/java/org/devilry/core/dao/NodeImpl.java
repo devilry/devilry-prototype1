@@ -18,6 +18,7 @@ import org.devilry.core.daointerfaces.CourseNodeLocal;
 import org.devilry.core.daointerfaces.NodeLocal;
 import org.devilry.core.daointerfaces.NodeRemote;
 import org.devilry.core.entity.BaseNode;
+import org.devilry.core.entity.CourseNode;
 import org.devilry.core.entity.Node;
 import org.devilry.core.entity.PeriodNode;
 
@@ -97,11 +98,6 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 	
 		// Remove *this* node
 		removeNode(nodeId, Node.class);
-		
-		// Remove *this* node
-		/*Query q = em.createQuery("DELETE FROM Node n WHERE n.id = :id");
-		q.setParameter("id", nodeId);
-		q.executeUpdate();*/
 	}
 
 	public String getPath(long nodeId) {
@@ -205,6 +201,11 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 		return getNodesWhereIsAdmin(Node.class);
 	}
 	
+	public boolean isNodeAdmin(long nodeId, long userId) {
+		Node node = getNode(nodeId);
+		return isAdmin(node, userId);
+	}
+	
 	public void addNodeAdmin(long nodeId, long userId) {
 		Node node = getNode(nodeId);
 		addAdmin(node, userId);
@@ -213,5 +214,10 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 	public void removeNodeAdmin(long nodeId, long userId) {
 		Node node = getNode(nodeId);
 		removeAdmin(node, userId);
+	}
+	
+	public List<Long> getNodeAdmins(long nodeId) {
+		Node node = getNode(nodeId);
+		return getAdmins(node);
 	}
 }
