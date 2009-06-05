@@ -73,9 +73,9 @@ public abstract class BaseNodeImpl implements BaseNodeInterface {
 	// Admins operations
 	// /////////////////////////////////
 
-	public List<Long> getAdmins(long nodeId) {
+	public List<Long> getAdmins(BaseNode node) {
 		LinkedList<Long> l = new LinkedList<Long>();
-		for (User u : getBaseNode(nodeId).getAdmins())
+		for (User u : node.getAdmins())
 			l.add(u.getId());
 		return l;
 	}
