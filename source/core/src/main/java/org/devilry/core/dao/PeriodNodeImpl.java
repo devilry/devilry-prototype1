@@ -4,12 +4,13 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.devilry.core.daointerfaces.AssignmentNodeLocal;
+import org.devilry.core.daointerfaces.AssignmentNodeCommon;
 import org.devilry.core.daointerfaces.PeriodNodeLocal;
 import org.devilry.core.daointerfaces.PeriodNodeRemote;
 import org.devilry.core.entity.*;
@@ -19,7 +20,7 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 		PeriodNodeLocal {
 
 	@EJB
-	private AssignmentNodeLocal assignmentBean;
+	private AssignmentNodeCommon assignmentBean;
 
 	protected PeriodNode getPeriodNode(long nodeId) {
 		return getNode(PeriodNode.class, nodeId);
@@ -209,5 +210,55 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 	public boolean isPeriodAdmin(long periodId, long userId) {
 		PeriodNode courseNode = getPeriodNode(periodId);
 		return isAdmin(courseNode, userId);
+	}
+	
+	
+	/**
+	 * Get period node id, or id of subnode assignment
+	 * @param nodePath
+	 * @param parentNodeId
+	 * @return
+	 */
+	public long getNodeIdFromPath(String [] nodePath, long parentNodeId) {
+		
+		long courseid = getPeriodNodeId(nodePath[0], parentNodeId);
+		
+		if (nodePath.length == 1) {
+			return courseid;
+		}
+		else {
+			String [] newNodePath = new String[nodePath.length -1];
+			System.arraycopy(nodePath, 1, newNodePath, 0, newNodePath.length);
+			
+			return assignmentBean.getNodeIdFromPath(newNodePath, courseid);
+		}
+	}
+	
+	/**
+	 * Get the id of the period node name with parent parentId
+	 * @param name
+	 * @param parentId
+	 * @return
+	 */
+	protected long getPeriodNodeId(String name, long parentId) {
+		Query q;
+
+		if (parentId == -1) {
+			return -1;
+		} 
+		
+		q = em.createQuery("SELECT n FROM PeriodNode n WHERE n.name=:name AND n.course IS NOT NULL AND n.course.id=:parentId");
+		q.setParameter("name", name);
+		q.setParameter("parentId", parentId);
+
+		PeriodNode node;
+
+		try {
+			node = (PeriodNode) q.getSingleResult();
+		} catch (NoResultException e) {
+			node = null;
+		}
+
+		return node == null ? -1 : node.getId();
 	}
 }

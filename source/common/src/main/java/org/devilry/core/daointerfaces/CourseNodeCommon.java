@@ -53,4 +53,6 @@ public interface CourseNodeCommon extends BaseNodeInterface {
 	 */
 	List<Long> getCourseAdmins(long courseNodeId);
 	
+	public long getNodeIdFromPath(String [] nodePath, long parentNodeId);
+	
 }

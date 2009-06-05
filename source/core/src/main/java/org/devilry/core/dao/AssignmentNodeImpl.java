@@ -129,11 +129,54 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 
 		// Remove *this* node
 		removeNode(assignmentId, AssignmentNode.class);
+	}
+	
+	
+	/**
+	 * Get period node id, or id of subnode assignment
+	 * @param nodePath
+	 * @param parentNodeId
+	 * @return
+	 */
+	public long getNodeIdFromPath(String [] nodePath, long parentNodeId) {
 		
-		// Remove *this* node
-		/*Query q = em.createQuery("DELETE FROM AssignmentNode n WHERE n.id = :id");
-		q.setParameter("id", assignmentId);
-		q.executeUpdate();	*/
+		long courseid = getAssignmentNodeId(nodePath[0], parentNodeId);
 		
+		if (nodePath.length == 1) {
+			return courseid;
+		}
+		else {
+			// path is too deep
+			return -1;
+		}
+	}
+	
+	
+	/**
+	 * Get the id of the period node name with parent parentId
+	 * @param name
+	 * @param parentId
+	 * @return
+	 */
+	protected long getAssignmentNodeId(String name, long parentId) {
+		Query q;
+
+		if (parentId == -1) {
+			return -1;
+		} 
+		
+		q = em.createQuery("SELECT n FROM AssignmentNode n WHERE n.name=:name AND n.course IS NOT NULL AND n.period.id=:parentId");
+		q.setParameter("name", name);
+		q.setParameter("parentId", parentId);
+
+		AssignmentNode node;
+
+		try {
+			node = (AssignmentNode) q.getSingleResult();
+		} catch (NoResultException e) {
+			node = null;
+		}
+
+		return node == null ? -1 : node.getId();
 	}
 }

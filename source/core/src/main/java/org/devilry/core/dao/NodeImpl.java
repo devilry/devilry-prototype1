@@ -147,6 +147,44 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 		return -1;
 	}
 
+	
+	public long getIdFromPath2(String path) {
+		String[] nodePath = path.split("\\.");
+		return getNodeIdFromPath(nodePath);
+	}
+	
+	
+	public long getNodeIdFromPath(String [] nodePath) {
+		
+		if (nodePath.length == 1) {
+			return getNodeId(nodePath[0], -1);
+		}
+		else {
+		
+			long parentId = -1;
+			
+			for (int i = 0; i < nodePath.length; i++) {
+				
+				long nodeId = getNodeId(nodePath[i], parentId);
+				
+				// If valid node id
+				if (nodeId != -1) {
+					parentId = nodeId;
+				}// If invalid node id, try course
+				else {
+					String [] newNodePath = new String[nodePath.length -1];
+					System.arraycopy(nodePath, 1, newNodePath, 0, newNodePath.length);
+					return courseBean.getNodeIdFromPath(newNodePath, parentId); 
+				}
+			}
+			
+			// If no more values in pathArray - return the id of the last node (not course, period or assignment)
+			return parentId;
+		}
+	}
+	
+		
+	
 	private long getNodeId(String name, long parentId) {
 		Query q;
 
@@ -172,6 +210,7 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 		return node == null ? -1 : node.getId();
 	}
 
+	
 	private long getNodeId(String name, String parent) {
 		Query q;
 

@@ -103,4 +103,50 @@ public class CourseNodeImpl extends BaseNodeImpl implements CourseNodeRemote, Co
 		// Remove *this* node
 		removeNode(courseId, CourseNode.class);
 	}
+	
+	
+	
+	public long getNodeIdFromPath(String [] nodePath, long parentNodeId) {
+		
+		long courseid = getCourseNodeId(nodePath[0], parentNodeId);
+		
+		if (nodePath.length == 1) {
+			return courseid;
+		}
+		else {
+			String [] newNodePath = new String[nodePath.length -1];
+			System.arraycopy(nodePath, 1, newNodePath, 0, newNodePath.length);
+			
+			return periodBean.getNodeIdFromPath(newNodePath, courseid);
+		}
+	}
+
+	
+	/**
+	 * Get the id of the course node name with parent parentId
+	 * @param name
+	 * @param parentId
+	 * @return
+	 */
+	protected long getCourseNodeId(String name, long parentId) {
+		Query q;
+
+		if (parentId == -1) {
+			return -1;
+		} 
+		
+		q = em.createQuery("SELECT n FROM CourseNode n WHERE n.name=:name AND n.parent IS NOT NULL AND n.parent.id=:parentId");
+		q.setParameter("name", name);
+		q.setParameter("parentId", parentId);
+
+		CourseNode node;
+
+		try {
+			node = (CourseNode) q.getSingleResult();
+		} catch (NoResultException e) {
+			node = null;
+		}
+
+		return node == null ? -1 : node.getId();
+	}
 }

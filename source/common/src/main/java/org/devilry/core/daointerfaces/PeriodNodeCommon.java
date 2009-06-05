@@ -106,4 +106,6 @@ public interface PeriodNodeCommon extends BaseNodeInterface {
 	 * @return A list with the id of all administrators for the given node.
 	 */
 	public List<Long> getPeriodAdmins(long periodNodeId);
+
+	public long getNodeIdFromPath(String [] nodePath, long parentNodeId);
 }
