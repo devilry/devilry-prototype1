@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Package xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmi:id="_UdmSoFHZEd6v5tn4I4gNLA" name="Examiner">
+  <elementImport xmi:id="_UeQZ8FHZEd6v5tn4I4gNLA">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+  </elementImport>
+  <elementImport xmi:id="_UeQZ8VHZEd6v5tn4I4gNLA">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+  </elementImport>
+  <elementImport xmi:id="_UeQZ8lHZEd6v5tn4I4gNLA">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#UnlimitedNatural"/>
+  </elementImport>
+  <elementImport xmi:id="_UeQZ81HZEd6v5tn4I4gNLA">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+  </elementImport>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_ObdQYFHhEd6v5tn4I4gNLA" name="Examiner">
+    <generalization xmi:id="_VnbH0FHhEd6v5tn4I4gNLA" general="_QBbIoFHhEd6v5tn4I4gNLA"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_QBbIoFHhEd6v5tn4I4gNLA" name="AuthenticatedUser"/>
+  <packagedElement xmi:type="uml:Component" xmi:id="_jADV0FHhEd6v5tn4I4gNLA" name="Devilry Core" useCase="_7LmeYFHiEd6v5tn4I4gNLA _98_A4FHiEd6v5tn4I4gNLA">
+    <ownedUseCase xmi:id="_7LmeYFHiEd6v5tn4I4gNLA" name="Get/Set status of assignment" subject="_jADV0FHhEd6v5tn4I4gNLA"/>
+    <ownedUseCase xmi:id="_98_A4FHiEd6v5tn4I4gNLA" name="Request assignment" subject="_jADV0FHhEd6v5tn4I4gNLA"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_ARGYkFHjEd6v5tn4I4gNLA" memberEnd="_ARG_oFHjEd6v5tn4I4gNLA _ARG_o1HjEd6v5tn4I4gNLA" navigableOwnedEnd="_ARG_o1HjEd6v5tn4I4gNLA">
+    <ownedEnd xmi:id="_ARG_oFHjEd6v5tn4I4gNLA" name="src" type="_ObdQYFHhEd6v5tn4I4gNLA" association="_ARGYkFHjEd6v5tn4I4gNLA">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ARG_olHjEd6v5tn4I4gNLA" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ARG_oVHjEd6v5tn4I4gNLA" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_ARG_o1HjEd6v5tn4I4gNLA" name="dst" type="_7LmeYFHiEd6v5tn4I4gNLA" association="_ARGYkFHjEd6v5tn4I4gNLA">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ARHmsVHjEd6v5tn4I4gNLA" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ARHmsFHjEd6v5tn4I4gNLA" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_AxnEoFHjEd6v5tn4I4gNLA" memberEnd="_AxnEoVHjEd6v5tn4I4gNLA _AxnrsFHjEd6v5tn4I4gNLA" navigableOwnedEnd="_AxnrsFHjEd6v5tn4I4gNLA">
+    <ownedEnd xmi:id="_AxnEoVHjEd6v5tn4I4gNLA" name="src" type="_ObdQYFHhEd6v5tn4I4gNLA" association="_AxnEoFHjEd6v5tn4I4gNLA">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_AxnEo1HjEd6v5tn4I4gNLA" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_AxnEolHjEd6v5tn4I4gNLA" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_AxnrsFHjEd6v5tn4I4gNLA" name="dst" type="_98_A4FHiEd6v5tn4I4gNLA" association="_AxnEoFHjEd6v5tn4I4gNLA">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_AxnrslHjEd6v5tn4I4gNLA" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_AxnrsVHjEd6v5tn4I4gNLA" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+</uml:Package>

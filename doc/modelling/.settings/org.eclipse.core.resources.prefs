@@ -1,6 +1,12 @@
-#Wed May 27 10:39:48 CEST 2009
+#Fri Jun 05 16:08:29 CEST 2009
 eclipse.preferences.version=1
 encoding//entities/entities.uml=UTF-8
 encoding//entities/entities.umlclass=UTF-8
+encoding//usecases/AuthenticatedUser.uml=UTF-8
+encoding//usecases/AuthenticatedUser.umlusc=UTF-8
+encoding//usecases/Examiner.uml=UTF-8
+encoding//usecases/Examiner.umlusc=UTF-8
+encoding//usecases/User.uml=UTF-8
+encoding//usecases/User.umlusc=UTF-8
 encoding//usecases/student.uml=UTF-8
 encoding//usecases/student.umlusc=UTF-8

@@ -166,7 +166,7 @@
       <layoutConstraint xmi:type="notation:Location" xmi:id="_uWq1gk0PEd6s740ZkHuemA" x="-39" y="27"/>
     </children>
     <element xmi:type="uml:Actor" href="Admin.uml#_uWsqsE0PEd6s740ZkHuemA"/>
-    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_uWq1g00PEd6s740ZkHuemA" x="122" y="138"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_uWq1g00PEd6s740ZkHuemA" x="81" y="162"/>
   </children>
   <styles xmi:type="notation:DiagramStyle" xmi:id="_tz3qcU0PEd6s740ZkHuemA"/>
   <styles xmi:type="uml2tools.notation:U2TDiagramCanonicalStyle" xmi:id="_tz3qck0PEd6s740ZkHuemA"/>

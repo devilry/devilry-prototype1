@@ -26,7 +26,7 @@
           <styles xmi:type="notation:CanonicalStyle" xmi:id="_yApJtU0LEd6s740ZkHuemA"/>
         </children>
         <element xmi:type="uml:UseCase" href="CourseAdmin.uml#_yABeoE0LEd6s740ZkHuemA"/>
-        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_yAn7kU0LEd6s740ZkHuemA" x="75" y="145"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_yAn7kU0LEd6s740ZkHuemA" x="57" y="62" height="37"/>
       </children>
       <children xmi:type="notation:Shape" xmi:id="_0UUcgE0LEd6s740ZkHuemA" type="3004" fontName="Sans">
         <children xmi:type="notation:DecorationNode" xmi:id="_0UVqoE0LEd6s740ZkHuemA" type="5006">
@@ -39,7 +39,7 @@
           <styles xmi:type="notation:CanonicalStyle" xmi:id="_0UWRtE0LEd6s740ZkHuemA"/>
         </children>
         <element xmi:type="uml:UseCase" href="CourseAdmin.uml#_0TpHEE0LEd6s740ZkHuemA"/>
-        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_0UUcgU0LEd6s740ZkHuemA" x="75" y="65"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_0UUcgU0LEd6s740ZkHuemA" x="57" y="17" width="307" height="37"/>
       </children>
       <children xmi:type="notation:Shape" xmi:id="_qtXB8E0OEd6s740ZkHuemA" type="3004" fontName="Sans">
         <children xmi:type="notation:DecorationNode" xmi:id="_qtXpAE0OEd6s740ZkHuemA" type="5006">
@@ -52,7 +52,7 @@
           <styles xmi:type="notation:CanonicalStyle" xmi:id="_qtXpBU0OEd6s740ZkHuemA"/>
         </children>
         <element xmi:type="uml:UseCase" href="CourseAdmin.uml#_qsxMEE0OEd6s740ZkHuemA"/>
-        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_qtXB8U0OEd6s740ZkHuemA" x="59" y="225" width="449"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_qtXB8U0OEd6s740ZkHuemA" x="57" y="107" width="307" height="37"/>
       </children>
       <styles xmi:type="notation:CanonicalStyle" xmi:id="_qYo2g00LEd6s740ZkHuemA"/>
     </children>

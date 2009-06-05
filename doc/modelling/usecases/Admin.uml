@@ -15,7 +15,7 @@
   <packagedElement xmi:type="uml:Actor" xmi:id="_uWrckE0PEd6s740ZkHuemA" name="Admin">
     <generalization xmi:id="_uWrckU0PEd6s740ZkHuemA" general="_uWsqsE0PEd6s740ZkHuemA"/>
   </packagedElement>
-  <packagedElement xmi:type="uml:Component" xmi:id="_uWsDoE0PEd6s740ZkHuemA" name="A" useCase="_uWsDoU0PEd6s740ZkHuemA _uWsDok0PEd6s740ZkHuemA _uWsDpE0PEd6s740ZkHuemA _uWsDpU0PEd6s740ZkHuemA _uWsDpk0PEd6s740ZkHuemA _uWsDqU0PEd6s740ZkHuemA _uWsDqk0PEd6s740ZkHuemA _yxhrAE4yEd6bWcwC_b1DzQ _2FGUkE4yEd6bWcwC_b1DzQ _O6JikE4zEd6bWcwC_b1DzQ _SS5nEE4zEd6bWcwC_b1DzQ">
+  <packagedElement xmi:type="uml:Component" xmi:id="_uWsDoE0PEd6s740ZkHuemA" name="Devilry Core" useCase="_uWsDoU0PEd6s740ZkHuemA _uWsDok0PEd6s740ZkHuemA _uWsDpE0PEd6s740ZkHuemA _uWsDpU0PEd6s740ZkHuemA _uWsDpk0PEd6s740ZkHuemA _uWsDqU0PEd6s740ZkHuemA _uWsDqk0PEd6s740ZkHuemA _yxhrAE4yEd6bWcwC_b1DzQ _2FGUkE4yEd6bWcwC_b1DzQ _O6JikE4zEd6bWcwC_b1DzQ _SS5nEE4zEd6bWcwC_b1DzQ">
     <ownedUseCase xmi:id="_uWsDoU0PEd6s740ZkHuemA" name="Add a course node to a node where user is admin" subject="_uWsDoE0PEd6s740ZkHuemA"/>
     <ownedUseCase xmi:id="_uWsDok0PEd6s740ZkHuemA" name="Remove a course node from a node where user is admin" subject="_uWsDoE0PEd6s740ZkHuemA"/>
     <ownedUseCase xmi:id="_uWsDpE0PEd6s740ZkHuemA" name="List subnodes of a node where user is admin" subject="_uWsDoE0PEd6s740ZkHuemA"/>
