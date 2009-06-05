@@ -18,6 +18,7 @@ public abstract class AbstractClientAPITst {
 	protected long lisaId;
 
 	Student homerNodeAdmin;
+	
 	Student bartStudent;
 	Student lisaStudent;
 

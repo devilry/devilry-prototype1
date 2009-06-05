@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StudentTest extends AbstractNodeClientAPITst {
+public class StudentTest extends AbstractClientAPITst {
 	protected UserLocal userBean;
 	protected long testUser0, testUser1, testUser2;
 
@@ -31,9 +31,9 @@ public class StudentTest extends AbstractNodeClientAPITst {
 		setupEjbContainer();
 		userBean = connection.getUser();
 				
-		names.add("Bendik");
-		names.add("Espen");
-		names.add("Morten");
+		names.add("Bart");
+		names.add("Lisa");
+		names.add("Maggie");
 		
 		emails.add("bendik@universe.com");
 		emails.add("xxx@pornstar.com");
