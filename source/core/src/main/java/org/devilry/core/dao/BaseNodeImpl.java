@@ -89,20 +89,41 @@ public abstract class BaseNodeImpl implements BaseNodeInterface {
 		return getBaseNode(nodeId).getAdmins().contains(getUser(userId));
 	}
 
+	/** Add a new administrator to the given node.
+	 * 
+	 * @param baseNodeId The unique number identifying an existing node.
+	 * @param userId The unique number identifying an existing user.
+	 */
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public void addAdmin(long nodeId, long userId) {
-		BaseNode n = getBaseNode(nodeId);
-		n.getAdmins().add(getUser(userId));
-		em.merge(n);
+	protected void addAdmin(BaseNode node, long userId) {
+		node.getAdmins().add(getUser(userId));
+		em.merge(node);
 	}
 
+	/** Remove an administrator from the given node.
+	 * 
+	 * @param baseNodeId The unique number identifying an existing node.
+	 * @param userId The unique number identifying an existing user.
+	 */
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public void removeAdmin(long nodeId, long userId) {
-		BaseNode n = getBaseNode(nodeId);
-		n.getAdmins().remove(getUser(userId));
-		em.merge(n);
+	protected void removeAdmin(BaseNode node, long userId) {
+		node.getAdmins().remove(getUser(userId));
+		em.merge(node);
 	}
 
+
+	/**
+	 * Remove a node with id nodeId of type nodeEntityClass
+	 * @param nodeId
+	 * @param nodeEntityClass
+	 */
+	protected void removeNode(long nodeId, Class<?> nodeEntityClass) {
+		String query = "DELETE FROM %s n WHERE n.id = :id";
+		Query q = em.createQuery(String.format(query, nodeEntityClass.getName()));
+		q.setParameter("id", nodeId);
+		q.executeUpdate();
+	}
+	
 	/**
 	 * Get nodes of the given type where the authenticated user is admin.
 	 * 
@@ -113,8 +134,7 @@ public abstract class BaseNodeImpl implements BaseNodeInterface {
 	protected List<Long> getNodesWhereIsAdmin(Class<?> nodeEntityClass) {
 		long userId = userBean.getAuthenticatedUser();
 		String query = "SELECT n.id FROM %s n INNER JOIN n.admins user WHERE user.id = :userId";
-		Query q = em.createQuery(String.format(query, nodeEntityClass
-				.getSimpleName()));
+		Query q = em.createQuery(String.format(query, nodeEntityClass.getName()));
 		q.setParameter("userId", userId);
 		return q.getResultList();
 	}

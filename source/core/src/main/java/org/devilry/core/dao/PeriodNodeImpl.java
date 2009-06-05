@@ -160,6 +160,18 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 		return getNodesWhereIsAdmin(PeriodNode.class);
 	}
 
+	
+	public void addPeriodAdmin(long periodNodeId, long userId) {
+		PeriodNode node = getPeriodNode(periodNodeId);
+		addAdmin(node, userId);
+	}
+		
+	public void removePeriodAdmin(long periodNodeId, long userId) {
+		PeriodNode node = getPeriodNode(periodNodeId);
+		removeAdmin(node, userId);
+	}
+	
+	
 	public long getIdFromPath(String path) {
 		// TODO Auto-generated method stub
 		return 0;
@@ -179,8 +191,11 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 		}
 		
 		// Remove *this* node
-		Query q = em.createQuery("DELETE FROM PeriodNode n WHERE n.id = :id");
+		removeNode(periodId, PeriodNode.class);
+		
+		// Remove *this* node
+		/*Query q = em.createQuery("DELETE FROM PeriodNode n WHERE n.id = :id");
 		q.setParameter("id", periodId);
-		q.executeUpdate();		
+		q.executeUpdate();		*/
 	}
 }
