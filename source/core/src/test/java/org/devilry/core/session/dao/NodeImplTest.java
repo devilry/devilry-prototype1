@@ -98,4 +98,28 @@ public class NodeImplTest extends AbstractNodeDaoTst {
 		assertFalse(node.exists(uioId));
 		assertFalse(node.exists(matnatId));
 	}
+	
+	@Test
+	public void isNodeAdmin() {
+		node.addNodeAdmin(matnatId, homerId);
+		assertTrue(node.isNodeAdmin(matnatId, homerId));
+	}
+		
+	@Test
+	public void addNodeAdmin() {
+		node.addNodeAdmin(matnatId, homerId);
+		assertTrue(node.isNodeAdmin(matnatId, homerId));
+	
+		int adminCount = node.getNodeAdmins(matnatId).size();
+		
+		// Test duplicates
+		node.addNodeAdmin(matnatId, homerId);
+		assertEquals(adminCount, node.getNodeAdmins(matnatId).size());
+	}
+	
+	@Test
+	public void removeNodeAdmin() {
+		node.removeNodeAdmin(matnatId, homerId);
+		assertFalse(node.isNodeAdmin(matnatId, homerId));
+	}
 }
