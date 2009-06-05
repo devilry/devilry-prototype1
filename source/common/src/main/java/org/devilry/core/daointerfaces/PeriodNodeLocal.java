@@ -75,4 +75,20 @@ public interface PeriodNodeLocal extends BaseNodeInterface {
 	 * @return List of period-ids.
 	 * */
 	List<Long> getPeriodsWhereIsAdmin();
+	
+	
+	/** 
+	 * Add a new administrator to the given period node.
+	 * @param periodNodeId The unique number identifying an existing node.
+	 * @param userId The unique number identifying an existing user.
+	 */
+	public void addPeriodAdmin(long periodNodeId, long userId);
+	
+	
+	/** 
+	 * Remove an administrator from the given period node.
+	 * @param periodNodeId The unique number identifying an existing node.
+	 * @param userId The unique number identifying an existing user.
+	 */
+	public void removePeriodAdmin(long periodNodeId, long userId);
 }

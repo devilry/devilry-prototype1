@@ -46,16 +46,16 @@ public class NodeImplTest extends AbstractNodeDaoTst {
 	
 	@Test
 	public void getNodesWhereIsAdmin() {
-		node.addAdmin(uioId, homerId);
+		node.addNodeAdmin(uioId, homerId);
 		List<Long> l = node.getNodesWhereIsAdmin();
 		assertEquals(1, l.size());
 		assertEquals(uioId, (long) l.get(0));
 
 		long margeId = userBean.create("marge", "marge@doh.com", "123");
-		node.addAdmin(uioId, margeId);
+		node.addNodeAdmin(uioId, margeId);
 		assertEquals(1, node.getNodesWhereIsAdmin().size());
 
-		node.addAdmin(matnatId, homerId);
+		node.addNodeAdmin(matnatId, homerId);
 		assertEquals(2, node.getNodesWhereIsAdmin().size());
 	}
 	

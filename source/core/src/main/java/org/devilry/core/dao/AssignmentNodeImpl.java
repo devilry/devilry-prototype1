@@ -94,6 +94,17 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 		return getNodesWhereIsAdmin(AssignmentNode.class);
 	}
 
+	public void addAssignmentAdmin(long assignmentNodeId, long userId) {
+		AssignmentNode node = getAssignmentNode(assignmentNodeId);
+		addAdmin(node, userId);
+	}
+		
+	public void removeAssignmentAdmin(long assignmentNodeId, long userId) {
+		AssignmentNode node = getAssignmentNode(assignmentNodeId);
+		removeAdmin(node, userId);
+	}
+	
+	
 	public long getPeriod(long nodeId) {
 		return getAssignmentNode(nodeId).getPeriod().getId();
 	}
@@ -117,9 +128,12 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 		}
 
 		// Remove *this* node
-		Query q = em.createQuery("DELETE FROM AssignmentNode n WHERE n.id = :id");
+		removeNode(assignmentId, AssignmentNode.class);
+		
+		// Remove *this* node
+		/*Query q = em.createQuery("DELETE FROM AssignmentNode n WHERE n.id = :id");
 		q.setParameter("id", assignmentId);
-		q.executeUpdate();	
+		q.executeUpdate();	*/
 		
 	}
 }

@@ -20,7 +20,7 @@ import org.devilry.core.daointerfaces.DeliveryRemote;
 import org.devilry.core.daointerfaces.PeriodNodeRemote;
 import org.devilry.core.session.*;
 
-public class AssignmentNodeImplTest extends NodeImplTest {
+public class AssignmentNodeImplTest extends AbstractNodeDaoTst {
 	
 	PeriodNodeRemote periodNode;
 	long periodId;
@@ -124,7 +124,7 @@ public class AssignmentNodeImplTest extends NodeImplTest {
 	
 	@Test
 	public void remove() {
-		super.remove();
+		node.remove(uioId);
 		assertFalse(node.exists(assignmentId));
 	}
 

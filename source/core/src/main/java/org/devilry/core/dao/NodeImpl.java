@@ -19,6 +19,7 @@ import org.devilry.core.daointerfaces.NodeLocal;
 import org.devilry.core.daointerfaces.NodeRemote;
 import org.devilry.core.entity.BaseNode;
 import org.devilry.core.entity.Node;
+import org.devilry.core.entity.PeriodNode;
 
 @Stateless
 @Interceptors( { AuthorizationInterceptor.class })
@@ -95,9 +96,12 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 		}
 	
 		// Remove *this* node
-		Query q = em.createQuery("DELETE FROM Node n WHERE n.id = :id");
+		removeNode(nodeId, Node.class);
+		
+		// Remove *this* node
+		/*Query q = em.createQuery("DELETE FROM Node n WHERE n.id = :id");
 		q.setParameter("id", nodeId);
-		q.executeUpdate();
+		q.executeUpdate();*/
 	}
 
 	public String getPath(long nodeId) {
@@ -200,5 +204,14 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 	public List<Long> getNodesWhereIsAdmin() {
 		return getNodesWhereIsAdmin(Node.class);
 	}
+	
+	public void addNodeAdmin(long nodeId, long userId) {
+		Node node = getNode(nodeId);
+		addAdmin(node, userId);
+	}
 
+	public void removeNodeAdmin(long nodeId, long userId) {
+		Node node = getNode(nodeId);
+		removeAdmin(node, userId);
+	}
 }

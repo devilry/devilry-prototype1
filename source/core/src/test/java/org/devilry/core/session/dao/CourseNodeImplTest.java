@@ -64,17 +64,17 @@ public class CourseNodeImplTest extends AbstractNodeDaoTst {
 
 	@Test
 	public void getCoursesWhereIsAdmin() {
-		courseNode.addAdmin(courseId, homerId);
+		courseNode.addCourseAdmin(courseId, homerId);
 		List<Long> l = courseNode.getCoursesWhereIsAdmin();
 		assertEquals(1, l.size());
 		assertEquals(courseId, (long) l.get(0));
 
 		long margeId = userBean.create("marge", "marge@doh.com", "123");
-		courseNode.addAdmin(courseId, margeId);
+		courseNode.addCourseAdmin(courseId, margeId);
 		assertEquals(1, courseNode.getCoursesWhereIsAdmin().size());
 
 		long tstId = courseNode.create("tst", "Test", uioId);
-		courseNode.addAdmin(tstId, homerId);
+		courseNode.addCourseAdmin(tstId, homerId);
 		assertEquals(2, courseNode.getCoursesWhereIsAdmin().size());
 	}
 

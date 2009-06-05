@@ -72,6 +72,17 @@ public class CourseNodeImpl extends BaseNodeImpl implements CourseNodeRemote, Co
 		return getNodesWhereIsAdmin(CourseNode.class);
 	}
 
+	public void addCourseAdmin(long courseNodeId, long userId) {
+		CourseNode node = getCourseNode(courseNodeId);
+		addAdmin(node, userId);
+	}
+		
+	public void removeCourseAdmin(long courseNodeId, long userId) {
+		CourseNode node = getCourseNode(courseNodeId);
+		removeAdmin(node, userId);
+	}
+	
+	
 	public void remove(long courseId) {
 		// Remove childnodes
 		List<Long> childPeriods = getPeriods(courseId);
@@ -80,8 +91,11 @@ public class CourseNodeImpl extends BaseNodeImpl implements CourseNodeRemote, Co
 		}
 
 		// Remove *this* node
-		Query q = em.createQuery("DELETE FROM CourseNode n WHERE n.id = :id");
+		removeNode(courseId, CourseNode.class);
+		
+		// Remove *this* node
+		/*Query q = em.createQuery("DELETE FROM CourseNode n WHERE n.id = :id");
 		q.setParameter("id", courseId);
-		q.executeUpdate();	
+		q.executeUpdate();	*/
 	}
 }
