@@ -1,7 +1,7 @@
 package org.devilry.core.daointerfaces;
 
-import javax.ejb.Remote;
+import javax.ejb.Local;
 
-@Remote
+@Local
 public interface CourseNodeLocal extends CourseNodeCommon {
 }
