@@ -25,8 +25,8 @@
     <ownedUseCase xmi:id="_uWsDqk0PEd6s740ZkHuemA" name="Change properties of a node where user is admin" subject="_uWsDoE0PEd6s740ZkHuemA"/>
     <ownedUseCase xmi:id="_yxhrAE4yEd6bWcwC_b1DzQ" name="Add student to period where user is admin" subject="_uWsDoE0PEd6s740ZkHuemA"/>
     <ownedUseCase xmi:id="_2FGUkE4yEd6bWcwC_b1DzQ" name="Remove student from period where user is admin" subject="_uWsDoE0PEd6s740ZkHuemA"/>
-    <ownedUseCase xmi:id="_O6JikE4zEd6bWcwC_b1DzQ" name="Add corrector to period where user is admin" subject="_uWsDoE0PEd6s740ZkHuemA"/>
-    <ownedUseCase xmi:id="_SS5nEE4zEd6bWcwC_b1DzQ" name="Remove corrector from period where user is admin" subject="_uWsDoE0PEd6s740ZkHuemA"/>
+    <ownedUseCase xmi:id="_O6JikE4zEd6bWcwC_b1DzQ" name="Add examiner to period where user is admin" subject="_uWsDoE0PEd6s740ZkHuemA"/>
+    <ownedUseCase xmi:id="_SS5nEE4zEd6bWcwC_b1DzQ" name="Remove examiner from period where user is admin" subject="_uWsDoE0PEd6s740ZkHuemA"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Actor" xmi:id="_uWsqsE0PEd6s740ZkHuemA" name="CourseAdmin"/>
   <packagedElement xmi:type="uml:Association" xmi:id="_uWsqsU0PEd6s740ZkHuemA" memberEnd="_uWsqsk0PEd6s740ZkHuemA _uWsqtU0PEd6s740ZkHuemA" navigableOwnedEnd="_uWsqtU0PEd6s740ZkHuemA">
