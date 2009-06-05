@@ -4,25 +4,25 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.List;
 
 import javax.naming.NamingException;
 
 import org.devilry.core.dao.NodeImpl;
 import org.devilry.core.dao.UserImpl;
 import org.devilry.core.daointerfaces.CourseNodeCommon;
-import org.devilry.core.daointerfaces.NodeLocal;
-import org.devilry.core.daointerfaces.NodeRemote;
-import org.devilry.core.daointerfaces.UserLocal;
+import org.devilry.core.daointerfaces.NodeCommon;
+import org.devilry.core.daointerfaces.PeriodNodeCommon;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 public class AbstractNodeClientAPITst extends AbstractClientAPITst {
-	protected NodeLocal node;
-	protected long uioId, matnatId, ifiId;
+	protected NodeCommon node;
+	protected long uioId, matnatId, ifiId, inf1000, inf1000Spring09, inf1000Fall09;
 	
 	CourseNodeCommon courseNode;
+	
+	PeriodNodeCommon periodNode;
 	
 	@Before
 	public void setUp() throws NamingException {
@@ -33,7 +33,11 @@ public class AbstractNodeClientAPITst extends AbstractClientAPITst {
 		ifiId = node.create("ifi", "Department of Informatics", matnatId);
 		
 		courseNode = connection.getCourseNode();
-		courseNode.create("INF1000", "Programmering intro", ifiId);
+		inf1000 = courseNode.create("INF1000", "Programmering intro", ifiId);
+		
+		periodNode = connection.getPeriodNode();
+		inf1000Spring09 = courseNode.create("spring2009", "INF1000 spring2009", inf1000);
+		inf1000Fall09 = courseNode.create("fall2009", "INf1000 fall 2009", inf1000);
 		
 	}
 	
