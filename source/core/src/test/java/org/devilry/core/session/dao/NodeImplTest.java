@@ -61,7 +61,8 @@ public class NodeImplTest extends AbstractNodeDaoTst {
 	
 	@Test(expected=Exception.class)
 	public void createDuplicateChild() {
-		node.create("matnat", "aaaa", uioId);
+		node.create("unique", "aaaa", uioId);
+		node.create("unique", "aaaa", uioId);
 	}
 
 	@Test(expected=Exception.class)

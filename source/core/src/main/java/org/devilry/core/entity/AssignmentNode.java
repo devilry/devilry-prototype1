@@ -5,7 +5,6 @@ import java.util.Date;
 import javax.persistence.*;
 
 @Entity
-@DiscriminatorValue("AN")
 public class AssignmentNode extends BaseNode {
 
 	@ManyToOne(fetch = FetchType.LAZY)

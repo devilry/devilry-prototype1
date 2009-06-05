@@ -13,7 +13,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@DiscriminatorValue("PN")
 public class PeriodNode extends BaseNode {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private CourseNode course;
