@@ -18,14 +18,5 @@ public interface BaseNodeInterface {
 	/** Get id from path. */
 	long getIdFromPath(String path);
 	
-	/** Get id of all administrators registered for the given node.
-	 * 
-	 * @param baseNodeId The unique number identifying an existing node.
-	 * @return A list with the id of all administrators for the given node.
-	 */
-	List<Long> getAdmins(long baseNodeId);
-
-	/** Check if a user is admin on the given node. */
-	boolean isAdmin(long baseNodeId, long userId);
 	
 }
