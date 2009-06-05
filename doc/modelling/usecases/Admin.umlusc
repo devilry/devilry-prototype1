@@ -87,7 +87,7 @@
           <styles xmi:type="notation:CanonicalStyle" xmi:id="_uWpAUk0PEd6s740ZkHuemA"/>
         </children>
         <element xmi:type="uml:UseCase" href="Admin.uml#_uWsDqU0PEd6s740ZkHuemA"/>
-        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_uWpAU00PEd6s740ZkHuemA" x="27" y="305" width="407" height="33"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_uWpAU00PEd6s740ZkHuemA" x="28" y="313" width="407" height="33"/>
       </children>
       <children xmi:type="notation:Shape" xmi:id="_uWpAVE0PEd6s740ZkHuemA" type="3004" fontName="Sans">
         <children xmi:type="notation:DecorationNode" xmi:id="_uWpAVU0PEd6s740ZkHuemA" type="5006">
@@ -166,7 +166,7 @@
       <layoutConstraint xmi:type="notation:Location" xmi:id="_uWq1gk0PEd6s740ZkHuemA" x="-39" y="27"/>
     </children>
     <element xmi:type="uml:Actor" href="Admin.uml#_uWsqsE0PEd6s740ZkHuemA"/>
-    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_uWq1g00PEd6s740ZkHuemA" x="81" y="162"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_uWq1g00PEd6s740ZkHuemA" x="90" y="135"/>
   </children>
   <styles xmi:type="notation:DiagramStyle" xmi:id="_tz3qcU0PEd6s740ZkHuemA"/>
   <styles xmi:type="uml2tools.notation:U2TDiagramCanonicalStyle" xmi:id="_tz3qck0PEd6s740ZkHuemA"/>
