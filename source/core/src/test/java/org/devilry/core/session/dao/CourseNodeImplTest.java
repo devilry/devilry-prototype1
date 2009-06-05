@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -12,11 +11,8 @@ import javax.naming.NamingException;
 
 import org.devilry.core.dao.CourseNodeImpl;
 import org.devilry.core.dao.PeriodNodeImpl;
-import org.devilry.core.daointerfaces.CourseNodeLocal;
-import org.devilry.core.daointerfaces.CourseNodeRemote;
-import org.devilry.core.daointerfaces.PeriodNodeLocal;
-import org.devilry.core.daointerfaces.PeriodNodeRemote;
-import org.devilry.core.entity.CourseNode;
+import org.devilry.core.daointerfaces.CourseNodeCommon;
+import org.devilry.core.daointerfaces.PeriodNodeCommon;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,8 +22,9 @@ import org.junit.Test;
  * @see CourseNodeLocal
  * */
 public class CourseNodeImplTest extends AbstractNodeDaoTst {
-	CourseNodeRemote courseNode;
-	PeriodNodeRemote periodNode;
+	CourseNodeCommon courseNode;
+	PeriodNodeCommon periodNode;
+	
 	long courseId;
 
 	@Before
@@ -100,26 +97,27 @@ public class CourseNodeImplTest extends AbstractNodeDaoTst {
 		courseNode.create("unique", "Unique", uioId);
 	}
 	
-	
-	
 	@Test
-	public void addCourseAdmin() {
-		
+	public void isCourseAdmin() {
 		courseNode.addCourseAdmin(courseId, homerId);
-		
-		courseNode.is
-		
-	/*
-	addCourseAdmin(long courseNodeId, long userId) {
-		CourseNode node = getCourseNode(courseNodeId);
-		addAdmin(node, userId);
-	
-	*/
+		assertTrue(courseNode.isCourseAdmin(courseId, homerId));
 	}
 	
 	@Test
-	public void removeCourseAdmin(long courseNodeId, long userId) {
-		CourseNode node = getCourseNode(courseNodeId);
-		removeAdmin(node, userId);
+	public void addCourseAdmin() {
+		courseNode.addCourseAdmin(courseId, homerId);
+		assertTrue(courseNode.isCourseAdmin(courseId, homerId));
+	
+		int adminCount = courseNode.getCourseAdmins(courseId).size();
+		
+		// Test duplicates
+		courseNode.addCourseAdmin(courseId, homerId);
+		assertEquals(adminCount, courseNode.getCourseAdmins(courseId).size());
+	}
+		
+	@Test
+	public void removeCourseAdmin() {
+		courseNode.removeCourseAdmin(courseId, homerId);
+		assertFalse(courseNode.isCourseAdmin(courseId, homerId));
 	}
 }
