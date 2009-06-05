@@ -59,4 +59,20 @@ public interface AssignmentNodeLocal extends BaseNodeInterface {
 	 * @return List of assignment-ids.
 	 * */
 	List<Long> getAssignmentsWhereIsAdmin();
+	
+	
+	/** 
+	 * Add a new administrator to the given assignment node.
+	 * @param assignmentNodeId The unique number identifying an existing node.
+	 * @param userId The unique number identifying an existing user.
+	 */
+	public void addAssignmentAdmin(long assignmentNodeId, long userId);
+	
+	
+	/** 
+	 * Remove an administrator from the given assignment node.
+	 * @param assignmentNodeId The unique number identifying an existing node.
+	 * @param userId The unique number identifying an existing user.
+	 */
+	public void removeAssignmentAdmin(long assignmentNodeId, long userId);
 }
