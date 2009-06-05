@@ -16,6 +16,7 @@ import org.devilry.core.daointerfaces.CourseNodeLocal;
 import org.devilry.core.daointerfaces.CourseNodeRemote;
 import org.devilry.core.daointerfaces.PeriodNodeLocal;
 import org.devilry.core.daointerfaces.PeriodNodeRemote;
+import org.devilry.core.entity.CourseNode;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -97,5 +98,28 @@ public class CourseNodeImplTest extends AbstractNodeDaoTst {
 	public void createDuplicate() {
 		courseNode.create("unique", "Unique", uioId);
 		courseNode.create("unique", "Unique", uioId);
+	}
+	
+	
+	
+	@Test
+	public void addCourseAdmin() {
+		
+		courseNode.addCourseAdmin(courseId, homerId);
+		
+		courseNode.is
+		
+	/*
+	addCourseAdmin(long courseNodeId, long userId) {
+		CourseNode node = getCourseNode(courseNodeId);
+		addAdmin(node, userId);
+	
+	*/
+	}
+	
+	@Test
+	public void removeCourseAdmin(long courseNodeId, long userId) {
+		CourseNode node = getCourseNode(courseNodeId);
+		removeAdmin(node, userId);
 	}
 }
