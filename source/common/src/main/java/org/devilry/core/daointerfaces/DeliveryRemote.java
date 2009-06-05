@@ -6,6 +6,6 @@ import java.util.Date;
 import java.util.List;
 
 @Remote
-public interface DeliveryRemote extends DeliveryLocal{
+public interface DeliveryRemote extends DeliveryCommon {
 	
 }

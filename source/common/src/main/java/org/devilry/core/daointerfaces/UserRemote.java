@@ -4,5 +4,5 @@ import javax.ejb.Remote;
 
 
 @Remote
-public interface UserRemote extends UserLocal {
+public interface UserRemote extends UserCommon {
 }
