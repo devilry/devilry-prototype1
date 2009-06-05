@@ -139,4 +139,46 @@ public class AssignmentNodeImplTest extends AbstractNodeDaoTst {
 		assignmentNode.create("unique", "Unique", new GregorianCalendar().getTime(), periodId);
 		assignmentNode.create("unique", "Unique", new GregorianCalendar().getTime(), periodId);
 	}
+
+
+	@Test
+	public void isAssignmentAdmin() {
+		assertFalse(assignmentNode.isAssignmentAdmin(assignmentId, homerId));
+		assignmentNode.addAssignmentAdmin(assignmentId, homerId);
+		assertTrue(assignmentNode.isAssignmentAdmin(assignmentId, homerId));
+	}
+
+	@Test
+	public void addAssignmentAdmin() {
+		assignmentNode.addAssignmentAdmin(assignmentId, homerId);
+		assertTrue(assignmentNode.isAssignmentAdmin(assignmentId, homerId));
+
+		int adminCount = assignmentNode.getAssignmentAdmins(assignmentId).size();
+
+		// Test duplicates
+		assignmentNode.addAssignmentAdmin(assignmentId, homerId);
+		assertEquals(adminCount, assignmentNode.getAssignmentAdmins(assignmentId).size());
+	}
+
+	@Test
+	public void removeAssignmentAdmin() {
+		assignmentNode.removeAssignmentAdmin(assignmentId, homerId);
+		assertFalse(assignmentNode.isAssignmentAdmin(assignmentId, homerId));
+	}
+
+	@Test
+	public void getAssignmentsWhereIsAdmin() {
+		assignmentNode.addAssignmentAdmin(assignmentId, homerId);
+		List<Long> l = assignmentNode.getAssignmentsWhereIsAdmin();
+		assertEquals(1, l.size());
+		assertEquals(assignmentId, (long) l.get(0));
+
+		long margeId = userBean.create("marge", "marge@doh.com", "123");
+		assignmentNode.addAssignmentAdmin(assignmentId, margeId);
+		assertEquals(1, assignmentNode.getAssignmentsWhereIsAdmin().size());
+
+		long tstId = assignmentNode.create("tst", "Test", new GregorianCalendar().getTime(), periodId);
+		assignmentNode.addAssignmentAdmin(tstId, homerId);
+		assertEquals(2, assignmentNode.getAssignmentsWhereIsAdmin().size());
+	}
 }

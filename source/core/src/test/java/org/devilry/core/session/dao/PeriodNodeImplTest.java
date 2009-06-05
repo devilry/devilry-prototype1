@@ -213,6 +213,7 @@ public class PeriodNodeImplTest extends AbstractNodeDaoTst {
 
 	@Test
 	public void isPeriodAdmin() {
+		assertFalse(periodNode.isPeriodAdmin(periodId, homerId));
 		periodNode.addPeriodAdmin(periodId, homerId);
 		assertTrue(periodNode.isPeriodAdmin(periodId, homerId));
 	}
