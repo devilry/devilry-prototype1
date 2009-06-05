@@ -24,6 +24,9 @@ public interface CourseNodeLocal extends BaseNodeInterface {
 	boolean exists(long courseNodeId);
 	
 	
+	/** Check if a user is admin on the given course node. */
+	boolean isCourseAdmin(long courseNodeId, long userId);
+	
 	/** 
 	 * Add a new administrator to the given course node.
 	 * @param courseNodeId The unique number identifying an existing node.
@@ -38,5 +41,14 @@ public interface CourseNodeLocal extends BaseNodeInterface {
 	 * @param userId The unique number identifying an existing user.
 	 */
 	public void removeCourseAdmin(long courseNodeId, long userId);
+	
+	
+	/** 
+	 * Get id of all administrators registered for the given course node.
+	 * 
+	 * @param baseNodeId The unique number identifying an existing node.
+	 * @return A list with the id of all administrators for the given node.
+	 */
+	List<Long> getCourseAdmins(long courseNodeId);
 	
 }
