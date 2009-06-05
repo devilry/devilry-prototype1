@@ -11,15 +11,18 @@ import javax.persistence.*;
 
 import org.devilry.core.daointerfaces.AssignmentNodeLocal;
 import org.devilry.core.daointerfaces.AssignmentNodeRemote;
+import org.devilry.core.daointerfaces.DeliveryLocal;
 import org.devilry.core.entity.*;
 
 @Stateless
 public class AssignmentNodeImpl extends BaseNodeImpl implements
 		AssignmentNodeRemote, AssignmentNodeLocal {
 
+	@EJB
+	private DeliveryLocal deliveryBean;
 	
 	private AssignmentNode getAssignmentNode(long nodeId) {
-		return (AssignmentNode) getNode(nodeId);
+		return getNode(AssignmentNode.class, nodeId);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -73,7 +76,7 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 		node.setName(name.toLowerCase());
 		node.setDisplayName(displayName);
 		node.setDeadline(deadline);
-		node.setParent(getNode(parentId));
+		node.setPeriod(getNode(PeriodNode.class, parentId));
 		em.persist(node);
 		em.flush();
 		return node.getId();
@@ -87,11 +90,50 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 		}
 	}
 
-//	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-//	public void remove(long nodeId) {
-//		// TODO: Find out why this also deletes Delivery objects with this assignment as parent!
-//		Query q = em.createQuery("DELETE FROM Node n WHERE n.id = :id");
-//		q.setParameter("id", nodeId);
-//		q.executeUpdate();
-//	}
+	public List<Long> getAssignmentsWhereIsAdmin() {
+		return getNodesWhereIsAdmin(AssignmentNode.class);
+	}
+
+	public void addAssignmentAdmin(long assignmentNodeId, long userId) {
+		AssignmentNode node = getAssignmentNode(assignmentNodeId);
+		addAdmin(node, userId);
+	}
+		
+	public void removeAssignmentAdmin(long assignmentNodeId, long userId) {
+		AssignmentNode node = getAssignmentNode(assignmentNodeId);
+		removeAdmin(node, userId);
+	}
+	
+	
+	public long getPeriod(long nodeId) {
+		return getAssignmentNode(nodeId).getPeriod().getId();
+	}
+
+	public long getIdFromPath(String path) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public String getPath(long nodeId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+		
+	public void remove(long assignmentId) {
+		
+		// Remove childnodes (deliveries)
+		List<Long> childDeliveries = getDeliveries(assignmentId);
+		for (Long childDeliveryId : childDeliveries) {
+			deliveryBean.remove(childDeliveryId);
+		}
+
+		// Remove *this* node
+		removeNode(assignmentId, AssignmentNode.class);
+		
+		// Remove *this* node
+		/*Query q = em.createQuery("DELETE FROM AssignmentNode n WHERE n.id = :id");
+		q.setParameter("id", assignmentId);
+		q.executeUpdate();	*/
+		
+	}
 }

@@ -5,12 +5,16 @@ import java.util.Date;
 import javax.persistence.*;
 
 @Entity
-@DiscriminatorValue("AN")
-public class AssignmentNode extends Node {
-	
-	@Temporal(TemporalType.DATE)
+@Table(uniqueConstraints=@UniqueConstraint(columnNames={"name", "period"}))
+public class AssignmentNode extends BaseNode {
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@Column(name="period")
+	private PeriodNode period;
+
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date deadline;
-	
+
 	public AssignmentNode() {
 	}
 
@@ -20,5 +24,13 @@ public class AssignmentNode extends Node {
 
 	public void setDeadline(Date deadline) {
 		this.deadline = deadline;
+	}
+
+	public void setPeriod(PeriodNode period) {
+		this.period = period;
+	}
+
+	public PeriodNode getPeriod() {
+		return period;
 	}
 }

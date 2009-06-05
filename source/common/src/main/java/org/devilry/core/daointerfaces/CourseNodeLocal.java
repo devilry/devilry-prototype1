@@ -1,9 +1,7 @@
 package org.devilry.core.daointerfaces;
 
-import java.util.List;
+import javax.ejb.Local;
 
-public interface CourseNodeLocal extends BaseNodeInterface {
-	public List<Long> getAllCourses();
-	long create(String name, String displayName, long parentId);
-	public List<Long> getPeriods(long courseId);
+@Local
+public interface CourseNodeLocal extends CourseNodeCommon {
 }
