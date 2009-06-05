@@ -8,7 +8,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(uniqueConstraints=@UniqueConstraint(columnNames={"id", "parent"}))
+@Table(uniqueConstraints=@UniqueConstraint(columnNames={"name", "parent"}))
 public class Node extends BaseNode {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@Column(name="parent")

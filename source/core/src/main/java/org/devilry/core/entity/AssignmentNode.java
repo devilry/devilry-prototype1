@@ -5,9 +5,11 @@ import java.util.Date;
 import javax.persistence.*;
 
 @Entity
+@Table(uniqueConstraints=@UniqueConstraint(columnNames={"name", "period"}))
 public class AssignmentNode extends BaseNode {
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@Column(name="period")
 	private PeriodNode period;
 
 	@Temporal(TemporalType.TIMESTAMP)
