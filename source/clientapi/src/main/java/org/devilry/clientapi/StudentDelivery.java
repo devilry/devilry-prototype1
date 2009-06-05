@@ -2,13 +2,12 @@ package org.devilry.clientapi;
 
 import javax.naming.NamingException;
 
-import org.devilry.core.daointerfaces.CourseNodeLocal;
-import org.devilry.core.daointerfaces.DeliveryCandidateLocal;
-import org.devilry.core.daointerfaces.DeliveryLocal;
+import org.devilry.core.daointerfaces.DeliveryCandidateCommon;
+import org.devilry.core.daointerfaces.DeliveryCommon;
 
 public class StudentDelivery extends AbstractDelivery {
 
-	DeliveryLocal delivery;
+	DeliveryCommon delivery;
 	long deliveryId;
 	
 	StudentDelivery(long deliveryId, DevilryConnection connection) {
@@ -17,10 +16,9 @@ public class StudentDelivery extends AbstractDelivery {
 	}
 	
 	
-	
 	public StudentDeliveryCandidate createDeliveryCandidate() throws NamingException {
 		
-		DeliveryCandidateLocal deliveryCandidate = connection.getDeliveryCandidate();
+		DeliveryCandidateCommon deliveryCandidate = connection.getDeliveryCandidate();
 		
 		long candidateId = deliveryCandidate.create(deliveryId);
 		StudentDeliveryCandidate candidate = new StudentDeliveryCandidate(candidateId, connection);
