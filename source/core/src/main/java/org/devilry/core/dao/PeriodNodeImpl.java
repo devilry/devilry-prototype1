@@ -1,5 +1,6 @@
 package org.devilry.core.dao;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -8,6 +9,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.devilry.core.daointerfaces.AssignmentNodeLocal;
 import org.devilry.core.daointerfaces.PeriodNodeLocal;
 import org.devilry.core.daointerfaces.PeriodNodeRemote;
 import org.devilry.core.entity.*;
@@ -15,8 +17,12 @@ import org.devilry.core.entity.*;
 @Stateless
 public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 		PeriodNodeLocal {
+	
+	@EJB
+	private AssignmentNodeLocal assignmentBean;
+	
 	protected PeriodNode getPeriodNode(long nodeId) {
-		return (PeriodNode) getNode(nodeId);
+		return getNode(PeriodNode.class, nodeId);
 	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
@@ -27,7 +33,7 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 		node.setDisplayName(displayName);
 		node.setStartDate(start);
 		node.setEndDate(end);
-		node.setParent(getNode(parentId));
+		node.setCourse(getNode(CourseNode.class, parentId));
 		em.persist(node);
 		em.flush();
 		return node.getId();
@@ -57,9 +63,10 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 
 	public List<Long> getAssignments(long periodNodeId) {
 		Query q = em.createQuery("SELECT a.id FROM AssignmentNode a "
-				+ "WHERE a.parent.id = :id");
+				+ "WHERE a.period.id = :id");
 		q.setParameter("id", periodNodeId);
-		return q.getResultList();
+		List<Long> result = q.getResultList();
+		return result;
 	}
 
 
@@ -143,5 +150,52 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 				.createQuery("SELECT p.id FROM PeriodNode p INNER JOIN p.examiners ex WHERE ex.id = :userId");
 		q.setParameter("userId", userId);
 		return q.getResultList();
+	}
+
+	public long getCourse(long periodId) {
+		return getPeriodNode(periodId).getCourse().getId();
+	}
+
+	public List<Long> getPeriodsWhereIsAdmin() {
+		return getNodesWhereIsAdmin(PeriodNode.class);
+	}
+
+	
+	public void addPeriodAdmin(long periodNodeId, long userId) {
+		PeriodNode node = getPeriodNode(periodNodeId);
+		addAdmin(node, userId);
+	}
+		
+	public void removePeriodAdmin(long periodNodeId, long userId) {
+		PeriodNode node = getPeriodNode(periodNodeId);
+		removeAdmin(node, userId);
+	}
+	
+	
+	public long getIdFromPath(String path) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public String getPath(long nodeId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void remove(long periodId) {
+				
+		// Remove childnodes (assignments)
+		List<Long> childAssignments = getAssignments(periodId);
+		for (Long childAssignmentId : childAssignments) {
+			assignmentBean.remove(childAssignmentId);
+		}
+		
+		// Remove *this* node
+		removeNode(periodId, PeriodNode.class);
+		
+		// Remove *this* node
+		/*Query q = em.createQuery("DELETE FROM PeriodNode n WHERE n.id = :id");
+		q.setParameter("id", periodId);
+		q.executeUpdate();		*/
 	}
 }

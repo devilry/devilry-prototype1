@@ -3,9 +3,7 @@ package org.devilry.core.dao;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.annotation.Resource;
 import javax.ejb.EJB;
-import javax.ejb.SessionContext;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
@@ -15,236 +13,128 @@ import javax.persistence.Query;
 
 import org.devilry.core.daointerfaces.BaseNodeInterface;
 import org.devilry.core.daointerfaces.UserLocal;
-import org.devilry.core.daointerfaces.UserRemote;
+import org.devilry.core.entity.BaseNode;
 import org.devilry.core.entity.Node;
 import org.devilry.core.entity.User;
 
-public class BaseNodeImpl implements BaseNodeInterface {
+public abstract class BaseNodeImpl implements BaseNodeInterface {
 	@PersistenceContext(unitName = "DevilryCore")
 	protected EntityManager em;
 
 	@EJB
-	UserLocal userBean;
-	
-	protected Node getNode(long nodeId) {
-		return em.find(Node.class, nodeId);
+	protected UserLocal userBean;
+
+	private BaseNode getBaseNode(long nodeId) {
+		return getNode(BaseNode.class, nodeId);
 	}
 
-	public String getName(long nodeId) {
-		return getNode(nodeId).getName();
-	}
-
-	public String getDisplayName(long nodeId) {
-		return getNode(nodeId).getDisplayName();
-	}
-
-	public String getPath(long nodeId) {
-		Node cn = getNode(nodeId);
-		String path = null;
-
-		while (true) {
-			if (cn.getParent() != null) {
-				if (path == null)
-					path = cn.getName();
-				else
-					path = cn.getName() + "." + path;
-
-				cn = cn.getParent();
-			} else {
-				if (path == null)
-					path = cn.getName();
-				else
-					path = cn.getName() + "." + path;
-				break;
-			}
-		}
-
-		return path;
-	}
-
-	public List<Long> getChildren(long nodeId) {
-		Query q = em.createQuery("SELECT n.id FROM Node n WHERE n.parent IS NOT NULL AND n.parent.id = :parentId");
-		q.setParameter("parentId", nodeId);
-		return (List<Long>) q.getResultList();
-	}
-
-	public List<Long> getSiblings(long nodeId) {
-		Node node = getNode(nodeId);
-
-		Query q = em.createQuery("SELECT n.id FROM Node n WHERE n.parent IS NOT NULL AND n.parent.id = :parentId AND n.id <> :id");
-		q.setParameter("parentId", node.getParent().getId());
-		q.setParameter("id", nodeId);
-
-		return (List<Long>) q.getResultList();
-	}
-
-
-	public long getParent(long nodeId) {
-		return getNode(nodeId).getParent().getId();
+	/**
+	 * Load the entity for the given node-id.
+	 * 
+	 * @param <E>
+	 *            Node entity type.
+	 * @param nodeEntityClass
+	 *            The return-type.
+	 * @param nodeId
+	 *            A unique id for the given
+	 * @return The node with the given id.
+	 */
+	protected <E> E getNode(Class<E> nodeEntityClass, long nodeId) {
+		return em.find(nodeEntityClass, nodeId);
 	}
 
 	public boolean exists(long nodeId) {
-		return getNode(nodeId) != null;
+		return getBaseNode(nodeId) != null;
 	}
 
+	public String getName(long nodeId) {
+		return getBaseNode(nodeId).getName();
+	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void setName(long nodeId, String name) {
-		Node node = getNode(nodeId);
+		BaseNode node = getBaseNode(nodeId);
 		node.setName(name);
 		em.merge(node);
 	}
 
+	public String getDisplayName(long nodeId) {
+		return getBaseNode(nodeId).getDisplayName();
+	}
+
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void setDisplayName(long nodeId, String name) {
-		Node node = getNode(nodeId);
+		BaseNode node = getBaseNode(nodeId);
 		node.setDisplayName(name);
 		em.merge(node);
 	}
 
-
-	
-	private void removeNode(Long nodeId) {
-		
-	
-// TODO: find out why this is not required!
-//		// Handle assignment nodes different because they do not have nodes below them.
-//		Node node = getNode(nodeId);
-//		if(node instanceof AssignmentNode) {
-//			System.out.println("********* REMOVING ASSIGNMENT " + node + " #### " + assignmentBean); //+ node.getName());
-//			long id = node.getId();
-//			assignmentBean.remove(id);
-//			return;
-//		}
-		
-		// Remove childnodes first
-		Query q = em.createQuery("SELECT n.id FROM Node n WHERE n.parent IS NOT NULL AND n.parent.id=:parentId");
-		q.setParameter("parentId", nodeId);
-		List<Long> children = q.getResultList();
-		for (Long childNodeId : children) {
-			removeNode(childNodeId);
-		}
-
-		// Remove *this* node
-		q = em.createQuery("DELETE FROM Node n WHERE n.id = :id");
-		q.setParameter("id", nodeId);
-		q.executeUpdate();
-	}
-
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public void remove(long nodeId) {
-		removeNode(nodeId);
-	}
-
-
-	public List<Long> getToplevelNodes() {
-		Query q = em.createQuery("SELECT n.id FROM Node n WHERE n.parent IS NULL");
-		return q.getResultList();
-	}
-
-	public long getNodeIdFromPath(String path) {
-		String[] sp = path.split("\\.");
-
-		if (sp.length == 1) {
-			return getNodeId(sp[0], -1);
-		} else if (sp.length > 1) {
-			int length = 0;
-			long id = 0;
-
-			while (length < sp.length - 1) {
-				id = getNodeId(sp[length + 1], sp[length]);
-				length++;
-
-				if (id == -1)
-					return id;
-			}
-
-			return id;
-		}
-
-		return -1;
-	}
-
-
-	private long getNodeId(String name, long parentId) {
-		Query q;
-
-		if (parentId != -1) {
-			q = em.createQuery("SELECT n FROM Node n WHERE n.name=:name AND n.parent IS NOT NULL AND n.parent.id=:parentId");
-			q.setParameter("name", name);
-			q.setParameter("parentId", parentId);
-		} else {
-			q = em.createQuery("SELECT n FROM Node n WHERE n.name=:name AND n.parent IS NULL");
-			q.setParameter("name", name);
-		}
-
-		Node node;
-
-		try {
-			node = (Node) q.getSingleResult();
-		} catch (NoResultException e) {
-			node = null;
-		}
-
-		return node == null ? -1 : node.getId();
-	}
-
-	private long getNodeId(String name, String parent) {
-		Query q;
-
-		if (parent != null) {
-			q = em.createQuery("SELECT n FROM Node n WHERE n.name=:name AND n.parent IS NOT NULL AND n.parent.name=:parent");
-			q.setParameter("name", name);
-			q.setParameter("parent", parent);
-		} else {
-			q = em.createQuery("SELECT n FROM Node n WHERE n.name=:name AND n.parent IS NULL");
-			q.setParameter("name", name);
-		}
-
-		Node node;
-
-		try {
-			node = (Node) q.getSingleResult();
-		} catch (NoResultException e) {
-			node = null;
-		}
-
-		return node == null ? -1 : node.getId();
-	}
+	// /////////////////////////////////
+	// Admins operations
+	// /////////////////////////////////
 
 	public List<Long> getAdmins(long nodeId) {
 		LinkedList<Long> l = new LinkedList<Long>();
-		for(User u: getNode(nodeId).getAdmins())
+		for (User u : getBaseNode(nodeId).getAdmins())
 			l.add(u.getId());
 		return l;
 	}
 
+	/** Get a User by id. */
 	protected User getUser(long userId) {
 		return (User) em.find(User.class, userId);
 	}
-	
+
 	public boolean isAdmin(long nodeId, long userId) {
-		return getNode(nodeId).getAdmins().contains(getUser(userId));
+		return getBaseNode(nodeId).getAdmins().contains(getUser(userId));
 	}
 
+	/** Add a new administrator to the given node.
+	 * 
+	 * @param baseNodeId The unique number identifying an existing node.
+	 * @param userId The unique number identifying an existing user.
+	 */
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public void addAdmin(long nodeId, long userId) {
-		Node n = getNode(nodeId);
-		n.getAdmins().add(getUser(userId));
-		em.merge(n);
+	protected void addAdmin(BaseNode node, long userId) {
+		node.getAdmins().add(getUser(userId));
+		em.merge(node);
 	}
 
+	/** Remove an administrator from the given node.
+	 * 
+	 * @param baseNodeId The unique number identifying an existing node.
+	 * @param userId The unique number identifying an existing user.
+	 */
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public void removeAdmin(long nodeId, long userId) {
-		Node n = getNode(nodeId);
-		n.getAdmins().remove(getUser(userId));
-		em.merge(n);
+	protected void removeAdmin(BaseNode node, long userId) {
+		node.getAdmins().remove(getUser(userId));
+		em.merge(node);
 	}
 
-	public List<Long> getNodesWhereIsAdmin() {
+
+	/**
+	 * Remove a node with id nodeId of type nodeEntityClass
+	 * @param nodeId
+	 * @param nodeEntityClass
+	 */
+	protected void removeNode(long nodeId, Class<?> nodeEntityClass) {
+		String query = "DELETE FROM %s n WHERE n.id = :id";
+		Query q = em.createQuery(String.format(query, nodeEntityClass.getName()));
+		q.setParameter("id", nodeId);
+		q.executeUpdate();
+	}
+	
+	/**
+	 * Get nodes of the given type where the authenticated user is admin.
+	 * 
+	 * @param nodeEntityClass
+	 *            The node type to search.
+	 * @return List of node-ids.
+	 */
+	protected List<Long> getNodesWhereIsAdmin(Class<?> nodeEntityClass) {
 		long userId = userBean.getAuthenticatedUser();
-
-		Query q = em.createQuery("SELECT n.id FROM Node n INNER JOIN n.admins user WHERE user.id = :userId");
+		String query = "SELECT n.id FROM %s n INNER JOIN n.admins user WHERE user.id = :userId";
+		Query q = em.createQuery(String.format(query, nodeEntityClass.getName()));
 		q.setParameter("userId", userId);
 		return q.getResultList();
 	}

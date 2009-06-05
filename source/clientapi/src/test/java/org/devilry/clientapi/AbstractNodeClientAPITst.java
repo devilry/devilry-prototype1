@@ -1,4 +1,4 @@
-package org.devilry.core.session.dao;
+package org.devilry.clientapi;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -10,20 +10,21 @@ import javax.naming.NamingException;
 
 import org.devilry.core.dao.NodeImpl;
 import org.devilry.core.dao.UserImpl;
+import org.devilry.core.daointerfaces.NodeLocal;
 import org.devilry.core.daointerfaces.NodeRemote;
 import org.devilry.core.daointerfaces.UserLocal;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class AbstractNodeDaoTst extends AbstractDaoTst {
-	protected NodeRemote node;
+public class AbstractNodeClientAPITst extends AbstractClientAPITst {
+	protected NodeLocal node;
 	protected long uioId, matnatId;
 	
 	@Before
 	public void setUp() throws NamingException {
 		setupEjbContainer();
-		node = getRemoteBean(NodeImpl.class);
+		node = connection.getNode();
 		uioId = node.create("uio", "UiO");
 		matnatId = node.create("matnat", "Faculty of Mathematics", uioId);
 	}

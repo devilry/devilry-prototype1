@@ -42,7 +42,7 @@ public class Student {
 	
 	public List<StudentPeriod> getPeriods() throws NamingException {
 		
-		List<Long> periodIds =  getPeriodNodeBean().getPeriodsWhereIsStudent(studentId);
+		List<Long> periodIds =  getPeriodNodeBean().getPeriodsWhereIsStudent();
 		
 		List<StudentPeriod> periods = new LinkedList<StudentPeriod>();
 		StudentPeriod periodTmp;

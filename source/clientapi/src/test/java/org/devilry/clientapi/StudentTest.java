@@ -1,33 +1,36 @@
-package org.devilry.core.session.dao;
+package org.devilry.clientapi;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import javax.naming.*;
+
+import org.devilry.core.dao.UserImpl;
+import org.devilry.core.daointerfaces.UserLocal;
+import org.devilry.core.daointerfaces.UserRemote;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.NamingException;
-
-import org.devilry.core.dao.UserImpl;
-import org.devilry.core.daointerfaces.UserRemote;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
-public class UserImplTest extends AbstractDaoTst {
-	protected UserRemote userBean;
+public class StudentTest extends AbstractNodeClientAPITst {
+	protected UserLocal userBean;
 	protected long testUser0, testUser1, testUser2;
 
+	Student bart, lisa, maggie;
+	
 	ArrayList<String> names = new ArrayList<String>();
 	ArrayList<String> emails = new ArrayList<String>();
 	ArrayList<String> phoneNumbers = new ArrayList<String>();
 	
+	Student homer;
+	
 	@Before
 	public void setUp() throws NamingException {
 		setupEjbContainer();
-		userBean = getRemoteBean(UserImpl.class);
-		
+		userBean = connection.getUser();
+				
 		names.add("Bendik");
 		names.add("Espen");
 		names.add("Morten");
@@ -44,7 +47,12 @@ public class UserImplTest extends AbstractDaoTst {
 		testUser0 = userBean.create(names.get(0), emails.get(0), phoneNumbers.get(0));
 		testUser1 = userBean.create(names.get(1),  emails.get(1), phoneNumbers.get(1));
 		testUser2 = userBean.create(names.get(2), emails.get(2), phoneNumbers.get(2));
+		
+		bart = new Student(testUser0, connection);
+		lisa = new Student(testUser1, connection);
+		maggie = new Student(testUser2, connection);
 	}
+	
 
 	@After
 	public void tearDown() {
