@@ -7,12 +7,12 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import org.devilry.core.dao.UserImpl;
-import org.devilry.core.daointerfaces.UserLocal;
+import org.devilry.core.daointerfaces.UserCommon;
 
 public abstract class AbstractDaoTst {
 	protected InitialContext localCtx;
 
-	protected UserLocal userBean;
+	protected UserCommon userBean;
 	protected long homerId;
 
 

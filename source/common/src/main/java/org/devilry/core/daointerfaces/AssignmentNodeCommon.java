@@ -75,6 +75,19 @@ public interface AssignmentNodeCommon extends BaseNodeInterface {
 	 * @param userId The unique number identifying an existing user.
 	 */
 	public void removeAssignmentAdmin(long assignmentNodeId, long userId);
-	
+
+	/** 
+	 * Get id of all administrators registered for the given assignment assignment.
+	 * 
+	 * @param baseNodeId The unique number identifying an existing assignment.
+	 * @return A list with the id of all administrators for the given assignment.
+	 */
+	public List<Long> getAssignmentAdmins(long assignmentNodeId);
+
+	/** 
+	 * Check if a user is admin on the given assignment. 
+	 * */
+	public boolean isAssignmentAdmin(long assignmentNodeId, long userId);
+
 	public long getNodeIdFromPath(String [] nodePath, long parentNodeId);
 }

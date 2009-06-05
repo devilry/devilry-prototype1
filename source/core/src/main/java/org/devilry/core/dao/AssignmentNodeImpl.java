@@ -4,15 +4,17 @@ import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
-import javax.ejb.Stateless;
-import javax.persistence.*;
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
 
 import org.devilry.core.daointerfaces.AssignmentNodeLocal;
 import org.devilry.core.daointerfaces.AssignmentNodeRemote;
 import org.devilry.core.daointerfaces.DeliveryLocal;
-import org.devilry.core.entity.*;
+import org.devilry.core.entity.AssignmentNode;
+import org.devilry.core.entity.PeriodNode;
 
 @Stateless
 public class AssignmentNodeImpl extends BaseNodeImpl implements
@@ -20,39 +22,41 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 
 	@EJB
 	private DeliveryLocal deliveryBean;
-	
+
 	private AssignmentNode getAssignmentNode(long nodeId) {
 		return getNode(AssignmentNode.class, nodeId);
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<Long> getDeliveries(long nodeId) {
-		Query q = em.createQuery("SELECT d.id FROM Delivery d WHERE d.assignment.id = :id");
+		Query q = em
+				.createQuery("SELECT d.id FROM Delivery d WHERE d.assignment.id = :id");
 		q.setParameter("id", nodeId);
 		return q.getResultList();
 	}
 
-	
 	public List<Long> getDeliveriesWhereIsStudent(long assignmentId) {
 		long userId = userBean.getAuthenticatedUser();
-				
-		Query q = em.createQuery("SELECT d.id FROM Delivery d INNER JOIN d.students user WHERE user.id = :userId AND d.assignment.id =:assignmentId");
+
+		Query q = em
+				.createQuery("SELECT d.id FROM Delivery d INNER JOIN d.students user WHERE user.id = :userId AND d.assignment.id =:assignmentId");
 		q.setParameter("assignmentId", assignmentId);
 		q.setParameter("userId", userId);
-		
+
 		return q.getResultList();
 	}
-	
+
 	public List<Long> getDeliveriesWhereIsExaminer(long assignmentId) {
 		long userId = userBean.getAuthenticatedUser();
-		
-		Query q = em.createQuery("SELECT d.id FROM Delivery d INNER JOIN d.examiners user WHERE user.id = :userId AND d.assignment.id =:assignmentId");
+
+		Query q = em
+				.createQuery("SELECT d.id FROM Delivery d INNER JOIN d.examiners user WHERE user.id = :userId AND d.assignment.id =:assignmentId");
 		q.setParameter("assignmentId", assignmentId);
 		q.setParameter("userId", userId);
-		
+
 		return q.getResultList();
 	}
-		
+
 	public List<Long> getChildren(long nodeId) {
 		throw new UnsupportedOperationException(
 				"AssignmentNode does not have any children. Did you mean getDeliveries?");
@@ -81,11 +85,11 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 		em.flush();
 		return node.getId();
 	}
-	
+
 	public boolean exists(long nodeId) {
 		try {
 			return getAssignmentNode(nodeId) != null;
-		} catch(ClassCastException e) {
+		} catch (ClassCastException e) {
 			return false;
 		}
 	}
@@ -98,13 +102,12 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 		AssignmentNode node = getAssignmentNode(assignmentNodeId);
 		addAdmin(node, userId);
 	}
-		
+
 	public void removeAssignmentAdmin(long assignmentNodeId, long userId) {
 		AssignmentNode node = getAssignmentNode(assignmentNodeId);
 		removeAdmin(node, userId);
 	}
-	
-	
+
 	public long getPeriod(long nodeId) {
 		return getAssignmentNode(nodeId).getPeriod().getId();
 	}
@@ -118,9 +121,9 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 		// TODO Auto-generated method stub
 		return null;
 	}
-		
+
 	public void remove(long assignmentId) {
-		
+
 		// Remove childnodes (deliveries)
 		List<Long> childDeliveries = getDeliveries(assignmentId);
 		for (Long childDeliveryId : childDeliveries) {
@@ -129,6 +132,17 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 
 		// Remove *this* node
 		removeNode(assignmentId, AssignmentNode.class);
+	}
+	
+
+	public List<Long> getAssignmentAdmins(long assignmentId) {
+		AssignmentNode node = getAssignmentNode(assignmentId);
+		return getAdmins(node);
+	}
+
+	public boolean isAssignmentAdmin(long assignmentId, long userId) {
+		AssignmentNode courseNode = getAssignmentNode(assignmentId);
+		return isAdmin(courseNode, userId);
 	}
 	
 	
@@ -179,4 +193,5 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 
 		return node == null ? -1 : node.getId();
 	}
+
 }
