@@ -1,16 +1,17 @@
 package org.devilry.core.entity;
 
-import javax.persistence.*;
-
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;	
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorValue("N")
+@Table(uniqueConstraints=@UniqueConstraint(columnNames={"id", "parent"}))
 public class Node extends BaseNode {
 	@ManyToOne(fetch = FetchType.LAZY)
+	@Column(name="parent")
 	private Node parent;
 
 	public Node() {

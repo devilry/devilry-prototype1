@@ -5,7 +5,6 @@ import javax.persistence.*;
 import org.devilry.core.entity.*;
 
 @Entity
-@DiscriminatorValue("CN")
 public class CourseNode extends BaseNode {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Node parent;
