@@ -6,14 +6,13 @@ import java.util.List;
 
 import javax.naming.NamingException;
 
-import org.devilry.core.daointerfaces.CourseNodeLocal;
-import org.devilry.core.daointerfaces.PeriodNodeLocal;
+import org.devilry.core.daointerfaces.CourseNodeCommon;
 
 public class StudentCourse {
 
 	DevilryConnection connection;
 	
-	CourseNodeLocal courseNode;
+	CourseNodeCommon courseNode;
 	long courseId;	
 	
 	StudentCourse(long courseId, DevilryConnection connection) {
@@ -21,7 +20,7 @@ public class StudentCourse {
 		this.courseId = courseId;
 	}	
 	
-	private CourseNodeLocal getCourseNodeBean() throws NamingException {
+	private CourseNodeCommon getCourseNodeBean() throws NamingException {
 		return courseNode == null ? courseNode = connection.getCourseNode() : courseNode;
 	}
 	

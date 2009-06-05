@@ -2,20 +2,17 @@ package org.devilry.clientapi;
 
 import javax.naming.NamingException;
 
-import org.devilry.core.daointerfaces.CourseNodeLocal;
-import org.devilry.core.daointerfaces.FileDataBlockLocal;
-import org.devilry.core.daointerfaces.FileDataBlockRemote;
-import org.devilry.core.daointerfaces.FileMetaLocal;
+import org.devilry.core.daointerfaces.FileDataBlockCommon;
 
 public class DevilryOutputStream extends AbstractDevilryFileStream {
 
-	FileDataBlockLocal fileDataBlock;
+	FileDataBlockCommon fileDataBlock;
 	
 	DevilryOutputStream(long fileMetaId, DevilryConnection connection) {
 		super(fileMetaId, connection);
 	}
 
-	private FileDataBlockLocal getFileDataBlockBean() throws NamingException {
+	private FileDataBlockCommon getFileDataBlockBean() throws NamingException {
 		return fileDataBlock == null ? fileDataBlock = connection.getFileDataBlock() : fileDataBlock;
 	}
 	

@@ -4,8 +4,6 @@ import java.util.List;
 
 import javax.naming.NamingException;
 
-import org.devilry.core.daointerfaces.AssignmentNodeLocal;
-import org.devilry.core.daointerfaces.DeliveryLocal;
 
 public class StudentAssignment extends AbstractAssignment {
 	

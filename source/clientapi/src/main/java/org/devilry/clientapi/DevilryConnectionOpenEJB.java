@@ -40,6 +40,9 @@ public class DevilryConnectionOpenEJB implements DevilryConnection {
 					"{ejbName}{interfaceType.annotationName}");
 			p.put("openejb.jndiname.format",
 					"{ejbName}{interfaceType.annotationName}");
+			p.put(Context.SECURITY_PRINCIPAL, "homer");
+			p.put(Context.SECURITY_CREDENTIALS, "doh");
+			
 			CTX = new InitialContext(p);
 		}
 		return CTX;

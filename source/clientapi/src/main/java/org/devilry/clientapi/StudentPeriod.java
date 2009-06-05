@@ -6,15 +6,14 @@ import java.util.List;
 
 import javax.naming.NamingException;
 
-import org.devilry.core.daointerfaces.AssignmentNodeLocal;
-import org.devilry.core.daointerfaces.DeliveryLocal;
-import org.devilry.core.daointerfaces.PeriodNodeLocal;
+import org.devilry.core.daointerfaces.PeriodNodeCommon;
+
 
 public class StudentPeriod {
 
 	DevilryConnection connection;
 	
-	PeriodNodeLocal periodNode;
+	PeriodNodeCommon periodNode;
 	long periodId;
 	
 	StudentPeriod(long periodId, DevilryConnection connection) {
@@ -22,13 +21,13 @@ public class StudentPeriod {
 		this.periodId = periodId;
 	}
 	
-	private PeriodNodeLocal getPeriodBean() throws NamingException {
+	private PeriodNodeCommon getPeriodBean() throws NamingException {
 		return periodNode == null ? periodNode = connection.getPeriodNode() : periodNode;
 	}
 	
 	public Collection<StudentAssignment> getAssignments() throws NamingException {
 		
-		PeriodNodeLocal period = getPeriodBean();
+		PeriodNodeCommon period = getPeriodBean();
 	
 		List<Long> ids = period.getAssignments(periodId);
 		

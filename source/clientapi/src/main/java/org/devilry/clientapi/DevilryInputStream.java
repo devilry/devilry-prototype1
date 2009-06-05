@@ -5,17 +5,18 @@ import java.util.List;
 
 import javax.naming.NamingException;
 
-import org.devilry.core.daointerfaces.FileDataBlockLocal;
+import org.devilry.core.daointerfaces.FileDataBlockCommon;
+
 
 public class DevilryInputStream extends AbstractDevilryFileStream {
 
-	FileDataBlockLocal fileDataBlock;
+	FileDataBlockCommon fileDataBlock;
 	
 	DevilryInputStream(long fileMetaId, DevilryConnection connection) {
 		super(fileMetaId, connection);
 	}
 
-	private FileDataBlockLocal getFileDataBlockBean() throws NamingException {
+	private FileDataBlockCommon getFileDataBlockBean() throws NamingException {
 		return fileDataBlock == null ? fileDataBlock = connection.getFileDataBlock() : fileDataBlock;
 	}
 		
