@@ -136,9 +136,7 @@ public class AssignmentNodeImplTest extends BaseNodeTst {
 	}
 	
 	@Test
-	public void getPath() {
-		System.err.println();
-		
+	public void getPath() {		
 		assertEquals(new NodePath("uio.matnat.inf1000.fall09.oblig1", "\\."), assignmentNode.getPath(assignmentId));
 	}
 	
