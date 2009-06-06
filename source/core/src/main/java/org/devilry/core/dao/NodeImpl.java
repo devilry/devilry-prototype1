@@ -42,6 +42,11 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public long create(String name, String displayName) {
+		
+		System.err.println("NodeImpl.create");
+		System.err.println("id:" + getIdFromPath(new NodePath(new String[]{name})));
+		
+		
 		if (getIdFromPath(new NodePath(new String[]{name})) != -1) {
 			throw new RuntimeException(
 					"Node name must be unique on toplevel nodes.");
@@ -163,11 +168,16 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 	*/
 
 	public long getIdFromPath(NodePath nodePath) {
-		
+				
 		NodePath pathCopy = new NodePath(nodePath);
-		
+				
+		// Only one node in path, hence no parent
+		if (pathCopy.size() == 1)
+			return getNodeId(pathCopy.get(0), -1);
+			
 		String nodeName = pathCopy.removeLastPathComponent();
-		long parentNodeId = nodeBean.getIdFromPath(nodePath);
+		
+		long parentNodeId = nodeBean.getIdFromPath(pathCopy);
 		long nodeId = getNodeId(nodeName, parentNodeId);
 		
 		return nodeId;
