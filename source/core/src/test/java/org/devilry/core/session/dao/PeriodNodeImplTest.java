@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import org.devilry.core.NodePath;
 import org.devilry.core.dao.AssignmentNodeImpl;
 import org.devilry.core.dao.CourseNodeImpl;
 import org.devilry.core.dao.PeriodNodeImpl;
@@ -201,6 +202,11 @@ public class PeriodNodeImplTest extends BaseNodeTst {
 		assertFalse(periodNode.exists(uioId));
 	}
 
+	@Test
+	public void getPath() {
+		assertEquals(new NodePath("uio.matnat.inf1000.fall09", "\\."), periodNode.getPath(periodId));
+	}
+	
 	@Test(expected = Exception.class)
 	public void createDuplicate() {
 		periodNode.create("unique", "Unique",
@@ -252,4 +258,7 @@ public class PeriodNodeImplTest extends BaseNodeTst {
 		periodNode.addPeriodAdmin(tstId, homerId);
 		assertEquals(2, periodNode.getPeriodsWhereIsAdmin().size());
 	}
+	
+	
+	
 }

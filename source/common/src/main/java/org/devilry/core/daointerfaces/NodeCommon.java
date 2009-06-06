@@ -52,5 +52,4 @@ public interface NodeCommon extends BaseNodeInterface {
 	 */
 	List<Long> getNodeAdmins(long nodeId);
 	
-	public long getIdFromPath(String path);
 }

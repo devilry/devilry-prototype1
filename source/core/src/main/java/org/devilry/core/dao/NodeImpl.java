@@ -42,7 +42,7 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public long create(String name, String displayName) {
-		if (getIdFromPath(name) != -1) {
+		if (getIdFromPath(new NodePath(new String[]{name})) != -1) {
 			throw new RuntimeException(
 					"Node name must be unique on toplevel nodes.");
 		}
@@ -108,36 +108,11 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 		removeNode(nodeId, Node.class);
 	}
 
-	/*
-	public String getPath(long nodeId) {
-		Node cn = getNode(nodeId);
-		String path = null;
-
-		while (true) {
-			if (cn.getParent() != null) {
-				if (path == null)
-					path = cn.getName();
-				else
-					path = cn.getName() + "." + path;
-
-				cn = cn.getParent();
-			} else {
-				if (path == null)
-					path = cn.getName();
-				else
-					path = cn.getName() + "." + path;
-				break;
-			}
-		}
-
-		return path;
-	}
-	*/
+	
 	
 	public NodePath getPath(long nodeId) {
 		
 		Node node = getNode(nodeId);
-				
 		String nodeName = node.getName();
 		
 		NodePath path;
@@ -155,39 +130,9 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 				
 		return path;
 	}
-	
-	public long getIdFromPath2(String path) {
-		String[] sp = path.split("\\.");
-
-		if (sp.length == 1) {
-			return getNodeId(sp[0], -1);
-		} else if (sp.length > 1) {
-			int length = 0;
-			long id = 0;
-
-			while (length < sp.length - 1) {
-				id = getNodeId(sp[length + 1], sp[length]);
-				length++;
-
-				if (id == -1)
-					return id;
-			}
-
-			return id;
-		}
-
-		return -1;
-	}
-
-	
-	public long getIdFromPath(String path) {
-		return getIdFromPath(new NodePath(path, "\\."));
-	}
-	
-	public long getIdFromPath(NodePath nodePath) {
-		return getIdFromPath(nodePath, -1);
-	}
 		
+	
+	/*
 	public long getIdFromPath(NodePath nodePath, long parentNodeId) {
 		
 		if (nodePath.size() == 1) {
@@ -215,7 +160,18 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 			return parentId;
 		}
 	}
+	*/
+
+	public long getIdFromPath(NodePath nodePath) {
 		
+		NodePath pathCopy = new NodePath(nodePath);
+		
+		String nodeName = pathCopy.removeLastPathComponent();
+		long parentNodeId = nodeBean.getIdFromPath(nodePath);
+		long nodeId = getNodeId(nodeName, parentNodeId);
+		
+		return nodeId;
+	}	
 		
 	
 	private long getNodeId(String name, long parentId) {
@@ -288,4 +244,5 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 		Node node = getNode(nodeId);
 		return getAdmins(node);
 	}
+
 }

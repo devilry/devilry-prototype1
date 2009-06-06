@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import org.devilry.core.NodePath;
 import org.devilry.core.dao.AssignmentNodeImpl;
 import org.devilry.core.dao.CourseNodeImpl;
 import org.devilry.core.dao.DeliveryImpl;
@@ -48,7 +49,7 @@ public class AssignmentNodeImplTest extends BaseNodeTst {
 				
 		// Add assignment
 		assignmentNode = getRemoteBean(AssignmentNodeImpl.class);
-		assignmentId = assignmentNode.create("Oblig1", "Obligatory assignemnt 1", deadline.getTime(), periodId);
+		assignmentId = assignmentNode.create("oblig1", "Obligatory assignemnt 1", deadline.getTime(), periodId);
 	}
 
 	@Test
@@ -132,6 +133,13 @@ public class AssignmentNodeImplTest extends BaseNodeTst {
 	public void exists() {
 		assertTrue(assignmentNode.exists(assignmentId));
 		assertFalse(assignmentNode.exists(uioId));
+	}
+	
+	@Test
+	public void getPath() {
+		System.err.println();
+		
+		assertEquals(new NodePath("uio.matnat.inf1000.fall09.oblig1", "\\."), assignmentNode.getPath(assignmentId));
 	}
 	
 	@Test(expected=Exception.class)

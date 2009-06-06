@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.naming.NamingException;
 
+import org.devilry.core.NodePath;
 import org.devilry.core.dao.CourseNodeImpl;
 import org.devilry.core.dao.PeriodNodeImpl;
 import org.devilry.core.daointerfaces.CourseNodeCommon;
@@ -59,7 +60,21 @@ public class CourseNodeImplTest extends BaseNodeTst {
 		assertTrue(courseNode.exists(courseId));
 		assertFalse(courseNode.exists(uioId));
 	}
+	
+	@Test
+	public void getPath() {
+		assertEquals(new NodePath("uio.matnat.inf1000", "\\."), courseNode.getPath(courseId));
+	}
 
+	@Test
+	public void getIdFromPath() {
+		System.err.println("CourseNodeImplTest");
+		System.err.println("courseId:" + courseId);
+		System.err.println("getIdFromPath:" + courseNode.getIdFromPath(new NodePath("uio.matnat.inf1000", "\\.")));
+		
+		assertEquals(courseId, courseNode.getIdFromPath(new NodePath("uio.matnat.inf1000", "\\.")));
+	}
+	
 	@Test
 	public void getCoursesWhereIsAdmin() {
 		courseNode.addCourseAdmin(courseId, homerId);

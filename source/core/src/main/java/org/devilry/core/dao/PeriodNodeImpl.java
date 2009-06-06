@@ -209,23 +209,22 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 	
 	
 	/**
-	 * Get period node id, or id of subnode assignment
+	 * Get period node id
 	 * @param nodePath
 	 * @param parentNodeId
 	 * @return
 	 */
-	public long getIdFromPath(NodePath nodePath, long parentNodeId) {
+	public long getIdFromPath(NodePath nodePath) {
 		
-		long periodId = getPeriodNodeId(nodePath.get(0), parentNodeId);
+		NodePath pathCopy = new NodePath(nodePath);
 		
-		if (nodePath.size() == 1) {
-			return periodId;
-		}
-		else {
-			nodePath.removeFirst();
-			return assignmentBean.getIdFromPath(nodePath, periodId);
-		}
+		String periodName = pathCopy.removeLastPathComponent();
+		long parentNodeId = courseBean.getIdFromPath(nodePath);
+		long periodId = getPeriodNodeId(periodName, parentNodeId);
+		
+		return periodId;
 	}
+
 	
 	/**
 	 * Get the id of the period node name with parent parentId
@@ -260,12 +259,11 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 	public NodePath getPath(long periodId) {
 		
 		PeriodNode period = getPeriodNode(periodId);
+		String periodName = period.getName();
 		
 		// Get path from parent course
 		NodePath path = courseBean.getPath(period.getCourse().getId());
 				
-		String periodName = period.getName();
-		
 		// Add current node name to path
 		path.addToEnd(periodName);
 				

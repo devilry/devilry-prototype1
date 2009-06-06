@@ -20,5 +20,5 @@ public interface BaseNodeInterface {
 	NodePath getPath(long baseNodeId);
 	
 	/** Get id from path. */
-	public long getIdFromPath(NodePath nodePath, long parentNodeId);	
+	public long getIdFromPath(NodePath nodePath);	
 }

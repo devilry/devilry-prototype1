@@ -18,6 +18,8 @@ import org.devilry.core.daointerfaces.CourseNodeCommon;
 import org.devilry.core.daointerfaces.CourseNodeLocal;
 import org.devilry.core.daointerfaces.DeliveryCommon;
 import org.devilry.core.daointerfaces.DeliveryLocal;
+import org.devilry.core.daointerfaces.PeriodNodeCommon;
+import org.devilry.core.daointerfaces.PeriodNodeLocal;
 import org.devilry.core.entity.AssignmentNode;
 import org.devilry.core.entity.PeriodNode;
 
@@ -30,6 +32,9 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 
 	@EJB(beanInterface=AssignmentNodeLocal.class) 
 	private AssignmentNodeCommon assignmentBean;
+	
+	@EJB(beanInterface=PeriodNodeLocal.class) 
+	private PeriodNodeCommon periodBean;
 	
 	
 	private AssignmentNode getAssignmentNode(long nodeId) {
@@ -151,12 +156,11 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 	public NodePath getPath(long assignmentNodeId) {
 		
 		AssignmentNode assignment = getAssignmentNode(assignmentNodeId);
-		
-		// Get path from parent period
-		NodePath path = assignmentBean.getPath(assignment.getPeriod().getId());
-				
 		String assignmentName = assignment.getName();
 		
+		// Get path from parent period
+		NodePath path = periodBean.getPath(assignment.getPeriod().getId());
+				
 		// Add current node name to path
 		path.addToEnd(assignmentName);
 				
@@ -184,18 +188,17 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 	}
 	
 	
-	public long getIdFromPath(NodePath nodePath, long parentNodeId) {
+	public long getIdFromPath(NodePath nodePath) {
 		
-		long assignmentId = getAssignmentNodeId(nodePath.get(0), parentNodeId);
+		NodePath pathCopy = new NodePath(nodePath);
 		
-		if (nodePath.size() == 1) {
-			return assignmentId;
-		}
-		else {
-			// path is too deep
-			return -1;
-		}
+		String assignmentName = pathCopy.removeLastPathComponent();
+		long parentNodeId = periodBean.getIdFromPath(nodePath);
+		long assignmentId = getAssignmentNodeId(assignmentName, parentNodeId);
+		
+		return assignmentId;
 	}
+	
 	
 	/**
 	 * Get the id of the period node name with parent parentId

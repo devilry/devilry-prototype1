@@ -5,12 +5,18 @@ import java.util.ArrayList;
 
 public class NodePath implements Serializable, Comparable<NodePath> {
 
-	ArrayList<String> nodePath = new ArrayList<String>();
+	private ArrayList<String> nodePath = new ArrayList<String>();
 	
 	public static final String defaultSeparator = ".";
 		
 	public NodePath() {
 		
+	}
+	
+	public NodePath(NodePath nodePathToCopy) {
+			
+		for (int i = 0; i < nodePathToCopy.size(); i++)
+			nodePath.add(nodePathToCopy.get(i));
 	}
 	
 	public NodePath(String path, String splitter) {
@@ -43,10 +49,13 @@ public class NodePath implements Serializable, Comparable<NodePath> {
 		return nodePath.size();
 	}
 	
-	public void removeFirst() {
-		nodePath.remove(0);
+	public String removeFirstPathComponent() {
+		return nodePath.remove(0);
 	}
 	
+	public String removeLastPathComponent() {
+		return nodePath.remove(nodePath.size() - 1);
+	}
 		
 	public String toString() {
 		
@@ -71,9 +80,7 @@ public class NodePath implements Serializable, Comparable<NodePath> {
 	}
 	
 	public boolean equals(Object anotherPath) {
-		
-		System.err.println("equals(Object anotherPath)");
-		
+			
 		if (anotherPath instanceof NodePath) {
 			return equals((NodePath) anotherPath);
 		}

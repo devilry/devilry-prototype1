@@ -33,20 +33,14 @@ public class NodeImplTest extends BaseNodeTst {
 
 	@Test
 	public void getPath() {
-		System.err.println("getPath:");		
-		System.err.println("node.getPath(matnatId):" + node.getPath(matnatId));
-		System.err.println("new NodePath(\"uio.matnat\", \"\\.\"):" + new NodePath("uio.matnat", "\\."));
-		
-		System.err.println("Equals:" + new NodePath("uio.matnat", "\\.").equals(node.getPath(matnatId)));
-		
 		assertEquals(new NodePath("uio.matnat", "\\."), node.getPath(matnatId));
 	}
 
 
 	@Test
-	public void getNodeIdFromPath() {
-		assertEquals(uioId, node.getIdFromPath("uio"));
-		assertEquals(matnatId, node.getIdFromPath("uio.matnat"));
+	public void getIdFromPath() {
+		assertEquals(uioId, node.getIdFromPath(new NodePath(new String[]{"uio"})));
+		assertEquals(matnatId, node.getIdFromPath(new NodePath("uio.matnat", "\\.")));
 	}
 
 	@Test
