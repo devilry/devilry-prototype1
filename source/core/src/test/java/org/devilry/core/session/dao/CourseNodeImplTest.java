@@ -67,11 +67,7 @@ public class CourseNodeImplTest extends BaseNodeTst {
 	}
 
 	@Test
-	public void getIdFromPath() {
-		System.err.println("CourseNodeImplTest");
-		System.err.println("courseId:" + courseId);
-		System.err.println("getIdFromPath:" + courseNode.getIdFromPath(new NodePath("uio.matnat.inf1000", "\\.")));
-		
+	public void getIdFromPath() {		
 		assertEquals(courseId, courseNode.getIdFromPath(new NodePath("uio.matnat.inf1000", "\\.")));
 	}
 	
