@@ -1,7 +1,62 @@
-Project Devilry
 
-	Core:
-	The devilry system core is more or less stable. More than 100 tests makes sure the the functionality is reliable.
+About
 
-	Client library:
-	The client library which is mean to be used by any client (web og command line) is nearly done. There are still some unit-tests lacking before the library 
+    Devilry is a system for handing in electronic deliveries. The system is 
+    designed to be flexible and customizable so that many different needs can be 
+    met. The system is meant for all types of electronic deliveries.
+
+* Operational
+
+    All parts of the system should be thoroughly tested. Runtime statistics is 
+    gathered so that issues are detected before they escalate.
+    The system is based on industry standards to make it as safe and stable as possible.
+
+* Intuitive User Interface
+
+    The user interface should be intuitive for all users; students, teaching 
+    assistants and administrators.
+
+* Internationalized
+
+    The system is to be internationalized so that institutions from all over the 
+    world can use it in their own language. Error messages and language of the 
+    User Interface should be easily translatable through language files, and 
+    will require no programming knowledge.
+
+    The UI should be multilingual so that each user can choose what language to 
+    use.
+
+
+System design
+
+    The area of utilization is handling assignment deliveries. The system will 
+    be customizable and extendable through a plugin system.
+    
+    Examples of plugin modules are web-front-end, user authentication, 
+    verification of the files that are delivered, database storage, email 
+    alerting and data exporting. The goal is make it easy to create 
+    plugins/extensions to the system.
+
+    The file verification plugin may check that the files have the correct type, 
+    and maybe even verify the content.
+
+* The core
+
+    The system core is a plugin driver and will be stabilized to a point where 
+    no more changes are needed, functionality wise. The API towards the core 
+    will be frozen, so that different versions of the core may run different 
+    versions of a plugin.
+
+* Plugins
+
+    All the functionality will be in the plugins. This includes the database and 
+    web-interface.
+
+
+* Open
+
+    * an open source project, with GPLv3 license. The core is open, but it is 
+      possible to use closed source plugins.
+
+    * everybody may contribute, and all processes are open; planning and 
+      development.
