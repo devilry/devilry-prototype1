@@ -1,3 +1,3 @@
-Project Devilry
+Devilry Common
 
-	TODO
+	Common contains the public interfaces used by both the core to implement the DAO classes, which are also used by the client.
