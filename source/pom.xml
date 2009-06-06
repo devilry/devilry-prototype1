@@ -90,6 +90,9 @@
 					<configLocation>
 						checkstyle.conf.xml
 					</configLocation>
+					<includeTestSourceDirectory>
+						true
+					</includeTestSourceDirectory>
 				</configuration>
 			</plugin>
 
