@@ -137,14 +137,21 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 	public NodePath getPath(long nodeId) {
 		
 		Node node = getNode(nodeId);
-		
-		// Get path from parent node
-		NodePath path = nodeBean.getPath(node.getParent().getId());
 				
-		String courseName = node.getName();
+		String nodeName = node.getName();
 		
-		// Add current node name to path
-		path.addToEnd(courseName);
+		NodePath path;
+		
+		// If node has parent node
+		if (node.getParent() != null) {
+			// Get path from parent node
+			path = nodeBean.getPath(node.getParent().getId());
+			// Add current node name to path
+			path.addToEnd(nodeName);
+		}
+		else {
+			path = new NodePath(new String[]{nodeName});
+		}
 				
 		return path;
 	}

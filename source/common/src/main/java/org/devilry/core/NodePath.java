@@ -3,10 +3,12 @@ package org.devilry.core;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class NodePath implements Serializable {
+public class NodePath implements Serializable, Comparable<NodePath> {
 
 	ArrayList<String> nodePath = new ArrayList<String>();
 	
+	public static final String defaultSeparator = ".";
+		
 	public NodePath() {
 		
 	}
@@ -45,4 +47,36 @@ public class NodePath implements Serializable {
 		nodePath.remove(0);
 	}
 	
+		
+	public String toString() {
+		
+		StringBuffer buf = new StringBuffer();
+		
+		for (String n : nodePath)
+			buf.append(buf.length() == 0 ? n : defaultSeparator + n);
+		
+		return buf.toString();
+	}
+	
+	
+	public int compareTo(NodePath anotherNodePath) {
+		String anotherPathString = anotherNodePath.toString();
+		String nodePathString = toString();
+		return nodePathString.compareTo(anotherPathString);
+	}
+	
+	
+	public boolean equals(NodePath anotherPath) {
+		return compareTo(anotherPath) == 0;
+	}
+	
+	public boolean equals(Object anotherPath) {
+		
+		System.err.println("equals(Object anotherPath)");
+		
+		if (anotherPath instanceof NodePath) {
+			return equals((NodePath) anotherPath);
+		}
+		return false;
+	}
 }

@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.naming.NamingException;
 
+import org.devilry.core.NodePath;
 import org.devilry.core.dao.CourseNodeImpl;
 import org.devilry.core.daointerfaces.CourseNodeRemote;
 import org.junit.Before;
@@ -32,7 +33,13 @@ public class NodeImplTest extends BaseNodeTst {
 
 	@Test
 	public void getPath() {
-		assertEquals("uio.matnat", node.getPath(matnatId));
+		System.err.println("getPath:");		
+		System.err.println("node.getPath(matnatId):" + node.getPath(matnatId));
+		System.err.println("new NodePath(\"uio.matnat\", \"\\.\"):" + new NodePath("uio.matnat", "\\."));
+		
+		System.err.println("Equals:" + new NodePath("uio.matnat", "\\.").equals(node.getPath(matnatId)));
+		
+		assertEquals(new NodePath("uio.matnat", "\\."), node.getPath(matnatId));
 	}
 
 
