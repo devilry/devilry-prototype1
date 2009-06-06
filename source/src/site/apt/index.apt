@@ -1,3 +1,7 @@
 Project Devilry
 
-	TODO
+	Core:
+	The devilry system core is more or less stable. More than 100 tests makes sure the the functionality is reliable.
+
+	Client library:
+	The client library which is mean to be used by any client (web og command line) is nearly done. There are still some unit-tests lacking before the library 

@@ -8,5 +8,11 @@
 		</menu>
 
 		<menu ref="modules" />
+
+		<menu name="Usecases">
+			<item name="About" href="index.html" />
+<!--			<item name="2009-01-29" href="meetings/2009-01-29.html" />-->
+<!--			<item name="Simple 1" href="docbook_test.html" />-->
+		</menu>
 	</body>
 </project>

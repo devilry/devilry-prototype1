@@ -14,7 +14,7 @@ import java.util.List;
 
 public class StudentTest extends AbstractNodeClientAPITst {
 	protected UserCommon userBean;
-	protected long bartId, lisaId;
+	//protected long bartId, lisaId;
 
 	Student homer;
 	Student bart, lisa;
@@ -26,7 +26,8 @@ public class StudentTest extends AbstractNodeClientAPITst {
 	
 	@Before
 	public void setUp() throws NamingException {
-		setupEjbContainer();
+		//setupEjbContainer();
+		super.setUp();
 		userBean = connection.getUser();
 		
 		names.add("Bart");
@@ -39,8 +40,9 @@ public class StudentTest extends AbstractNodeClientAPITst {
 		phoneNumbers.add("6666666");
 		
 		// Create some test users
-		bartId = userBean.create(names.get(0), emails.get(0), phoneNumbers.get(0));
-		lisaId = userBean.create(names.get(1),  emails.get(1), phoneNumbers.get(1));
+		//bartId = userBean.create(names.get(0), emails.get(0), phoneNumbers.get(0));
+		//lisaId = userBean.create(names.get(1),  emails.get(1), phoneNumbers.get(1));
+			
 		
 		homer = new Student(homerId, connection);
 		bart = new Student(bartId, connection);
@@ -50,10 +52,9 @@ public class StudentTest extends AbstractNodeClientAPITst {
 	
 
 	@After
-	public void tearDown() {
-		for(long userId: userBean.getUsers()) {
-			userBean.remove(userId);
-		}
+	public void tearDown() throws NamingException {
+		super.tearDown();
+		System.err.println("StudentTest teardown");
 		
 		names.clear();
 		emails.clear();
@@ -74,6 +75,10 @@ public class StudentTest extends AbstractNodeClientAPITst {
 	public void getPeriods() throws NamingException {
 	
 		List<StudentPeriod> periods;
+		
+		System.err.println("homerId:" + homerId);
+		
+		periodNode = connection.getPeriodNode();
 		
 		periodNode.addStudent(inf1000Spring09, homerId);
 		periods = homer.getPeriods();
