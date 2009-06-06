@@ -136,7 +136,7 @@
 			</activation>
 
 			<properties>
-				<site-path>file:../../devilry.github.com/doc</site-path>
+				<site-path>file:../../devilry.github.com</site-path>
 			</properties>
 		</profile>
 
