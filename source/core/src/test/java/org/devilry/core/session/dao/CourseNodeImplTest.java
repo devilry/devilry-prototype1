@@ -21,7 +21,7 @@ import org.junit.Test;
  * 
  * @see CourseNodeLocal
  * */
-public class CourseNodeImplTest extends AbstractNodeDaoTst {
+public class CourseNodeImplTest extends BaseNodeTst {
 	CourseNodeCommon courseNode;
 	PeriodNodeCommon periodNode;
 	

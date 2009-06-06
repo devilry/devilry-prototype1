@@ -20,7 +20,7 @@ import org.devilry.core.daointerfaces.DeliveryRemote;
 import org.devilry.core.daointerfaces.PeriodNodeRemote;
 import org.devilry.core.session.*;
 
-public class AssignmentNodeImplTest extends AbstractNodeDaoTst {
+public class AssignmentNodeImplTest extends BaseNodeTst {
 	
 	PeriodNodeRemote periodNode;
 	long periodId;

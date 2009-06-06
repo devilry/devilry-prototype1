@@ -13,13 +13,21 @@ import org.devilry.core.daointerfaces.CourseNodeRemote;
 import org.junit.Before;
 import org.junit.Test;
 
-public class NodeImplTest extends AbstractNodeDaoTst {
+
+public class NodeImplTest extends BaseNodeTst {
 	CourseNodeRemote courseNode;
 
 	@Before
 	public void setUp() throws NamingException {
 		super.setUp();
 		courseNode = getRemoteBean(CourseNodeImpl.class);
+	}
+
+	@Test
+	public void exists() {
+		assertTrue(node.exists(uioId));
+		assertTrue(node.exists(matnatId));
+		assertFalse(node.exists(uioId + matnatId));
 	}
 	
 	@Test

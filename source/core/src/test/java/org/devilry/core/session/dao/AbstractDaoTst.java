@@ -9,6 +9,8 @@ import javax.naming.NamingException;
 import org.devilry.core.dao.UserImpl;
 import org.devilry.core.daointerfaces.UserCommon;
 
+
+/** Base class for all testcases in this package. */
 public abstract class AbstractDaoTst {
 	protected InitialContext localCtx;
 

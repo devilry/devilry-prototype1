@@ -18,7 +18,7 @@ import org.devilry.core.daointerfaces.CourseNodeRemote;
 import org.devilry.core.daointerfaces.PeriodNodeRemote;
 import org.devilry.core.session.*;
 
-public class PeriodNodeImplTest extends AbstractNodeDaoTst {
+public class PeriodNodeImplTest extends BaseNodeTst {
 	PeriodNodeRemote periodNode;
 	long periodId;
 	long periodId2;
