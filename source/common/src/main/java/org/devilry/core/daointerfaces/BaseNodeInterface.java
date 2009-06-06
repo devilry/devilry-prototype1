@@ -16,7 +16,5 @@ public interface BaseNodeInterface {
 	String getPath(long baseNodeId);
 	
 	/** Get id from path. */
-	long getIdFromPath(String path);
-	
-	
+	long getIdFromPath(String path);	
 }

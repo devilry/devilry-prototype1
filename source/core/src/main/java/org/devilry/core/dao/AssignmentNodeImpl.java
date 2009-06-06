@@ -35,6 +35,7 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 		return q.getResultList();
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Long> getDeliveriesWhereIsStudent(long assignmentId) {
 		long userId = userBean.getAuthenticatedUser();
 
@@ -46,6 +47,7 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 		return q.getResultList();
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Long> getDeliveriesWhereIsExaminer(long assignmentId) {
 		long userId = userBean.getAuthenticatedUser();
 

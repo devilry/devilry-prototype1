@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.ManyToMany;
@@ -22,7 +23,7 @@ public class DeliveryCandidate implements Serializable {
 
 	private int status;
 	
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = false, fetch=FetchType.LAZY)
 	private Delivery delivery;
 
 	@Temporal(TemporalType.TIMESTAMP)

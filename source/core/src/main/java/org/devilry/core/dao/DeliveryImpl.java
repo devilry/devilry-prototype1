@@ -1,24 +1,23 @@
 package org.devilry.core.dao;
 
-import org.devilry.core.daointerfaces.DeliveryLocal;
-import org.devilry.core.daointerfaces.DeliveryRemote;
-import org.devilry.core.daointerfaces.UserLocal;
-import org.devilry.core.entity.AssignmentNode;
-import org.devilry.core.entity.Delivery;
-import org.devilry.core.entity.DeliveryCandidate;
-import org.devilry.core.entity.PeriodNode;
-import org.devilry.core.entity.User;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
-import javax.persistence.PersistenceContext;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import java.util.LinkedList;
-import java.util.List;
+import org.devilry.core.daointerfaces.DeliveryCandidateLocal;
+import org.devilry.core.daointerfaces.DeliveryLocal;
+import org.devilry.core.daointerfaces.DeliveryRemote;
+import org.devilry.core.daointerfaces.UserLocal;
+import org.devilry.core.entity.AssignmentNode;
+import org.devilry.core.entity.Delivery;
+import org.devilry.core.entity.User;
 
 @Stateful
 public class DeliveryImpl implements DeliveryRemote, DeliveryLocal {
@@ -26,11 +25,14 @@ public class DeliveryImpl implements DeliveryRemote, DeliveryLocal {
 	protected EntityManager em;
 
 	@EJB
-	UserLocal userBean;
-	
+	private UserLocal userBean;
+
+	@EJB
+	private DeliveryCandidateLocal deliveryCandidateBean;
+
 	public DeliveryImpl() {
 	}
-	
+
 	private User getUser(long userId) {
 		return (User) em.find(User.class, userId);
 	}
@@ -43,7 +45,6 @@ public class DeliveryImpl implements DeliveryRemote, DeliveryLocal {
 		return getDelivery(deliveryId).getAssignment().getId();
 	}
 
-	
 	@SuppressWarnings("unchecked")
 	public List<Long> getDeliveryCandidates(long deliveryId) {
 		Query q = em.createQuery("SELECT d.id FROM DeliveryCandidate d "
@@ -52,7 +53,6 @@ public class DeliveryImpl implements DeliveryRemote, DeliveryLocal {
 		return q.getResultList();
 	}
 
-	
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public long create(long assignmentId) {
 		Delivery d = new Delivery();
@@ -63,9 +63,9 @@ public class DeliveryImpl implements DeliveryRemote, DeliveryLocal {
 		return d.getId();
 	}
 
-	
 	public long getLastDeliveryCandidate(long deliveryId) {
-		Query q = em.createQuery("SELECT d.id FROM DeliveryCandidate d WHERE d.timeOfDelivery = MAX(d.timeOfDelivery)");
+		Query q = em
+				.createQuery("SELECT d.id FROM DeliveryCandidate d WHERE d.timeOfDelivery = MAX(d.timeOfDelivery)");
 		return (Long) q.getSingleResult();
 	}
 
@@ -74,7 +74,6 @@ public class DeliveryImpl implements DeliveryRemote, DeliveryLocal {
 		return 0;
 	}
 
-	
 	public int getStatus(long deliveryId) {
 		return getDelivery(deliveryId).getStatus();
 	}
@@ -90,9 +89,12 @@ public class DeliveryImpl implements DeliveryRemote, DeliveryLocal {
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void remove(long deliveryId) {
+		List<Long> children = getDeliveryCandidates(deliveryId);
+		for(long dcId: children) {
+			deliveryCandidateBean.remove(dcId);
+		}
 		em.remove(getDelivery(deliveryId));
 	}
-
 
 	//
 	// Student
@@ -123,6 +125,7 @@ public class DeliveryImpl implements DeliveryRemote, DeliveryLocal {
 		em.merge(n);
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Long> getDeliveriesWhereIsStudent() {
 		long userId = userBean.getAuthenticatedUser();
 		Query q = em
@@ -160,6 +163,7 @@ public class DeliveryImpl implements DeliveryRemote, DeliveryLocal {
 		em.merge(n);
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Long> getDeliveriesWhereIsExaminer() {
 		long userId = userBean.getAuthenticatedUser();
 		Query q = em

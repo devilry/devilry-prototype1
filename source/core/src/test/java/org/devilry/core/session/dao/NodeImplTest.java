@@ -29,7 +29,7 @@ public class NodeImplTest extends BaseNodeTst {
 		assertTrue(node.exists(matnatId));
 		assertFalse(node.exists(uioId + matnatId));
 	}
-	
+
 	@Test
 	public void getPath() {
 		assertEquals("uio.matnat", node.getPath(matnatId));

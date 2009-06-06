@@ -1,8 +1,8 @@
 package org.devilry.core.dao;
 
-import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
+
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -10,21 +10,22 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.devilry.core.daointerfaces.FileDataBlockLocal;
+import org.devilry.core.daointerfaces.FileMetaLocal;
 import org.devilry.core.daointerfaces.FileMetaRemote;
-import org.devilry.core.entity.Delivery;
 import org.devilry.core.entity.DeliveryCandidate;
-import org.devilry.core.entity.FileDataBlock;
 import org.devilry.core.entity.FileMeta;
 
 @Stateless
-public class FileMetaImpl implements FileMetaRemote {
+public class FileMetaImpl implements FileMetaRemote, FileMetaLocal {
 
 	@PersistenceContext(unitName = "DevilryCore")
 	protected EntityManager em;
 
 	public long create(long deliveryCandidateId, String filePath) {
 
-		DeliveryCandidate deliveryCandidate = em.find(DeliveryCandidate.class, deliveryCandidateId);
+		DeliveryCandidate deliveryCandidate = em.find(DeliveryCandidate.class,
+				deliveryCandidateId);
 
 		FileMeta fileMeta = new FileMeta();
 		// Set parent
@@ -53,8 +54,8 @@ public class FileMetaImpl implements FileMetaRemote {
 
 		FileMeta fileMeta = getFileMeta(fileMetaId);
 
-		Query q = em.createQuery(
-				"SELECT d.id FROM FileDataBlock d WHERE d.fileMeta.id = :fileId ORDER BY d.id");
+		Query q = em
+				.createQuery("SELECT d.id FROM FileDataBlock d WHERE d.fileMeta.id = :fileId ORDER BY d.id");
 		q.setParameter("fileId", fileMeta.getId());
 		List<Long> r = q.getResultList();
 
@@ -65,8 +66,8 @@ public class FileMetaImpl implements FileMetaRemote {
 
 		FileMeta fileMeta = getFileMeta(fileMetaId);
 
-		Query q = em.createQuery(
-				"SELECT SUM(b.size) FROM FileDataBlock b WHERE b.fileMeta.id = :fileMetaId");
+		Query q = em
+				.createQuery("SELECT SUM(b.size) FROM FileDataBlock b WHERE b.fileMeta.id = :fileMetaId");
 		q.setParameter("fileMetaId", fileMeta.getId());
 
 		long size = (Long) q.getSingleResult();
@@ -80,6 +81,10 @@ public class FileMetaImpl implements FileMetaRemote {
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void remove(long fileMetaId) {
+		Query q = em
+				.createQuery("DELETE FROM FileDataBlock b WHERE b.fileMeta.id = :fileMetaId");
+		q.setParameter("fileMetaId", fileMetaId);
+		q.executeUpdate();
 		em.remove(getFileMeta(fileMetaId));
 	}
 }

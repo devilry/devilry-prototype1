@@ -2,12 +2,16 @@ package org.devilry.core.dao;
 
 import org.devilry.core.daointerfaces.DeliveryCandidateLocal;
 import org.devilry.core.daointerfaces.DeliveryCandidateRemote;
+import org.devilry.core.daointerfaces.FileDataBlockLocal;
+import org.devilry.core.daointerfaces.FileMetaLocal;
 import org.devilry.core.entity.Delivery;
 import org.devilry.core.entity.FileMeta;
 import org.devilry.core.entity.DeliveryCandidate;
 
 import java.util.Date;
 import java.util.List;
+
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -21,6 +25,9 @@ public class DeliveryCandidateImpl implements DeliveryCandidateRemote, DeliveryC
 
 	@PersistenceContext(unitName = "DevilryCore")
 	protected EntityManager em;
+	
+	@EJB
+	private FileMetaLocal fileMetaBean;
 		
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public long create(long deliveryId) {
@@ -58,6 +65,7 @@ public class DeliveryCandidateImpl implements DeliveryCandidateRemote, DeliveryC
 		return fileMeta.getId();
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Long> getFiles(long deliveryCandidateId) {
 		Query q = em.createQuery("SELECT f.id FROM FileMeta f "
 				+ "WHERE f.deliveryCandidate.id = :id ORDER BY f.filePath");
@@ -80,6 +88,8 @@ public class DeliveryCandidateImpl implements DeliveryCandidateRemote, DeliveryC
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void remove(long deliveryCandidateId) {
+		for(long fileMetaId: getFiles(deliveryCandidateId))
+			fileMetaBean.remove(fileMetaId);
 		em.remove(getDeliveryCandidate(deliveryCandidateId));
 	}
 

@@ -18,7 +18,7 @@ public class FileDataBlockImpl implements FileDataBlockRemote {
 	@PersistenceContext(unitName = "DevilryCore")
 	protected EntityManager em;
 	
-	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public long create(long fileMetaId, byte [] data) {
 		
 		FileMeta fileMeta = em.find(FileMeta.class, fileMetaId);
@@ -43,7 +43,6 @@ public class FileDataBlockImpl implements FileDataBlockRemote {
 	}
 
 	public byte[] getFileData(long fileDataBlockId) {
-		
 		Query q = em.createQuery(
 				"SELECT d FROM FileDataBlock d WHERE d.id = :id");
 		q.setParameter("id", fileDataBlockId);

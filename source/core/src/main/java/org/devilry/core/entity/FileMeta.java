@@ -2,6 +2,7 @@ package org.devilry.core.entity;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -13,7 +14,7 @@ public class FileMeta implements Serializable {
 	@GeneratedValue
 	private long id;
 
-	@ManyToOne(optional=false)
+	@ManyToOne(optional=false, fetch=FetchType.LAZY)
 	private DeliveryCandidate deliveryCandidate;
 
 	private String filePath;
