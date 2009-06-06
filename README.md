@@ -66,7 +66,7 @@ One-time setup
 If you have not yet checked out the *devilry.github.com* repository, do so with
 (CWD must be the source/ directory):
 
-	~$ cd ../../
+	~$ cd ../
 	~$ git clone <your clone url>
 
 note that the repository must be in the *devilry.github.com/* directory with the same parent-dir as *this* repository.
@@ -80,7 +80,7 @@ use maven to generate our website, we have to generate the site *into* the *devi
 commit+push the changes with these commands (CWD must be the source/ directory):
 
 	~$ mvn clean site-deploy
-	~$ cd ../../devilry.github.com/
+	~$ cd ../devilry.github.com/
 	~$ git add .
 	~$ git commit -a -m "Updated the website."
 	~$ git push

@@ -1,6 +1,26 @@
 
 Development
 
-	We do our development (sourcecode management, issue tracking, community wiki) on our
-	{{{http://wiki.github.com/devilry/devilry}github branch}} using the technologies 
-	listed in the <technologies> menu.
+	GitHub provides us with <sourcecode management>, <issue tracking>, <community wiki> and
+	<static website hosting>. We have organized all <devilry> repositories under the 
+	{{{http://wiki.github.com/devilry}devilry user}} on github.
+	
+	* Development of the system is in the {{{http://github.com/devilry/devilry}devilry}}
+	  repository.
+
+	* Prototypes of potentially usable technology and any other code which would
+	  just clutter the main repository are in the
+	  {{{http://github.com/devilry/devilry-sandbox}devilry-sandbox}} repository.
+	
+	* <This> website is hosted in the
+	  {{{http://github.com/devilry/devilry.github.com}devilry.github.com}}
+	  repository. All content of this repository is generated from sources in the <devilry>
+	  repository.
+	
+	* The {{{http://wiki.github.com/devilry/devilry}wiki}} and
+	  {{{http://github.com/devilry/devilry/issues}issue tracker}} is on
+	  the <devilry> repository project site.
+
+	[]
+
+	We are currently using the technologies listed in the <technologies> menu.
