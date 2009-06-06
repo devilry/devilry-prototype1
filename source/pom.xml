@@ -126,28 +126,17 @@
 
 
 		<profile>
-			<id>webdeploy</id>
-
-			<activation>
-				<property>
-					<name>webdeploy</name>
-					<value>true</value>
-				</property>
-			</activation>
-
-			<properties>
-				<site-path>file:../../devilry.github.com</site-path>
-			</properties>
-		</profile>
-
-
-		<profile>
 			<!--  Create the full website. -->
-			<id>withreports</id>
+			<id>webdeploy</id>
 
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
+
+
+			<properties>
+				<site-path>file:../../devilry.github.com</site-path>
+			</properties>
 
 
 			<reporting>

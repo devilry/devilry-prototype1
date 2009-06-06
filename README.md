@@ -47,14 +47,7 @@ documentation like guides for special cases, setup of development environments a
 
 To build the website into `target/deployable-site/`, use this command (CWD must be the source/ directory):
 
-	~$ mvn clean site-deploy
-
-This command takes some time because it generates reports for:
-
- * JavaDoc
- * Checkstyle (code-style and javadoc validation)
- * Surefire (test-report)
- * Cobertura (test coverage)
+	~$ mvn clean site-deploy -Pno-reports
 
 
 Why clean?
@@ -62,13 +55,6 @@ Why clean?
 
 The use of *clean* is important because without clean, the *site* target does not seem to update content.
 
-
-Faster site generation
-----------------------
-
-You can choose to skip report creation with:
-
-	~$ mvn clean site-deploy -Pno-reports
 
 
 Publish the site to devilry.github.com
@@ -93,7 +79,8 @@ To publish the website, you must add files to the *devilry.github.com* repositor
 use maven to generate our website, we have to generate the site *into* the *devilry.github.com* repository and
 commit+push the changes with these commands (CWD must be the source/ directory):
 
-	~$ mvn clean site-deploy -Dwebdeploy=true
+	~$ mvn clean site-deploy
 	~$ cd ../../devilry.github.com/
+	~$ git add .
 	~$ git commit -a -m "Updated the website."
 	~$ git push
