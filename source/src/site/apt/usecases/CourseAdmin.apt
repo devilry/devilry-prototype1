@@ -1,0 +1,12 @@
+Usecase for an CourseAdmin
+
+[CourseAdmin.png] Diagram for CourseAdmin usecase.
+
+* Add/Remove a period node to a course node
+
+	Add or Remove a period node from a course node.
+
+* Change properties of a period node
+
+	Change one or more properties of a period node (like name, and end-time).
+

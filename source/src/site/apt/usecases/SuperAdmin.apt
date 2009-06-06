@@ -1,0 +1,20 @@
+Usecase for an SuperAdmin
+
+[SuperAdmin.png] Diagram for SuperAdmin usecase.
+
+* List all top level nodes
+
+	List all root-nodes.
+
+* Add/Remove top level node
+
+	Add or Remove a top level node (with recursion).
+
+* Add/Remove SuperAdmin user
+
+	Add or Remove a user from the SuperAdmin group.
+
+* Add/Remove admin user from a node
+
+	Add or Remove an admin user from a node.
+
