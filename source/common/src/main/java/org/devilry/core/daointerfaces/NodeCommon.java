@@ -6,7 +6,7 @@ public interface NodeCommon extends BaseNodeInterface {
 	long create(String name, String displayName);
 	long create(String name, String displayName, long parentId);
 
-	long getParent(long nodeId);
+	long getParentNode(long nodeId);
 
 	List<Long> getChildnodes(long nodeId);
 	List<Long> getChildcourses(long nodeId);
@@ -51,4 +51,6 @@ public interface NodeCommon extends BaseNodeInterface {
 	 * @return A list with the id of all administrators for the given node.
 	 */
 	List<Long> getNodeAdmins(long nodeId);
+	
+	public long getIdFromPath(String path);
 }

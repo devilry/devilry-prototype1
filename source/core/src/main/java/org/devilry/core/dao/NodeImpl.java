@@ -14,9 +14,13 @@ import javax.interceptor.InvocationContext;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
+import org.devilry.core.NodePath;
+import org.devilry.core.daointerfaces.CourseNodeCommon;
 import org.devilry.core.daointerfaces.CourseNodeLocal;
+import org.devilry.core.daointerfaces.NodeCommon;
 import org.devilry.core.daointerfaces.NodeLocal;
 import org.devilry.core.daointerfaces.NodeRemote;
+import org.devilry.core.daointerfaces.PeriodNodeLocal;
 import org.devilry.core.entity.BaseNode;
 import org.devilry.core.entity.CourseNode;
 import org.devilry.core.entity.Node;
@@ -25,8 +29,12 @@ import org.devilry.core.entity.PeriodNode;
 @Stateless
 @Interceptors( { AuthorizationInterceptor.class })
 public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
-	@EJB
-	private CourseNodeLocal courseBean;
+	
+	@EJB(beanInterface=CourseNodeLocal.class) 
+	private CourseNodeCommon courseBean;
+
+	@EJB(beanInterface=NodeLocal.class) 
+	private NodeCommon nodeBean;
 
 	private Node getNode(long nodeId) {
 		return getNode(Node.class, nodeId);
@@ -57,7 +65,7 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 		return node.getId();
 	}
 
-	public long getParent(long nodeId) {
+	public long getParentNode(long nodeId) {
 		return getNode(nodeId).getParent().getId();
 	}
 
@@ -100,6 +108,7 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 		removeNode(nodeId, Node.class);
 	}
 
+	/*
 	public String getPath(long nodeId) {
 		Node cn = getNode(nodeId);
 		String path = null;
@@ -123,8 +132,24 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 
 		return path;
 	}
-
-	public long getIdFromPath(String path) {
+	*/
+	
+	public NodePath getPath(long nodeId) {
+		
+		Node node = getNode(nodeId);
+		
+		// Get path from parent node
+		NodePath path = nodeBean.getPath(node.getParent().getId());
+				
+		String courseName = node.getName();
+		
+		// Add current node name to path
+		path.addToEnd(courseName);
+				
+		return path;
+	}
+	
+	public long getIdFromPath2(String path) {
 		String[] sp = path.split("\\.");
 
 		if (sp.length == 1) {
@@ -148,54 +173,53 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 	}
 
 	
-	public long getIdFromPath2(String path) {
-		String[] nodePath = path.split("\\.");
-		return getNodeIdFromPath(nodePath);
+	public long getIdFromPath(String path) {
+		return getIdFromPath(new NodePath(path, "\\."));
 	}
 	
-	
-	public long getNodeIdFromPath(String [] nodePath) {
+	public long getIdFromPath(NodePath nodePath) {
+		return getIdFromPath(nodePath, -1);
+	}
 		
-		if (nodePath.length == 1) {
-			return getNodeId(nodePath[0], -1);
+	public long getIdFromPath(NodePath nodePath, long parentNodeId) {
+		
+		if (nodePath.size() == 1) {
+			return getNodeId(nodePath.get(0), parentNodeId);
 		}
 		else {
 		
-			long parentId = -1;
+			long parentId = parentNodeId;
 			
-			for (int i = 0; i < nodePath.length; i++) {
+			for (int i = 0; i < nodePath.size(); i++) {
 				
-				long nodeId = getNodeId(nodePath[i], parentId);
+				long nodeId = getNodeId(nodePath.get(i), parentId);
 				
 				// If valid node id
 				if (nodeId != -1) {
 					parentId = nodeId;
 				}// If invalid node id, try course
 				else {
-					String [] newNodePath = new String[nodePath.length -1];
-					System.arraycopy(nodePath, 1, newNodePath, 0, newNodePath.length);
-					return courseBean.getNodeIdFromPath(newNodePath, parentId); 
+					nodePath.removeFirst();					
+					return courseBean.getIdFromPath(nodePath, parentId); 
 				}
 			}
 			
-			// If no more values in pathArray - return the id of the last node (not course, period or assignment)
+			// If no more values in nodePath - return the id of the last node (not course, period or assignment)
 			return parentId;
 		}
 	}
-	
+		
 		
 	
 	private long getNodeId(String name, long parentId) {
 		Query q;
 
 		if (parentId != -1) {
-			q = em
-					.createQuery("SELECT n FROM Node n WHERE n.name=:name AND n.parent IS NOT NULL AND n.parent.id=:parentId");
+			q = em.createQuery("SELECT n FROM Node n WHERE n.name=:name AND n.parent IS NOT NULL AND n.parent.id=:parentId");
 			q.setParameter("name", name);
 			q.setParameter("parentId", parentId);
 		} else {
-			q = em
-					.createQuery("SELECT n FROM Node n WHERE n.name=:name AND n.parent IS NULL");
+			q = em.createQuery("SELECT n FROM Node n WHERE n.name=:name AND n.parent IS NULL");
 			q.setParameter("name", name);
 		}
 
@@ -215,13 +239,11 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 		Query q;
 
 		if (parent != null) {
-			q = em
-					.createQuery("SELECT n FROM Node n WHERE n.name=:name AND n.parent IS NOT NULL AND n.parent.name=:parent");
+			q = em.createQuery("SELECT n FROM Node n WHERE n.name=:name AND n.parent IS NOT NULL AND n.parent.name=:parent");
 			q.setParameter("name", name);
 			q.setParameter("parent", parent);
 		} else {
-			q = em
-					.createQuery("SELECT n FROM Node n WHERE n.name=:name AND n.parent IS NULL");
+			q = em.createQuery("SELECT n FROM Node n WHERE n.name=:name AND n.parent IS NULL");
 			q.setParameter("name", name);
 		}
 

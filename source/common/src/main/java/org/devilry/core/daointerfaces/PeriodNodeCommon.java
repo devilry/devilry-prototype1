@@ -10,7 +10,7 @@ public interface PeriodNodeCommon extends BaseNodeInterface {
 	public Date getEndDate(long periodperiodId);
 	public long create(String name, String displayName, Date start, Date end, long parentId);
 	
-	public long getCourse(long periodId);
+	public long getParentCourse(long periodId);
 	public List<Long> getAssignments(long periodperiodId);
 	
 	/** Get id of all students registered for the given period.
@@ -106,6 +106,5 @@ public interface PeriodNodeCommon extends BaseNodeInterface {
 	 * @return A list with the id of all administrators for the given node.
 	 */
 	public List<Long> getPeriodAdmins(long periodNodeId);
-
-	public long getNodeIdFromPath(String [] nodePath, long parentNodeId);
+	
 }

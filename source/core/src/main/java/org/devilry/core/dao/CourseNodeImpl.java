@@ -6,8 +6,12 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.*;
 
+import org.devilry.core.NodePath;
 import org.devilry.core.daointerfaces.CourseNodeLocal;
 import org.devilry.core.daointerfaces.CourseNodeRemote;
+import org.devilry.core.daointerfaces.NodeCommon;
+import org.devilry.core.daointerfaces.NodeLocal;
+import org.devilry.core.daointerfaces.PeriodNodeCommon;
 import org.devilry.core.daointerfaces.PeriodNodeLocal;
 import org.devilry.core.entity.*;
 
@@ -17,8 +21,11 @@ import java.util.List;
 @Stateless
 public class CourseNodeImpl extends BaseNodeImpl implements CourseNodeRemote, CourseNodeLocal {
 	
-	@EJB
-	private PeriodNodeLocal periodBean;
+	@EJB(beanInterface=PeriodNodeLocal.class) 
+	private PeriodNodeCommon periodBean;
+
+	@EJB(beanInterface=NodeLocal.class) 
+	private NodeCommon nodeBean;
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public long create(String name, String displayName, long parentId) {
@@ -55,18 +62,8 @@ public class CourseNodeImpl extends BaseNodeImpl implements CourseNodeRemote, Co
 		}
 	}
 
-	public long getParent(long courseId) {
+	public long getParentNode(long courseId) {
 		return getCourseNode(courseId).getParent().getId();
-	}
-
-	public long getIdFromPath(String path) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public String getPath(long nodeId) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	public List<Long> getCoursesWhereIsAdmin() {
@@ -105,19 +102,31 @@ public class CourseNodeImpl extends BaseNodeImpl implements CourseNodeRemote, Co
 	}
 	
 	
+	public NodePath getPath(long courseNodeId) {
+		
+		CourseNode course = getCourseNode(courseNodeId);
+		
+		// Get path from parent node
+		NodePath path = nodeBean.getPath(course.getParent().getId());
+				
+		String courseName = course.getName();
+		
+		// Add current node name to path
+		path.addToEnd(courseName);
+				
+		return path;
+	}
 	
-	public long getNodeIdFromPath(String [] nodePath, long parentNodeId) {
+	public long getIdFromPath(NodePath nodePath, long parentNodeId) {
 		
-		long courseid = getCourseNodeId(nodePath[0], parentNodeId);
+		long courseid = getCourseNodeId(nodePath.get(0), parentNodeId);
 		
-		if (nodePath.length == 1) {
+		if (nodePath.size() == 1) {
 			return courseid;
 		}
 		else {
-			String [] newNodePath = new String[nodePath.length -1];
-			System.arraycopy(nodePath, 1, newNodePath, 0, newNodePath.length);
-			
-			return periodBean.getNodeIdFromPath(newNodePath, courseid);
+			nodePath.removeFirst();
+			return periodBean.getIdFromPath(nodePath, courseid);
 		}
 	}
 

@@ -73,13 +73,13 @@ public class ShowAll extends HttpServlet {
 
 			b.append("<div class='subsection'>");
 			b.append("<h3>Assignments:</h3>");
-			for (long id : node.getChildren(nodeId))
+			for (long id : node.getChildcourses(nodeId))
 				addNode(b, id);			
 		} else if (assignment.exists(nodeId)) {
 			for (long id : assignment.getDeliveries(nodeId))
 				addDelivery(b, id);
 		} else {
-			for (long id : node.getChildren(nodeId))
+			for (long id : node.getChildcourses(nodeId))
 				addNode(b, id);
 		}
 		b.append("</div>");

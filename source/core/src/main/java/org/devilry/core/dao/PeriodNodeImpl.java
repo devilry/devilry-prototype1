@@ -10,8 +10,11 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.devilry.core.NodePath;
 import org.devilry.core.daointerfaces.AssignmentNodeCommon;
 import org.devilry.core.daointerfaces.AssignmentNodeLocal;
+import org.devilry.core.daointerfaces.CourseNodeCommon;
+import org.devilry.core.daointerfaces.CourseNodeLocal;
 import org.devilry.core.daointerfaces.PeriodNodeLocal;
 import org.devilry.core.daointerfaces.PeriodNodeRemote;
 import org.devilry.core.entity.*;
@@ -20,9 +23,12 @@ import org.devilry.core.entity.*;
 public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 		PeriodNodeLocal {
 
-	@EJB
-	private AssignmentNodeLocal assignmentBean;
+	@EJB(beanInterface=AssignmentNodeLocal.class) 
+	private AssignmentNodeCommon assignmentBean;
 
+	@EJB(beanInterface=CourseNodeLocal.class) 
+	private CourseNodeCommon courseBean;
+	
 	protected PeriodNode getPeriodNode(long nodeId) {
 		return getNode(PeriodNode.class, nodeId);
 	}
@@ -79,15 +85,6 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 		}
 	}
 
-	public long getIdFromPath(String path) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public String getPath(long nodeId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	public void remove(long periodId) {
 
@@ -101,7 +98,7 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 		removeNode(periodId, PeriodNode.class);
 	}
 
-	public long getCourse(long periodId) {
+	public long getParentCourse(long periodId) {
 		return getPeriodNode(periodId).getCourse().getId();
 	}
 
@@ -207,24 +204,26 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 	}
 	
 	
+	
+
+	
+	
 	/**
 	 * Get period node id, or id of subnode assignment
 	 * @param nodePath
 	 * @param parentNodeId
 	 * @return
 	 */
-	public long getNodeIdFromPath(String [] nodePath, long parentNodeId) {
+	public long getIdFromPath(NodePath nodePath, long parentNodeId) {
 		
-		long courseid = getPeriodNodeId(nodePath[0], parentNodeId);
+		long periodId = getPeriodNodeId(nodePath.get(0), parentNodeId);
 		
-		if (nodePath.length == 1) {
-			return courseid;
+		if (nodePath.size() == 1) {
+			return periodId;
 		}
 		else {
-			String [] newNodePath = new String[nodePath.length -1];
-			System.arraycopy(nodePath, 1, newNodePath, 0, newNodePath.length);
-			
-			return assignmentBean.getNodeIdFromPath(newNodePath, courseid);
+			nodePath.removeFirst();
+			return assignmentBean.getIdFromPath(nodePath, periodId);
 		}
 	}
 	
@@ -255,4 +254,33 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 
 		return node == null ? -1 : node.getId();
 	}
+	
+	
+	
+	public NodePath getPath(long periodId) {
+		
+		PeriodNode period = getPeriodNode(periodId);
+		
+		// Get path from parent course
+		NodePath path = courseBean.getPath(period.getCourse().getId());
+				
+		String periodName = period.getName();
+		
+		// Add current node name to path
+		path.addToEnd(periodName);
+				
+		return path;
+	}
+	
+	
+	/**
+	 * Get the id of the period node name with parent parentId
+	 * @param name
+	 * @param parentId
+	 * @return
+	 */
+	/*protected String getPeriodNodeName(long periodId) {
+		getPeriodNode(periodId);
+	}
+	*/
 }

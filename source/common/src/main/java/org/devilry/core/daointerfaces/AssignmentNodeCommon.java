@@ -15,8 +15,10 @@ public interface AssignmentNodeCommon extends BaseNodeInterface {
 	 */
 	public long create(String name, String displayName, Date deadline, long parentId);
 
-	/** Get the period owning this assignment. */
-	long getPeriod(long nodeId);
+	/** 
+	 * Get the period owning this assignment. 
+	 */
+	long getParentPeriod(long nodeId);
 	
 	/**
 	 * Get the deadline for this assignment
@@ -89,5 +91,4 @@ public interface AssignmentNodeCommon extends BaseNodeInterface {
 	 * */
 	public boolean isAssignmentAdmin(long assignmentNodeId, long userId);
 
-	public long getNodeIdFromPath(String [] nodePath, long parentNodeId);
 }

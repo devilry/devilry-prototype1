@@ -7,7 +7,7 @@ import javax.ejb.TransactionAttributeType;
 
 public interface CourseNodeCommon extends BaseNodeInterface {
 	long create(String name, String displayName, long parentId);
-	long getParent(long curseId);
+	long getParentNode(long curseId);
 	List<Long> getPeriods(long courseId);
 	List<Long> getAllCourses();
 
@@ -52,7 +52,5 @@ public interface CourseNodeCommon extends BaseNodeInterface {
 	 * @return A list with the id of all administrators for the given node.
 	 */
 	List<Long> getCourseAdmins(long courseNodeId);
-	
-	public long getNodeIdFromPath(String [] nodePath, long parentNodeId);
-	
+		
 }

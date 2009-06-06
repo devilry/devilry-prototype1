@@ -10,8 +10,13 @@ import javax.ejb.TransactionAttributeType;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
+import org.devilry.core.NodePath;
+import org.devilry.core.daointerfaces.AssignmentNodeCommon;
 import org.devilry.core.daointerfaces.AssignmentNodeLocal;
 import org.devilry.core.daointerfaces.AssignmentNodeRemote;
+import org.devilry.core.daointerfaces.CourseNodeCommon;
+import org.devilry.core.daointerfaces.CourseNodeLocal;
+import org.devilry.core.daointerfaces.DeliveryCommon;
 import org.devilry.core.daointerfaces.DeliveryLocal;
 import org.devilry.core.entity.AssignmentNode;
 import org.devilry.core.entity.PeriodNode;
@@ -20,9 +25,13 @@ import org.devilry.core.entity.PeriodNode;
 public class AssignmentNodeImpl extends BaseNodeImpl implements
 		AssignmentNodeRemote, AssignmentNodeLocal {
 
-	@EJB
-	private DeliveryLocal deliveryBean;
+	@EJB(beanInterface=DeliveryLocal.class) 
+	private DeliveryCommon deliveryBean;
 
+	@EJB(beanInterface=AssignmentNodeLocal.class) 
+	private AssignmentNodeCommon assignmentBean;
+	
+	
 	private AssignmentNode getAssignmentNode(long nodeId) {
 		return getNode(AssignmentNode.class, nodeId);
 	}
@@ -110,18 +119,8 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 		removeAdmin(node, userId);
 	}
 
-	public long getPeriod(long nodeId) {
-		return getAssignmentNode(nodeId).getPeriod().getId();
-	}
-
-	public long getIdFromPath(String path) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public String getPath(long nodeId) {
-		// TODO Auto-generated method stub
-		return null;
+	public long getParentPeriod(long assignmentNodeId) {
+		return getAssignmentNode(assignmentNodeId).getPeriod().getId();
 	}
 
 	public void remove(long assignmentId) {
@@ -148,13 +147,30 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 	}
 	
 	
+
+	public NodePath getPath(long assignmentNodeId) {
+		
+		AssignmentNode assignment = getAssignmentNode(assignmentNodeId);
+		
+		// Get path from parent period
+		NodePath path = assignmentBean.getPath(assignment.getPeriod().getId());
+				
+		String assignmentName = assignment.getName();
+		
+		// Add current node name to path
+		path.addToEnd(assignmentName);
+				
+		return path;
+	}
+	
+	
 	/**
 	 * Get period node id, or id of subnode assignment
 	 * @param nodePath
 	 * @param parentNodeId
 	 * @return
 	 */
-	public long getNodeIdFromPath(String [] nodePath, long parentNodeId) {
+	public long getIdFromPath(String [] nodePath, long parentNodeId) {
 		
 		long courseid = getAssignmentNodeId(nodePath[0], parentNodeId);
 		
@@ -167,6 +183,19 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 		}
 	}
 	
+	
+	public long getIdFromPath(NodePath nodePath, long parentNodeId) {
+		
+		long assignmentId = getAssignmentNodeId(nodePath.get(0), parentNodeId);
+		
+		if (nodePath.size() == 1) {
+			return assignmentId;
+		}
+		else {
+			// path is too deep
+			return -1;
+		}
+	}
 	
 	/**
 	 * Get the id of the period node name with parent parentId
