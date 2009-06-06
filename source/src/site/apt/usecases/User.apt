@@ -1,0 +1,16 @@
+Usecase for an User
+
+[User.png] Diagram for User usecase.
+
+* Get/Set name
+
+	Get/Set the user name for this User (not username or account name).
+
+* Get/Set email
+
+	Get/Set the email for this User.
+
+* Get/Set phone
+
+	Get/Set the phone-number for this User.
+
