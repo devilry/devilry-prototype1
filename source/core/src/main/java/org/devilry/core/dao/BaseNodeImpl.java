@@ -118,10 +118,7 @@ public abstract class BaseNodeImpl implements BaseNodeInterface {
 	 * @param nodeEntityClass
 	 */
 	protected void removeNode(long nodeId, Class<?> nodeEntityClass) {
-		String query = "DELETE FROM %s n WHERE n.id = :id";
-		Query q = em.createQuery(String.format(query, nodeEntityClass.getName()));
-		q.setParameter("id", nodeId);
-		q.executeUpdate();
+		em.remove(em.find(nodeEntityClass, nodeId));
 	}
 	
 	/**
