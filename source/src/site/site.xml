@@ -10,10 +10,14 @@
 		<menu ref="modules" />
 
 		<menu name="Usecases">
-			<item name="Usecase 1" href="usecases/usecase.html" />
-			<item name="Usecase 2" href="usecases/usecase2.html" />
-<!--			<item name="2009-01-29" href="meetings/2009-01-29.html" />-->
-<!--			<item name="Simple 1" href="docbook_test.html" />-->
+		  <item name="User" href="usecases/User.html" />
+		  <item name="Student" href="usecases/Student.html" />
+		  <item name="AuthenticatedUser" href="usecases/AuthenticatedUser.html" />
+		  <item name="Examiner" href="usecases/Examiner.html" />
+		  <item name="Admin" href="usecases/Admin.html" />
+		  <item name="SuperAdmin" href="usecases/SuperAdmin.html" />
+		  <item name="CourseAdmin" href="usecases/CourseAdmin.html" />
+		  <item name="PeriodAdmin" href="usecases/PeriodAdmin.html" />
 		</menu>
 	</body>
 </project>
