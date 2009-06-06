@@ -10,7 +10,8 @@
 		<menu ref="modules" />
 
 		<menu name="Usecases">
-			<item name="About" href="index.html" />
+			<item name="Usecase 1" href="usecases/usecase.html" />
+			<item name="Usecase 2" href="usecases/usecase2.html" />
 <!--			<item name="2009-01-29" href="meetings/2009-01-29.html" />-->
 <!--			<item name="Simple 1" href="docbook_test.html" />-->
 		</menu>
