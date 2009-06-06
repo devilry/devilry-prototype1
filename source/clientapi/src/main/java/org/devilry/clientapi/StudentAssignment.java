@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.naming.NamingException;
 
+import org.devilry.core.NodePath;
+
 
 public class StudentAssignment extends AbstractAssignment {
 	
@@ -19,7 +21,7 @@ public class StudentAssignment extends AbstractAssignment {
 		return delivery;
 	}
 	
-	public String getPath() throws NamingException {
+	public NodePath getPath() throws NamingException {
 		return getAssignmentNodeBean().getPath(assignmentId);
 	}
 }

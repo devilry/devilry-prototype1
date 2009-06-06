@@ -3,6 +3,7 @@ package org.devilry.clientapi;
 import javax.naming.NamingException;
 
 import org.devilry.core.daointerfaces.DeliveryCandidateLocal;
+import org.devilry.core.daointerfaces.FileMetaCommon;
 import org.devilry.core.daointerfaces.FileMetaLocal;
 
 public abstract class AbstractDevilryFileStream {
@@ -10,7 +11,7 @@ public abstract class AbstractDevilryFileStream {
 	int fileSize = 0;
 	String filePath;
 	
-	FileMetaLocal fileMeta;
+	FileMetaCommon fileMeta;
 	long fileMetaId;
 	
 	protected DevilryConnection connection;
@@ -20,7 +21,7 @@ public abstract class AbstractDevilryFileStream {
 		this.connection = connection;
 	}
 	
-	protected FileMetaLocal getFileMetaBean() throws NamingException {
+	protected FileMetaCommon getFileMetaBean() throws NamingException {
 		return fileMeta == null ? fileMeta = connection.getFileMeta() : fileMeta;
 	}
 	

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.naming.NamingException;
 
+import org.devilry.core.daointerfaces.DeliveryCandidateCommon;
 import org.devilry.core.daointerfaces.DeliveryCandidateLocal;
 import org.devilry.core.daointerfaces.DeliveryCandidateRemote;
 
@@ -12,7 +13,7 @@ public class AbstractDeliveryCandidate {
 
 	int fileCount = 0;
 	
-	DeliveryCandidateLocal deliveryCandidate;
+	DeliveryCandidateCommon deliveryCandidate;
 	protected long deliveryCandidateId;
 	
 	protected DevilryConnection connection;
@@ -22,7 +23,7 @@ public class AbstractDeliveryCandidate {
 		this.connection = connection;
 	}
 	
-	protected DeliveryCandidateLocal getDeliveryBean() throws NamingException {
+	protected DeliveryCandidateCommon getDeliveryBean() throws NamingException {
 		return deliveryCandidate == null ? deliveryCandidate = connection.getDeliveryCandidate() : deliveryCandidate;
 	}
 	

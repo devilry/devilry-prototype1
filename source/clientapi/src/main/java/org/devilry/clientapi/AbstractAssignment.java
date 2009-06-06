@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.naming.NamingException;
 
+import org.devilry.core.daointerfaces.AssignmentNodeCommon;
 import org.devilry.core.daointerfaces.AssignmentNodeLocal;
 import org.devilry.core.daointerfaces.AssignmentNodeRemote;
 import org.devilry.core.daointerfaces.CourseNodeLocal;
@@ -12,7 +13,7 @@ public abstract class AbstractAssignment {
 
 	protected DevilryConnection connection;
 	
-	AssignmentNodeLocal assignment;
+	AssignmentNodeCommon assignment;
 	protected long assignmentId;
 	
 	Date deadline;
@@ -23,7 +24,7 @@ public abstract class AbstractAssignment {
 	}
 	
 	
-	protected AssignmentNodeLocal getAssignmentNodeBean() throws NamingException {
+	protected AssignmentNodeCommon getAssignmentNodeBean() throws NamingException {
 		return assignment == null ? assignment = connection.getAssignmentNode() : assignment;
 	}
 	

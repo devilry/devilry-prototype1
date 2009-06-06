@@ -7,12 +7,13 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import org.devilry.core.dao.UserImpl;
+import org.devilry.core.daointerfaces.UserCommon;
 import org.devilry.core.daointerfaces.UserLocal;
 
 public abstract class AbstractClientAPITst {
 	protected InitialContext localCtx;
 
-	protected UserLocal userBean;
+	protected UserCommon userBean;
 	protected long homerId;
 	protected long bartId;
 	protected long lisaId;
@@ -75,14 +76,17 @@ public abstract class AbstractClientAPITst {
 
 	/*
 	@SuppressWarnings("unchecked")
+	protected <E> E getRemoteBean(Class<E> beanImplClass)
+			throws NamingException {
+		return (E) localCtx.lookup(beanImplClass.getName() + "Remote");
+	}
+	*/
+	/*
+	@SuppressWarnings("unchecked")
 	protected <E> E getLocalBean(Class<E> beanImplClass) throws NamingException {
 		return (E) localCtx.lookup(beanImplClass.getSimpleName() + "Local");
 	}
 
-	@SuppressWarnings("unchecked")
-	protected <E> E getRemoteBean(Class<E> beanImplClass)
-			throws NamingException {
-		return (E) localCtx.lookup(beanImplClass.getSimpleName() + "Remote");
-	}
+	
 	*/
 }

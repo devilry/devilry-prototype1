@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.naming.NamingException;
 
+import org.devilry.core.NodePath;
 import org.devilry.core.daointerfaces.PeriodNodeCommon;
 
 
@@ -42,7 +43,7 @@ public class StudentPeriod {
 		return studentAssignments;
 	}
 	
-	public String getPath() throws NamingException {
+	public NodePath getPath() throws NamingException {
 		return getPeriodBean().getPath(periodId);
 	}
 	

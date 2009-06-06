@@ -5,12 +5,13 @@ import java.util.List;
 import javax.naming.NamingException;
 
 import org.devilry.core.daointerfaces.AssignmentNodeRemote;
+import org.devilry.core.daointerfaces.DeliveryCommon;
 import org.devilry.core.daointerfaces.DeliveryLocal;
 import org.devilry.core.daointerfaces.DeliveryRemote;
 
 public abstract class AbstractDelivery {
 
-	DeliveryLocal delivery;
+	DeliveryCommon delivery;
 	long deliveryId;
 	
 	int candidateCount = 0;
@@ -22,7 +23,7 @@ public abstract class AbstractDelivery {
 		this.deliveryId = deliveryId;
 	}
 	
-	private DeliveryLocal getDeliveryBean() throws NamingException {
+	private DeliveryCommon getDeliveryBean() throws NamingException {
 		return delivery == null ? delivery = connection.getDelivery() : delivery;
 	}
 	
