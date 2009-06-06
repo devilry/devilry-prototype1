@@ -2,23 +2,23 @@ Usecase for an PeriodAdmin
 
 [PeriodAdmin.png] Diagram for PeriodAdmin usecase.
 
-* Add/Remove an assignment node to a period node
+* Add/Remove an assignment node from a period node
 
-	TODO
+	Add or Removes an AssignmentNode from a PeriodNode.
 
 * Change properties of an assignment node
 
-	TODO
+	Change properties of an AssignmentNode (e.g. name).
 
 * Add/Remove a delivery from an assignment
 
-	TODO
+	Add or Remove a delivery from an assignment.
 
 * Add/Remove a User from a delivery
 
-	TODO
+	Add or Remove a user from a delivery.
 
 * Add/Remove an Examiner from a delivery
 
-	TODO
+	Add or Remove an examiner from a delivery.
 
