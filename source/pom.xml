@@ -23,7 +23,7 @@
 		<openejb-version>3.1</openejb-version>
 		<javaee-api-version>5.0-1</javaee-api-version>
 		<site-path>
-			file:target
+			file:target/site-deploy
 		</site-path>
 	</properties>
 
@@ -39,7 +39,7 @@
 	<distributionManagement>
 		<site>
 			<id>devilry-site</id>
-			<url>${site-path}/site-deploy</url>
+			<url>${site-path}</url>
 		</site>
 	</distributionManagement>
 
@@ -137,7 +137,7 @@
 			</activation>
 			
 			<properties>
-				<site-path>file:../../devilry.github.com</site-path>
+				<site-path>file:../../devilry.github.com/doc</site-path>
 			</properties>
 		</profile>
 

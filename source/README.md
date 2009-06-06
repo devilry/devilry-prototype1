@@ -105,8 +105,7 @@ Creating the website
 We use maven site to manage project documentation. The wiki on github is used for community
 documentation like guides for special cases, setup of development environments and such.
 
-To build the website into `target/deployable-site/`, use this command from the directory containing
-*this* file:
+To build the website into `target/deployable-site/`, use this command (CWD is the directory containing *this* file):
 
 	~$ mvn clean site-deploy
 
@@ -133,6 +132,28 @@ You can choose to skip report creation with:
 
 
 Publish the site to devilry.github.com
---------------------------------------
+======================================
 
-TODO
+One-time setup
+--------------
+
+If you have not yet checked out the *devilry.github.com* repository, do so with
+(CWD is the directory containing *this* file):
+
+	~$ cd ../../
+	~$ git clone <your clone url>
+
+note that the repository must be in the *devilry.github.com/* directory with the same parent-dir as *this* repository.
+
+
+Publish the website
+-------------------
+
+To publish the website, you must add files to the *devilry.github.com* repository, and push github. Since we
+use maven to generate our website, we have generate the site *into* the *devilry.github.com* repository and
+commit+push the changes with these commands (CWD is the directory containing *this* file):
+
+	~$ mvn clean site-deploy -Dwebdeploy=true
+	~$ cd ../../devilry.github.com/
+	~$ git commit -a -m "Updated the website."
+	~$ git push
