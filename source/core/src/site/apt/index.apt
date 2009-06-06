@@ -1,3 +1,5 @@
-Project Devilry
+Devilry Core
 
-	TODO
+	The core contains the core logic of the system. The entire node tree consisting of nodes for 
+	courses, periods and assignments.
+	
