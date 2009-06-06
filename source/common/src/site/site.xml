@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Devilry :: common">
+	<body>
+		<menu ref="parent" />
+
+		<menu name="Devilry :: common">
+			<item name="About" href="index.html" />
+		</menu>
+
+		<menu ref="modules" />
+		<menu ref="reports" />
+	</body>
+</project>

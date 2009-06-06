@@ -54,8 +54,10 @@
 					</workingDirectory>
 					<systemProperties>
 						<property>
-							<name>java.util.logging.config.file</name>
-							<value>test-classes/logging.properties</value>
+							<name>java.util.logging.config.file
+							</name>
+							<value>test-classes/logging.properties
+							</value>
 						</property>
 					</systemProperties>
 				</configuration>

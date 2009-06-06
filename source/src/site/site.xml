@@ -1,23 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Devilry">
 	<body>
-		<links>
-			<item name="Devilry at launchpad" href="http://www.launchpad.net/devilry/" />
-			<item name="Devilry at google code" href="http://code.google.com/p/devilry/" />
-		</links>
-
 		<menu name="Devilry">
-			<item name="Introduction" href="index.html"/>
+			<item name="About" href="index.html" />
+			<item name="2009-01-29" href="meetings/2009-01-29.html" />
+			<item name="Simple 1" href="docbook_test.html" />
 		</menu>
 
-		<menu name="Meetings">
-			<item name="2009-01-29" href="meetings/2009-01-29.html"/>
-		</menu>
-
-		<menu name="Docbook tests">
-			<item name="Simple 1" href="docbook_test.html"/>
-		</menu>
-
+		<menu ref="modules" />
 	</body>
 </project>
-

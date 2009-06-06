@@ -8,20 +8,41 @@
 	<version>0.1</version>
 
 	<name>Devilry</name>
-	<url>http://code.google.com/p/devilry</url>
+	<url>http://code.google.com/p/devilry
+	</url>
 
 	<modules>
 		<module>core</module>
-		<!--		<module>cli</module>-->
-		<module>clientapi</module>
+		<!--				<module>cli</module>-->
+		<!--				<module>clientapi</module>-->
 		<module>common</module>
-		<module>webcli</module>
+		<!--		<module>webcli</module>-->
 	</modules>
 
 	<properties>
 		<openejb-version>3.1</openejb-version>
 		<javaee-api-version>5.0-1</javaee-api-version>
+		<site-path>
+			file:target
+		</site-path>
 	</properties>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>apache.snapshots</id>
+			<url>http://repository.apache.org/snapshots/
+			</url>
+		</pluginRepository>
+	</pluginRepositories>
+
+
+	<distributionManagement>
+		<site>
+			<id>devilry-site</id>
+			<url>${site-path}/site-deploy</url>
+		</site>
+	</distributionManagement>
+
 
 	<dependencies>
 		<dependency>
@@ -44,7 +65,8 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<artifactId>maven-resources-plugin</artifactId>
+				<artifactId>maven-resources-plugin
+				</artifactId>
 				<version>2.2</version>
 				<configuration>
 					<encoding>UTF-8</encoding>
@@ -52,50 +74,145 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-site-plugin</artifactId>
-				<version>2.0-beta-6</version>
+				<version>2.1-SNAPSHOT</version>
 				<dependencies>
 					<dependency>
 						<groupId>org.apache.maven.doxia</groupId>
-						<artifactId>doxia-module-docbook-simple</artifactId>
-						<version>1.0-alpha-10</version>
+						<artifactId>doxia-module-docbook-simple
+						</artifactId>
+						<version>1.1</version>
 					</dependency>
 				</dependencies>
+				<configuration>
+					<inputEncoding>UTF-8</inputEncoding>
+					<outputEncoding>UTF-8</outputEncoding>
+				</configuration>
 			</plugin>
 
 		</plugins>
 	</build>
 
-
 	<reporting>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-project-info-reports-plugin</artifactId>
-				<version>2.1</version>
-				<reportSets>
-					<reportSet>
-						<reports>
-						</reports>
-					</reportSet>
-				</reportSets>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>cobertura-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<configuration>
-					<configLocation>
-						checkstyle.conf.xml
-					</configLocation>
-					<includeTestSourceDirectory>
-						true
-					</includeTestSourceDirectory>
-				</configuration>
-			</plugin>
-
 		</plugins>
 	</reporting>
+
+
+
+
+	<profiles>
+		<profile>
+			<!--
+			Create only the html-version of content in src/site, no reports...
+			-->
+			<id>no-reports</id>
+
+			<reporting>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-project-info-reports-plugin</artifactId>
+						<version>2.1</version>
+						<reportSets>
+							<reportSet>
+								<reports>
+								</reports>
+							</reportSet>
+						</reportSets>
+					</plugin>
+				</plugins>
+			</reporting>
+		</profile>
+
+
+
+		<profile>
+			<id>webdeploy</id>
+			
+			<activation>
+				<property>
+					<name>webdeploy</name>
+					<value>true</value>
+				</property>
+			</activation>
+			
+			<properties>
+				<site-path>file:../../devilry.github.com</site-path>
+			</properties>
+		</profile>
+
+
+		<profile>
+			<!--  Create the full website. -->
+			<id>withreports</id>
+
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+
+
+			<reporting>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>2.3</version>
+						<configuration>
+							<!--<quiet />-->
+							<links>
+								<link>http://java.sun.com/j2se/1.5.0/docs/api/
+						</link>
+							</links>
+							<!--<linksource>true</linksource>-->
+						</configuration>
+						<reportSets>
+							<reportSet>
+								<reports>
+									<report>javadoc</report>
+									<!--<report>test-javadoc</report> -->
+								</reports>
+							</reportSet>
+						</reportSets>
+					</plugin>
+
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-project-info-reports-plugin</artifactId>
+						<version>2.1</version>
+						<reportSets>
+							<reportSet>
+								<reports>
+									<report>javadoc</report>
+								</reports>
+							</reportSet>
+						</reportSets>
+					</plugin>
+
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-report-plugin</artifactId>
+						<version>2.4.2</version>
+					</plugin>
+
+
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>cobertura-maven-plugin</artifactId>
+						<version>2.2</version>
+					</plugin>
+
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-checkstyle-plugin</artifactId>
+						<version>2.2</version>
+						<configuration>
+							<configLocation>checkstyle.conf.xml
+					</configLocation>
+							<includeTestSourceDirectory>false</includeTestSourceDirectory>
+						</configuration>
+					</plugin>
+				</plugins>
+			</reporting>
+		</profile>
+	</profiles>
 </project>

@@ -97,3 +97,42 @@ using the command:
 'addtestnodes'
 
 Then use the commands avaialable in the shell.
+
+
+Creating the website
+====================
+
+We use maven site to manage project documentation. The wiki on github is used for community
+documentation like guides for special cases, setup of development environments and such.
+
+To build the website into `target/deployable-site/`, use this command from the directory containing
+*this* file:
+
+	~$ mvn clean site-deploy
+
+This command takes some time because it generates reports for:
+
+ * JavaDoc
+ * Checkstyle (code-style and javadoc validation)
+ * Surefire (test-report)
+ * Cobertura (test coverage)
+
+
+Why clean?
+----------
+
+The use of *clean* is important because without clean, the *site* target does not seem to update content.
+
+
+Faster site generation
+----------------------
+
+You can choose to skip report creation with:
+
+	~$ mvn clean site-deploy -Pno-reports
+
+
+Publish the site to devilry.github.com
+--------------------------------------
+
+TODO
