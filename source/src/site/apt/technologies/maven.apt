@@ -1,0 +1,21 @@
+
+Apache Maven is a build-system
+
+	Maven is primarily a build system, but it has plugins for lots of functionality which is not normally part
+	of a build system. The main reasons why we choose Maven is:
+
+	* Dependency support
+	
+	* Natural to enforce a common directory layout.
+	
+	* Possible to enforce coding standards.
+	
+	* Tight integration with mainstream testing frameworks.
+	
+	* Popular in both commercial and opensource projects, so there is a good chance that new developers already are familiar with it.
+	
+	* Very short learning curve for new users (new developers).
+	
+	* Intergrates quite well with IDE's.
+	
+	[]

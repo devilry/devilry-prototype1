@@ -1,0 +1,19 @@
+
+JUnit - A unit-test framework
+
+
+	We choose JUnit as our test-framework for the following reasons:
+
+	* Very mainstream. JUnit is a technology used everywhere in both opensource and commercial communities.
+	
+	* Open source.
+	
+	* Very well documented both on the web and in literature.
+	
+	* Quite simple to learn (how to use but not to master).
+	
+	* Compared with the main alternative, TestNG, JUnit does not support dependencies between tests. This makes it more difficult to write bad tests-cases.
+	
+	* Good integration with various programming tools like Eclipse, NetBeans and Maven.
+	
+	[]

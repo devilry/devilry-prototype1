@@ -1,0 +1,76 @@
+
+Java Enterprise Edition
+
+
+* Why
+
+	We choose to use Java Enterprise Edition (JEE) because it:
+
+	* provides most of the functionality we require.
+	
+	* is an open specification with several open source implementations.
+	
+	* provides good integration between it's components.
+	
+	[]
+
+
+* Components
+
+	JEE consists of several more-or-less independent components with good 
+	integration. We use the following components.
+
+
+** Enterprise Java Beans (EJB)
+
+	The EJB API provides a distributed object framework with:
+	* persistence (through JPA (below)).
+	
+	* remote procedure calls (using RMI or RMI-IIOP).
+	
+	* concurrency control.
+	
+	* access control (through JAAS (below)).
+	
+	[]
+
+	The devilry core consists of several simple beans which communicates internally 
+	through local interfaces and provides functionality to remote clients using 
+	remote interfaces (RPC). Plug-ins are also beans which basically works the same 
+	way.
+
+
+** Java Persistence API
+
+	JPA is a abstraction of serialization of java objects, it uses JDBC to connect 
+	to and query databases. This allows java objects to be persisted in a 
+	SQL-database without requiring any kind of direct interaction with the database.
+
+	It also provides a general query language (JPQL) which works equally on all 
+	databases. This makes JPA code independent of the database.
+
+
+** Java Authentication and Authorization Service
+
+	JAAS provides a set of interfaces (and annotations) simplifying authentication 
+	and authorization of users. This allows us to implement security constraints in 
+	our beans without the use of a specific technology (the actual login backend we 
+	probably have to implement ourselves using the !LoginModule interface).
+
+
+** Web application framework
+
+	JEE provides the following components for web-development:
+	
+	* <Servlets> - A web-application programming api.
+
+	* <!JavaServer Pages (JSP)> - Simplifies common tasks traditionally programmed manually using a template language. JSP files are compiled to Servlets, and can contain normal java code.
+
+	* <!JavaServer Faces (JSF)> - An even higher abstraction than JSP which simplifies user-interface development.
+	
+	[]
+
+
+	Which of these components we will use and how we will use them has not yet been 
+	considered because the main focus is currently on the Devilry kernel. Integration between
+	Servlets and EJB is very simple to program and maintain.

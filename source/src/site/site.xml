@@ -7,6 +7,12 @@
 <!--			<item name="2009-01-29" href="meetings/2009-01-29.html" />-->
 <!--			<item name="Simple 1" href="docbook_test.html" />-->
 		</menu>
+		
+		<menu name="Technologies">			
+			<item name="JavaEE" href="technologies/javaee.html" />
+			<item name="JUnit" href="technologies/junit.html" />
+			<item name="Apaceh Maven" href="technologies/maven.html" />
+		</menu>
 
 		<menu ref="modules" />
 
