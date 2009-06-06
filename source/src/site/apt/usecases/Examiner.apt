@@ -1,0 +1,14 @@
+Usecase for an Examiner
+
+[Examiner.png] Diagram for Examiner usecase.
+
+* Get/Set status of an assignment
+
+	Get/Set the status of an assignment.
+
+* Request assignment
+
+	Request an assignment from the system. This could be just one assignment,
+	or all the assignments of a tree 
+	(e.g. uio.matnat.ifi.inf1000.fall09.oblig1).
+
