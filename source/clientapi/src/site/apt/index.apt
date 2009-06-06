@@ -1,0 +1,4 @@
+About the client API
+
+	The client library which is mean to be used by any client (web og command line) is nearly done.
+	There are still some unit-tests lacking before the library can be verified.

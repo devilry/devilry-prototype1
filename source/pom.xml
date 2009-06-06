@@ -14,7 +14,7 @@
 	<modules>
 		<module>core</module>
 		<!--				<module>cli</module>-->
-		<!--				<module>clientapi</module>-->
+		<module>clientapi</module>
 		<module>common</module>
 		<!--		<module>webcli</module>-->
 	</modules>
@@ -127,14 +127,14 @@
 
 		<profile>
 			<id>webdeploy</id>
-			
+
 			<activation>
 				<property>
 					<name>webdeploy</name>
 					<value>true</value>
 				</property>
 			</activation>
-			
+
 			<properties>
 				<site-path>file:../../devilry.github.com/doc</site-path>
 			</properties>
