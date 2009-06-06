@@ -3,8 +3,8 @@
 	<body>
 		<menu name="Devilry">
 			<item name="About" href="index.html" />
-			<item name="2009-01-29" href="meetings/2009-01-29.html" />
-			<item name="Simple 1" href="docbook_test.html" />
+<!--			<item name="2009-01-29" href="meetings/2009-01-29.html" />-->
+<!--			<item name="Simple 1" href="docbook_test.html" />-->
 		</menu>
 
 		<menu ref="modules" />

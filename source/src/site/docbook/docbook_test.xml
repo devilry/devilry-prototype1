@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <article xmlns='http://docbook.org/ns/docbook'>
-	<sect1>
+	<section>
 		<title>This is a section</title>
 		<para>This is some text belonging to my first section.</para>
 
-		<sect2>
+		<section>
 			<title>This is a sub-section</title>
 			<para>This is some text belonging to my first sub-section</para>
-		</sect2>
-	</sect1>
-	<sect1>
+		</section>
+	</section>
+	<section>
 		<title>This is another section..</title>
 
 		<para>
 			bla bla, here is some text. Only Docbook simplified is accepted.
 		</para>
-	</sect1>
+	</section>
 </article>
 

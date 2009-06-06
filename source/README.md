@@ -149,8 +149,8 @@ note that the repository must be in the *devilry.github.com/* directory with the
 Publish the website
 -------------------
 
-To publish the website, you must add files to the *devilry.github.com* repository, and push github. Since we
-use maven to generate our website, we have generate the site *into* the *devilry.github.com* repository and
+To publish the website, you must add files to the *devilry.github.com* repository, and push github. Because we
+use maven to generate our website, we have to generate the site *into* the *devilry.github.com* repository and
 commit+push the changes with these commands (CWD is the directory containing *this* file):
 
 	~$ mvn clean site-deploy -Dwebdeploy=true
