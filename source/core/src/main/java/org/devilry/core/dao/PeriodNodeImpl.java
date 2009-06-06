@@ -217,9 +217,9 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 	public long getIdFromPath(NodePath nodePath) {
 		
 		NodePath pathCopy = new NodePath(nodePath);
-		
 		String periodName = pathCopy.removeLastPathComponent();
-		long parentNodeId = courseBean.getIdFromPath(nodePath);
+		
+		long parentNodeId = courseBean.getIdFromPath(pathCopy);
 		long periodId = getPeriodNodeId(periodName, parentNodeId);
 		
 		return periodId;

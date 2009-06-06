@@ -191,9 +191,9 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 	public long getIdFromPath(NodePath nodePath) {
 		
 		NodePath pathCopy = new NodePath(nodePath);
-		
 		String assignmentName = pathCopy.removeLastPathComponent();
-		long parentNodeId = periodBean.getIdFromPath(nodePath);
+		
+		long parentNodeId = periodBean.getIdFromPath(pathCopy);
 		long assignmentId = getAssignmentNodeId(assignmentName, parentNodeId);
 		
 		return assignmentId;

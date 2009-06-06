@@ -119,9 +119,9 @@ public class CourseNodeImpl extends BaseNodeImpl implements CourseNodeRemote, Co
 	public long getIdFromPath(NodePath nodePath) {
 		
 		NodePath pathCopy = new NodePath(nodePath);
-		
 		String courseName = pathCopy.removeLastPathComponent();
-		long parentNodeId = nodeBean.getIdFromPath(nodePath);
+		
+		long parentNodeId = nodeBean.getIdFromPath(pathCopy);
 		long courseId = getCourseNodeId(courseName, parentNodeId);
 		
 		return courseId;
