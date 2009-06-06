@@ -124,13 +124,13 @@
       <ownedParameter xmi:id="_ZShCgE8NEd6hSe6rOFC7Zw" direction="return"/>
     </ownedOperation>
   </packagedElement>
-  <packagedElement xmi:type="uml:Class" xmi:id="_HTb9oE0nEd6EVaGVkLohsg" name="CorrectorDeliveryCandidate">
+  <packagedElement xmi:type="uml:Class" xmi:id="_HTb9oE0nEd6EVaGVkLohsg" name="ExaminerDeliveryCandidate">
     <generalization xmi:id="_JxX_sE0nEd6EVaGVkLohsg" general="_r7sYIE0gEd6EVaGVkLohsg"/>
     <ownedOperation xmi:id="_Ke_ToE0nEd6EVaGVkLohsg" name="setStatus">
       <ownedParameter xmi:id="_LZfNAE0nEd6EVaGVkLohsg" direction="return"/>
     </ownedOperation>
   </packagedElement>
-  <packagedElement xmi:type="uml:Class" xmi:id="_PThZoE0nEd6EVaGVkLohsg" name="CorrectorAssignment">
+  <packagedElement xmi:type="uml:Class" xmi:id="_PThZoE0nEd6EVaGVkLohsg" name="ExaminerAssignment">
     <generalization xmi:id="_SCL_UE0nEd6EVaGVkLohsg" general="_oXEzIE0mEd6EVaGVkLohsg"/>
     <ownedOperation xmi:id="_cNEiIE0rEd6EVaGVkLohsg" name="getDeliveries">
       <ownedParameter xmi:id="_cWtmUE0rEd6EVaGVkLohsg" direction="return"/>
@@ -146,17 +146,17 @@
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_b5hbYU0oEd6EVaGVkLohsg" value="1"/>
     </ownedEnd>
   </packagedElement>
-  <packagedElement xmi:type="uml:Class" xmi:id="_jhsGoE0oEd6EVaGVkLohsg" name="Corrector">
+  <packagedElement xmi:type="uml:Class" xmi:id="_jhsGoE0oEd6EVaGVkLohsg" name="Examiner">
     <ownedOperation xmi:id="_o5KhoE0oEd6EVaGVkLohsg" name="getAllCourses">
       <ownedParameter xmi:id="_AbIXIE0pEd6EVaGVkLohsg" direction="return"/>
     </ownedOperation>
   </packagedElement>
-  <packagedElement xmi:type="uml:Class" xmi:id="_CJTJIE0pEd6EVaGVkLohsg" name="CorrectorCourse">
+  <packagedElement xmi:type="uml:Class" xmi:id="_CJTJIE0pEd6EVaGVkLohsg" name="ExaminerCourse">
     <ownedOperation xmi:id="_SB1vIE0pEd6EVaGVkLohsg" name="getPeriods">
       <ownedParameter xmi:id="_iUxLEE0pEd6EVaGVkLohsg" direction="return"/>
     </ownedOperation>
   </packagedElement>
-  <packagedElement xmi:type="uml:Class" xmi:id="_NY-toE0pEd6EVaGVkLohsg" name="CorrectorPeriod">
+  <packagedElement xmi:type="uml:Class" xmi:id="_NY-toE0pEd6EVaGVkLohsg" name="ExaminerPeriod">
     <ownedOperation xmi:id="_pGqVoE0pEd6EVaGVkLohsg" name="getAssignments">
       <ownedParameter xmi:id="_3AxDkE0qEd6EVaGVkLohsg" direction="return"/>
     </ownedOperation>
@@ -181,7 +181,7 @@
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_RAuQYE0pEd6EVaGVkLohsg" value="1"/>
     </ownedEnd>
   </packagedElement>
-  <packagedElement xmi:type="uml:Class" xmi:id="_2X_o0E0pEd6EVaGVkLohsg" name="CorrectorDelivery">
+  <packagedElement xmi:type="uml:Class" xmi:id="_2X_o0E0pEd6EVaGVkLohsg" name="ExaminerDelivery">
     <generalization xmi:id="_2bBAQE0sEd6EVaGVkLohsg" general="_DTXoME0sEd6EVaGVkLohsg"/>
     <ownedAttribute xmi:id="_vuJ8IE0rEd6EVaGVkLohsg" name="StudentID" aggregation="composite"/>
   </packagedElement>
