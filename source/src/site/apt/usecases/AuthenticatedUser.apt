@@ -1,0 +1,15 @@
+Usecase for an AuthenticatedUser
+
+[AuthenticatedUser.png] Diagram for AuthenticatedUser usecase.
+
+* Login
+
+	Before the user can do anything in the system, it has to authenticate
+	itself using the command-interface (cli, gui, etc).
+
+* Logout
+
+	When the user is done with its work, the command-interface should
+	automatically log the user out from the system. If not, the user will be
+	logged out after some idle time (configurable).
+
