@@ -1,0 +1,44 @@
+Use cases for Admin
+
+* List subnodes 
+
+  * List the subnodes of a node where user is admin
+
+  * List course nodes (subnodes) of a node where user is admin.
+
+* Add and remove subnode
+
+  * Add a subnode to a node where the user is admin
+
+  * Remove a subnode from a node where the user is admin
+
+* Change properties of a node 
+
+  * Change the properties (name and displayname) of a node where the user is admin.
+
+* Add and remove course
+
+  * Add a course node to a node where the user is admin.
+
+  * Remove a course node from a node where the user is admin.
+
+* Change properties of a course node
+
+  * Change properties (name and display name) of a course node where user is admin.
+
+* Add and remove student
+
+  * Add a student to a period where the user is admin.
+
+  * Remove a student from a period where the user is admin.
+
+* Add and remove examiner
+
+  * Add an examiner to a period where the user is admin
+  
+  * Remove an examiner from a period where the user is admin.
+
+
+* Diagram for Admin usecase.
+
+[Admin.png] Diagram for Admin usecase.
