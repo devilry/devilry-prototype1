@@ -11,7 +11,7 @@
 		<menu name="Technologies">			
 			<item name="JavaEE" href="technologies/javaee.html" />
 			<item name="JUnit" href="technologies/junit.html" />
-			<item name="Apaceh Maven" href="technologies/maven.html" />
+			<item name="Apace Maven" href="technologies/maven.html" />
 		</menu>
 
 		<menu ref="modules" />
