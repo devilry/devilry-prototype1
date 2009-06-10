@@ -7,7 +7,6 @@ import javax.ejb.EJB;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
 
-import org.devilry.core.AuthorizationException;
 import org.devilry.core.InvalidUsageException;
 import org.devilry.core.UnauthorizedException;
 import org.devilry.core.dao.NodeImpl;

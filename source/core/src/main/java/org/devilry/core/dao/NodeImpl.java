@@ -2,6 +2,8 @@ package org.devilry.core.dao;
 
 import java.util.List;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.SessionContext;
@@ -14,6 +16,7 @@ import javax.interceptor.InvocationContext;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
+import org.devilry.core.NoSuchObjectException;
 import org.devilry.core.NodePath;
 import org.devilry.core.authorize.AuthorizeNode;
 import org.devilry.core.daointerfaces.CourseNodeCommon;
@@ -67,8 +70,13 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 		return node.getId();
 	}
 
-	public long getParentNode(long nodeId) {
-		return getNode(nodeId).getParent().getId();
+	public long getParentNode(long nodeId) throws NoSuchObjectException {
+		Node parent = getNode(nodeId).getParent();
+		if(parent == null)
+			throw new NoSuchObjectException(
+					String.format("Node %d does not have a parent.", nodeId));
+		else
+			return parent.getId();
 	}
 
 	public List<Long> getToplevelNodes() {
@@ -179,7 +187,15 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 	
 	public boolean isNodeAdmin(long nodeId) {
 		Node node = getNode(nodeId);
-		return isAdmin(node, userBean.getAuthenticatedUser());
+		if (isAdmin(node, userBean.getAuthenticatedUser()))
+			return true;
+
+		try{
+			long parentId = getParentNode(nodeId);
+			return isNodeAdmin(parentId);
+		} catch (NoSuchObjectException ex) {
+			return false;
+		}
 	}
 	
 	public void addNodeAdmin(long nodeId, long userId) {

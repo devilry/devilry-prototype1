@@ -57,12 +57,17 @@ public class NodeImplTest extends BaseNodeTst {
 	@Test
 	public void getNodesWhereIsAdmin() {
 		List<Long> l = node.getNodesWhereIsAdmin();
-		assertEquals(2, l.size());
+		assertEquals(1, l.size());
 		assertEquals(uioId, (long) l.get(0));
 
 		// Adding another admin does not affect the result?
 		long margeId = userBean.create("marge", "marge@doh.com", "123");
 		node.addNodeAdmin(uioId, margeId);
+		assertEquals(1, node.getNodesWhereIsAdmin().size());
+
+		// Add as admin to another node works?
+		long nodeId = node.create("tst", "Test");
+		node.addNodeAdmin(nodeId, homerId);
 		assertEquals(2, node.getNodesWhereIsAdmin().size());
 	}
 	
@@ -108,8 +113,9 @@ public class NodeImplTest extends BaseNodeTst {
 	
 	@Test
 	public void isNodeAdmin() {
-		node.addNodeAdmin(matnatId, homerId);
-		assertTrue(node.isNodeAdmin(matnatId));
+		assertTrue(node.isNodeAdmin(uioId));
+		assertTrue("NodeAdmin on a supernode should make the user NodeAdmin on a subnode.",
+				node.isNodeAdmin(matnatId));
 	}
 		
 	@Test
@@ -126,7 +132,7 @@ public class NodeImplTest extends BaseNodeTst {
 	
 	@Test
 	public void removeNodeAdmin() {
-		node.removeNodeAdmin(matnatId, homerId);
-		assertFalse(node.isNodeAdmin(matnatId));
+		node.removeNodeAdmin(uioId, homerId);
+		assertFalse(node.isNodeAdmin(uioId));
 	}
 }

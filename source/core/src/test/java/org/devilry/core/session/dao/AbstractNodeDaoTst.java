@@ -22,7 +22,6 @@ public class AbstractNodeDaoTst extends AbstractDaoTst {
 		uioId = node.create("uio", "UiO");
 		node.addNodeAdmin(uioId, homerId);
 		matnatId = node.create("matnat", "Faculty of Mathematics", uioId);
-		node.addNodeAdmin(matnatId, homerId);
 	}
 	
 	@After

@@ -1,13 +1,14 @@
 package org.devilry.core.daointerfaces;
 
 import java.util.List;
+import org.devilry.core.NoSuchObjectException;
 import org.devilry.core.UnauthorizedException;
 
 public interface NodeCommon extends BaseNodeInterface {
 	public long create(String name, String displayName);
 	public long create(String name, String displayName, long parentId);
 
-	public long getParentNode(long nodeId);
+	public long getParentNode(long nodeId) throws NoSuchObjectException;
 
 	public List<Long> getChildnodes(long nodeId);
 	public List<Long> getChildcourses(long nodeId) throws UnauthorizedException;
