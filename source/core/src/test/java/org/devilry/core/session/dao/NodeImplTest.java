@@ -1,5 +1,6 @@
 package org.devilry.core.session.dao;
 
+import org.devilry.core.UnauthorizedException;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -91,7 +92,7 @@ public class NodeImplTest extends BaseNodeTst {
 	}
 	
 	@Test
-	public void getChildcourses() {
+	public void getChildcourses() throws UnauthorizedException {
 		long exphilId = courseNode.create("exphil", "Exphil", uioId);
 		List<Long> children = node.getChildcourses(uioId);
 		assertEquals(1, children.size());
@@ -111,13 +112,13 @@ public class NodeImplTest extends BaseNodeTst {
 	@Test
 	public void isNodeAdmin() {
 		node.addNodeAdmin(matnatId, homerId);
-		assertTrue(node.isNodeAdmin(matnatId, homerId));
+		assertTrue(node.isNodeAdmin(matnatId));
 	}
 		
 	@Test
 	public void addNodeAdmin() {
 		node.addNodeAdmin(matnatId, homerId);
-		assertTrue(node.isNodeAdmin(matnatId, homerId));
+		assertTrue(node.isNodeAdmin(matnatId));
 	
 		int adminCount = node.getNodeAdmins(matnatId).size();
 		
@@ -129,6 +130,6 @@ public class NodeImplTest extends BaseNodeTst {
 	@Test
 	public void removeNodeAdmin() {
 		node.removeNodeAdmin(matnatId, homerId);
-		assertFalse(node.isNodeAdmin(matnatId, homerId));
+		assertFalse(node.isNodeAdmin(matnatId));
 	}
 }

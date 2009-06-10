@@ -11,6 +11,8 @@ import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import org.devilry.core.NodePath;
+import org.devilry.core.UnauthenticatedException;
+import org.devilry.core.UnauthorizedException;
 import org.devilry.core.daointerfaces.AssignmentNodeCommon;
 import org.devilry.core.daointerfaces.AssignmentNodeLocal;
 import org.devilry.core.daointerfaces.AssignmentNodeRemote;

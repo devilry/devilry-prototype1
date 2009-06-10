@@ -1,0 +1,11 @@
+package org.devilry.core;
+
+
+/** Thrown to indicate invalid usage of a resource or operation. */
+public class InvalidUsageException extends DevilryException {
+	private static final long serialVersionUID = 705309294702885150L;
+
+	public InvalidUsageException(String message) {
+		super(message);
+	}
+}

@@ -4,13 +4,15 @@ import javax.naming.NamingException;
 
 import org.devilry.core.dao.NodeImpl;
 import org.devilry.core.daointerfaces.NodeCommon;
+import org.devilry.core.daointerfaces.NodeLocal;
+import org.devilry.core.daointerfaces.NodeRemote;
 import org.junit.After;
 import org.junit.Before;
 
 
 /** Base class for testcases <em>using</em> the node hierarchy. */
 public class AbstractNodeDaoTst extends AbstractDaoTst {
-	protected NodeCommon node;
+	protected NodeRemote node;
 	protected long uioId, matnatId;
 	
 	@Before

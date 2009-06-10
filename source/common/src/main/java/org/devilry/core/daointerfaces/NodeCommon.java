@@ -1,6 +1,7 @@
 package org.devilry.core.daointerfaces;
 
 import java.util.List;
+import org.devilry.core.UnauthorizedException;
 
 public interface NodeCommon extends BaseNodeInterface {
 	public long create(String name, String displayName);
@@ -9,7 +10,7 @@ public interface NodeCommon extends BaseNodeInterface {
 	public long getParentNode(long nodeId);
 
 	public List<Long> getChildnodes(long nodeId);
-	public List<Long> getChildcourses(long nodeId);
+	public List<Long> getChildcourses(long nodeId) throws UnauthorizedException;
 
 	/** Get a list of all nodes without a parent-node.
 	 * 
