@@ -3,30 +3,30 @@ package org.devilry.core.daointerfaces;
 import java.util.List;
 
 public interface NodeCommon extends BaseNodeInterface {
-	long create(String name, String displayName);
-	long create(String name, String displayName, long parentId);
+	public long create(String name, String displayName);
+	public long create(String name, String displayName, long parentId);
 
-	long getParentNode(long nodeId);
+	public long getParentNode(long nodeId);
 
-	List<Long> getChildnodes(long nodeId);
-	List<Long> getChildcourses(long nodeId);
+	public List<Long> getChildnodes(long nodeId);
+	public List<Long> getChildcourses(long nodeId);
 
 	/** Get a list of all nodes without a parent-node.
 	 * 
 	 * @return List of node-ids.
 	 */
-	List<Long> getToplevelNodes();
+	public List<Long> getToplevelNodes();
 
 	/** Get a list of nodes where the authenticated user is admin.
 	 * 
 	 * @return List of user-ids.
 	 */
-	List<Long> getNodesWhereIsAdmin();
+	public List<Long> getNodesWhereIsAdmin();
 	
 	/** 
-	 * Check if a user is admin on the given node. 
+	 * Check if the authenticated user is admin on the given node. 
 	 * */
-	boolean isNodeAdmin(long nodeId, long userId);
+	boolean isNodeAdmin(long nodeId);
 	
 	/** 
 	 * Add a new administrator to the given node.
@@ -50,6 +50,5 @@ public interface NodeCommon extends BaseNodeInterface {
 	 * @param baseNodeId The unique number identifying an existing node.
 	 * @return A list with the id of all administrators for the given node.
 	 */
-	List<Long> getNodeAdmins(long nodeId);
-	
+	public List<Long> getNodeAdmins(long nodeId);
 }

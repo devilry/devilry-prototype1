@@ -15,6 +15,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import org.devilry.core.NodePath;
+import org.devilry.core.authorize.AuthorizeNode;
 import org.devilry.core.daointerfaces.CourseNodeCommon;
 import org.devilry.core.daointerfaces.CourseNodeLocal;
 import org.devilry.core.daointerfaces.NodeCommon;
@@ -27,7 +28,7 @@ import org.devilry.core.entity.Node;
 import org.devilry.core.entity.PeriodNode;
 
 @Stateless
-@Interceptors( { AuthorizationInterceptor.class })
+@Interceptors({AuthorizeNode.class})
 public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 	
 	@EJB(beanInterface=CourseNodeLocal.class) 
@@ -131,37 +132,6 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 				
 		return path;
 	}
-		
-	
-	/*
-	public long getIdFromPath(NodePath nodePath, long parentNodeId) {
-		
-		if (nodePath.size() == 1) {
-			return getNodeId(nodePath.get(0), parentNodeId);
-		}
-		else {
-		
-			long parentId = parentNodeId;
-			
-			for (int i = 0; i < nodePath.size(); i++) {
-				
-				long nodeId = getNodeId(nodePath.get(i), parentId);
-				
-				// If valid node id
-				if (nodeId != -1) {
-					parentId = nodeId;
-				}// If invalid node id, try course
-				else {
-					nodePath.removeFirst();					
-					return courseBean.getIdFromPath(nodePath, parentId); 
-				}
-			}
-			
-			// If no more values in nodePath - return the id of the last node (not course, period or assignment)
-			return parentId;
-		}
-	}
-	*/
 
 	public long getIdFromPath(NodePath nodePath) {
 				
@@ -231,9 +201,9 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 		return getNodesWhereIsAdmin(Node.class);
 	}
 	
-	public boolean isNodeAdmin(long nodeId, long userId) {
+	public boolean isNodeAdmin(long nodeId) {
 		Node node = getNode(nodeId);
-		return isAdmin(node, userId);
+		return isAdmin(node, userBean.getAuthenticatedUser());
 	}
 	
 	public void addNodeAdmin(long nodeId, long userId) {
