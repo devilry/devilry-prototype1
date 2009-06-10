@@ -2,7 +2,7 @@ package org.devilry.core.authorize;
 
 import java.util.HashSet;
 
-class MethodNames extends HashSet<String> {
+public class MethodNames extends HashSet<String> {
 	public MethodNames(String... methodNames) {
 		for (String n : methodNames)
 			add(n);

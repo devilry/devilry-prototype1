@@ -1,15 +1,8 @@
 package org.devilry.core.session.dao;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
-import javax.naming.NamingException;
 
-import org.devilry.core.dao.NodeImpl;
-import org.devilry.core.daointerfaces.NodeCommon;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 

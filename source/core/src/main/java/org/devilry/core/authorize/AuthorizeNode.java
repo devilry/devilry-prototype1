@@ -9,6 +9,7 @@ import javax.interceptor.InvocationContext;
 
 import org.devilry.core.AuthorizationException;
 import org.devilry.core.InvalidUsageException;
+import org.devilry.core.UnauthorizedException;
 import org.devilry.core.dao.NodeImpl;
 import org.devilry.core.daointerfaces.NodeLocal;
 
@@ -67,7 +68,7 @@ public class AuthorizeNode extends AuthorizeBaseNode {
 		if(nodeAdminMethods.contains(methodName)) {
 			long nodeId = (Long) parameters[0];
 			if (!nodeBean.isNodeAdmin(nodeId)) {
-				throw new AuthorizationException(String.format(
+				throw new UnauthorizedException(String.format(
 						"Not authorized to access method : %s", fullMethodName));
 			}
 		}

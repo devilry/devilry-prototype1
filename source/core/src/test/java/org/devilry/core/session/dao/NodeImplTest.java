@@ -56,16 +56,13 @@ public class NodeImplTest extends BaseNodeTst {
 	
 	@Test
 	public void getNodesWhereIsAdmin() {
-		node.addNodeAdmin(uioId, homerId);
 		List<Long> l = node.getNodesWhereIsAdmin();
-		assertEquals(1, l.size());
+		assertEquals(2, l.size());
 		assertEquals(uioId, (long) l.get(0));
 
+		// Adding another admin does not affect the result?
 		long margeId = userBean.create("marge", "marge@doh.com", "123");
 		node.addNodeAdmin(uioId, margeId);
-		assertEquals(1, node.getNodesWhereIsAdmin().size());
-
-		node.addNodeAdmin(matnatId, homerId);
 		assertEquals(2, node.getNodesWhereIsAdmin().size());
 	}
 	

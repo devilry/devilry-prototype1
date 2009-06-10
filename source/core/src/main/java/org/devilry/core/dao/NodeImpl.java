@@ -173,30 +173,6 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 		return node == null ? -1 : node.getId();
 	}
 
-	
-	private long getNodeId(String name, String parent) {
-		Query q;
-
-		if (parent != null) {
-			q = em.createQuery("SELECT n FROM Node n WHERE n.name=:name AND n.parent IS NOT NULL AND n.parent.name=:parent");
-			q.setParameter("name", name);
-			q.setParameter("parent", parent);
-		} else {
-			q = em.createQuery("SELECT n FROM Node n WHERE n.name=:name AND n.parent IS NULL");
-			q.setParameter("name", name);
-		}
-
-		Node node;
-
-		try {
-			node = (Node) q.getSingleResult();
-		} catch (NoResultException e) {
-			node = null;
-		}
-
-		return node == null ? -1 : node.getId();
-	}
-
 	public List<Long> getNodesWhereIsAdmin() {
 		return getNodesWhereIsAdmin(Node.class);
 	}
