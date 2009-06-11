@@ -5,11 +5,6 @@ import javax.ejb.Local;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.naming.NamingException;
-import org.devilry.core.dao.NodeImpl;
-import org.devilry.core.daointerfaces.NodeCommon;
-import org.devilry.core.daointerfaces.UserCommon;
-import org.devilry.core.daointerfaces.UserLocal;
-import org.devilry.core.daointerfaces.UserRemote;
 import org.junit.Test;
 
 public  class ExampleTest {
