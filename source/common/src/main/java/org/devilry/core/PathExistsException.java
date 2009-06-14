@@ -4,7 +4,13 @@ package org.devilry.core;
  * exists. */
 public class PathExistsException extends DevilryException {
 
-	public PathExistsException(String message) {
+	private static final long serialVersionUID = -6907681527529603034L;
+
+	/**
+	 * @param message
+	 *            Error message.
+	 */
+	public PathExistsException(final String message) {
 		super(message);
 	}
 

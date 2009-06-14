@@ -9,6 +9,7 @@ import org.devilry.core.NoSuchUserException;
 import org.devilry.core.PathExistsException;
 import org.devilry.core.UnauthorizedException;
 
+/** Interface to assignment manipulation. */
 public interface AssignmentNodeCommon extends BaseNodeInterface {
 
 	/**
@@ -62,7 +63,7 @@ public interface AssignmentNodeCommon extends BaseNodeInterface {
 	Date getDeadline(long assignmentNodeId) throws NoSuchObjectException;
 
 	/**
-	 * Set the deadline for this assignment
+	 * Set the deadline for this assignment.
 	 * 
 	 * @param assignmentNodeId
 	 *            The id of an existing assignment-node.
@@ -75,7 +76,7 @@ public interface AssignmentNodeCommon extends BaseNodeInterface {
 	 *             parent-period-node of the given assignment.
 	 */
 	void setDeadline(long assignmentNodeId, Date deadline)
-			throws UnauthorizedException;
+			throws UnauthorizedException, NoSuchObjectException;
 
 	/**
 	 * Get all deliveries with this assignment as parent.
@@ -89,8 +90,8 @@ public interface AssignmentNodeCommon extends BaseNodeInterface {
 	 *             If the authenticated user is not <em>Admin</em> on the given
 	 *             assignment.
 	 */
-	List<Long> getDeliveries(long assignmentId) throws NoSuchObjectException,
-			UnauthorizedException;
+	List<Long> getDeliveries(long assignmentNodeId)
+			throws NoSuchObjectException, UnauthorizedException;
 
 	// /**
 	// * Get deliveries where the user is student
@@ -119,7 +120,7 @@ public interface AssignmentNodeCommon extends BaseNodeInterface {
 	 * Add a new administrator to the given assignment node.
 	 * 
 	 * @param assignmentNodeId
-	 *            The unique number identifying an existing assignment-node.
+	 *            The id of an existing assignment-node.
 	 * @param userId
 	 *            The unique number identifying an existing user.
 	 * @throws NoSuchObjectException
@@ -137,8 +138,8 @@ public interface AssignmentNodeCommon extends BaseNodeInterface {
 	/**
 	 * Remove an administrator from the given assignment node.
 	 * 
-	 * @param courseNodeId
-	 *            The unique number identifying an existing assignment-node.
+	 * @param assignmentNodeId
+	 *            The id of an existing assignment-node.
 	 * @param userId
 	 *            The unique number identifying an existing user.
 	 * @throws NoSuchObjectException
@@ -154,10 +155,11 @@ public interface AssignmentNodeCommon extends BaseNodeInterface {
 			UnauthorizedException;
 
 	/**
-	 * Get the id of all administrators registered for the given assignment node.
+	 * Get the id of all administrators registered for the given assignment
+	 * node.
 	 * 
-	 * @param baseNodeId
-	 *            The unique number identifying an existing node.
+	 * @param assignmentNodeId
+	 *            The id of an existing assignment-node.
 	 * @return A list with the id of all administrators for the given node.
 	 * @throws NoSuchObjectException
 	 *             If no course-node with the given id exists.
@@ -165,16 +167,19 @@ public interface AssignmentNodeCommon extends BaseNodeInterface {
 	 *             If the authenticated user is not <em>Admin</em> on the
 	 *             parent-node of the given course.
 	 */
-	List<Long> getAssignmentAdmins(long assignmentNodeId);
-
+	List<Long> getAssignmentAdmins(long assignmentNodeId)
+			throws NoSuchObjectException, UnauthorizedException;
 
 	/**
-	 * Check if the authenticated user is Admin on the given assignment-node,
-	 * or on any of the nodes above the assignment in the tree.
+	 * Check if the authenticated user is Admin on the given assignment-node, or
+	 * on any of the nodes above the assignment in the tree.
 	 * 
+	 * @param assignmentNodeId
+	 *            The id of an existing assignment-node.
 	 * @throws NoSuchObjectException
 	 *             If no assignment-node with the given id exists.
 	 * */
-	boolean isAssignmentAdmin(long assignmentNodeId);
+	boolean isAssignmentAdmin(long assignmentNodeId)
+			throws NoSuchObjectException;
 
 }

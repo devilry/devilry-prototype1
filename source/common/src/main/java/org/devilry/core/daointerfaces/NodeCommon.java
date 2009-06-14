@@ -9,6 +9,7 @@ import org.devilry.core.NoSuchUserException;
 import org.devilry.core.PathExistsException;
 import org.devilry.core.UnauthorizedException;
 
+/** Common interface for local and remote operations on Nodes. */
 public interface NodeCommon extends BaseNodeInterface {
 
 	/**
@@ -28,9 +29,8 @@ public interface NodeCommon extends BaseNodeInterface {
 	 * @throws InvalidNameException
 	 *             If the given name is not on the specified format.
 	 */
-	public long create(String name, String displayName)
-			throws PathExistsException, UnauthorizedException,
-			InvalidNameException;
+	long create(String name, String displayName) throws PathExistsException,
+			UnauthorizedException, InvalidNameException;
 
 	/**
 	 * Create a new node.
@@ -54,7 +54,7 @@ public interface NodeCommon extends BaseNodeInterface {
 	 * @throws NoSuchObjectException
 	 *             If the given parent does not exist.
 	 */
-	public long create(String name, String displayName, long parentId)
+	long create(String name, String displayName, long parentId)
 			throws PathExistsException, UnauthorizedException,
 			InvalidNameException, NoSuchObjectException;
 
@@ -69,7 +69,7 @@ public interface NodeCommon extends BaseNodeInterface {
 	 * @throws NoParentException
 	 *             If the given node is a toplevel node.
 	 */
-	public long getParentNode(long nodeId) throws NoSuchObjectException,
+	long getParentNode(long nodeId) throws NoSuchObjectException,
 			NoParentException;
 
 	/**
@@ -84,7 +84,7 @@ public interface NodeCommon extends BaseNodeInterface {
 	 * @throws NoSuchObjectException
 	 *             If no node with the given id exists.
 	 */
-	public List<Long> getChildnodes(long nodeId) throws UnauthorizedException,
+	List<Long> getChildnodes(long nodeId) throws UnauthorizedException,
 			NoSuchObjectException;
 
 	/**
@@ -99,70 +99,74 @@ public interface NodeCommon extends BaseNodeInterface {
 	 * @throws NoSuchObjectException
 	 *             If no node with the given id exists.
 	 */
-	public List<Long> getChildcourses(long nodeId)
-			throws UnauthorizedException, NoSuchObjectException;
+	List<Long> getChildcourses(long nodeId) throws UnauthorizedException,
+			NoSuchObjectException;
 
 	/**
 	 * Get all nodes without a parent-node.
 	 * 
 	 * @return A list with the id's of all toplevel nodes.
 	 */
-	public List<Long> getToplevelNodes();
+	List<Long> getToplevelNodes();
 
 	/**
 	 * Get a list of nodes where the authenticated user is admin.
 	 * 
 	 * @return List of user-ids.
 	 */
-	public List<Long> getNodesWhereIsAdmin();
+	List<Long> getNodesWhereIsAdmin();
 
 	/**
 	 * Check if the authenticated user is admin on the given node.
 	 * 
+	 * @param nodeId
+	 *            The id of a existing node.
+	 * @return <tt>true</tt> if the authenticated user is admin on the given
+	 *         node.
 	 * @throws NoSuchObjectException
 	 *             If no node with the given id exists.
 	 * */
 	boolean isNodeAdmin(long nodeId) throws NoSuchObjectException;
 
 	/**
-	 * Check if the authenticated user is Admin on the given node,
-	 * or on any of the nodes above the node in the tree.
+	 * Check if the authenticated user is Admin on the given node, or on any of
+	 * the nodes above the node in the tree.
 	 * 
 	 * @param nodeId
-	 *            The unique number identifying an existing node.
+	 *            The id of a existing node.
 	 * @param userId
-	 *            The unique number identifying an existing user.
+	 *            The id of a existing user.
 	 * @throws NoSuchObjectException
 	 *             If no node with the given id exists.
 	 * @throws NoSuchUserException
 	 *             If the the given user does not exist.
 	 */
-	public void addNodeAdmin(long nodeId, long userId)
-			throws NoSuchObjectException, NoSuchUserException;
+	void addNodeAdmin(long nodeId, long userId) throws NoSuchObjectException,
+			NoSuchUserException;
 
 	/**
 	 * Remove an administrator from the given node.
 	 * 
 	 * @param nodeId
-	 *            The unique number identifying an existing node.
+	 *            The id of a existing node.
 	 * @param userId
-	 *            The unique number identifying an existing user.
+	 *            The id of a existing user.
 	 * @throws NoSuchObjectException
 	 *             If no node with the given id exists.
 	 * @throws NoSuchUserException
 	 *             If the the given user does not exist.
 	 */
-	public void removeNodeAdmin(long nodeId, long userId)
+	void removeNodeAdmin(long nodeId, long userId)
 			throws NoSuchObjectException, NoSuchUserException;
 
 	/**
 	 * Get id of all administrators registered for the given node.
 	 * 
-	 * @param baseNodeId
-	 *            The unique number identifying an existing node.
+	 * @param nodeId
+	 *            The id of a existing node.
 	 * @return A list with the id of all administrators for the given node.
 	 * @throws NoSuchObjectException
 	 *             If no node with the given id exists.
 	 */
-	public List<Long> getNodeAdmins(long nodeId) throws NoSuchObjectException;
+	List<Long> getNodeAdmins(long nodeId) throws NoSuchObjectException;
 }
