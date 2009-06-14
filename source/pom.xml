@@ -16,15 +16,14 @@
 		<!--				<module>cli</module>-->
 		<module>clientapi</module>
 		<module>common</module>
-		<module>webcli</module>
+		<!--<module>webcli</module>-->
 	</modules>
 
 	<properties>
 		<openejb-version>3.1</openejb-version>
 		<javaee-api-version>5.0-1</javaee-api-version>
-		<site-path>
-			file:target/deployable-site
-		</site-path>
+		<site-path>file:target/deployable-site</site-path>
+		<checkstyle.conf.path>checkstyle.conf.xml</checkstyle.conf.path>
 	</properties>
 
 	<pluginRepositories>
@@ -194,9 +193,8 @@
 						<artifactId>maven-checkstyle-plugin</artifactId>
 						<version>2.2</version>
 						<configuration>
-							<configLocation>checkstyle.conf.xml
-					</configLocation>
-							<includeTestSourceDirectory>false</includeTestSourceDirectory>
+							<configLocation>${checkstyle.conf.path}</configLocation>
+							<includeTestSourceDirectory>true</includeTestSourceDirectory>
 						</configuration>
 					</plugin>
 				</plugins>

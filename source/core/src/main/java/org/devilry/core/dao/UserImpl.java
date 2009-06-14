@@ -23,10 +23,7 @@ public class UserImpl implements UserRemote, UserLocal {
 	protected EntityManager em;
 
 	@Resource
-	SessionContext sessionCtx;
-	
-	@EJB
-	UserLocal userBean;
+	private SessionContext sessionCtx;
 
 	protected User getUser(long userId) {
 		return em.find(User.class, userId);
@@ -140,11 +137,10 @@ public class UserImpl implements UserRemote, UserLocal {
 	}
 
 	public long getAuthenticatedUser() {
-		return userBean.findUser(getAuthenticatedIdentity());
+		return findUser(getAuthenticatedIdentity());
 	}
 
 	public String getAuthenticatedIdentity() {
-//		return sessionCtx.getCallerPrincipal().getName();
-		return "homer";
+		return sessionCtx.getCallerPrincipal().getName();
 	}
 }

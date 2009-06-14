@@ -7,7 +7,7 @@ import javax.ejb.Stateless;
 import javax.naming.NamingException;
 import org.junit.Test;
 
-public  class ExampleTest {
+public  class EjbExampleTest {
 
 	@Test
 	public void hmm() throws NamingException {

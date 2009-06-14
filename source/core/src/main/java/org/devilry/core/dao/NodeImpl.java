@@ -2,17 +2,11 @@ package org.devilry.core.dao;
 
 import java.util.List;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.Resource;
 import javax.ejb.EJB;
-import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
-import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptors;
-import javax.interceptor.InvocationContext;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
@@ -24,20 +18,15 @@ import org.devilry.core.daointerfaces.CourseNodeLocal;
 import org.devilry.core.daointerfaces.NodeCommon;
 import org.devilry.core.daointerfaces.NodeLocal;
 import org.devilry.core.daointerfaces.NodeRemote;
-import org.devilry.core.daointerfaces.PeriodNodeLocal;
-import org.devilry.core.entity.BaseNode;
-import org.devilry.core.entity.CourseNode;
 import org.devilry.core.entity.Node;
-import org.devilry.core.entity.PeriodNode;
 
 @Stateless
 @Interceptors({AuthorizeNode.class})
 public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
-	
-	@EJB(beanInterface=CourseNodeLocal.class) 
-	private CourseNodeCommon courseBean;
 
-	@EJB(beanInterface=NodeLocal.class) 
+	@EJB(beanInterface = CourseNodeLocal.class)
+	private CourseNodeCommon courseBean;
+	@EJB(beanInterface = NodeLocal.class)
 	private NodeCommon nodeBean;
 
 	private Node getNode(long nodeId) {
@@ -46,7 +35,7 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public long create(String name, String displayName) {
-				
+
 		if (getIdFromPath(new NodePath(new String[]{name})) != -1) {
 			throw new RuntimeException(
 					"Node name must be unique on toplevel nodes.");
@@ -72,30 +61,27 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 
 	public long getParentNode(long nodeId) throws NoSuchObjectException {
 		Node parent = getNode(nodeId).getParent();
-		if(parent == null)
+		if (parent == null) {
 			throw new NoSuchObjectException(
 					String.format("Node %d does not have a parent.", nodeId));
-		else
+		} else {
 			return parent.getId();
+		}
 	}
 
 	public List<Long> getToplevelNodes() {
-		Query q = em
-				.createQuery("SELECT n.id FROM Node n WHERE n.parent IS NULL");
+		Query q = em.createQuery("SELECT n.id FROM Node n WHERE n.parent IS NULL");
 		return q.getResultList();
 	}
 
-
 	public List<Long> getChildnodes(long nodeId) {
-		Query q = em
-				.createQuery("SELECT n.id FROM Node n WHERE n.parent IS NOT NULL AND n.parent.id = :parentId");
+		Query q = em.createQuery("SELECT n.id FROM Node n WHERE n.parent IS NOT NULL AND n.parent.id = :parentId");
 		q.setParameter("parentId", nodeId);
 		return q.getResultList();
 	}
 
 	public List<Long> getChildcourses(long nodeId) {
-		Query q = em
-				.createQuery("SELECT c.id FROM CourseNode c WHERE c.parent.id = :parentId");
+		Query q = em.createQuery("SELECT c.id FROM CourseNode c WHERE c.parent.id = :parentId");
 		q.setParameter("parentId", nodeId);
 		return q.getResultList();
 	}
@@ -113,51 +99,48 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 		for (Long courseId : childCourses) {
 			courseBean.remove(courseId);
 		}
-	
+
 		// Remove *this* node
 		removeNode(nodeId, Node.class);
 	}
 
-	
-	
 	public NodePath getPath(long nodeId) {
-		
+
 		Node node = getNode(nodeId);
 		String nodeName = node.getName();
-		
+
 		NodePath path;
-		
+
 		// If node has parent node
 		if (node.getParent() != null) {
 			// Get path from parent node
 			path = nodeBean.getPath(node.getParent().getId());
 			// Add current node name to path
 			path.addToEnd(nodeName);
-		}
-		else {
+		} else {
 			path = new NodePath(new String[]{nodeName});
 		}
-				
+
 		return path;
 	}
 
 	public long getIdFromPath(NodePath nodePath) {
-				
+
 		NodePath pathCopy = new NodePath(nodePath);
-				
+
 		// Only one node in path, hence no parent
-		if (pathCopy.size() == 1)
+		if (pathCopy.size() == 1) {
 			return getNodeId(pathCopy.get(0), -1);
-			
+		}
+
 		String nodeName = pathCopy.removeLastPathComponent();
-		
+
 		long parentNodeId = nodeBean.getIdFromPath(pathCopy);
 		long nodeId = getNodeId(nodeName, parentNodeId);
-		
+
 		return nodeId;
-	}	
-		
-	
+	}
+
 	private long getNodeId(String name, long parentId) {
 		Query q;
 
@@ -184,20 +167,21 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 	public List<Long> getNodesWhereIsAdmin() {
 		return getNodesWhereIsAdmin(Node.class);
 	}
-	
+
 	public boolean isNodeAdmin(long nodeId) {
 		Node node = getNode(nodeId);
-		if (isAdmin(node, userBean.getAuthenticatedUser()))
+		if (isAdmin(node, userBean.getAuthenticatedUser())) {
 			return true;
+		}
 
-		try{
+		try {
 			long parentId = getParentNode(nodeId);
 			return isNodeAdmin(parentId);
 		} catch (NoSuchObjectException ex) {
 			return false;
 		}
 	}
-	
+
 	public void addNodeAdmin(long nodeId, long userId) {
 		Node node = getNode(nodeId);
 		addAdmin(node, userId);
@@ -207,10 +191,9 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 		Node node = getNode(nodeId);
 		removeAdmin(node, userId);
 	}
-	
+
 	public List<Long> getNodeAdmins(long nodeId) {
 		Node node = getNode(nodeId);
 		return getAdmins(node);
 	}
-
 }

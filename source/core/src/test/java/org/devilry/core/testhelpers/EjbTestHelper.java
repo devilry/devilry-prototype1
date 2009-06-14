@@ -22,12 +22,12 @@ public class EjbTestHelper {
 
 
 	@SuppressWarnings("unchecked")
-	protected <E> E getLocalBean(Class<E> beanImplClass) throws NamingException {
+	public <E> E getLocalBean(Class<E> beanImplClass) throws NamingException {
 		return (E) ctx.lookup(beanImplClass.getSimpleName() + "Local");
 	}
 
 	@SuppressWarnings("unchecked")
-	protected <E> E getRemoteBean(Class<E> beanImplClass)
+	public <E> E getRemoteBean(Class<E> beanImplClass)
 			throws NamingException {
 		return (E) ctx.lookup(beanImplClass.getSimpleName() + "Remote");
 	}
