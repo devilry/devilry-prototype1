@@ -3,92 +3,177 @@ package org.devilry.core.daointerfaces;
 import java.util.Date;
 import java.util.List;
 
-public interface AssignmentNodeCommon extends BaseNodeInterface {
-	
-	/** Create a new assignment node.
+import org.devilry.core.InvalidNameException;
+import org.devilry.core.NoSuchObjectException;
+import org.devilry.core.NoSuchUserException;
+import org.devilry.core.PathExistsException;
+import org.devilry.core.UnauthorizedException;
+
+interface AssignmentNodeCommon extends BaseNodeInterface {
+
+	/**
+	 * Create a new assignment-node.
 	 * 
 	 * @param name
+	 *            A short name containing only lower-case English letters, '-',
+	 *            '_' and numbers.
 	 * @param displayName
+	 *            A longer name typically used in GUI's instead of the name.
 	 * @param deadline
+	 *            The date/time of the deadline.
 	 * @param parentId
-	 * @return
+	 *            The id of an existing period-node. The new node will become a
+	 *            child of the given parent-node.
+	 * @return The id of the newly created assignment-node.
+	 * @throws PathExistsException
+	 *             If there already exists another course-node with the same
+	 *             name and parentId.
+	 * @throws UnauthorizedException
+	 *             If the authenticated user is not Admin on the parent node.
+	 * @throws InvalidNameException
+	 *             If the given name is not on the specified format.
+	 * @throws NoSuchObjectException
+	 *             If the given parent does not exist.
 	 */
-	public long create(String name, String displayName, Date deadline, long parentId);
+	long create(String name, String displayName, Date deadline, long parentId)
+			throws PathExistsException, UnauthorizedException,
+			InvalidNameException, NoSuchObjectException;
 
-	/** 
-	 * Get the period owning this assignment. 
-	 */
-	long getParentPeriod(long nodeId);
-	
 	/**
-	 * Get the deadline for this assignment
-	 * @param nodeId
-	 * @return the date/time of the deadline.
+	 * The the parent-period-node of the given assignment-node.
+	 * 
+	 * @param assignmentNodeId
+	 *            The id of an existing assignment-node.
+	 * @return The id of the parent period-node.
+	 * @throws NoSuchObjectException
+	 *             If no assignment-node with the given id exists.
 	 */
-	public Date getDeadline(long nodeId);
-	
+	long getParentPeriod(long assignmentNodeId) throws NoSuchObjectException;
+
+	/**
+	 * Get the deadline for the given assignment.
+	 * 
+	 * @param assignmentNodeId
+	 *            The id of an existing assignment-node.
+	 * @return the date/time of the deadline.
+	 * @throws NoSuchObjectException
+	 *             If no assignment-node with the given id exists.
+	 */
+	Date getDeadline(long assignmentNodeId) throws NoSuchObjectException;
+
 	/**
 	 * Set the deadline for this assignment
-	 * @param nodeId
-	 * @param deadline The date/time of the deadline.
+	 * 
+	 * @param assignmentNodeId
+	 *            The id of an existing assignment-node.
+	 * @param deadline
+	 *            The date/time of the deadline.
+	 * @throws NoSuchObjectException
+	 *             If no assignment-node with the given id exists.
+	 * @throws UnauthorizedException
+	 *             If the authenticated user is not <em>Admin</em> on the
+	 *             parent-period-node of the given assignment.
 	 */
-	public void setDeadline(long nodeId, Date deadline);
-	
-	/**
-	 * Get deliveries 
-	 * @param nodeId
-	 * @return list of IDs for the deliveries
-	 */
-	public List<Long> getDeliveries(long assignmentId);
+	void setDeadline(long assignmentNodeId, Date deadline)
+			throws UnauthorizedException;
 
 	/**
-	 * Get deliveries where the user is student
-	 * @param assignmentId
-	 * @return id the of the delivery
+	 * Get all deliveries with this assignment as parent.
+	 * 
+	 * @param assignmentNodeId
+	 *            The id of an existing assignment-node.
+	 * @return List of IDs for the deliveries.
+	 * @throws NoSuchObjectException
+	 *             If no assignment-node with the given id exists.
+	 * @throws UnauthorizedException
+	 *             If the authenticated user is not <em>Admin</em> on the given
+	 *             assignment.
 	 */
-	public List<Long> getDeliveriesWhereIsStudent(long assignmentId);
-	
+	List<Long> getDeliveries(long assignmentId) throws NoSuchObjectException,
+			UnauthorizedException;
+
+	// /**
+	// * Get deliveries where the user is student
+	// *
+	// * @param assignmentId
+	// * @return id the of the delivery
+	// */
+	// List<Long> getDeliveriesWhereIsStudent(long assignmentId);
+	//
+	// /**
+	// * Get deliveries where the user is examiner
+	// *
+	// * @param assignmentId
+	// * @return
+	// */
+	// List<Long> getDeliveriesWhereIsExaminer(long assignmentId);
+
 	/**
-	 * Get deliveries where the user is examiner
-	 * @param assignmentId
-	 * @return
-	 */
-	public List<Long> getDeliveriesWhereIsExaminer(long assignmentId);
-
-
-	/** Get a list of assignments where the authenticated user is admin.
+	 * Get a list of assignments where the authenticated user is Admin.
 	 * 
 	 * @return List of assignment-ids.
 	 * */
 	List<Long> getAssignmentsWhereIsAdmin();
-	
-	
-	/** 
+
+	/**
 	 * Add a new administrator to the given assignment node.
-	 * @param assignmentNodeId The unique number identifying an existing node.
-	 * @param userId The unique number identifying an existing user.
-	 */
-	public void addAssignmentAdmin(long assignmentNodeId, long userId);
-	
-	
-	/** 
-	 * Remove an administrator from the given assignment node.
-	 * @param assignmentNodeId The unique number identifying an existing node.
-	 * @param userId The unique number identifying an existing user.
-	 */
-	public void removeAssignmentAdmin(long assignmentNodeId, long userId);
-
-	/** 
-	 * Get id of all administrators registered for the given assignment assignment.
 	 * 
-	 * @param baseNodeId The unique number identifying an existing assignment.
-	 * @return A list with the id of all administrators for the given assignment.
+	 * @param assignmentNodeId
+	 *            The unique number identifying an existing assignment-node.
+	 * @param userId
+	 *            The unique number identifying an existing user.
+	 * @throws NoSuchObjectException
+	 *             If no assignment-node with the given id exists.
+	 * @throws NoSuchUserException
+	 *             If the given user does not exist.
+	 * @throws UnauthorizedException
+	 *             If the authenticated user is not <em>Admin</em> on the
+	 *             parent-period-node of the given assignment.
 	 */
-	public List<Long> getAssignmentAdmins(long assignmentNodeId);
+	void addAssignmentAdmin(long assignmentNodeId, long userId)
+			throws NoSuchObjectException, NoSuchUserException,
+			UnauthorizedException;
 
-	/** 
-	 * Check if a user is admin on the given assignment. 
+	/**
+	 * Remove an administrator from the given assignment node.
+	 * 
+	 * @param courseNodeId
+	 *            The unique number identifying an existing assignment-node.
+	 * @param userId
+	 *            The unique number identifying an existing user.
+	 * @throws NoSuchObjectException
+	 *             If no course-node with the given id exists.
+	 * @throws NoSuchUserException
+	 *             If the given user does not exist.
+	 * @throws UnauthorizedException
+	 *             If the authenticated user is not <em>Admin</em> on the
+	 *             parent-period-node of the given assignment.
+	 */
+	void removeAssignmentAdmin(long assignmentNodeId, long userId)
+			throws NoSuchObjectException, NoSuchUserException,
+			UnauthorizedException;
+
+	/**
+	 * Get the id of all administrators registered for the given assignment node.
+	 * 
+	 * @param baseNodeId
+	 *            The unique number identifying an existing node.
+	 * @return A list with the id of all administrators for the given node.
+	 * @throws NoSuchObjectException
+	 *             If no course-node with the given id exists.
+	 * @throws UnauthorizedException
+	 *             If the authenticated user is not <em>Admin</em> on the
+	 *             parent-node of the given course.
+	 */
+	List<Long> getAssignmentAdmins(long assignmentNodeId);
+
+
+	/**
+	 * Check if the authenticated user is Admin on the given assignment-node.
+	 * 
+	 * @throws NoSuchObjectException
+	 *             If no assignment-node with the given id exists.
 	 * */
-	public boolean isAssignmentAdmin(long assignmentNodeId, long userId);
+	boolean isAssignmentAdmin(long assignmentNodeId);
 
 }

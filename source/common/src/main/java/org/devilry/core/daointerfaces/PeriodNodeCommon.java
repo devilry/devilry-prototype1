@@ -9,7 +9,7 @@ import org.devilry.core.NoSuchUserException;
 import org.devilry.core.PathExistsException;
 import org.devilry.core.UnauthorizedException;
 
-interface PeriodNodeCommon extends BaseNodeInterface {
+public interface PeriodNodeCommon extends BaseNodeInterface {
 
 	/**
 	 * Create a new period-node.
@@ -19,9 +19,12 @@ interface PeriodNodeCommon extends BaseNodeInterface {
 	 *            '_' and numbers.
 	 * @param displayName
 	 *            A longer name typically used in GUI's instead of the name.
+	 * @param start The date when the period starts.
+	 * @param end The date when the period ends.
 	 * @param parentId
 	 *            The id of an existing course-node. The new period-node will
 	 *            become a child of the given parent-node.
+	 *            
 	 * @return The id of the newly created period-node.
 	 * @throws PathExistsException
 	 *             If there already exists another period-node with the same
@@ -69,9 +72,6 @@ interface PeriodNodeCommon extends BaseNodeInterface {
 	 * 
 	 * @param periodNodeId
 	 *            The id of an existing period-node.
-	 * @throws UnauthorizedException
-	 *             If the authenticated user is not Admin, Examiner or Student
-	 *             on the given period.
 	 * @throws NoSuchObjectException
 	 *             If no period-node with the given id exists.
 	 */
@@ -99,9 +99,6 @@ interface PeriodNodeCommon extends BaseNodeInterface {
 	 * 
 	 * @param periodNodeId
 	 *            The id of an existing period-node.
-	 * @throws UnauthorizedException
-	 *             If the authenticated user is not Admin, Examiner or Student
-	 *             on the given period.
 	 * @throws NoSuchObjectException
 	 *             If no period-node with the given id exists.
 	 */

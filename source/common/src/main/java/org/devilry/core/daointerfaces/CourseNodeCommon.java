@@ -82,7 +82,7 @@ public interface CourseNodeCommon extends BaseNodeInterface {
 	 * Add a new administrator to the given course node.
 	 * 
 	 * @param courseNodeId
-	 *            The unique number identifying an existing node.
+	 *            The unique number identifying an existing course-node.
 	 * @param userId
 	 *            The unique number identifying an existing user.
 	 * @throws NoSuchObjectException
@@ -90,8 +90,8 @@ public interface CourseNodeCommon extends BaseNodeInterface {
 	 * @throws NoSuchUserException
 	 *             If the given user does not exist.
 	 * @throws UnauthorizedException
-	 *             If the authenticated user is not <em>Admin</em> on the given
-	 *             course.
+	 *             If the authenticated user is not <em>Admin</em> on the
+	 *             parent-node of the given course.
 	 */
 	void addCourseAdmin(long courseNodeId, long userId)
 			throws NoSuchObjectException, NoSuchUserException,
@@ -101,14 +101,16 @@ public interface CourseNodeCommon extends BaseNodeInterface {
 	 * Remove an administrator from the given course node.
 	 * 
 	 * @param courseNodeId
-	 *            The unique number identifying an existing node.
+	 *            The unique number identifying an existing course-node.
 	 * @param userId
 	 *            The unique number identifying an existing user.
 	 * @throws NoSuchObjectException
 	 *             If no course-node with the given id exists.
+	 * @throws NoSuchUserException
+	 *             If the given user does not exist.
 	 * @throws UnauthorizedException
-	 *             If the authenticated user is not <em>Admin</em> on the given
-	 *             course.
+	 *             If the authenticated user is not <em>Admin</em> on the
+	 *             parent-node of the given course.
 	 */
 	void removeCourseAdmin(long courseNodeId, long userId)
 			throws NoSuchObjectException, NoSuchUserException,
@@ -123,8 +125,8 @@ public interface CourseNodeCommon extends BaseNodeInterface {
 	 * @throws NoSuchObjectException
 	 *             If no course-node with the given id exists.
 	 * @throws UnauthorizedException
-	 *             If the authenticated user is not <em>Admin</em> on the given
-	 *             course.
+	 *             If the authenticated user is not <em>Admin</em> on the
+	 *             parent-node of the given course.
 	 */
 	List<Long> getCourseAdmins(long courseNodeId) throws NoSuchObjectException,
 			UnauthorizedException;
