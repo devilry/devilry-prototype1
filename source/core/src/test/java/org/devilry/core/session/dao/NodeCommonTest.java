@@ -13,14 +13,17 @@ import org.devilry.core.daointerfaces.CourseNodeCommon;
 import org.devilry.core.daointerfaces.NodeCommon;
 import org.devilry.core.daointerfaces.UserCommon;
 import org.devilry.core.testhelpers.CoreTestHelper;
-import org.devilry.core.testhelpers.LocalCoreTestHelper;
-import org.devilry.core.testhelpers.RemoteCoreTestHelper;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-public class NodeImplTest {
+
+/** Tests all methods in the NodeCommon interface.
+ @see NodeCommon
+ */
+public abstract class NodeCommonTest {
 
 	protected static CoreTestHelper testHelper;
 	protected NodeCommon node;
@@ -31,7 +34,7 @@ public class NodeImplTest {
 
 	@BeforeClass
 	public static void initBeans() throws NamingException {
-		testHelper = new RemoteCoreTestHelper("homer", "doh");
+		throw new NotImplementedException();
 	}
 
 	@Before
@@ -131,6 +134,13 @@ public class NodeImplTest {
 		assertEquals(2, node.getChildnodes(uioId).size());
 	}
 
+
+	@Test(expected = UnauthorizedException.class)
+	public void getChildnodesUnauthorized() throws UnauthorizedException {
+		long tstId = node.create("tst", "Test");
+		node.getChildnodes(tstId);
+	}
+
 	@Test
 	public void getChildcourses() throws UnauthorizedException, NamingException {
 		CourseNodeCommon course = testHelper.getCourseNodeCommon();
@@ -144,6 +154,14 @@ public class NodeImplTest {
 
 		course.create("a", "Aaaaa", uioId);
 		assertEquals(2, node.getChildcourses(uioId).size());
+
+
+	}
+
+	@Test(expected = UnauthorizedException.class)
+	public void getChildcoursesUnauthorized() throws UnauthorizedException {
+		long tstId = node.create("tst", "Test");
+		node.getChildcourses(tstId);
 	}
 
 	@Test

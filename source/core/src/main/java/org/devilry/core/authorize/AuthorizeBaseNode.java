@@ -6,7 +6,7 @@ import javax.ejb.SessionContext;
 
 import org.devilry.core.daointerfaces.UserLocal;
 
-abstract class AuthorizeBaseNode {
+public abstract class AuthorizeBaseNode {
 	/**
 	 * Methods in BaseNodeInterface where the authorized user must be admin on
 	 * the node given as first argument.

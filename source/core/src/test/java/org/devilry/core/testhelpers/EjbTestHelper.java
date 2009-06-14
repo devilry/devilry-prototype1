@@ -9,12 +9,14 @@ public class EjbTestHelper {
 
 	private InitialContext ctx = null;
 
-	public EjbTestHelper(String username, String password) throws NamingException {
+	public EjbTestHelper(String username, String password)
+			throws NamingException {
 		Properties p = new Properties();
 		p.put(Context.INITIAL_CONTEXT_FACTORY,
 				"org.apache.openejb.client.LocalInitialContextFactory");
 		p.put("openejb.deploymentId.format", "{ejbName}");
-		p.put("openejb.jndiname.format", "{ejbClass.simpleName}{interfaceType.annotationName}");
+		p.put("openejb.jndiname.format",
+				"{ejbClass.simpleName}{interfaceType.annotationName}");
 		p.put(Context.SECURITY_PRINCIPAL, username);
 		p.put(Context.SECURITY_CREDENTIALS, password);
 		ctx = new InitialContext(p);

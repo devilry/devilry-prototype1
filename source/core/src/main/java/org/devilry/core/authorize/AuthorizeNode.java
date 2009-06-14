@@ -68,7 +68,8 @@ public class AuthorizeNode extends AuthorizeBaseNode {
 			long nodeId = (Long) parameters[0];
 			if (!nodeBean.isNodeAdmin(nodeId)) {
 				throw new UnauthorizedException(String.format(
-						"Not authorized to access method : %s", fullMethodName));
+						"Not authorized to access method : %s",
+						fullMethodName));
 			}
 		}
 
