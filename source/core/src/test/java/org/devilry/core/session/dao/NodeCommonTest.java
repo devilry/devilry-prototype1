@@ -32,11 +32,6 @@ public abstract class NodeCommonTest {
 	/** The id of the user with the logged-in identity. */
 	protected long homerId;
 
-	@BeforeClass
-	public static void initBeans() throws NamingException {
-		throw new NotImplementedException();
-	}
-
 	@Before
 	public void setUp() throws NamingException {
 		node = testHelper.getNodeCommon();

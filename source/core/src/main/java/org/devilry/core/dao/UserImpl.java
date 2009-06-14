@@ -33,7 +33,7 @@ public class UserImpl implements UserRemote, UserLocal {
 		return em.find(Identity.class, identity);
 	}
 
-	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void addIdentity(long userId, String identity) {
 		
 		// Do not add if identity exists
@@ -48,7 +48,7 @@ public class UserImpl implements UserRemote, UserLocal {
 		em.flush();
 	}
 
-	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public long create(String name, String email, String phoneNumber) {
 		User u = new User();
 		u.setName(name);
@@ -92,7 +92,7 @@ public class UserImpl implements UserRemote, UserLocal {
 	}
 
 
-	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void remove(long userId) {
 		Query q = em.createQuery("DELETE FROM Identity i WHERE i.user.id = :userId");
 		q.setParameter("userId", userId);
@@ -100,20 +100,23 @@ public class UserImpl implements UserRemote, UserLocal {
 		em.remove(getUser(userId));
 	}
 
-	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void removeIdentity(String identity) {
 		Identity i = getIdentity(identity);
 		em.remove(i);
 	}
 
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void setEmail(long userId, String email) {
 		getUser(userId).setEmail(email);
 	}
 
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void setName(long userId, String name) {
 		getUser(userId).setName(name);
 	}
 
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void setPhoneNumber(long userId, String phoneNumber) {
 		getUser(userId).setPhoneNumber(phoneNumber);
 	}
@@ -142,5 +145,20 @@ public class UserImpl implements UserRemote, UserLocal {
 
 	public String getAuthenticatedIdentity() {
 		return sessionCtx.getCallerPrincipal().getName();
+	}
+
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public void setIsSuperAdmin(long userId, boolean isSuperAdmin) {
+		getUser(userId).setIsSuperAdmin(isSuperAdmin);
+	}
+
+	public boolean isSuperAdmin(long userId) {
+		return getUser(userId).isIsSuperAdmin();
+	}
+
+	public List<Long> getSuperAdmins() {
+		Query q = em.createQuery("SELECT u.id FROM User u WHERE u.isSuperAdmin = :t");
+		q.setParameter("t", true);
+		return q.getResultList();
 	}
 }

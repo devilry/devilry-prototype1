@@ -111,4 +111,29 @@ public interface UserCommon {
 
 	/** Get the identity of the authenticated user. */
 	String getAuthenticatedIdentity();
+
+	/** Make a user a a SuperAdmin, or revoke their SuperAdmin rights.
+	 *
+	 * A SuperAdmin is a user with unrestricted access to the entire system.
+	 * Only a SuperAdmin can change this flag, and a SuperAdmin cannot invoke
+	 * this method with his/her own <em>userId</em>.
+	 *
+	 * @param userId The user-id of an existing user.
+	 * @param isSuperAdmin true to make the given user a SuperAdmin, and false
+	 *		to make the given user a <em>normal</em> user.
+	 */
+	void setIsSuperAdmin(long userId, boolean isSuperAdmin);
+
+	/** Check if a user is SuperAdmin.
+	 *
+	 * @return true if the given user is SuperAdmin, otherwise return
+	 *		false.
+	 */
+	boolean isSuperAdmin(long userId);
+
+	/** Get a list of all superadmins.
+	 * 
+	 * @return List with the id of all SuperAdmins.
+	 */
+	List<Long> getSuperAdmins();
 }

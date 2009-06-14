@@ -1,15 +1,11 @@
 package org.devilry.core.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 
 @Entity
@@ -19,6 +15,8 @@ public class User implements Serializable {
 	protected long id;
 	
 	protected String name;
+	
+	protected boolean isSuperAdmin;
 	
 	@Column(unique=true)
 	protected String email;
@@ -43,6 +41,14 @@ public class User implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public boolean isIsSuperAdmin() {
+		return isSuperAdmin;
+	}
+
+	public void setIsSuperAdmin(boolean isSuperAdmin) {
+		this.isSuperAdmin = isSuperAdmin;
 	}
 
 	public String getEmail() {

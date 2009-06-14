@@ -208,4 +208,24 @@ public class UserImplTest extends AbstractDaoTst {
 	public void getAuthenticatedIdentity() {
 		assertEquals("homer", userBean.getAuthenticatedIdentity());
 	}
+
+	@Test
+	public void setIsSuperAdmin() {
+		assertFalse(userBean.isSuperAdmin(testUser0));
+		userBean.setIsSuperAdmin(testUser0, true);
+		assertTrue(userBean.isSuperAdmin(testUser0));
+		userBean.setIsSuperAdmin(testUser0, false);
+		assertFalse(userBean.isSuperAdmin(testUser0));
+	}
+
+	@Test
+	public void getSuperAdmins() {
+		assertEquals(0, userBean.getSuperAdmins().size());
+		userBean.setIsSuperAdmin(testUser0, true);
+		List<Long> l = userBean.getSuperAdmins();
+		assertEquals(1, l.size());
+		assertEquals(testUser0, (long) l.get(0));		
+		userBean.setIsSuperAdmin(testUser1, true);
+		assertEquals(2, userBean.getSuperAdmins().size());
+	}
 }
