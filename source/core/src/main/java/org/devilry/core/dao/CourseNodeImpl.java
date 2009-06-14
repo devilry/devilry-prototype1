@@ -19,7 +19,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Stateless
-public class CourseNodeImpl extends BaseNodeImpl implements CourseNodeRemote, CourseNodeLocal {
+public class CourseNodeImpl extends BaseNodeImpl
+		implements CourseNodeRemote, CourseNodeLocal {
 	
 	@EJB(beanInterface=PeriodNodeLocal.class) 
 	private PeriodNodeCommon periodBean;
@@ -44,14 +45,15 @@ public class CourseNodeImpl extends BaseNodeImpl implements CourseNodeRemote, Co
 		return q.getResultList();
 	}
 
-	public List<Long> getPeriods(long courseId) {
-		Query q = em.createQuery("SELECT p.id FROM PeriodNode p WHERE p.course.id = :id");
-		q.setParameter("id", courseId);
+	public List<Long> getPeriods(long courseNodeId) {
+		Query q = em.createQuery("SELECT p.id FROM PeriodNode p " +
+				"WHERE p.course.id = :id");
+		q.setParameter("id", courseNodeId);
 		return q.getResultList();
 	}
 	
-	private CourseNode getCourseNode(long courseId) {
-		return getNode(CourseNode.class, courseId);
+	private CourseNode getCourseNode(long courseNodeId) {
+		return getNode(CourseNode.class, courseNodeId);
 	}
 
 	public boolean exists(long courseId) {
@@ -62,43 +64,47 @@ public class CourseNodeImpl extends BaseNodeImpl implements CourseNodeRemote, Co
 		}
 	}
 
-	public long getParentNode(long courseId) {
-		return getCourseNode(courseId).getParent().getId();
+	public long getParentNode(long courseNodeId) {
+		return getCourseNode(courseNodeId).getParent().getId();
 	}
 
 	public List<Long> getCoursesWhereIsAdmin() {
 		return getNodesWhereIsAdmin(CourseNode.class);
 	}
 
-	public boolean isCourseAdmin(long nodeId, long userId) {
-		CourseNode courseNode = getCourseNode(nodeId);
-		return isAdmin(courseNode, userId);
+	public boolean isCourseAdmin(long courseNodeId) {
+		CourseNode courseNode = getCourseNode(courseNodeId);
+		if(isAdmin(courseNode, userBean.getAuthenticatedUser())) {
+			return true;
+		} else {
+			return nodeBean.isNodeAdmin(getParentNode(courseNodeId));
+		}
 	}
-	
+
 	public void addCourseAdmin(long courseNodeId, long userId) {
 		CourseNode node = getCourseNode(courseNodeId);
 		addAdmin(node, userId);
 	}
-		
+
 	public void removeCourseAdmin(long courseNodeId, long userId) {
 		CourseNode node = getCourseNode(courseNodeId);
 		removeAdmin(node, userId);
 	}
 	
-	public List<Long> getCourseAdmins(long courseId) {
-		CourseNode node = getCourseNode(courseId);
+	public List<Long> getCourseAdmins(long courseNodeId) {
+		CourseNode node = getCourseNode(courseNodeId);
 		return getAdmins(node);
 	}
 	
-	public void remove(long courseId) {
+	public void remove(long courseNodeId) {
 		// Remove childnodes
-		List<Long> childPeriods = getPeriods(courseId);
+		List<Long> childPeriods = getPeriods(courseNodeId);
 		for (Long childPeriodId : childPeriods) {
 			periodBean.remove(childPeriodId);
 		}
 
 		// Remove *this* node
-		removeNode(courseId, CourseNode.class);
+		removeNode(courseNodeId, CourseNode.class);
 	}
 	
 	
@@ -141,7 +147,9 @@ public class CourseNodeImpl extends BaseNodeImpl implements CourseNodeRemote, Co
 			return -1;
 		} 
 		
-		q = em.createQuery("SELECT n FROM CourseNode n WHERE n.name=:name AND n.parent IS NOT NULL AND n.parent.id=:parentId");
+		q = em.createQuery(
+				"SELECT n FROM CourseNode n WHERE n.name=:name AND " +
+				"n.parent IS NOT NULL AND n.parent.id=:parentId");
 		q.setParameter("name", name);
 		q.setParameter("parentId", parentId);
 

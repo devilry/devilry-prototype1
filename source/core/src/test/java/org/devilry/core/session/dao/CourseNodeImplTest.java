@@ -111,13 +111,13 @@ public class CourseNodeImplTest extends BaseNodeTst {
 	@Test
 	public void isCourseAdmin() {
 		courseNode.addCourseAdmin(courseId, homerId);
-		assertTrue(courseNode.isCourseAdmin(courseId, homerId));
+		assertTrue(courseNode.isCourseAdmin(courseId));
 	}
-	
+
 	@Test
 	public void addCourseAdmin() {
 		courseNode.addCourseAdmin(courseId, homerId);
-		assertTrue(courseNode.isCourseAdmin(courseId, homerId));
+		assertTrue(courseNode.isCourseAdmin(courseId));
 	
 		int adminCount = courseNode.getCourseAdmins(courseId).size();
 		
@@ -128,7 +128,8 @@ public class CourseNodeImplTest extends BaseNodeTst {
 		
 	@Test
 	public void removeCourseAdmin() {
+		courseNode.addCourseAdmin(courseId, homerId);
 		courseNode.removeCourseAdmin(courseId, homerId);
-		assertFalse(courseNode.isCourseAdmin(courseId, homerId));
+		assertFalse(courseNode.isCourseAdmin(courseId));
 	}
 }

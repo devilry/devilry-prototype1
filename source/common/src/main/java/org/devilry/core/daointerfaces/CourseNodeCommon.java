@@ -11,7 +11,7 @@ public interface CourseNodeCommon extends BaseNodeInterface {
 	List<Long> getPeriods(long courseId);
 	List<Long> getAllCourses();
 
-	/** Get a list of courses where the authenticated user is admin.
+	/** Get a list of courses where the authenticated user is Admin.
 	 * 
 	 * @return List of course-ids.
 	 * */
@@ -25,16 +25,16 @@ public interface CourseNodeCommon extends BaseNodeInterface {
 	
 	
 	/** 
-	 * Check if a user is admin on the given course node. 
+	 * Check if the authenticated user is Admin on the given course-node.  
 	 * */
-	boolean isCourseAdmin(long courseNodeId, long userId);
+	boolean isCourseAdmin(long courseNodeId);
 	
 	/** 
 	 * Add a new administrator to the given course node.
 	 * @param courseNodeId The unique number identifying an existing node.
 	 * @param userId The unique number identifying an existing user.
 	 */
-	public void addCourseAdmin(long courseNodeId, long userId);
+	void addCourseAdmin(long courseNodeId, long userId);
 	
 	
 	/** 
@@ -42,7 +42,7 @@ public interface CourseNodeCommon extends BaseNodeInterface {
 	 * @param courseNodeId The unique number identifying an existing node.
 	 * @param userId The unique number identifying an existing user.
 	 */
-	public void removeCourseAdmin(long courseNodeId, long userId);
+	void removeCourseAdmin(long courseNodeId, long userId);
 	
 	
 	/** 
