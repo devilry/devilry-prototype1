@@ -29,7 +29,7 @@ public class CourseNodeImpl extends BaseNodeImpl
 	@EJB(beanInterface=NodeLocal.class) 
 	private NodeCommon nodeBean;
 
-	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public long create(String name, String displayName, long parentId) {
 		CourseNode node = new CourseNode();
 		node.setName(name.toLowerCase());

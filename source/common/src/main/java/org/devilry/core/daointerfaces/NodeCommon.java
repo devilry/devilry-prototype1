@@ -24,7 +24,7 @@ public interface NodeCommon extends BaseNodeInterface {
 	 *             If there already exists another toplevel node with the given
 	 *             name.
 	 * @throws UnauthorizedException
-	 *             If the authorized user is not SuperAdmin.
+	 *             If the authenticated user is not SuperAdmin.
 	 * @throws InvalidNameException
 	 *             If the given name is not on the specified format.
 	 */
@@ -48,13 +48,15 @@ public interface NodeCommon extends BaseNodeInterface {
 	 *             If there already exists another node with the same name and
 	 *             parentId.
 	 * @throws UnauthorizedException
-	 *             If the authorized user is not Admin on the parent node.
+	 *             If the authenticated user is not Admin on the parent node.
 	 * @throws InvalidNameException
 	 *             If the given name is not on the specified format.
+	 * @throws NoSuchObjectException
+	 *             If the given parent does not exist.
 	 */
 	public long create(String name, String displayName, long parentId)
 			throws PathExistsException, UnauthorizedException,
-			InvalidNameException;
+			InvalidNameException, NoSuchObjectException;
 
 	/**
 	 * The the parent-node of the given node.
@@ -77,7 +79,7 @@ public interface NodeCommon extends BaseNodeInterface {
 	 *            The id of an existing node.
 	 * @return A list with the id's of all childnodes.
 	 * @throws UnauthorizedException
-	 *             If the authorized user is not <em>Admin</em> on the given
+	 *             If the authenticated user is not <em>Admin</em> on the given
 	 *             node.
 	 * @throws NoSuchObjectException
 	 *             If no node with the given id exists.
@@ -92,8 +94,8 @@ public interface NodeCommon extends BaseNodeInterface {
 	 *            A unique identificator of an existing node.
 	 * @return A list with the id's of all childnodes.
 	 * @throws UnauthorizedException
-	 *             If the authorized user is not <em>NodeAdmin</em> on the given
-	 *             node.
+	 *             If the authenticated user is not <em>NodeAdmin</em> on the
+	 *             given node.
 	 * @throws NoSuchObjectException
 	 *             If no node with the given id exists.
 	 */
