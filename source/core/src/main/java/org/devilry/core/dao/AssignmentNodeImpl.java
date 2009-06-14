@@ -10,6 +10,7 @@ import javax.ejb.TransactionAttributeType;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
+import org.devilry.core.NoSuchObjectException;
 import org.devilry.core.NodePath;
 import org.devilry.core.UnauthorizedException;
 import org.devilry.core.daointerfaces.AssignmentNodeCommon;
@@ -154,7 +155,7 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 	
 	
 
-	public NodePath getPath(long assignmentNodeId) {
+	public NodePath getPath(long assignmentNodeId) throws NoSuchObjectException {
 		
 		AssignmentNode assignment = getAssignmentNode(assignmentNodeId);
 		String assignmentName = assignment.getName();
@@ -189,7 +190,7 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 	}
 	
 	
-	public long getIdFromPath(NodePath nodePath) {
+	public long getIdFromPath(NodePath nodePath) throws NoSuchObjectException {
 		
 		NodePath pathCopy = new NodePath(nodePath);
 		String assignmentName = pathCopy.removeLastPathComponent();

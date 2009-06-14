@@ -51,7 +51,7 @@ public abstract class BaseNodeImpl implements BaseNodeInterface {
 		return getBaseNode(nodeId).getName();
 	}
 
-	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void setName(long nodeId, String name) {
 		BaseNode node = getBaseNode(nodeId);
 		node.setName(name);
@@ -62,7 +62,7 @@ public abstract class BaseNodeImpl implements BaseNodeInterface {
 		return getBaseNode(nodeId).getDisplayName();
 	}
 
-	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void setDisplayName(long nodeId, String name) {
 		BaseNode node = getBaseNode(nodeId);
 		node.setDisplayName(name);

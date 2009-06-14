@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.devilry.core.NoSuchObjectException;
 import org.devilry.core.NodePath;
 import org.devilry.core.daointerfaces.AssignmentNodeCommon;
 import org.devilry.core.daointerfaces.AssignmentNodeLocal;
@@ -86,7 +87,7 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 	}
 
 
-	public void remove(long periodId) {
+	public void remove(long periodId) throws NoSuchObjectException {
 
 		// Remove childnodes (assignments)
 		List<Long> childAssignments = getAssignments(periodId);
@@ -203,18 +204,9 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 		return isAdmin(courseNode, userId);
 	}
 	
-	
-	
 
-	
-	
-	/**
-	 * Get period node id
-	 * @param nodePath
-	 * @param parentNodeId
-	 * @return
-	 */
-	public long getIdFromPath(NodePath nodePath) {
+
+	public long getIdFromPath(NodePath nodePath) throws NoSuchObjectException {
 		
 		NodePath pathCopy = new NodePath(nodePath);
 		String periodName = pathCopy.removeLastPathComponent();
@@ -256,7 +248,7 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 	
 	
 	
-	public NodePath getPath(long periodId) {
+	public NodePath getPath(long periodId) throws NoSuchObjectException {
 		
 		PeriodNode period = getPeriodNode(periodId);
 		String periodName = period.getName();

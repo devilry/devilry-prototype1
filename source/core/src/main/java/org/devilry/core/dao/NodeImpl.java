@@ -12,6 +12,7 @@ import javax.persistence.Query;
 
 import org.devilry.core.NoSuchObjectException;
 import org.devilry.core.NodePath;
+import org.devilry.core.PathExistsException;
 import org.devilry.core.authorize.AuthorizeNode;
 import org.devilry.core.daointerfaces.CourseNodeCommon;
 import org.devilry.core.daointerfaces.CourseNodeLocal;
@@ -33,13 +34,14 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 		return getNode(Node.class, nodeId);
 	}
 
-	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-	public long create(String name, String displayName) {
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public long create(String name, String displayName) throws PathExistsException {
+		try{
+			getIdFromPath(new NodePath(new String[]{name}));
+			throw new PathExistsException(
+				"Node name must be unique on toplevel nodes.");
+		} catch(NoSuchObjectException e) {}
 
-		if (getIdFromPath(new NodePath(new String[]{name})) != -1) {
-			throw new RuntimeException(
-					"Node name must be unique on toplevel nodes.");
-		}
 		Node node = new Node();
 		node.setName(name.toLowerCase());
 		node.setDisplayName(displayName);
@@ -48,7 +50,7 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 		return node.getId();
 	}
 
-	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public long create(String name, String displayName, long parentId) {
 		Node node = new Node();
 		node.setName(name.toLowerCase());
@@ -70,24 +72,27 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 	}
 
 	public List<Long> getToplevelNodes() {
-		Query q = em.createQuery("SELECT n.id FROM Node n WHERE n.parent IS NULL");
+		Query q = em.createQuery("SELECT n.id FROM Node n " +
+				"WHERE n.parent IS NULL");
 		return q.getResultList();
 	}
 
 	public List<Long> getChildnodes(long nodeId) {
-		Query q = em.createQuery("SELECT n.id FROM Node n WHERE n.parent IS NOT NULL AND n.parent.id = :parentId");
+		Query q = em.createQuery("SELECT n.id FROM Node n " +
+				"WHERE n.parent IS NOT NULL AND n.parent.id = :parentId");
 		q.setParameter("parentId", nodeId);
 		return q.getResultList();
 	}
 
 	public List<Long> getChildcourses(long nodeId) {
-		Query q = em.createQuery("SELECT c.id FROM CourseNode c WHERE c.parent.id = :parentId");
+		Query q = em.createQuery("SELECT c.id FROM CourseNode c " +
+				"WHERE c.parent.id = :parentId");
 		q.setParameter("parentId", nodeId);
 		return q.getResultList();
 	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public void remove(long nodeId) {
+	public void remove(long nodeId) throws NoSuchObjectException {
 		// Remove childnodes
 		List<Long> childNodes = getChildnodes(nodeId);
 		for (Long childNodeId : childNodes) {
@@ -104,7 +109,7 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 		removeNode(nodeId, Node.class);
 	}
 
-	public NodePath getPath(long nodeId) {
+	public NodePath getPath(long nodeId) throws NoSuchObjectException {
 
 		Node node = getNode(nodeId);
 		String nodeName = node.getName();
@@ -124,7 +129,7 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 		return path;
 	}
 
-	public long getIdFromPath(NodePath nodePath) {
+	public long getIdFromPath(NodePath nodePath) throws NoSuchObjectException {
 
 		NodePath pathCopy = new NodePath(nodePath);
 
@@ -145,11 +150,13 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 		Query q;
 
 		if (parentId != -1) {
-			q = em.createQuery("SELECT n FROM Node n WHERE n.name=:name AND n.parent IS NOT NULL AND n.parent.id=:parentId");
+			q = em.createQuery("SELECT n FROM Node n WHERE n.name=:name " +
+					"AND n.parent IS NOT NULL AND n.parent.id=:parentId");
 			q.setParameter("name", name);
 			q.setParameter("parentId", parentId);
 		} else {
-			q = em.createQuery("SELECT n FROM Node n WHERE n.name=:name AND n.parent IS NULL");
+			q = em.createQuery("SELECT n FROM Node n WHERE n.name=:name " +
+					"AND n.parent IS NULL");
 			q.setParameter("name", name);
 		}
 

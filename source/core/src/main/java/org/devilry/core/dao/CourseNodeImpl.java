@@ -6,6 +6,7 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.*;
 
+import org.devilry.core.NoSuchObjectException;
 import org.devilry.core.NodePath;
 import org.devilry.core.daointerfaces.CourseNodeLocal;
 import org.devilry.core.daointerfaces.CourseNodeRemote;
@@ -39,12 +40,6 @@ public class CourseNodeImpl extends BaseNodeImpl
 		return node.getId();
 	}
 
-	@SuppressWarnings("unchecked")
-	public List<Long> getAllCourses() {
-		Query q = em.createQuery("SELECT c.id FROM CourseNode c");
-		return q.getResultList();
-	}
-
 	public List<Long> getPeriods(long courseNodeId) {
 		Query q = em.createQuery("SELECT p.id FROM PeriodNode p " +
 				"WHERE p.course.id = :id");
@@ -72,7 +67,7 @@ public class CourseNodeImpl extends BaseNodeImpl
 		return getNodesWhereIsAdmin(CourseNode.class);
 	}
 
-	public boolean isCourseAdmin(long courseNodeId) {
+	public boolean isCourseAdmin(long courseNodeId) throws NoSuchObjectException {
 		CourseNode courseNode = getCourseNode(courseNodeId);
 		if(isAdmin(courseNode, userBean.getAuthenticatedUser())) {
 			return true;
@@ -96,7 +91,7 @@ public class CourseNodeImpl extends BaseNodeImpl
 		return getAdmins(node);
 	}
 	
-	public void remove(long courseNodeId) {
+	public void remove(long courseNodeId) throws NoSuchObjectException {
 		// Remove childnodes
 		List<Long> childPeriods = getPeriods(courseNodeId);
 		for (Long childPeriodId : childPeriods) {
@@ -108,7 +103,7 @@ public class CourseNodeImpl extends BaseNodeImpl
 	}
 	
 	
-	public NodePath getPath(long courseNodeId) {
+	public NodePath getPath(long courseNodeId) throws NoSuchObjectException {
 		
 		CourseNode course = getCourseNode(courseNodeId);
 		String courseName = course.getName();
@@ -122,7 +117,7 @@ public class CourseNodeImpl extends BaseNodeImpl
 		return path;
 	}
 	
-	public long getIdFromPath(NodePath nodePath) {
+	public long getIdFromPath(NodePath nodePath) throws NoSuchObjectException {
 		
 		NodePath pathCopy = new NodePath(nodePath);
 		String courseName = pathCopy.removeLastPathComponent();

@@ -2,55 +2,129 @@ package org.devilry.core.daointerfaces;
 
 import java.util.List;
 
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
+import org.devilry.core.InvalidNameException;
+import org.devilry.core.NoSuchObjectException;
+import org.devilry.core.NoSuchUserException;
+import org.devilry.core.PathExistsException;
+import org.devilry.core.UnauthorizedException;
 
+
+/** Interface for course related methods. */
 public interface CourseNodeCommon extends BaseNodeInterface {
-	long create(String name, String displayName, long parentId);
-	long getParentNode(long curseId);
-	List<Long> getPeriods(long courseId);
-	List<Long> getAllCourses();
 
-	/** Get a list of courses where the authenticated user is Admin.
+	/**
+	 * Create a new course-node.
+	 * 
+	 * @param name
+	 *            A short name containing only lower-case English letters, '-',
+	 *            '_' and numbers.
+	 * @param displayName
+	 *            A longer name typically used in GUI's instead of the name.
+	 * @param parentId
+	 *            The id of an existing node. The new node will become a child
+	 *            of the given parent-node.
+	 * @return The id of the newly created course-node.
+	 * @throws PathExistsException
+	 *             If there already exists another node with the same name and
+	 *             parentId.
+	 * @throws UnauthorizedException
+	 *             If the authorized user is not Admin on the parent node.
+	 * @throws InvalidNameException
+	 *             If the given name is not on the specified format.
+	 */
+	long create(String name, String displayName, long parentId)
+			throws PathExistsException, UnauthorizedException,
+			InvalidNameException;
+
+	/**
+	 * The the parent-node of the given node.
+	 * 
+	 * @param nodeId
+	 *            The id of an existing node.
+	 * @return The id of the parent node.
+	 * @throws NoSuchObjectException
+	 *             If no course-node with the given id exists.
+	 */
+	long getParentNode(long curseId);
+
+	/**
+	 * Get all period-nodes with the given course-node as parent.
+	 * 
+	 * @param courseId
+	 *            The id of an existing course-node.
+	 * @return A list with the id of the requested periods.
+	 * @throws UnauthorizedException
+	 *             If the authorized user is not <em>Admin</em> on the given
+	 *             course.
+	 * @throws NoSuchObjectException
+	 *             If no node with the given id exists.
+	 */
+	List<Long> getPeriods(long courseId) throws NoSuchObjectException,
+			UnauthorizedException;
+
+	/**
+	 * Get a list of courses where the authenticated user is Admin.
 	 * 
 	 * @return List of course-ids.
 	 * */
 	List<Long> getCoursesWhereIsAdmin();
-	
-	
-	/** Check if a course-node with the given id exists.
-	 * @return True if a CourseNode with the given id exists.
-	 */
-	boolean exists(long courseNodeId);
-	
-	
-	/** 
-	 * Check if the authenticated user is Admin on the given course-node.  
+
+	/**
+	 * Check if the authenticated user is Admin on the given course-node.
+	 * 
+	 * @throws NoSuchObjectException
+	 *             If no course-node with the given id exists.
 	 * */
-	boolean isCourseAdmin(long courseNodeId);
-	
-	/** 
+	boolean isCourseAdmin(long courseNodeId) throws NoSuchObjectException;
+
+	/**
 	 * Add a new administrator to the given course node.
-	 * @param courseNodeId The unique number identifying an existing node.
-	 * @param userId The unique number identifying an existing user.
+	 * 
+	 * @param courseNodeId
+	 *            The unique number identifying an existing node.
+	 * @param userId
+	 *            The unique number identifying an existing user.
+	 * @throws NoSuchObjectException
+	 *             If no course-node with the given id exists.
+	 * @throws NoSuchUserException If the given user does not exist.
+	 * @throws UnauthorizedException
+	 *             If the authorized user is not <em>Admin</em> on the given
+	 *             course.
 	 */
-	void addCourseAdmin(long courseNodeId, long userId);
-	
-	
-	/** 
+	void addCourseAdmin(long courseNodeId, long userId)
+			throws NoSuchObjectException, NoSuchUserException,
+			UnauthorizedException;
+
+	/**
 	 * Remove an administrator from the given course node.
-	 * @param courseNodeId The unique number identifying an existing node.
-	 * @param userId The unique number identifying an existing user.
+	 * 
+	 * @param courseNodeId
+	 *            The unique number identifying an existing node.
+	 * @param userId
+	 *            The unique number identifying an existing user.
+	 * @throws NoSuchObjectException
+	 *             If no course-node with the given id exists.
+	 * @throws UnauthorizedException
+	 *             If the authorized user is not <em>Admin</em> on the given
+	 *             course.
 	 */
-	void removeCourseAdmin(long courseNodeId, long userId);
-	
-	
-	/** 
+	void removeCourseAdmin(long courseNodeId, long userId)
+			throws NoSuchObjectException, NoSuchUserException,
+			UnauthorizedException;
+
+	/**
 	 * Get id of all administrators registered for the given course node.
 	 * 
-	 * @param baseNodeId The unique number identifying an existing node.
+	 * @param baseNodeId
+	 *            The unique number identifying an existing node.
 	 * @return A list with the id of all administrators for the given node.
+	 * @throws NoSuchObjectException
+	 *             If no course-node with the given id exists.
+	 * @throws UnauthorizedException
+	 *             If the authorized user is not <em>Admin</em> on the given
+	 *             course.
 	 */
-	List<Long> getCourseAdmins(long courseNodeId);
-		
+	List<Long> getCourseAdmins(long courseNodeId) throws NoSuchObjectException,
+			UnauthorizedException;
+
 }

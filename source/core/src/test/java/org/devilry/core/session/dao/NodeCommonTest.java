@@ -1,27 +1,30 @@
 package org.devilry.core.session.dao;
 
-import org.devilry.core.UnauthorizedException;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
+
 import javax.naming.NamingException;
 
+import org.devilry.core.NoSuchObjectException;
+import org.devilry.core.NoSuchUserException;
 import org.devilry.core.NodePath;
+import org.devilry.core.PathExistsException;
+import org.devilry.core.UnauthorizedException;
 import org.devilry.core.daointerfaces.CourseNodeCommon;
 import org.devilry.core.daointerfaces.NodeCommon;
 import org.devilry.core.daointerfaces.UserCommon;
 import org.devilry.core.testhelpers.CoreTestHelper;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-
-/** Tests all methods in the NodeCommon interface.
- @see NodeCommon
+/**
+ * Tests all methods in the NodeCommon interface.
+ * 
+ * @see NodeCommon
  */
 public abstract class NodeCommonTest {
 
@@ -42,12 +45,13 @@ public abstract class NodeCommonTest {
 	}
 
 	@After
-	public void tearDown() throws NamingException {
+	public void tearDown() throws NamingException, NoSuchObjectException {
 		testHelper.clearUsersAndNodes();
 	}
 
 	@Test
-	public void exists() throws NamingException {
+	public void exists() throws NamingException, NoSuchObjectException,
+			PathExistsException, UnauthorizedException {
 		long uioId = node.create("uio", "UiO");
 		long matnatId = node.create("matnat", "Matnat", uioId);
 		assertTrue(node.exists(uioId));
@@ -56,22 +60,27 @@ public abstract class NodeCommonTest {
 	}
 
 	@Test
-	public void getPath() {
-		long matnatId = node.create("matnat", "Matnat",
-				node.create("uio", "UiO"));
+	public void getPath() throws NoSuchObjectException, PathExistsException,
+			UnauthorizedException {
+		long matnatId = node.create("matnat", "Matnat", node.create("uio",
+				"UiO"));
 		assertEquals(new NodePath("uio.matnat", "\\."), node.getPath(matnatId));
 	}
 
 	@Test
-	public void getIdFromPath() {
+	public void getIdFromPath() throws NoSuchObjectException,
+			PathExistsException, UnauthorizedException {
 		long uioId = node.create("uio", "UiO");
 		long matnatId = node.create("matnat", "Matnat", uioId);
-		assertEquals(uioId, node.getIdFromPath(new NodePath(new String[]{"uio"})));
-		assertEquals(matnatId, node.getIdFromPath(new NodePath("uio.matnat", "\\.")));
+		assertEquals(uioId, node.getIdFromPath(new NodePath(
+				new String[] { "uio" })));
+		assertEquals(matnatId, node.getIdFromPath(new NodePath("uio.matnat",
+				"\\.")));
 	}
 
 	@Test
-	public void getToplevelNodeIds() {
+	public void getToplevelNodeIds() throws PathExistsException,
+			UnauthorizedException {
 		long aId = node.create("a", "A");
 		List<Long> toplevel = node.getToplevelNodes();
 		assertEquals(1, toplevel.size());
@@ -82,7 +91,8 @@ public abstract class NodeCommonTest {
 	}
 
 	@Test
-	public void getNodesWhereIsAdmin() {
+	public void getNodesWhereIsAdmin() throws PathExistsException,
+			UnauthorizedException, NoSuchObjectException, NoSuchUserException {
 		long uioId = node.create("uio", "UiO");
 		assertEquals(0, node.getNodesWhereIsAdmin().size());
 
@@ -103,20 +113,20 @@ public abstract class NodeCommonTest {
 	}
 
 	@Test(expected = Exception.class)
-	public void createDuplicateChild() {
+	public void createDuplicateChild() throws PathExistsException, UnauthorizedException {
 		long uioId = node.create("uio", "UiO");
 		node.create("unique", "aaaa", uioId);
 		node.create("unique", "aaaa", uioId);
 	}
 
 	@Test(expected = Exception.class)
-	public void createDuplicateToplevel() {
+	public void createDuplicateToplevel() throws PathExistsException, UnauthorizedException {
 		node.create("unique", "aaaa");
 		node.create("unique", "aaaa");
 	}
 
 	@Test
-	public void getChildnodes() throws UnauthorizedException {
+	public void getChildnodes() throws UnauthorizedException, PathExistsException, NoSuchObjectException, NoSuchUserException {
 		long uioId = node.create("uio", "UiO");
 		node.addNodeAdmin(uioId, homerId);
 		long matnatId = node.create("matnat", "Mat...", uioId);
@@ -129,15 +139,14 @@ public abstract class NodeCommonTest {
 		assertEquals(2, node.getChildnodes(uioId).size());
 	}
 
-
 	@Test(expected = UnauthorizedException.class)
-	public void getChildnodesUnauthorized() throws UnauthorizedException {
+	public void getChildnodesUnauthorized() throws UnauthorizedException, PathExistsException, NoSuchObjectException {
 		long tstId = node.create("tst", "Test");
 		node.getChildnodes(tstId);
 	}
 
 	@Test
-	public void getChildcourses() throws UnauthorizedException, NamingException {
+	public void getChildcourses() throws UnauthorizedException, NamingException, PathExistsException, NoSuchObjectException, NoSuchUserException {
 		CourseNodeCommon course = testHelper.getCourseNodeCommon();
 		long uioId = node.create("uio", "UiO");
 		node.addNodeAdmin(uioId, homerId);
@@ -150,17 +159,16 @@ public abstract class NodeCommonTest {
 		course.create("a", "Aaaaa", uioId);
 		assertEquals(2, node.getChildcourses(uioId).size());
 
-
 	}
 
 	@Test(expected = UnauthorizedException.class)
-	public void getChildcoursesUnauthorized() throws UnauthorizedException {
+	public void getChildcoursesUnauthorized() throws UnauthorizedException, PathExistsException, NoSuchObjectException {
 		long tstId = node.create("tst", "Test");
 		node.getChildcourses(tstId);
 	}
 
 	@Test
-	public void remove() {
+	public void remove() throws NoSuchObjectException, PathExistsException, UnauthorizedException {
 		long uioId = node.create("uio", "UiO");
 		long matnatId = node.create("matnat", "Mat...", uioId);
 
@@ -170,19 +178,18 @@ public abstract class NodeCommonTest {
 	}
 
 	@Test
-	public void isNodeAdmin() {
+	public void isNodeAdmin() throws PathExistsException, UnauthorizedException, NoSuchObjectException, NoSuchUserException {
 		long uioId = node.create("uio", "UiO");
 		long matnatId = node.create("matnat", "Mat...", uioId);
 		node.addNodeAdmin(uioId, homerId);
 
 		assertTrue(node.isNodeAdmin(uioId));
-		assertTrue("NodeAdmin on a supernode should make the user " +
-				"NodeAdmin on a subnode.",
-				node.isNodeAdmin(matnatId));
+		assertTrue("NodeAdmin on a supernode should make the user "
+				+ "NodeAdmin on a subnode.", node.isNodeAdmin(matnatId));
 	}
 
 	@Test
-	public void addNodeAdmin() {
+	public void addNodeAdmin() throws PathExistsException, UnauthorizedException, NoSuchObjectException, NoSuchUserException {
 		long uioId = node.create("uio", "UiO");
 
 		node.addNodeAdmin(uioId, homerId);
@@ -196,7 +203,7 @@ public abstract class NodeCommonTest {
 	}
 
 	@Test
-	public void removeNodeAdmin() {
+	public void removeNodeAdmin() throws PathExistsException, UnauthorizedException, NoSuchObjectException, NoSuchUserException {
 		long uioId = node.create("uio", "UiO");
 		node.addNodeAdmin(uioId, homerId);
 
