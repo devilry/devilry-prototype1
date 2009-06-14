@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.naming.NamingException;
 
+import org.devilry.core.InvalidNameException;
 import org.devilry.core.NoSuchObjectException;
 import org.devilry.core.NoSuchUserException;
 import org.devilry.core.NodePath;
@@ -51,7 +52,7 @@ public abstract class NodeCommonTest {
 
 	@Test
 	public void exists() throws NamingException, NoSuchObjectException,
-			PathExistsException, UnauthorizedException {
+			PathExistsException, UnauthorizedException, InvalidNameException {
 		long uioId = node.create("uio", "UiO");
 		long matnatId = node.create("matnat", "Matnat", uioId);
 		assertTrue(node.exists(uioId));
@@ -61,7 +62,7 @@ public abstract class NodeCommonTest {
 
 	@Test
 	public void getPath() throws NoSuchObjectException, PathExistsException,
-			UnauthorizedException {
+			UnauthorizedException, InvalidNameException {
 		long matnatId = node.create("matnat", "Matnat", node.create("uio",
 				"UiO"));
 		assertEquals(new NodePath("uio.matnat", "\\."), node.getPath(matnatId));
@@ -69,7 +70,7 @@ public abstract class NodeCommonTest {
 
 	@Test
 	public void getIdFromPath() throws NoSuchObjectException,
-			PathExistsException, UnauthorizedException {
+			PathExistsException, UnauthorizedException, InvalidNameException {
 		long uioId = node.create("uio", "UiO");
 		long matnatId = node.create("matnat", "Matnat", uioId);
 		assertEquals(uioId, node.getIdFromPath(new NodePath(
@@ -80,7 +81,7 @@ public abstract class NodeCommonTest {
 
 	@Test
 	public void getToplevelNodeIds() throws PathExistsException,
-			UnauthorizedException {
+			UnauthorizedException, InvalidNameException {
 		long aId = node.create("a", "A");
 		List<Long> toplevel = node.getToplevelNodes();
 		assertEquals(1, toplevel.size());
@@ -92,7 +93,8 @@ public abstract class NodeCommonTest {
 
 	@Test
 	public void getNodesWhereIsAdmin() throws PathExistsException,
-			UnauthorizedException, NoSuchObjectException, NoSuchUserException {
+			UnauthorizedException, NoSuchObjectException, NoSuchUserException,
+			InvalidNameException {
 		long uioId = node.create("uio", "UiO");
 		assertEquals(0, node.getNodesWhereIsAdmin().size());
 
@@ -113,20 +115,24 @@ public abstract class NodeCommonTest {
 	}
 
 	@Test(expected = Exception.class)
-	public void createDuplicateChild() throws PathExistsException, UnauthorizedException {
+	public void createDuplicateChild() throws PathExistsException,
+			UnauthorizedException, InvalidNameException, NoSuchObjectException {
 		long uioId = node.create("uio", "UiO");
 		node.create("unique", "aaaa", uioId);
 		node.create("unique", "aaaa", uioId);
 	}
 
 	@Test(expected = Exception.class)
-	public void createDuplicateToplevel() throws PathExistsException, UnauthorizedException {
+	public void createDuplicateToplevel() throws PathExistsException,
+			UnauthorizedException, InvalidNameException {
 		node.create("unique", "aaaa");
 		node.create("unique", "aaaa");
 	}
 
 	@Test
-	public void getChildnodes() throws UnauthorizedException, PathExistsException, NoSuchObjectException, NoSuchUserException {
+	public void getChildnodes() throws UnauthorizedException,
+			PathExistsException, NoSuchObjectException, NoSuchUserException,
+			InvalidNameException {
 		long uioId = node.create("uio", "UiO");
 		node.addNodeAdmin(uioId, homerId);
 		long matnatId = node.create("matnat", "Mat...", uioId);
@@ -140,13 +146,16 @@ public abstract class NodeCommonTest {
 	}
 
 	@Test(expected = UnauthorizedException.class)
-	public void getChildnodesUnauthorized() throws UnauthorizedException, PathExistsException, NoSuchObjectException {
+	public void getChildnodesUnauthorized() throws UnauthorizedException,
+			PathExistsException, NoSuchObjectException, InvalidNameException {
 		long tstId = node.create("tst", "Test");
 		node.getChildnodes(tstId);
 	}
 
 	@Test
-	public void getChildcourses() throws UnauthorizedException, NamingException, PathExistsException, NoSuchObjectException, NoSuchUserException {
+	public void getChildcourses() throws UnauthorizedException,
+			NamingException, PathExistsException, NoSuchObjectException,
+			NoSuchUserException, InvalidNameException {
 		CourseNodeCommon course = testHelper.getCourseNodeCommon();
 		long uioId = node.create("uio", "UiO");
 		node.addNodeAdmin(uioId, homerId);
@@ -162,13 +171,15 @@ public abstract class NodeCommonTest {
 	}
 
 	@Test(expected = UnauthorizedException.class)
-	public void getChildcoursesUnauthorized() throws UnauthorizedException, PathExistsException, NoSuchObjectException {
+	public void getChildcoursesUnauthorized() throws UnauthorizedException,
+			PathExistsException, NoSuchObjectException, InvalidNameException {
 		long tstId = node.create("tst", "Test");
 		node.getChildcourses(tstId);
 	}
 
 	@Test
-	public void remove() throws NoSuchObjectException, PathExistsException, UnauthorizedException {
+	public void remove() throws NoSuchObjectException, PathExistsException,
+			UnauthorizedException, InvalidNameException {
 		long uioId = node.create("uio", "UiO");
 		long matnatId = node.create("matnat", "Mat...", uioId);
 
@@ -178,7 +189,9 @@ public abstract class NodeCommonTest {
 	}
 
 	@Test
-	public void isNodeAdmin() throws PathExistsException, UnauthorizedException, NoSuchObjectException, NoSuchUserException {
+	public void isNodeAdmin() throws PathExistsException,
+			UnauthorizedException, NoSuchObjectException, NoSuchUserException,
+			InvalidNameException {
 		long uioId = node.create("uio", "UiO");
 		long matnatId = node.create("matnat", "Mat...", uioId);
 		node.addNodeAdmin(uioId, homerId);
@@ -189,7 +202,9 @@ public abstract class NodeCommonTest {
 	}
 
 	@Test
-	public void addNodeAdmin() throws PathExistsException, UnauthorizedException, NoSuchObjectException, NoSuchUserException {
+	public void addNodeAdmin() throws PathExistsException,
+			UnauthorizedException, NoSuchObjectException, NoSuchUserException,
+			InvalidNameException {
 		long uioId = node.create("uio", "UiO");
 
 		node.addNodeAdmin(uioId, homerId);
@@ -203,7 +218,9 @@ public abstract class NodeCommonTest {
 	}
 
 	@Test
-	public void removeNodeAdmin() throws PathExistsException, UnauthorizedException, NoSuchObjectException, NoSuchUserException {
+	public void removeNodeAdmin() throws PathExistsException,
+			UnauthorizedException, NoSuchObjectException, NoSuchUserException,
+			InvalidNameException {
 		long uioId = node.create("uio", "UiO");
 		node.addNodeAdmin(uioId, homerId);
 

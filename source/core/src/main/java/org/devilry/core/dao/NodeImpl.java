@@ -22,25 +22,25 @@ import org.devilry.core.daointerfaces.NodeRemote;
 import org.devilry.core.entity.Node;
 
 @Stateless
-@Interceptors({AuthorizeNode.class})
+@Interceptors( { AuthorizeNode.class })
 public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 
 	@EJB(beanInterface = CourseNodeLocal.class)
 	private CourseNodeCommon courseBean;
-	@EJB(beanInterface = NodeLocal.class)
-	private NodeCommon nodeBean;
 
 	private Node getNode(long nodeId) {
 		return getNode(Node.class, nodeId);
 	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public long create(String name, String displayName) throws PathExistsException {
-		try{
-			getIdFromPath(new NodePath(new String[]{name}));
+	public long create(String name, String displayName)
+			throws PathExistsException {
+		try {
+			getIdFromPath(new NodePath(new String[] { name }));
 			throw new PathExistsException(
-				"Node name must be unique on toplevel nodes.");
-		} catch(NoSuchObjectException e) {}
+					"Node name must be unique on toplevel nodes.");
+		} catch (NoSuchObjectException e) {
+		}
 
 		Node node = new Node();
 		node.setName(name.toLowerCase());
@@ -64,29 +64,29 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 	public long getParentNode(long nodeId) throws NoSuchObjectException {
 		Node parent = getNode(nodeId).getParent();
 		if (parent == null) {
-			throw new NoSuchObjectException(
-					String.format("Node %d does not have a parent.", nodeId));
+			throw new NoSuchObjectException(String.format(
+					"Node %d does not have a parent.", nodeId));
 		} else {
 			return parent.getId();
 		}
 	}
 
 	public List<Long> getToplevelNodes() {
-		Query q = em.createQuery("SELECT n.id FROM Node n " +
-				"WHERE n.parent IS NULL");
+		Query q = em.createQuery("SELECT n.id FROM Node n "
+				+ "WHERE n.parent IS NULL");
 		return q.getResultList();
 	}
 
 	public List<Long> getChildnodes(long nodeId) {
-		Query q = em.createQuery("SELECT n.id FROM Node n " +
-				"WHERE n.parent IS NOT NULL AND n.parent.id = :parentId");
+		Query q = em.createQuery("SELECT n.id FROM Node n "
+				+ "WHERE n.parent IS NOT NULL AND n.parent.id = :parentId");
 		q.setParameter("parentId", nodeId);
 		return q.getResultList();
 	}
 
 	public List<Long> getChildcourses(long nodeId) {
-		Query q = em.createQuery("SELECT c.id FROM CourseNode c " +
-				"WHERE c.parent.id = :parentId");
+		Query q = em.createQuery("SELECT c.id FROM CourseNode c "
+				+ "WHERE c.parent.id = :parentId");
 		q.setParameter("parentId", nodeId);
 		return q.getResultList();
 	}
@@ -119,11 +119,11 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 		// If node has parent node
 		if (node.getParent() != null) {
 			// Get path from parent node
-			path = nodeBean.getPath(node.getParent().getId());
+			path = getPath(node.getParent().getId());
 			// Add current node name to path
 			path.addToEnd(nodeName);
 		} else {
-			path = new NodePath(new String[]{nodeName});
+			path = new NodePath(new String[] { nodeName });
 		}
 
 		return path;
@@ -132,43 +132,36 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 	public long getIdFromPath(NodePath nodePath) throws NoSuchObjectException {
 
 		NodePath pathCopy = new NodePath(nodePath);
-
-		// Only one node in path, hence no parent
-		if (pathCopy.size() == 1) {
-			return getNodeId(pathCopy.get(0), -1);
+		if (nodePath.size() == 0) {
+			throw new NoSuchObjectException("No node with path: " + pathCopy);
 		}
 
-		String nodeName = pathCopy.removeLastPathComponent();
+		String toplevelName = pathCopy.removeFirstPathComponent();
+		try {
+			long nodeId = getToplevelNodeByName(toplevelName);
+			for (String name : pathCopy) {
+				nodeId = getNodeId(name, nodeId);
+			}
+			return nodeId;
+		} catch (NoResultException e) {
+			throw new NoSuchObjectException("No node with path: " + pathCopy);
+		}
+	}
 
-		long parentNodeId = nodeBean.getIdFromPath(pathCopy);
-		long nodeId = getNodeId(nodeName, parentNodeId);
-
-		return nodeId;
+	private long getToplevelNodeByName(String name) {
+		Query q = em.createQuery("SELECT n.id FROM Node n WHERE n.name =: name "
+				+ "AND n.parent IS NULL");
+		q.setParameter("name", name);
+		return (Long) q.getSingleResult();
 	}
 
 	private long getNodeId(String name, long parentId) {
 		Query q;
-
-		if (parentId != -1) {
-			q = em.createQuery("SELECT n FROM Node n WHERE n.name=:name " +
-					"AND n.parent IS NOT NULL AND n.parent.id=:parentId");
-			q.setParameter("name", name);
-			q.setParameter("parentId", parentId);
-		} else {
-			q = em.createQuery("SELECT n FROM Node n WHERE n.name=:name " +
-					"AND n.parent IS NULL");
-			q.setParameter("name", name);
-		}
-
-		Node node;
-
-		try {
-			node = (Node) q.getSingleResult();
-		} catch (NoResultException e) {
-			node = null;
-		}
-
-		return node == null ? -1 : node.getId();
+		q = em.createQuery("SELECT n.id FROM Node n WHERE n.name = :name "
+				+ "AND n.parent IS NOT NULL AND n.parent.id = :parentId");
+		q.setParameter("name", name);
+		q.setParameter("parentId", parentId);
+		return (Long) q.getSingleResult();
 	}
 
 	public List<Long> getNodesWhereIsAdmin() {
