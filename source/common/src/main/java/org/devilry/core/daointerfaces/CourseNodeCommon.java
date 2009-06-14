@@ -71,7 +71,8 @@ public interface CourseNodeCommon extends BaseNodeInterface {
 	List<Long> getCoursesWhereIsAdmin();
 
 	/**
-	 * Check if the authenticated user is Admin on the given course-node.
+	 * Check if the authenticated user is Admin on the given course-node,
+	 * or on any of the nodes above the course in the tree.
 	 * 
 	 * @throws NoSuchObjectException
 	 *             If no course-node with the given id exists.

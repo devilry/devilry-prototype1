@@ -125,7 +125,8 @@ public interface NodeCommon extends BaseNodeInterface {
 	boolean isNodeAdmin(long nodeId) throws NoSuchObjectException;
 
 	/**
-	 * Add a new administrator to the given node.
+	 * Check if the authenticated user is Admin on the given node,
+	 * or on any of the nodes above the node in the tree.
 	 * 
 	 * @param nodeId
 	 *            The unique number identifying an existing node.

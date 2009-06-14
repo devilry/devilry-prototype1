@@ -24,12 +24,12 @@ import org.devilry.core.entity.*;
 public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 		PeriodNodeLocal {
 
-	@EJB(beanInterface=AssignmentNodeLocal.class) 
+	@EJB(beanInterface = AssignmentNodeLocal.class)
 	private AssignmentNodeCommon assignmentBean;
 
-	@EJB(beanInterface=CourseNodeLocal.class) 
+	@EJB(beanInterface = CourseNodeLocal.class)
 	private CourseNodeCommon courseBean;
-	
+
 	protected PeriodNode getPeriodNode(long nodeId) {
 		return getNode(PeriodNode.class, nodeId);
 	}
@@ -86,7 +86,6 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 		}
 	}
 
-
 	public void remove(long periodId) throws NoSuchObjectException {
 
 		// Remove childnodes (assignments)
@@ -114,8 +113,9 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 		return l;
 	}
 
-	public boolean isStudent(long periodId, long userId) {
-		return getPeriodNode(periodId).getStudents().contains(getUser(userId));
+	public boolean isStudent(long periodId) {
+		return getPeriodNode(periodId).getStudents().contains(
+				getUser(userBean.getAuthenticatedUser()));
 	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
@@ -134,8 +134,8 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 
 	public List<Long> getPeriodsWhereIsStudent() {
 		long userId = userBean.getAuthenticatedUser();
-		Query q = em
-				.createQuery("SELECT p.id FROM PeriodNode p INNER JOIN p.students stud WHERE stud.id = :userId");
+		Query q = em.createQuery("SELECT p.id FROM PeriodNode p "
+				+ "INNER JOIN p.students stud WHERE stud.id = :userId");
 		q.setParameter("userId", userId);
 		return q.getResultList();
 	}
@@ -151,8 +151,9 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 		return l;
 	}
 
-	public boolean isExaminer(long periodId, long userId) {
-		return getPeriodNode(periodId).getExaminers().contains(getUser(userId));
+	public boolean isExaminer(long periodId) {
+		return getPeriodNode(periodId).getExaminers().contains(
+				getUser(userBean.getAuthenticatedUser()));
 	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
@@ -171,8 +172,8 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 
 	public List<Long> getPeriodsWhereIsExaminer() {
 		long userId = userBean.getAuthenticatedUser();
-		Query q = em
-				.createQuery("SELECT p.id FROM PeriodNode p INNER JOIN p.examiners ex WHERE ex.id = :userId");
+		Query q = em.createQuery("SELECT p.id FROM PeriodNode p "
+				+ "INNER JOIN p.examiners ex WHERE ex.id = :userId");
 		q.setParameter("userId", userId);
 		return q.getResultList();
 	}
@@ -199,27 +200,29 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 		return getAdmins(node);
 	}
 
-	public boolean isPeriodAdmin(long periodId, long userId) {
-		PeriodNode courseNode = getPeriodNode(periodId);
-		return isAdmin(courseNode, userId);
+	public boolean isPeriodAdmin(long periodId) throws NoSuchObjectException {
+		PeriodNode periodNode = getPeriodNode(periodId);
+		if (isAdmin(periodNode, userBean.getAuthenticatedUser())) {
+			return true;
+		} else {
+			return courseBean.isCourseAdmin(getParentCourse(periodId));
+		}
 	}
-	
-
 
 	public long getIdFromPath(NodePath nodePath) throws NoSuchObjectException {
-		
+
 		NodePath pathCopy = new NodePath(nodePath);
 		String periodName = pathCopy.removeLastPathComponent();
-		
+
 		long parentNodeId = courseBean.getIdFromPath(pathCopy);
 		long periodId = getPeriodNodeId(periodName, parentNodeId);
-		
+
 		return periodId;
 	}
 
-	
 	/**
 	 * Get the id of the period node name with parent parentId
+	 * 
 	 * @param name
 	 * @param parentId
 	 * @return
@@ -229,9 +232,10 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 
 		if (parentId == -1) {
 			return -1;
-		} 
-		
-		q = em.createQuery("SELECT n FROM PeriodNode n WHERE n.name=:name AND n.course IS NOT NULL AND n.course.id=:parentId");
+		}
+
+		q = em
+				.createQuery("SELECT n FROM PeriodNode n WHERE n.name=:name AND n.course IS NOT NULL AND n.course.id=:parentId");
 		q.setParameter("name", name);
 		q.setParameter("parentId", parentId);
 
@@ -245,32 +249,30 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 
 		return node == null ? -1 : node.getId();
 	}
-	
-	
-	
+
 	public NodePath getPath(long periodId) throws NoSuchObjectException {
-		
+
 		PeriodNode period = getPeriodNode(periodId);
 		String periodName = period.getName();
-		
+
 		// Get path from parent course
 		NodePath path = courseBean.getPath(period.getCourse().getId());
-				
+
 		// Add current node name to path
 		path.addToEnd(periodName);
-				
+
 		return path;
 	}
-	
-	
+
 	/**
 	 * Get the id of the period node name with parent parentId
+	 * 
 	 * @param name
 	 * @param parentId
 	 * @return
 	 */
-	/*protected String getPeriodNodeName(long periodId) {
-		getPeriodNode(periodId);
-	}
-	*/
+	/*
+	 * protected String getPeriodNodeName(long periodId) {
+	 * getPeriodNode(periodId); }
+	 */
 }

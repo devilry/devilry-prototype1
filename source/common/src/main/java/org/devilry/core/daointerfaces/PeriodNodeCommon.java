@@ -263,7 +263,8 @@ public interface PeriodNodeCommon extends BaseNodeInterface {
 	List<Long> getPeriodsWhereIsAdmin();
 
 	/**
-	 * Check if the authenticated user is Admin on the given period-node.
+	 * Check if the authenticated user is Admin on the given period-node,
+	 * or on any of the nodes above the period in the tree.
 	 * 
 	 * @return <tt>true</tt> if the authenticated user is Admin on the given
 	 *         period-node.

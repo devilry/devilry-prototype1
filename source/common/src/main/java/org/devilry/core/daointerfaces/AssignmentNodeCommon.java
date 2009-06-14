@@ -9,7 +9,7 @@ import org.devilry.core.NoSuchUserException;
 import org.devilry.core.PathExistsException;
 import org.devilry.core.UnauthorizedException;
 
-interface AssignmentNodeCommon extends BaseNodeInterface {
+public interface AssignmentNodeCommon extends BaseNodeInterface {
 
 	/**
 	 * Create a new assignment-node.
@@ -169,7 +169,8 @@ interface AssignmentNodeCommon extends BaseNodeInterface {
 
 
 	/**
-	 * Check if the authenticated user is Admin on the given assignment-node.
+	 * Check if the authenticated user is Admin on the given assignment-node,
+	 * or on any of the nodes above the assignment in the tree.
 	 * 
 	 * @throws NoSuchObjectException
 	 *             If no assignment-node with the given id exists.

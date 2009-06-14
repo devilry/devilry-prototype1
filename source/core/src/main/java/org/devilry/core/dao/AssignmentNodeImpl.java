@@ -12,12 +12,8 @@ import javax.persistence.Query;
 
 import org.devilry.core.NoSuchObjectException;
 import org.devilry.core.NodePath;
-import org.devilry.core.UnauthorizedException;
-import org.devilry.core.daointerfaces.AssignmentNodeCommon;
 import org.devilry.core.daointerfaces.AssignmentNodeLocal;
 import org.devilry.core.daointerfaces.AssignmentNodeRemote;
-import org.devilry.core.daointerfaces.CourseNodeCommon;
-import org.devilry.core.daointerfaces.CourseNodeLocal;
 import org.devilry.core.daointerfaces.DeliveryCommon;
 import org.devilry.core.daointerfaces.DeliveryLocal;
 import org.devilry.core.daointerfaces.PeriodNodeCommon;
@@ -32,9 +28,6 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 	@EJB(beanInterface=DeliveryLocal.class) 
 	private DeliveryCommon deliveryBean;
 
-	@EJB(beanInterface=AssignmentNodeLocal.class) 
-	private AssignmentNodeCommon assignmentBean;
-	
 	@EJB(beanInterface=PeriodNodeLocal.class) 
 	private PeriodNodeCommon periodBean;
 	
@@ -148,9 +141,9 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 		return getAdmins(node);
 	}
 
-	public boolean isAssignmentAdmin(long assignmentId, long userId) {
+	public boolean isAssignmentAdmin(long assignmentId) {
 		AssignmentNode courseNode = getAssignmentNode(assignmentId);
-		return isAdmin(courseNode, userId);
+		return isAdmin(courseNode, userBean.getAuthenticatedUser());
 	}
 	
 	
@@ -170,12 +163,6 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 	}
 	
 	
-	/**
-	 * Get period node id, or id of subnode assignment
-	 * @param nodePath
-	 * @param parentNodeId
-	 * @return
-	 */
 	public long getIdFromPath(String [] nodePath, long parentNodeId) {
 		
 		long courseid = getAssignmentNodeId(nodePath[0], parentNodeId);
