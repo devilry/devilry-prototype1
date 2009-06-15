@@ -8,9 +8,10 @@
 		- We have choosen to use Markdown for readme and other *simple*
 		  documents (like *this* file).
 	- change files and commit the changes in the webinterface.
+	- personal dashboard - easy to keep track of work on the project.
 
 
-# Tools #
+# Technologies #
 
 
 - Maven
@@ -22,23 +23,38 @@
 	- EJB (openEJB)
 	- Java Persistence API (OpenJPA (can use EclipseLink and Hibernate as well))
 	- and much more..
-- Works ok with both Eclipse and NetBeans, but both have some problems.
 
+
+# Editors #
+
+- Works ok with both Eclipse and NetBeans, but both have some problems.
+	- Eclipse get confused sometimes and you have to re-import.
+	- Netbeans version 6.7RC2 has great Maven support, but it is slooooow and
+	  crashes sometimes.
+	- Both have git plugins, but the one in NetBeans seems to be unstable.
+- We use Eclipse **3.5** for modeling. Just download the modeling tools edition,
+  and install it separately from your *normal* eclipse install, and it works with
+  very few problems. Note that the modeling editor is quite slow compared to
+  commercial editors like Visual Paradigm, but it is the only opensource
+  UML editor with full UML 2.1 support that we have found.
+  
 
 # Version control workflow #
 
-
-- Kernel style?
 - SVN style?
+	- Scales poorly (i believe)
+- Kernel style?
+	- Should work well for us with some tuning.
+	- I believe this model is better especially with new/un-trusted developers. 
 
 
 # Code style #
 
-- Checkstyle
+- Checkstyle - checks javadoc and code style.
 - Some tuning from the official SUN guidelines.
 
 
-# Status? #
+# Where are we? #
 
 - Core stabilizing --> still some work to be done on:
 	- Authorization.
@@ -46,10 +62,10 @@
 - We have made a proof-of-concept webclient (it worked without any problems)
 - We have a *command-line interface*, but all work is suspended while we develop 
   the *client API*.
+- How to handle delivery status?
 
 
 # Hierarchy #
-
 
 - Figure (fix with users)
 
@@ -62,6 +78,11 @@
     - getStartDate() and getEndDate()
     - getDeadline()
 - Is this a problem?
+
+
+# Plugins #
+
+- EJB3 timer services? 
 
 
 # ID datatype #
