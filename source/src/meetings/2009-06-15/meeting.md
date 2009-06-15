@@ -67,7 +67,7 @@
 
 # Hierarchy #
 
-- Figure (fix with users)
+- See the figure in doc/modelling/classes/entities.uml.
 
 
 # Authorization #
