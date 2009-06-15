@@ -2,6 +2,12 @@
 
 - Flexible..
 - How does Devilry use it?
+- Nice features:
+	- gists
+	- automatic html view of common markup languages.
+		- We have choosen to use Markdown for readme and other *simple*
+		  documents (like *this* file).
+	- change files and commit the changes in the webinterface.
 
 
 # Tools #
