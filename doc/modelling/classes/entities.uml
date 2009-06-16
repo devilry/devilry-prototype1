@@ -34,7 +34,7 @@
     <generalization xmi:id="_UTyakFDBEd6D96HM7enmlw" general="_9YI-MFDAEd6D96HM7enmlw"/>
     <ownedAttribute xmi:id="_9cv4wFC9Ed6D96HM7enmlw" name="parent" type="_2GIBsEo0Ed6_X5Z1-LyYTA" aggregation="composite"/>
   </packagedElement>
-  <packagedElement xmi:type="uml:Class" xmi:id="_Teu6cEo1Ed6_X5Z1-LyYTA" name="CourseNode">
+  <packagedElement xmi:type="uml:Class" xmi:id="_Teu6cEo1Ed6_X5Z1-LyYTA" name="SubjectNode">
     <generalization xmi:id="_1Sw9EFDBEd6D96HM7enmlw" general="_9YI-MFDAEd6D96HM7enmlw"/>
     <ownedAttribute xmi:id="_0DXcoFC_Ed6D96HM7enmlw" name="parent" type="_2GIBsEo0Ed6_X5Z1-LyYTA" aggregation="composite"/>
     <ownedAttribute xmi:id="_0qa1kFC_Ed6D96HM7enmlw" name="periods" aggregation="composite"/>
@@ -137,7 +137,8 @@
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_DqOOYFEQEd60KvLbngDq5Q" name="FileMeta">
     <ownedAttribute xmi:id="_iO-NUFEUEd60KvLbngDq5Q" name="deliveryCandidate" type="_vlbDUFEPEd60KvLbngDq5Q" aggregation="composite"/>
-    <ownedAttribute xmi:id="_maYd0FEUEd60KvLbngDq5Q" name="filePath" aggregation="composite"/>
+    <ownedAttribute xmi:id="_Ygx08FnAEd6KHLjxYOAsXw" name="parentPath" aggregation="composite"/>
+    <ownedAttribute xmi:id="_afYPoFnAEd6KHLjxYOAsXw" name="fileName" aggregation="composite"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_EYcmUFEQEd60KvLbngDq5Q" name="FileDataBlock">
     <ownedAttribute xmi:id="_qxox8FEUEd60KvLbngDq5Q" name="fileMeta" type="_DqOOYFEQEd60KvLbngDq5Q" aggregation="composite"/>
@@ -164,7 +165,7 @@
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_XmkoEVEQEd60KvLbngDq5Q" value="1"/>
     </ownedEnd>
   </packagedElement>
-  <packagedElement xmi:type="uml:Association" xmi:id="_35PigFlFEd64teCpUP0GKw" name="Studens" memberEnd="_35Tz8FlFEd64teCpUP0GKw _35UbAllFEd64teCpUP0GKw">
+  <packagedElement xmi:type="uml:Association" xmi:id="_35PigFlFEd64teCpUP0GKw" name="Students" memberEnd="_35Tz8FlFEd64teCpUP0GKw _35UbAllFEd64teCpUP0GKw">
     <ownedEnd xmi:id="_35Tz8FlFEd64teCpUP0GKw" name="0..*" type="_dKM6MEo1Ed6_X5Z1-LyYTA" association="_35PigFlFEd64teCpUP0GKw">
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_35UbAVlFEd64teCpUP0GKw" value="1"/>
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_35UbAFlFEd64teCpUP0GKw" value="1"/>
@@ -194,7 +195,7 @@
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Ing2oFlGEd64teCpUP0GKw" value="1"/>
     </ownedEnd>
   </packagedElement>
-  <packagedElement xmi:type="uml:Association" xmi:id="_Sc8qsFlGEd64teCpUP0GKw" name="CourseAdmins" memberEnd="_SdBjMFlGEd64teCpUP0GKw _SdBjM1lGEd64teCpUP0GKw">
+  <packagedElement xmi:type="uml:Association" xmi:id="_Sc8qsFlGEd64teCpUP0GKw" name="SubjectAdmins" memberEnd="_SdBjMFlGEd64teCpUP0GKw _SdBjM1lGEd64teCpUP0GKw">
     <ownedEnd xmi:id="_SdBjMFlGEd64teCpUP0GKw" name="0..*" type="_Teu6cEo1Ed6_X5Z1-LyYTA" association="_Sc8qsFlGEd64teCpUP0GKw">
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_SdBjMllGEd64teCpUP0GKw" value="1"/>
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_SdBjMVlGEd64teCpUP0GKw" value="1"/>

@@ -22,10 +22,10 @@
 	- Servlets and JSP (tomcat or jetty)
 	- EJB (openEJB)
 	- Java Persistence API (OpenJPA (can use EclipseLink and Hibernate as well))
-	- and much more..
+	- and much more.
 
 
-# Editors #
+# Editors #   	
 
 - Works ok with both Eclipse and NetBeans, but both have some problems.
 	- Eclipse get confused sometimes and you have to re-import.
@@ -43,7 +43,7 @@
 
 - SVN style?
 	- Scales poorly (i believe)
-- Kernel style?
+- Kernel style? (chosen)
 	- Should work well for us with some tuning.
 	- I believe this model is better especially with new/un-trusted developers. 
 
@@ -52,6 +52,15 @@
 
 - Checkstyle - checks javadoc and code style.
 - Some tuning from the official SUN guidelines.
+	- We keep tab-indent with default width of 4 spaces.
+	- Margin: 80
+
+
+# Issue tracking #
+
+- All new features should:
+	1. Start a issue on the development repo at github.
+	2. Implements the feature in its own branch.
 
 
 # Where are we? #
@@ -89,3 +98,8 @@
 
 - Keep long?
 - Change to Object?
+
+
+# Notes #
+
+- Change Course to Subject.
