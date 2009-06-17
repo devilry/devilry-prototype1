@@ -271,7 +271,7 @@ public interface PeriodNodeCommon extends BaseNodeInterface {
 	 * @throws NoSuchObjectException
 	 *             If no period-node with the given id exists.
 	 */
-	boolean isPeriodAdmin(long userId) throws NoSuchObjectException;
+	boolean isPeriodAdmin(long periodNodeId) throws NoSuchObjectException;
 
 	/**
 	 * Add a new Admin to the given period-node.
