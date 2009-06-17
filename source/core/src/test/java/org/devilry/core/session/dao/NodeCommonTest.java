@@ -42,6 +42,7 @@ public abstract class NodeCommonTest {
 		userBean = testHelper.getUserCommon();
 
 		homerId = userBean.create("Homer Simpson", "homr@stuff.org", "123");
+		userBean.setIsSuperAdmin(homerId, true);
 		userBean.addIdentity(homerId, "homer");
 	}
 
@@ -165,7 +166,6 @@ public abstract class NodeCommonTest {
 			PathExistsException, NoSuchObjectException, NoSuchUserException,
 			InvalidNameException {
 		long uioId = node.create("uio", "UiO");
-		node.addNodeAdmin(uioId, homerId);
 		long matnatId = node.create("matnat", "Mat...", uioId);
 
 		List<Long> children = node.getChildnodes(uioId);
@@ -189,7 +189,6 @@ public abstract class NodeCommonTest {
 			NoSuchUserException, InvalidNameException {
 		CourseNodeCommon course = testHelper.getCourseNodeCommon();
 		long uioId = node.create("uio", "UiO");
-		node.addNodeAdmin(uioId, homerId);
 		long exphilId = course.create("exphil", "Exphil", uioId);
 
 		List<Long> children = node.getChildcourses(uioId);
