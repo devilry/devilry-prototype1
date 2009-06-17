@@ -7,13 +7,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.devilry.core.daointerfaces.FileDataBlockLocal;
 import org.devilry.core.daointerfaces.FileDataBlockRemote;
 import org.devilry.core.entity.FileDataBlock;
 import org.devilry.core.entity.FileMeta;
 
 
 @Stateless
-public class FileDataBlockImpl implements FileDataBlockRemote {
+public class FileDataBlockImpl implements FileDataBlockRemote, FileDataBlockLocal {
 	
 	@PersistenceContext(unitName = "DevilryCore")
 	protected EntityManager em;
