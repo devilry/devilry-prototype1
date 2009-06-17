@@ -22,6 +22,7 @@ import org.devilry.core.daointerfaces.NodeCommon;
 import org.devilry.core.daointerfaces.PeriodNodeCommon;
 import org.devilry.core.daointerfaces.UserCommon;
 import org.devilry.core.testhelpers.CoreTestHelper;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -62,6 +63,11 @@ public abstract class CourseNodeCommonTest {
 		courseId = courseNode.create("inf1000", "Object oriented programming", matnatId);
 	}
 
+	@After
+	public void tearDown() throws NamingException, NoSuchObjectException {
+		testHelper.clearUsersAndNodes();
+	}
+	
 	/*
 	@Test
 	public void getAllCourses() {
@@ -89,13 +95,23 @@ public abstract class CourseNodeCommonTest {
 	}
 	
 	@Test
-	public void getPath() throws NoSuchObjectException {
+	public void getPath() throws NoSuchObjectException, PathExistsException, UnauthorizedException, InvalidNameException {
 		assertEquals(new NodePath("uio.matnat.inf1000", "\\."), courseNode.getPath(courseId));
+		
+		// Test two courses with same name with different parent nodes
+		long matnat2Id = node.create("matnat2", "Faculty of Mathematics 2", uioId);
+		long course2Id = courseNode.create("inf1000", "Object oriented programming", matnat2Id);
+		assertEquals(new NodePath("uio.matnat2.inf1000", "\\."), courseNode.getPath(course2Id));
 	}
 
 	@Test
-	public void getIdFromPath() throws NoSuchObjectException {		
+	public void getIdFromPath() throws NoSuchObjectException, PathExistsException, UnauthorizedException, InvalidNameException {		
 		assertEquals(courseId, courseNode.getIdFromPath(new NodePath("uio.matnat.inf1000", "\\.")));
+		
+		// Test two courses with same name with different parent nodes
+		long matnat2Id = node.create("matnat2", "Faculty of Mathematics 2", uioId);
+		long course2Id = courseNode.create("inf1000", "Object oriented programming", matnat2Id);
+		assertEquals(course2Id, courseNode.getIdFromPath(new NodePath("uio.matnat2.inf1000", "\\.")));
 	}
 	
 	@Test
