@@ -21,6 +21,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public abstract class StudentCommonTest {
@@ -55,8 +57,7 @@ public abstract class StudentCommonTest {
 		courseNode = connection.getCourseNode();
 		userBean = connection.getUser();
 		periodNode = connection.getPeriodNode();
-		
-		
+				
 		// Add users
 		names.add("Homer Simpson");
 		names.add("Bart Simpson");
@@ -88,22 +89,15 @@ public abstract class StudentCommonTest {
 		uioId = node.create("uio", "UiO");
 		matnatId = node.create("matnat", "Faculty of Mathematics", uioId);
 		ifiId = node.create("ifi", "Department of Informatics", matnatId);
+						
+		inf1000 = courseNode.create("inf1000", "Programmering intro", ifiId);
 		
-		System.err.println("ifiId:" + ifiId);
-				
-		long testId = courseNode.getIdFromPath(new NodePath("uio.matnat.ifi.inf1000", "\\."));
+		Calendar start = new GregorianCalendar(2009, 00, 01, 10, 15);
+		Calendar end = new GregorianCalendar(2009, 05, 15);
 		
-		System.err.println("inf1000 id:" + testId);
-		
-		//inf1000 = courseNode.create("inf1000", "Programmering intro", ifiId);
-		inf1000 = courseNode.create("inf1000", "Programmering intro", matnatId);
-		
-		
-		inf1000Spring09 = courseNode.create("spring2009", "INF1000 spring2009", inf1000);
-		inf1000Fall09 = courseNode.create("fall2009", "INf1000 fall 2009", inf1000);
-		
-		
-		
+		inf1000Spring09 = periodNode.create("spring2009", "INF1000 spring2009", start.getTime(), end.getTime(), inf1000);
+		inf1000Fall09 = periodNode.create("fall2009", "INf1000 fall 2009", start.getTime(), end.getTime(), inf1000);
+			
 		
 		// Create some test users
 				
@@ -117,12 +111,10 @@ public abstract class StudentCommonTest {
 	public void tearDown() throws NamingException, NoSuchObjectException {
 						
 		for(long nodeId: node.getToplevelNodes()) {
-			System.err.println("Remove toplevel node:" + nodeId);
 			node.remove(nodeId);
 		}
 		
 		for(long userId: userBean.getUsers()) {
-			System.err.println("Remove user:" + userId);
 			userBean.remove(userId);
 		}
 	}

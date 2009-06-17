@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.naming.NamingException;
 
+import org.devilry.core.NoSuchObjectException;
+import org.devilry.core.UnauthorizedException;
 import org.devilry.core.daointerfaces.CourseNodeCommon;
 
 public class StudentCourse {
@@ -28,7 +30,7 @@ public class StudentCourse {
 		return null;
 	}
 	
-	public List<StudentPeriod> getPeriods() throws NamingException {
+	public List<StudentPeriod> getPeriods() throws NamingException, NoSuchObjectException, UnauthorizedException {
 		
 		List<Long> ids = getCourseNodeBean().getPeriods(courseId);
 		

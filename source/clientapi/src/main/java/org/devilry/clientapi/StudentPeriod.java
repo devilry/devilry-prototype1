@@ -6,7 +6,9 @@ import java.util.List;
 
 import javax.naming.NamingException;
 
+import org.devilry.core.NoSuchObjectException;
 import org.devilry.core.NodePath;
+import org.devilry.core.UnauthorizedException;
 import org.devilry.core.daointerfaces.PeriodNodeCommon;
 
 
@@ -26,7 +28,7 @@ public class StudentPeriod {
 		return periodNode == null ? periodNode = connection.getPeriodNode() : periodNode;
 	}
 	
-	public Collection<StudentAssignment> getAssignments() throws NamingException {
+	public Collection<StudentAssignment> getAssignments() throws NamingException, NoSuchObjectException, UnauthorizedException {
 		
 		PeriodNodeCommon period = getPeriodBean();
 	
@@ -43,7 +45,7 @@ public class StudentPeriod {
 		return studentAssignments;
 	}
 	
-	public NodePath getPath() throws NamingException {
+	public NodePath getPath() throws NamingException, NoSuchObjectException {
 		return getPeriodBean().getPath(periodId);
 	}
 	

@@ -6,6 +6,9 @@ import java.util.List;
 
 import javax.naming.NamingException;
 
+import org.devilry.core.NoSuchObjectException;
+import org.devilry.core.UnauthorizedException;
+
 
 public class CorrectorAssignment extends AbstractAssignment {
 	
@@ -13,7 +16,7 @@ public class CorrectorAssignment extends AbstractAssignment {
 		super(assignmentId, connection);
 	}
 		
-	public Collection<CorrectorDelivery> getDeliveries() throws NamingException {
+	public Collection<CorrectorDelivery> getDeliveries() throws NamingException, NoSuchObjectException, UnauthorizedException {
 		
 		List<Long> ids = getAssignmentNodeBean().getDeliveries(assignmentId);
 				
