@@ -93,22 +93,7 @@ public interface AssignmentNodeCommon extends BaseNodeInterface {
 	List<Long> getDeliveries(long assignmentNodeId)
 			throws NoSuchObjectException, UnauthorizedException;
 
-	// /**
-	// * Get deliveries where the user is student
-	// *
-	// * @param assignmentId
-	// * @return id the of the delivery
-	// */
-	// List<Long> getDeliveriesWhereIsStudent(long assignmentId);
-	//
-	// /**
-	// * Get deliveries where the user is examiner
-	// *
-	// * @param assignmentId
-	// * @return
-	// */
-	// List<Long> getDeliveriesWhereIsExaminer(long assignmentId);
-
+	
 	/**
 	 * Get a list of assignments where the authenticated user is Admin.
 	 * 
