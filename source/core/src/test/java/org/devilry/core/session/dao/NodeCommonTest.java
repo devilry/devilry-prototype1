@@ -176,13 +176,6 @@ public abstract class NodeCommonTest {
 		assertEquals(2, node.getChildnodes(uioId).size());
 	}
 
-	//@Test(expected = UnauthorizedException.class)
-	public void getChildnodesUnauthorized() throws UnauthorizedException,
-			PathExistsException, NoSuchObjectException, InvalidNameException {
-		long tstId = node.create("tst", "Test");
-		node.getChildnodes(tstId);
-	}
-
 	@Test
 	public void getChildcourses() throws UnauthorizedException,
 			NamingException, PathExistsException, NoSuchObjectException,
@@ -198,13 +191,6 @@ public abstract class NodeCommonTest {
 		course.create("a", "Aaaaa", uioId);
 		assertEquals(2, node.getChildcourses(uioId).size());
 
-	}
-
-	//@Test(expected = UnauthorizedException.class)
-	public void getChildcoursesUnauthorized() throws UnauthorizedException,
-			PathExistsException, NoSuchObjectException, InvalidNameException {
-		long tstId = node.create("tst", "Test");
-		node.getChildcourses(tstId);
 	}
 
 	@Test
