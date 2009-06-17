@@ -33,7 +33,7 @@ import org.devilry.core.daointerfaces.UserCommon;
 import org.devilry.core.session.*;
 import org.devilry.core.testhelpers.CoreTestHelper;
 
-public class AssignmentNodeCommonTest {
+public abstract class AssignmentNodeCommonTest {
 	
 	protected static CoreTestHelper testHelper;
 	
