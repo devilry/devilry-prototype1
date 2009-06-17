@@ -16,7 +16,9 @@ import org.devilry.core.dao.PeriodNodeImpl;
 import org.devilry.core.daointerfaces.AssignmentNodeCommon;
 import org.devilry.core.daointerfaces.CourseNodeCommon;
 import org.devilry.core.daointerfaces.CourseNodeRemote;
+import org.devilry.core.daointerfaces.DeliveryCandidateCommon;
 import org.devilry.core.daointerfaces.DeliveryCandidateRemote;
+import org.devilry.core.daointerfaces.DeliveryCommon;
 import org.devilry.core.daointerfaces.DeliveryRemote;
 import org.devilry.core.daointerfaces.NodeCommon;
 import org.devilry.core.daointerfaces.PeriodNodeCommon;
@@ -30,7 +32,7 @@ import static org.junit.Assert.*;
 import javax.naming.NamingException;
 
 
-public class DeliveryCommonTest {
+public abstract class DeliveryCommonTest {
 	
 	protected static CoreTestHelper testHelper;
 	
@@ -40,8 +42,8 @@ public class DeliveryCommonTest {
 	PeriodNodeCommon periodNode;
 	AssignmentNodeCommon assignmentNode;
 	
-	DeliveryRemote delivery;
-	DeliveryCandidateRemote deliveryCandidate;
+	DeliveryCommon delivery;
+	DeliveryCandidateCommon deliveryCandidate;
 		
 	long superId;
 	
@@ -66,6 +68,8 @@ public class DeliveryCommonTest {
 		courseNode = testHelper.getCourseNodeCommon();
 		periodNode = testHelper.getPeriodNodeCommon();
 		assignmentNode = testHelper.getAssignmentNodeCommon();
+		delivery = testHelper.getDeliveryCommon();
+		deliveryCandidate = testHelper.getDeliveryCandidateCommon();
 		
 		superId = userBean.create("Homer Simpson", "homr@stuff.org", "123");
 		userBean.setIsSuperAdmin(superId, true);
