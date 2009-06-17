@@ -54,6 +54,7 @@ public class UserImpl implements UserRemote, UserLocal {
 		u.setName(name);
 		u.setEmail(email);
 		u.setPhoneNumber(phoneNumber);
+		u.setIsSuperAdmin(false);
 		em.persist(u);
 		em.flush();
 		return u.getId();

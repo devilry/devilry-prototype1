@@ -84,5 +84,5 @@ public interface BaseNodeInterface {
 	 * @throws NoSuchObjectException If the node with the given path does
 	 * 		not exist.
 	 */
-	public long getIdFromPath(NodePath nodePath) throws NoSuchObjectException;
+	long getIdFromPath(NodePath nodePath) throws NoSuchObjectException;
 }
