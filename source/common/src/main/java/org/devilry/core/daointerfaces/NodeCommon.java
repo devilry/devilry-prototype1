@@ -142,7 +142,7 @@ public interface NodeCommon extends BaseNodeInterface {
 	 *             If the the given user does not exist.
 	 */
 	void addNodeAdmin(long nodeId, long userId) throws NoSuchObjectException,
-			NoSuchUserException;
+			NoSuchUserException, UnauthorizedException;
 
 	/**
 	 * Remove an administrator from the given node.

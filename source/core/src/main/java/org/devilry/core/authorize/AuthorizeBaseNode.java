@@ -14,7 +14,7 @@ public abstract class AuthorizeBaseNode {
 	protected static final MethodNames baseNodeParentAdminMethods =
 			new MethodNames("setName", "setDisplayName");
 
-	/** Methods in BaseNodeInterface where the authorized user must Admin on
+	/** Methods in BaseNodeInterface where the authorized user must be Admin on
 	 * the node given as first argument. */
 	protected static final MethodNames baseNodeAdminMethods =
 			new MethodNames();

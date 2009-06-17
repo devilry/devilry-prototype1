@@ -37,5 +37,4 @@ public class LocalCoreTestHelper extends CoreTestHelper {
 	public UserCommon getUserCommon() throws NamingException {
 		return getLocalBean(UserImpl.class);
 	}
-
 }

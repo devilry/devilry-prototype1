@@ -7,10 +7,14 @@ import javax.naming.NamingException;
 
 public class EjbTestHelper {
 
-	private InitialContext ctx = null;
+	private String username, password;
 
-	public EjbTestHelper(String username, String password)
-			throws NamingException {
+	public EjbTestHelper(String username, String password) {
+		this.username = username;
+		this.password = password;
+	}
+	
+	private InitialContext getCtx() throws NamingException {
 		Properties p = new Properties();
 		p.put(Context.INITIAL_CONTEXT_FACTORY,
 				"org.apache.openejb.client.LocalInitialContextFactory");
@@ -19,18 +23,18 @@ public class EjbTestHelper {
 				"{ejbClass.simpleName}{interfaceType.annotationName}");
 		p.put(Context.SECURITY_PRINCIPAL, username);
 		p.put(Context.SECURITY_CREDENTIALS, password);
-		ctx = new InitialContext(p);
+		return new InitialContext(p);
 	}
 
 
 	@SuppressWarnings("unchecked")
 	public <E> E getLocalBean(Class<E> beanImplClass) throws NamingException {
-		return (E) ctx.lookup(beanImplClass.getSimpleName() + "Local");
+		return (E) getCtx().lookup(beanImplClass.getSimpleName() + "Local");
 	}
 
 	@SuppressWarnings("unchecked")
 	public <E> E getRemoteBean(Class<E> beanImplClass)
 			throws NamingException {
-		return (E) ctx.lookup(beanImplClass.getSimpleName() + "Remote");
+		return (E) getCtx().lookup(beanImplClass.getSimpleName() + "Remote");
 	}
 }
