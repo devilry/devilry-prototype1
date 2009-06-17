@@ -18,6 +18,9 @@ public  class EjbExampleTest {
 		EjbTestHelper a2 = new EjbTestHelper("marge", "blue");
 		TullLocal t2 = a2.getLocalBean(TullImpl.class);
 		t2.tst();
+		
+		t1 = a.getLocalBean(TullImpl.class);
+		t1.tst();
 	}
 
 	@Local

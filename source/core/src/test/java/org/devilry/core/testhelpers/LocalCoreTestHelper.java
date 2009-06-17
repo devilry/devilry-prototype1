@@ -61,5 +61,4 @@ public class LocalCoreTestHelper extends CoreTestHelper {
 	public FileDataBlockCommon getFileDataBlockCommon() throws NamingException {
 		return getLocalBean(FileDataBlockImpl.class);
 	}
-
 }

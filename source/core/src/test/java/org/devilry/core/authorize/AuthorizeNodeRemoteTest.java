@@ -8,7 +8,7 @@ import org.junit.BeforeClass;
 public class AuthorizeNodeRemoteTest extends AuthorizeNodeCommonTest {
 	@BeforeClass
 	public static void initBeans() throws NamingException {
-		testHelper = new RemoteCoreTestHelper("homer", "doh");
-		superTestHelper = new RemoteCoreTestHelper("marge", "blue");
+		superTestHelper = new RemoteCoreTestHelper("homer", "doh");
+		testHelper = new RemoteCoreTestHelper("marge", "blue");
 	}
 }
