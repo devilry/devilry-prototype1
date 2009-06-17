@@ -35,8 +35,8 @@ public abstract class CourseNodeCommonTest {
 	
 	protected static CoreTestHelper testHelper;
 	
-	protected NodeCommon node;
-	protected UserCommon userBean;
+	NodeCommon node;
+	UserCommon userBean;
 	CourseNodeCommon courseNode;
 	PeriodNodeCommon periodNode;
 	
