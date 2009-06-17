@@ -34,9 +34,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public abstract class FileMetaCommonTest {
-
 	
-protected static CoreTestHelper testHelper;
+	protected static CoreTestHelper testHelper;
 	
 	NodeCommon node;
 	UserCommon userBean;
