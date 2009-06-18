@@ -13,13 +13,15 @@ public abstract class AbstractDevilryFileStream {
 	FileMetaCommon fileMeta;
 	long fileMetaId;
 	
-	AbstractDevilryFileStream(long fileMetaId, DevilryConnection connection) throws NamingException {
+	AbstractDevilryFileStream(long fileMetaId, DevilryConnection connection) 
+			throws NamingException {
 		this.fileMetaId = fileMetaId;
 		this.connection = connection;
 	}
 	
 	protected FileMetaCommon getFileMetaBean() throws NamingException {
-		return fileMeta == null ? fileMeta = connection.getFileMeta() : fileMeta;
+		return fileMeta == null ? 
+				fileMeta = connection.getFileMeta() : fileMeta;
 	}
 	
 	public int getFileSize() throws NamingException {
