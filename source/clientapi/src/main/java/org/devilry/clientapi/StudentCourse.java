@@ -1,6 +1,5 @@
 package org.devilry.clientapi;
 
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 

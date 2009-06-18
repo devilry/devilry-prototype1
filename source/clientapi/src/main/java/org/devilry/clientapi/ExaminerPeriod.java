@@ -6,39 +6,41 @@ import java.util.List;
 
 import javax.naming.NamingException;
 
+import org.devilry.clientapi.StudentPeriod.StudentAssignmentIterator;
 import org.devilry.core.NoSuchObjectException;
 import org.devilry.core.NodePath;
 import org.devilry.core.UnauthorizedException;
 import org.devilry.core.daointerfaces.PeriodNodeCommon;
 
 
-public class StudentPeriod {
+public class ExaminerPeriod {
 
 	DevilryConnection connection;
 	
 	PeriodNodeCommon periodNode;
+	
 	long periodId;
 	
-	StudentPeriod(long periodId, DevilryConnection connection) {
+	ExaminerPeriod(long periodId, DevilryConnection connection) {
 		this.connection = connection;
 		this.periodId = periodId;
 	}
 	
+	
 	private PeriodNodeCommon getPeriodBean() throws NamingException {
 		return periodNode == null ? periodNode = connection.getPeriodNode() : periodNode;
 	}
+		
 	
-	
-	
-	class StudentAssignmentIterator implements Iterable<StudentAssignment>, Iterator<StudentAssignment> {
+	class CorrectorAssignmentIterator implements Iterable<ExaminerAssignment>, Iterator<ExaminerAssignment> {
 
 		Iterator<Long> assignmentIterator;
 		
-		StudentAssignmentIterator(List<Long> ids) {
+		CorrectorAssignmentIterator(List<Long> ids) {
 			assignmentIterator = ids.iterator();
 		}
 		
-		public Iterator<StudentAssignment> iterator() {
+		public Iterator<ExaminerAssignment> iterator() {
 			return this;
 		}
 
@@ -46,8 +48,8 @@ public class StudentPeriod {
 			return assignmentIterator.hasNext();
 		}
 
-		public StudentAssignment next() {
-			return new StudentAssignment(assignmentIterator.next(), connection); 
+		public ExaminerAssignment next() {
+			return new ExaminerAssignment(assignmentIterator.next(), connection); 
 		}
 
 		public void remove() {
@@ -55,16 +57,16 @@ public class StudentPeriod {
 		}
 	}
 	
-	Iterator<StudentAssignment> assignments() throws NoSuchObjectException, UnauthorizedException, NamingException {
+	Iterator<ExaminerAssignment> assignments() throws NoSuchObjectException, UnauthorizedException, NamingException {
 		List<Long> ids = getPeriodBean().getAssignments(periodId);
-		return new StudentAssignmentIterator(ids).iterator();
+		return new CorrectorAssignmentIterator(ids).iterator();
 	}
 	
 	
-	public List<StudentAssignment> getAssignments() throws NamingException, NoSuchObjectException, UnauthorizedException {
+	public List<ExaminerAssignment> getAssignments() throws NamingException, NoSuchObjectException, UnauthorizedException {
 				
-		LinkedList<StudentAssignment> assignmentList = new LinkedList<StudentAssignment>();
-		Iterator<StudentAssignment> iter = assignments();
+		LinkedList<ExaminerAssignment> assignmentList = new LinkedList<ExaminerAssignment>();
+		Iterator<ExaminerAssignment> iter = assignments();
 		
 		while (iter.hasNext()) {
 			assignmentList.add(iter.next());
@@ -76,5 +78,4 @@ public class StudentPeriod {
 	public NodePath getPath() throws NamingException, NoSuchObjectException {
 		return getPeriodBean().getPath(periodId);
 	}
-	
 }

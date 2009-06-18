@@ -13,8 +13,7 @@ public abstract class AbstractDevilryFileStream {
 	FileMetaCommon fileMeta;
 	long fileMetaId;
 	
-	AbstractDevilryFileStream(long fileMetaId, DevilryConnection connection) 
-			throws NamingException {
+	AbstractDevilryFileStream(long fileMetaId, DevilryConnection connection) {
 		this.fileMetaId = fileMetaId;
 		this.connection = connection;
 	}
