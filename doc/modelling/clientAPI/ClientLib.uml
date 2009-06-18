@@ -14,9 +14,6 @@
   </elementImport>
   <packagedElement xmi:type="uml:Class" xmi:id="_qEJnsE0gEd6EVaGVkLohsg" name="StudentAssignment">
     <generalization xmi:id="_8bgKwE0mEd6EVaGVkLohsg" general="_oXEzIE0mEd6EVaGVkLohsg"/>
-    <ownedOperation xmi:id="_DOKioE0tEd6EVaGVkLohsg" name="getDelivery">
-      <ownedParameter xmi:id="_EKfoAE0tEd6EVaGVkLohsg" direction="return"/>
-    </ownedOperation>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_r7sYIE0gEd6EVaGVkLohsg" name="AbstractDeliveryCandidate">
     <ownedAttribute xmi:id="_8B94IE0gEd6EVaGVkLohsg" name="Time of delivery" aggregation="composite"/>
@@ -65,35 +62,13 @@
     </ownedEnd>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_CmWVsE0iEd6EVaGVkLohsg" name="Student">
+    <generalization xmi:id="_EIhjkFxLEd6Hp-idVvE24Q" general="_B944AFxLEd6Hp-idVvE24Q"/>
     <ownedOperation xmi:id="_EASkIE0iEd6EVaGVkLohsg" name="getActivePeriods">
       <ownedParameter xmi:id="_rdLsoE-QEd6QXpaQJdYe2A" direction="return"/>
     </ownedOperation>
-    <ownedOperation xmi:id="_tEdsIE0iEd6EVaGVkLohsg" name="getPeriods">
-      <ownedParameter xmi:id="_96dloE-jEd6QXpaQJdYe2A" direction="return"/>
-    </ownedOperation>
-  </packagedElement>
-  <packagedElement xmi:type="uml:Class" xmi:id="_RVQaIE0iEd6EVaGVkLohsg" name="StudentCourse">
-    <ownedOperation xmi:id="_mkgmIE0iEd6EVaGVkLohsg" name="getActivePeriods">
-      <ownedParameter xmi:id="_sNVP0E0iEd6EVaGVkLohsg" direction="return"/>
-    </ownedOperation>
-    <ownedOperation xmi:id="_wF3noE0iEd6EVaGVkLohsg" name="getPeriods">
-      <ownedParameter xmi:id="_xj_LcE0iEd6EVaGVkLohsg" direction="return"/>
-    </ownedOperation>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_T8VxIE0iEd6EVaGVkLohsg" name="StudentPeriod">
-    <ownedOperation xmi:id="_0p820E0iEd6EVaGVkLohsg" name="getAssignments">
-      <ownedParameter xmi:id="_167WgE0iEd6EVaGVkLohsg" direction="return"/>
-    </ownedOperation>
-  </packagedElement>
-  <packagedElement xmi:type="uml:Association" xmi:id="_jHgTwE0iEd6EVaGVkLohsg" memberEnd="_jHgTwU0iEd6EVaGVkLohsg _jHhh4U0iEd6EVaGVkLohsg">
-    <ownedEnd xmi:id="_jHgTwU0iEd6EVaGVkLohsg" name="src" type="_RVQaIE0iEd6EVaGVkLohsg" association="_jHgTwE0iEd6EVaGVkLohsg">
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_jHhh4E0iEd6EVaGVkLohsg" value="1"/>
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_jHg60E0iEd6EVaGVkLohsg" value="1"/>
-    </ownedEnd>
-    <ownedEnd xmi:id="_jHhh4U0iEd6EVaGVkLohsg" name="dst" type="_T8VxIE0iEd6EVaGVkLohsg" aggregation="shared" association="_jHgTwE0iEd6EVaGVkLohsg">
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_jHiI8U0iEd6EVaGVkLohsg" value="1"/>
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_jHiI8E0iEd6EVaGVkLohsg" value="1"/>
-    </ownedEnd>
+    <generalization xmi:id="_AB2CEFxLEd6Hp-idVvE24Q" general="_1IbogFxKEd6Hp-idVvE24Q"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Association" xmi:id="_mFUvwE0iEd6EVaGVkLohsg" memberEnd="_mFVW0E0iEd6EVaGVkLohsg _mFV94U0iEd6EVaGVkLohsg">
     <ownedEnd xmi:id="_mFVW0E0iEd6EVaGVkLohsg" name="src" type="_T8VxIE0iEd6EVaGVkLohsg" association="_mFUvwE0iEd6EVaGVkLohsg">
@@ -105,18 +80,14 @@
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mFWk8E0iEd6EVaGVkLohsg" value="1"/>
     </ownedEnd>
   </packagedElement>
-  <packagedElement xmi:type="uml:Association" xmi:id="_X3NOwE0jEd6EVaGVkLohsg" memberEnd="_X3PD8E0jEd6EVaGVkLohsg _X3QSEE0jEd6EVaGVkLohsg">
-    <ownedEnd xmi:id="_X3PD8E0jEd6EVaGVkLohsg" name="src" type="_CmWVsE0iEd6EVaGVkLohsg" association="_X3NOwE0jEd6EVaGVkLohsg">
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_X3PrAU0jEd6EVaGVkLohsg" value="1"/>
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_X3PrAE0jEd6EVaGVkLohsg" value="1"/>
-    </ownedEnd>
-    <ownedEnd xmi:id="_X3QSEE0jEd6EVaGVkLohsg" name="dst" type="_RVQaIE0iEd6EVaGVkLohsg" aggregation="shared" association="_X3NOwE0jEd6EVaGVkLohsg">
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_X3Q5IE0jEd6EVaGVkLohsg" value="1"/>
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_X3QSEU0jEd6EVaGVkLohsg" value="1"/>
-    </ownedEnd>
-  </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_oXEzIE0mEd6EVaGVkLohsg" name="AbstractAssignment">
     <ownedAttribute xmi:id="_xofUIE0mEd6EVaGVkLohsg" name="Time of deadline" aggregation="composite"/>
+    <ownedOperation xmi:id="_izomAFxLEd6Hp-idVvE24Q" name="deliveries">
+      <ownedParameter xmi:id="_kFyKYFxLEd6Hp-idVvE24Q" type="_NWsVYFwhEd6Hp-idVvE24Q" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_ld_6gFxLEd6Hp-idVvE24Q" name="getDeliveries">
+      <ownedParameter xmi:id="_mUe2kFxLEd6Hp-idVvE24Q" type="_eUoEEFxLEd6Hp-idVvE24Q" direction="return"/>
+    </ownedOperation>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_APs1IE0nEd6EVaGVkLohsg" name="StudentDeliveryCandidate">
     <generalization xmi:id="_DZXUwE0nEd6EVaGVkLohsg" general="_r7sYIE0gEd6EVaGVkLohsg"/>
@@ -132,9 +103,6 @@
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_PThZoE0nEd6EVaGVkLohsg" name="ExaminerAssignment">
     <generalization xmi:id="_SCL_UE0nEd6EVaGVkLohsg" general="_oXEzIE0mEd6EVaGVkLohsg"/>
-    <ownedOperation xmi:id="_cNEiIE0rEd6EVaGVkLohsg" name="getDeliveries">
-      <ownedParameter xmi:id="_cWtmUE0rEd6EVaGVkLohsg" direction="return"/>
-    </ownedOperation>
   </packagedElement>
   <packagedElement xmi:type="uml:Association" xmi:id="_b5gNQE0oEd6EVaGVkLohsg" memberEnd="_b5gNQU0oEd6EVaGVkLohsg _b5hbYE0oEd6EVaGVkLohsg">
     <ownedEnd xmi:id="_b5gNQU0oEd6EVaGVkLohsg" name="src" type="_HTb9oE0nEd6EVaGVkLohsg" association="_b5gNQE0oEd6EVaGVkLohsg">
@@ -147,39 +115,10 @@
     </ownedEnd>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_jhsGoE0oEd6EVaGVkLohsg" name="Examiner">
-    <ownedOperation xmi:id="_o5KhoE0oEd6EVaGVkLohsg" name="getAllCourses">
-      <ownedParameter xmi:id="_AbIXIE0pEd6EVaGVkLohsg" direction="return"/>
-    </ownedOperation>
-  </packagedElement>
-  <packagedElement xmi:type="uml:Class" xmi:id="_CJTJIE0pEd6EVaGVkLohsg" name="ExaminerCourse">
-    <ownedOperation xmi:id="_SB1vIE0pEd6EVaGVkLohsg" name="getPeriods">
-      <ownedParameter xmi:id="_iUxLEE0pEd6EVaGVkLohsg" direction="return"/>
-    </ownedOperation>
+    <generalization xmi:id="_EtdcoFxLEd6Hp-idVvE24Q" general="_B944AFxLEd6Hp-idVvE24Q"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_NY-toE0pEd6EVaGVkLohsg" name="ExaminerPeriod">
-    <ownedOperation xmi:id="_pGqVoE0pEd6EVaGVkLohsg" name="getAssignments">
-      <ownedParameter xmi:id="_3AxDkE0qEd6EVaGVkLohsg" direction="return"/>
-    </ownedOperation>
-  </packagedElement>
-  <packagedElement xmi:type="uml:Association" xmi:id="_QN0MwE0pEd6EVaGVkLohsg" memberEnd="_QN0z0E0pEd6EVaGVkLohsg _QN1a4U0pEd6EVaGVkLohsg">
-    <ownedEnd xmi:id="_QN0z0E0pEd6EVaGVkLohsg" name="src" type="_jhsGoE0oEd6EVaGVkLohsg" association="_QN0MwE0pEd6EVaGVkLohsg">
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_QN1a4E0pEd6EVaGVkLohsg" value="1"/>
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_QN0z0U0pEd6EVaGVkLohsg" value="1"/>
-    </ownedEnd>
-    <ownedEnd xmi:id="_QN1a4U0pEd6EVaGVkLohsg" name="dst" type="_CJTJIE0pEd6EVaGVkLohsg" aggregation="shared" association="_QN0MwE0pEd6EVaGVkLohsg">
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_QN2B8E0pEd6EVaGVkLohsg" value="1"/>
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_QN1a4k0pEd6EVaGVkLohsg" value="1"/>
-    </ownedEnd>
-  </packagedElement>
-  <packagedElement xmi:type="uml:Association" xmi:id="_RAtCQE0pEd6EVaGVkLohsg" memberEnd="_RAtCQU0pEd6EVaGVkLohsg _RAtpUk0pEd6EVaGVkLohsg">
-    <ownedEnd xmi:id="_RAtCQU0pEd6EVaGVkLohsg" name="src" type="_CJTJIE0pEd6EVaGVkLohsg" association="_RAtCQE0pEd6EVaGVkLohsg">
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_RAtpUU0pEd6EVaGVkLohsg" value="1"/>
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_RAtpUE0pEd6EVaGVkLohsg" value="1"/>
-    </ownedEnd>
-    <ownedEnd xmi:id="_RAtpUk0pEd6EVaGVkLohsg" name="dst" type="_NY-toE0pEd6EVaGVkLohsg" aggregation="shared" association="_RAtCQE0pEd6EVaGVkLohsg">
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_RAuQYU0pEd6EVaGVkLohsg" value="1"/>
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_RAuQYE0pEd6EVaGVkLohsg" value="1"/>
-    </ownedEnd>
+    <generalization xmi:id="_AmiqkFxLEd6Hp-idVvE24Q" general="_1IbogFxKEd6Hp-idVvE24Q"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_2X_o0E0pEd6EVaGVkLohsg" name="ExaminerDelivery">
     <generalization xmi:id="_2bBAQE0sEd6EVaGVkLohsg" general="_DTXoME0sEd6EVaGVkLohsg"/>
@@ -223,8 +162,8 @@
     <ownedOperation xmi:id="_Ox65sE0tEd6EVaGVkLohsg" name="getDeliveryCandidate">
       <ownedParameter xmi:id="_O-3wkE0tEd6EVaGVkLohsg" direction="return"/>
     </ownedOperation>
-    <ownedOperation xmi:id="_cNwMsE0tEd6EVaGVkLohsg" name="getStatus">
-      <ownedParameter xmi:id="_cZwoYE0tEd6EVaGVkLohsg" direction="return"/>
+    <ownedOperation xmi:id="_LMXWYFwiEd6Hp-idVvE24Q" name="deliveryCandidates">
+      <ownedParameter xmi:id="_Ov_OIFwiEd6Hp-idVvE24Q" type="_NWsVYFwhEd6Hp-idVvE24Q" direction="return"/>
     </ownedOperation>
   </packagedElement>
   <packagedElement xmi:type="uml:Association" xmi:id="_Fj4SQE0sEd6EVaGVkLohsg" memberEnd="_Fj4SQU0sEd6EVaGVkLohsg _Fj5gYE0sEd6EVaGVkLohsg">
@@ -287,6 +226,235 @@
     <ownedEnd xmi:id="_QtuQIE9_Ed6QXpaQJdYe2A" name="dst" type="_s6QSIE0gEd6EVaGVkLohsg" association="_QtdxcE9_Ed6QXpaQJdYe2A">
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Qtu3MU9_Ed6QXpaQJdYe2A" value="1"/>
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Qtu3ME9_Ed6QXpaQJdYe2A" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_6mSKYFwgEd6Hp-idVvE24Q" memberEnd="_6mSxcFwgEd6Hp-idVvE24Q _6mSxc1wgEd6Hp-idVvE24Q">
+    <ownedEnd xmi:id="_6mSxcFwgEd6Hp-idVvE24Q" name="src" type="_CmWVsE0iEd6EVaGVkLohsg" association="_6mSKYFwgEd6Hp-idVvE24Q">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_6mSxclwgEd6Hp-idVvE24Q" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_6mSxcVwgEd6Hp-idVvE24Q" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_6mSxc1wgEd6Hp-idVvE24Q" name="dst" type="_T8VxIE0iEd6EVaGVkLohsg" aggregation="shared" association="_6mSKYFwgEd6Hp-idVvE24Q">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_6mTYgVwgEd6Hp-idVvE24Q" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_6mTYgFwgEd6Hp-idVvE24Q" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_8mPP8FwgEd6Hp-idVvE24Q" memberEnd="_8mPP8VwgEd6Hp-idVvE24Q _8mPP9FwgEd6Hp-idVvE24Q">
+    <ownedEnd xmi:id="_8mPP8VwgEd6Hp-idVvE24Q" name="src" type="_jhsGoE0oEd6EVaGVkLohsg" association="_8mPP8FwgEd6Hp-idVvE24Q">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_8mPP81wgEd6Hp-idVvE24Q" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_8mPP8lwgEd6Hp-idVvE24Q" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_8mPP9FwgEd6Hp-idVvE24Q" name="dst" type="_NY-toE0pEd6EVaGVkLohsg" aggregation="shared" association="_8mPP8FwgEd6Hp-idVvE24Q">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_8mP3AVwgEd6Hp-idVvE24Q" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_8mP3AFwgEd6Hp-idVvE24Q" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:DataType" xmi:id="_NWsVYFwhEd6Hp-idVvE24Q" name="Iterator"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_1IbogFxKEd6Hp-idVvE24Q" name="AbstractPeriod">
+    <ownedOperation xmi:id="_UMWMgFxLEd6Hp-idVvE24Q" name="assignments">
+      <ownedParameter xmi:id="_V6YboFxLEd6Hp-idVvE24Q" type="_NWsVYFwhEd6Hp-idVvE24Q" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_gJ48kFxLEd6Hp-idVvE24Q" name="getAssignments">
+      <ownedParameter xmi:id="_hITFkFxLEd6Hp-idVvE24Q" type="_eUoEEFxLEd6Hp-idVvE24Q" direction="return"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_B944AFxLEd6Hp-idVvE24Q" name="AbstractUser">
+    <ownedOperation xmi:id="_XqvmAFxLEd6Hp-idVvE24Q" name="periods">
+      <ownedParameter xmi:id="_ZHyy0FxLEd6Hp-idVvE24Q" type="_NWsVYFwhEd6Hp-idVvE24Q" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_e-ReAFxLEd6Hp-idVvE24Q" name="getPeriods">
+      <ownedParameter xmi:id="_frS8EFxLEd6Hp-idVvE24Q" type="_eUoEEFxLEd6Hp-idVvE24Q" direction="return"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:DataType" xmi:id="_eUoEEFxLEd6Hp-idVvE24Q" name="List"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_FdMyUFxdEd6Hp-idVvE24Q" name="AdminCourse">
+    <nestedClassifier xmi:type="uml:Class" xmi:id="_LGLNAFxdEd6Hp-idVvE24Q" name="PeriodAdmin">
+      <ownedOperation xmi:id="_LGLNAVxdEd6Hp-idVvE24Q" name="getPeriodsWhereIsAdmin">
+        <ownedParameter xmi:id="_LGLNAlxdEd6Hp-idVvE24Q" direction="return"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_LGLNA1xdEd6Hp-idVvE24Q" name="addAssignment">
+        <ownedParameter xmi:id="_LGLNBFxdEd6Hp-idVvE24Q" direction="return"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_LGLNBVxdEd6Hp-idVvE24Q" name="removeAssignment">
+        <ownedParameter xmi:id="_LGLNBlxdEd6Hp-idVvE24Q" direction="return"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_LGLNB1xdEd6Hp-idVvE24Q" name="changeAssignmentName">
+        <ownedParameter xmi:id="_LGLNCFxdEd6Hp-idVvE24Q" direction="return"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_LGLNCVxdEd6Hp-idVvE24Q" name="changeAssignmentDisplayName">
+        <ownedParameter xmi:id="_LGLNClxdEd6Hp-idVvE24Q" direction="return"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_LGLNC1xdEd6Hp-idVvE24Q" name="changeAssignmentDeadline">
+        <ownedParameter xmi:id="_LGLNDFxdEd6Hp-idVvE24Q" direction="return"/>
+      </ownedOperation>
+    </nestedClassifier>
+    <ownedOperation xmi:id="_FdMyUVxdEd6Hp-idVvE24Q" name="getCoursesWhereIsAdmin">
+      <ownedParameter xmi:id="_FdMyUlxdEd6Hp-idVvE24Q" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_FdMyU1xdEd6Hp-idVvE24Q" name="addPeriod">
+      <ownedParameter xmi:id="_FdMyVFxdEd6Hp-idVvE24Q" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_FdMyVVxdEd6Hp-idVvE24Q" name="removePeriod">
+      <ownedParameter xmi:id="_FdMyVlxdEd6Hp-idVvE24Q" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_FdMyV1xdEd6Hp-idVvE24Q" name="changePeriodName">
+      <ownedParameter xmi:id="_FdMyWFxdEd6Hp-idVvE24Q" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_FdMyWVxdEd6Hp-idVvE24Q" name="changePeriodDisplayName">
+      <ownedParameter xmi:id="_FdMyWlxdEd6Hp-idVvE24Q" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_FdMyW1xdEd6Hp-idVvE24Q" name="changePeriodStartTime">
+      <ownedParameter xmi:id="_FdMyXFxdEd6Hp-idVvE24Q" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_FdMyXVxdEd6Hp-idVvE24Q" name="changePeriodEndTime">
+      <ownedParameter xmi:id="_FdMyXlxdEd6Hp-idVvE24Q" direction="return"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_LGJ-5lxdEd6Hp-idVvE24Q" name="AdminNode">
+    <ownedOperation xmi:id="_LGJ-51xdEd6Hp-idVvE24Q" name="getNodesWhereIsAdmin">
+      <ownedParameter xmi:id="_LGJ-6FxdEd6Hp-idVvE24Q" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_LGJ-6VxdEd6Hp-idVvE24Q" name="getSubnodes">
+      <ownedParameter xmi:id="_LGJ-6lxdEd6Hp-idVvE24Q" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_LGJ-61xdEd6Hp-idVvE24Q" name="addSubnode">
+      <ownedParameter xmi:id="_LGJ-7FxdEd6Hp-idVvE24Q" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_LGJ-7VxdEd6Hp-idVvE24Q" name="removeSubnode">
+      <ownedParameter xmi:id="_LGJ-7lxdEd6Hp-idVvE24Q" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_LGJ-71xdEd6Hp-idVvE24Q" name="changeNodeName">
+      <ownedParameter xmi:id="_LGJ-8FxdEd6Hp-idVvE24Q" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_LGJ-8VxdEd6Hp-idVvE24Q" name="changeNodeDisplayName">
+      <ownedParameter xmi:id="_LGJ-8lxdEd6Hp-idVvE24Q" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_LGJ-81xdEd6Hp-idVvE24Q" name="addCourse">
+      <ownedParameter xmi:id="_LGJ-9FxdEd6Hp-idVvE24Q" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_LGJ-9VxdEd6Hp-idVvE24Q" name="removeCourse">
+      <ownedParameter xmi:id="_LGJ-9lxdEd6Hp-idVvE24Q" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_LGJ-91xdEd6Hp-idVvE24Q" name="changeCourseName">
+      <ownedParameter xmi:id="_LGJ--FxdEd6Hp-idVvE24Q" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_LGJ--VxdEd6Hp-idVvE24Q" name="changeCourseDisplayName">
+      <ownedParameter xmi:id="_LGJ--lxdEd6Hp-idVvE24Q" direction="return"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_LGL0EFxdEd6Hp-idVvE24Q" name="SuperAdmin">
+    <ownedOperation xmi:id="_LGL0EVxdEd6Hp-idVvE24Q" name="removeNonEmptyNode">
+      <ownedParameter xmi:id="_LGL0ElxdEd6Hp-idVvE24Q" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_PtvYkFxeEd6Hp-idVvE24Q" name="addRootNode">
+      <ownedParameter xmi:id="_Qr_wkFxeEd6Hp-idVvE24Q" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_RArAEFxeEd6Hp-idVvE24Q" name="removeRootNode">
+      <ownedParameter xmi:id="_SFLxEFxeEd6Hp-idVvE24Q" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_Uf6HEFxeEd6Hp-idVvE24Q" name="addUser">
+      <ownedParameter xmi:id="_WD63gFxeEd6Hp-idVvE24Q" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_WwfCkFxeEd6Hp-idVvE24Q" name="removeUser">
+      <ownedParameter xmi:id="_YODz0FxeEd6Hp-idVvE24Q" direction="return"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_S24wQFxdEd6Hp-idVvE24Q" name="AdminPeriod">
+    <generalization xmi:id="_G6nWEFxeEd6Hp-idVvE24Q" general="_1IbogFxKEd6Hp-idVvE24Q"/>
+    <ownedOperation xmi:id="_S24wQVxdEd6Hp-idVvE24Q" name="getPeriodsWhereIsAdmin">
+      <ownedParameter xmi:id="_S24wQlxdEd6Hp-idVvE24Q" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_S24wQ1xdEd6Hp-idVvE24Q" name="addAssignment">
+      <ownedParameter xmi:id="_S24wRFxdEd6Hp-idVvE24Q" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_S24wRVxdEd6Hp-idVvE24Q" name="removeAssignment">
+      <ownedParameter xmi:id="_S24wRlxdEd6Hp-idVvE24Q" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_S24wR1xdEd6Hp-idVvE24Q" name="changeAssignmentName">
+      <ownedParameter xmi:id="_S24wSFxdEd6Hp-idVvE24Q" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_S24wSVxdEd6Hp-idVvE24Q" name="changeAssignmentDisplayName">
+      <ownedParameter xmi:id="_S24wSlxdEd6Hp-idVvE24Q" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_S24wS1xdEd6Hp-idVvE24Q" name="changeAssignmentDeadline">
+      <ownedParameter xmi:id="_S24wTFxdEd6Hp-idVvE24Q" direction="return"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_ne5WEFxdEd6Hp-idVvE24Q" name="AdminDelivery">
+    <generalization xmi:id="_EcUHoFxeEd6Hp-idVvE24Q" general="_DTXoME0sEd6EVaGVkLohsg"/>
+    <ownedOperation xmi:id="_rM21kFxdEd6Hp-idVvE24Q" name="removeCandidate">
+      <ownedParameter xmi:id="_tr2nkFxdEd6Hp-idVvE24Q" direction="return"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_ukA-oFxdEd6Hp-idVvE24Q" name="AdminAssignment">
+    <generalization xmi:id="_FuGfoFxeEd6Hp-idVvE24Q" general="_oXEzIE0mEd6EVaGVkLohsg"/>
+    <ownedOperation xmi:id="_vu7SkFxdEd6Hp-idVvE24Q" name="addDelivery">
+      <ownedParameter xmi:id="_x0TDoFxdEd6Hp-idVvE24Q" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_zDGZEFxdEd6Hp-idVvE24Q" name="removeDelivery">
+      <ownedParameter xmi:id="_z0hO8FxdEd6Hp-idVvE24Q" direction="return"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_6FA8oFxdEd6Hp-idVvE24Q" memberEnd="_6FA8oVxdEd6Hp-idVvE24Q _6FBjslxdEd6Hp-idVvE24Q">
+    <ownedEnd xmi:id="_6FA8oVxdEd6Hp-idVvE24Q" name="src" type="_ukA-oFxdEd6Hp-idVvE24Q" association="_6FA8oFxdEd6Hp-idVvE24Q">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_6FBjsVxdEd6Hp-idVvE24Q" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_6FBjsFxdEd6Hp-idVvE24Q" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_6FBjslxdEd6Hp-idVvE24Q" name="dst" type="_ne5WEFxdEd6Hp-idVvE24Q" aggregation="shared" association="_6FA8oFxdEd6Hp-idVvE24Q">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_6FBjtFxdEd6Hp-idVvE24Q" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_6FBjs1xdEd6Hp-idVvE24Q" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_7AhioFxdEd6Hp-idVvE24Q" memberEnd="_7AhioVxdEd6Hp-idVvE24Q _7AiJsVxdEd6Hp-idVvE24Q">
+    <ownedEnd xmi:id="_7AhioVxdEd6Hp-idVvE24Q" name="src" type="_S24wQFxdEd6Hp-idVvE24Q" association="_7AhioFxdEd6Hp-idVvE24Q">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_7AiJsFxdEd6Hp-idVvE24Q" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_7AhiolxdEd6Hp-idVvE24Q" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_7AiJsVxdEd6Hp-idVvE24Q" name="dst" type="_ukA-oFxdEd6Hp-idVvE24Q" aggregation="shared" association="_7AhioFxdEd6Hp-idVvE24Q">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_7AiJs1xdEd6Hp-idVvE24Q" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_7AiJslxdEd6Hp-idVvE24Q" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_8h3ZkFxdEd6Hp-idVvE24Q" name="AdminDeliveryCandidate">
+    <generalization xmi:id="_Cj2KIFxeEd6Hp-idVvE24Q" general="_r7sYIE0gEd6EVaGVkLohsg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_ARcCoFxeEd6Hp-idVvE24Q" memberEnd="_ARcCoVxeEd6Hp-idVvE24Q _ARcCpFxeEd6Hp-idVvE24Q">
+    <ownedEnd xmi:id="_ARcCoVxeEd6Hp-idVvE24Q" name="src" type="_ne5WEFxdEd6Hp-idVvE24Q" association="_ARcCoFxeEd6Hp-idVvE24Q">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ARcCo1xeEd6Hp-idVvE24Q" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ARcColxeEd6Hp-idVvE24Q" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_ARcCpFxeEd6Hp-idVvE24Q" name="dst" type="_8h3ZkFxdEd6Hp-idVvE24Q" aggregation="shared" association="_ARcCoFxeEd6Hp-idVvE24Q">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ARcpsVxeEd6Hp-idVvE24Q" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ARcpsFxeEd6Hp-idVvE24Q" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_ZeSsoFxeEd6Hp-idVvE24Q" memberEnd="_ZeSsoVxeEd6Hp-idVvE24Q _ZeTTsFxeEd6Hp-idVvE24Q">
+    <ownedEnd xmi:id="_ZeSsoVxeEd6Hp-idVvE24Q" name="src" type="_FdMyUFxdEd6Hp-idVvE24Q" association="_ZeSsoFxeEd6Hp-idVvE24Q">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ZeSso1xeEd6Hp-idVvE24Q" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ZeSsolxeEd6Hp-idVvE24Q" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_ZeTTsFxeEd6Hp-idVvE24Q" name="dst" type="_S24wQFxdEd6Hp-idVvE24Q" aggregation="shared" association="_ZeSsoFxeEd6Hp-idVvE24Q">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ZeTTslxeEd6Hp-idVvE24Q" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ZeTTsVxeEd6Hp-idVvE24Q" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_aKY9oFxeEd6Hp-idVvE24Q" memberEnd="_aKY9oVxeEd6Hp-idVvE24Q _aKZkslxeEd6Hp-idVvE24Q">
+    <ownedEnd xmi:id="_aKY9oVxeEd6Hp-idVvE24Q" name="src" type="_LGJ-5lxdEd6Hp-idVvE24Q" association="_aKY9oFxeEd6Hp-idVvE24Q">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_aKZksVxeEd6Hp-idVvE24Q" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_aKZksFxeEd6Hp-idVvE24Q" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_aKZkslxeEd6Hp-idVvE24Q" name="dst" type="_FdMyUFxdEd6Hp-idVvE24Q" aggregation="shared" association="_aKY9oFxeEd6Hp-idVvE24Q">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_aKZktFxeEd6Hp-idVvE24Q" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_aKZks1xeEd6Hp-idVvE24Q" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_bC7IIFxeEd6Hp-idVvE24Q" memberEnd="_bC7IIVxeEd6Hp-idVvE24Q _bC7vMVxeEd6Hp-idVvE24Q">
+    <ownedEnd xmi:id="_bC7IIVxeEd6Hp-idVvE24Q" name="src" type="_LGL0EFxdEd6Hp-idVvE24Q" association="_bC7IIFxeEd6Hp-idVvE24Q">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_bC7vMFxeEd6Hp-idVvE24Q" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_bC7IIlxeEd6Hp-idVvE24Q" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_bC7vMVxeEd6Hp-idVvE24Q" name="dst" type="_LGJ-5lxdEd6Hp-idVvE24Q" aggregation="shared" association="_bC7IIFxeEd6Hp-idVvE24Q">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_bC7vM1xeEd6Hp-idVvE24Q" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_bC7vMlxeEd6Hp-idVvE24Q" value="1"/>
     </ownedEnd>
   </packagedElement>
 </uml:Package>
