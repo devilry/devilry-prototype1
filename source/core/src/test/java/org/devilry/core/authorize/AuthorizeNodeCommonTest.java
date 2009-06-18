@@ -79,6 +79,40 @@ public abstract class AuthorizeNodeCommonTest {
 		node.getChildCourses(uioId);
 		node.getChildCourses(matnatId);
 	}
+	
+	
+	//
+	//
+	// create()
+	//
+	//
+	
+	/** Test that a SuperAdmin can create toplevel nodes. */
+	@Test
+	public void createToplevel() throws Exception {
+		superTestHelper.getNodeCommon().create("a", "A");
+	}
+
+	/** Test that a normal user cannot create a toplevel node. */
+	@Test(expected=UnauthorizedException.class)
+	public void createToplevelUnauthorized() throws Exception {
+		testHelper.getNodeCommon().create("a", "A");
+	}
+
+	/** Test that a user can create a node if Admin on the parent node. */
+	@Test
+	public void create() throws Exception {
+		superTestHelper.getNodeCommon().addNodeAdmin(uioId, userId);
+		testHelper.getNodeCommon().create("a", "A", uioId);
+	}
+	
+	/** Test that a user cannot create a node if not Admin on the parent
+	 * node. */
+	@Test(expected=UnauthorizedException.class)
+	public void createUnauthorized() throws Exception {
+		testHelper.getNodeCommon().create("a", "A");
+	}
+	
 
 	//
 	//
@@ -89,7 +123,6 @@ public abstract class AuthorizeNodeCommonTest {
 	/** Test that a SuperAdmin can set the name of a toplevel node. */
 	@Test
 	public void setNameToplevel() throws Exception {
-		superTestHelper.getNodeCommon().addNodeAdmin(uioId, superId);
 		superTestHelper.getNodeCommon().setName(uioId, "u");
 	}
 
@@ -123,7 +156,6 @@ public abstract class AuthorizeNodeCommonTest {
 	/** Test that a SuperAdmin can set the diplayname of a toplevel node. */
 	@Test
 	public void setDisplayNameToplevel() throws Exception {
-		superTestHelper.getNodeCommon().addNodeAdmin(uioId, superId);
 		superTestHelper.getNodeCommon().setDisplayName(uioId, "u");
 	}
 

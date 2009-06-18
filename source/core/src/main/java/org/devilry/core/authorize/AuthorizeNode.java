@@ -15,7 +15,6 @@ import org.devilry.core.dao.NodeImpl;
 import org.devilry.core.daointerfaces.NodeLocal;
 
 public class AuthorizeNode extends AuthorizeBaseNode {
-	private final Logger log = LoggerFactory.getLogger(AuthorizeNode.class);
 
 	/** Methods in NodeCommon which do not require any authorization. */
 	private static final MethodNames noAuthRequiredMethods = new MethodNames(
@@ -32,22 +31,9 @@ public class AuthorizeNode extends AuthorizeBaseNode {
 
 
 	@EJB
-	private NodeLocal nodeBean;
+	private NodeLocal node;
 
-	@AroundInvoke
-	public Object authorize(InvocationContext invocationCtx) throws Exception {
-		long userId = userBean.getAuthenticatedUser();
-		if (userBean.isSuperAdmin(userId)) {
-			log.debug("SuperAdmin {} granted access to: {}",
-					userId, invocationCtx.getMethod().getName());
-		} else {
-			auth(invocationCtx);
-		}
-
-		return invocationCtx.proceed();
-	}
-
-	private void auth(InvocationContext invocationCtx)
+	protected void auth(InvocationContext invocationCtx)
 			throws InvalidUsageException, UnauthorizedException,
 			NoSuchObjectException {
 		Class<?> targetClass = invocationCtx.getTarget().getClass();
@@ -84,13 +70,16 @@ public class AuthorizeNode extends AuthorizeBaseNode {
 
 	}
 
-	private void parentNodeAdminRequired(String fullMethodName, Object[] parameters)
-			throws UnauthorizedException {
+	/** Check that the authorized user is admin on the parent-node
+	 * of the node given as first argument, and deny access if this
+	 * is not the case. */
+	private void parentNodeAdminRequired(String fullMethodName,
+			Object[] parameters) throws UnauthorizedException {
 		long nodeId = (Long) parameters[0];
 
 		try {
-			long parentId = nodeBean.getParentNode(nodeId);
-			if (!nodeBean.isNodeAdmin(parentId)) {
+			long parentId = node.getParentNode(nodeId);
+			if (!node.isNodeAdmin(parentId)) {
 				throw new UnauthorizedException(String.format(
 						"Access to method %s requires Admin rights on the " +
 						"parent-node.", fullMethodName));
@@ -102,6 +91,25 @@ public class AuthorizeNode extends AuthorizeBaseNode {
 					"Access to method %s requires Admin rights on " +
 					"the parent-node, and the given node, %d, does " +
 					"not have a parent-node.", fullMethodName, nodeId));
+		}
+	}
+	
+	/** Make sure only an Admin on the parent-node can create a node. */ 
+	private void authCreate(String fullMethodName, Object[] parameters)
+			throws UnauthorizedException {
+		long parentId = (Long) parameters[2];
+		
+		try {
+			if(!node.isNodeAdmin(parentId)) {
+				throw new UnauthorizedException(String.format(
+						"Access to method %s requires Admin rights on the " +
+						"parent-node.", fullMethodName));				
+			}
+		} catch (NoSuchObjectException e) {
+			throw new UnauthorizedException(String.format(
+					"Access to method %s requires Admin rights on " +
+					"the parent-node, and the given node, %d, does " +
+					"not have a parent-node.", fullMethodName, parentId));
 		}
 	}
 }
