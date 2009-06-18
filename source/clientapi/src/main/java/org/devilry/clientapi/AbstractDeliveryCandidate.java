@@ -6,8 +6,6 @@ import java.util.List;
 import javax.naming.NamingException;
 
 import org.devilry.core.daointerfaces.DeliveryCandidateCommon;
-import org.devilry.core.daointerfaces.DeliveryCandidateLocal;
-import org.devilry.core.daointerfaces.DeliveryCandidateRemote;
 
 public class AbstractDeliveryCandidate {
 	
