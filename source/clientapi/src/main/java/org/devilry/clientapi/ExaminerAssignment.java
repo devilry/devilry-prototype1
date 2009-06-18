@@ -10,21 +10,21 @@ import org.devilry.core.NoSuchObjectException;
 import org.devilry.core.UnauthorizedException;
 
 
-public class CorrectorAssignment extends AbstractAssignment {
+public class ExaminerAssignment extends AbstractAssignment {
 	
-	CorrectorAssignment(long assignmentId, DevilryConnection connection) {
+	ExaminerAssignment(long assignmentId, DevilryConnection connection) {
 		super(assignmentId, connection);
 	}
 		
-	public Collection<CorrectorDelivery> getDeliveries() throws NamingException, NoSuchObjectException, UnauthorizedException {
+	public Collection<ExaminerDelivery> getDeliveries() throws NamingException, NoSuchObjectException, UnauthorizedException {
 		
 		List<Long> ids = getAssignmentNodeBean().getDeliveries(assignmentId);
 				
-		List<CorrectorDelivery> deliveries = new LinkedList<CorrectorDelivery>();
-		CorrectorDelivery deliveryTmp;
+		List<ExaminerDelivery> deliveries = new LinkedList<ExaminerDelivery>();
+		ExaminerDelivery deliveryTmp;
 		
 		for (long id : ids) {
-			deliveryTmp = new CorrectorDelivery(id, connection);
+			deliveryTmp = new ExaminerDelivery(id, connection);
 			deliveries.add(deliveryTmp);
 		}
 		

@@ -1,11 +1,11 @@
 package org.devilry.clientapi;
 
 
-public class Corrector {
+public class ExaminerCourse {
 
 	DevilryConnection connection;
 	
-	Corrector(DevilryConnection connection) {
+	ExaminerCourse(DevilryConnection connection) {
 		this.connection = connection;
 	}
 	
