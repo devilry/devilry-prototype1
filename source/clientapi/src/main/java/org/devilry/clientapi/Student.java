@@ -1,11 +1,13 @@
 package org.devilry.clientapi;
 
-import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.naming.NamingException;
 
+import org.devilry.core.NoSuchObjectException;
+import org.devilry.core.UnauthorizedException;
 import org.devilry.core.daointerfaces.PeriodNodeCommon;
 import org.devilry.core.daointerfaces.UserCommon;
 
@@ -32,24 +34,52 @@ public class Student {
 		return periodNode == null ? periodNode = connection.getPeriodNode() : periodNode;
 	}
 	
-	public List<StudentPeriod> getActivePeriods() throws NamingException {
-		
+	public List<StudentPeriod> getActivePeriods() throws NamingException, NoSuchObjectException, UnauthorizedException {
 		List<StudentPeriod> periods = getPeriods();
-				
 		return periods;
 	}
 	
-	public List<StudentPeriod> getPeriods() throws NamingException {
+	
+	class StudentPeriodIterator implements Iterable<StudentPeriod>, Iterator<StudentPeriod> {
+
+		Iterator<Long> deliveryCandidateIterator;
 		
-		List<Long> periodIds =  getPeriodNodeBean().getPeriodsWhereIsStudent();
-		
-		List<StudentPeriod> periods = new LinkedList<StudentPeriod>();
-		StudentPeriod periodTmp;
-		
-		for (long id : periodIds) {
-			periodTmp = new StudentPeriod(id, connection);
-			periods.add(periodTmp);
+		StudentPeriodIterator(List<Long> ids) {
+			deliveryCandidateIterator = ids.iterator();
 		}
-		return periods;
+		
+		public Iterator<StudentPeriod> iterator() {
+			return this;
+		}
+
+		public boolean hasNext() {
+			return deliveryCandidateIterator.hasNext();
+		}
+
+		public StudentPeriod next() {
+			return new StudentPeriod(deliveryCandidateIterator.next(), connection); 
+		}
+
+		public void remove() {
+			throw new UnsupportedOperationException();
+		}
+	}
+	
+	
+	Iterator<StudentPeriod> periods() throws NoSuchObjectException, UnauthorizedException, NamingException {
+		List<Long> periodIds =  getPeriodNodeBean().getPeriodsWhereIsStudent();
+		return new StudentPeriodIterator(periodIds).iterator();
+	}
+	
+	
+	public List<StudentPeriod> getPeriods() throws NamingException, NoSuchObjectException, UnauthorizedException {
+				
+		LinkedList<StudentPeriod> periodList = new LinkedList<StudentPeriod>();
+		Iterator<StudentPeriod> iter = periods();
+		
+		while (iter.hasNext()) {
+			periodList.add(iter.next());
+		}
+		return periodList;
 	}
 }
