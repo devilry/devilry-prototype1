@@ -68,6 +68,9 @@ public abstract class ExaminerAssignmentCommonTest extends UserAssignmentCommonT
 		long deliveryId = delivery.create(assignmentId);
 		delivery.addExaminer(deliveryId, homerId);
 		
+		// Not connected to examiner
+		long infantDelivery = delivery.create(assignmentId);
+		
 		assertEquals(1, assignment.getDeliveries().size());
 		assertEquals(deliveryId, assignment.getDeliveries().get(0).deliveryId);
 				
