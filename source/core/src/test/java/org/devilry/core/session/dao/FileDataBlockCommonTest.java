@@ -128,7 +128,7 @@ public abstract class FileDataBlockCommonTest {
 	}
 
 	@After
-	public void tearDown() throws NamingException, NoSuchObjectException {
+	public void tearDown() throws Exception {
 		testHelper.clearUsersAndNodes();
 	}
 	

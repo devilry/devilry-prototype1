@@ -49,7 +49,7 @@ public abstract class PeriodNodeCommonTest {
 	long periodId2;
 		
 	@Before
-	public void setUp() throws NamingException, PathExistsException, UnauthorizedException, InvalidNameException, NoSuchObjectException {
+	public void setUp() throws Exception {
 		
 		node = testHelper.getNodeCommon();
 		userBean = testHelper.getUserCommon();
@@ -74,7 +74,7 @@ public abstract class PeriodNodeCommonTest {
 	}
 
 	@After
-	public void tearDown() throws NamingException, NoSuchObjectException {
+	public void tearDown() throws Exception {
 		testHelper.clearUsersAndNodes();
 	}
 	

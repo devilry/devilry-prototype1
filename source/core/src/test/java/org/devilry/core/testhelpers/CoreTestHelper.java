@@ -3,6 +3,7 @@ package org.devilry.core.testhelpers;
 import javax.naming.NamingException;
 
 import org.devilry.core.NoSuchObjectException;
+import org.devilry.core.UnauthorizedException;
 import org.devilry.core.daointerfaces.AssignmentNodeCommon;
 import org.devilry.core.daointerfaces.CourseNodeCommon;
 import org.devilry.core.daointerfaces.DeliveryCandidateCommon;
@@ -22,7 +23,8 @@ public abstract class CoreTestHelper extends EjbTestHelper {
 
 
 	public void clearUsersAndNodes()
-			throws NamingException, NoSuchObjectException {
+			throws NamingException, NoSuchObjectException,
+			UnauthorizedException {
 		for(long nodeId: getNodeCommon().getToplevelNodes())
 			getNodeCommon().remove(nodeId);
 		for(long userId: getUserCommon().getUsers())

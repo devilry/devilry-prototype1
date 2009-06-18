@@ -105,7 +105,7 @@ public abstract class DeliveryCommonTest {
 	}
 
 	@After
-	public void tearDown() throws NamingException, NoSuchObjectException {
+	public void tearDown() throws Exception {
 		testHelper.clearUsersAndNodes();
 	}
 	

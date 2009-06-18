@@ -12,12 +12,6 @@ public abstract class AuthorizeBaseNode {
 		new MethodNames("getName", "getDisplayName", "exists", "getPath");
 
 
-	/** Methods in BaseNodeInterface where the authorized user must be Admin on
-	 * the node given as first argument. */
-	protected static final MethodNames baseNodeAdminMethods =
-		new MethodNames();
-
-
 	/**
 	 * Methods in BaseNodeInterface where the authorized user must be Admin on
 	 * the <em>parent-node</em> of the node given as first argument.

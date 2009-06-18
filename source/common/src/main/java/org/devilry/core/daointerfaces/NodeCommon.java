@@ -25,7 +25,7 @@ public interface NodeCommon extends BaseNodeInterface {
 	 *             If there already exists another toplevel node with the given
 	 *             name.
 	 * @throws UnauthorizedException
-	 *             If the authenticated user is not SuperAdmin.
+	 *             If the authenticated user is not authorized for this method.
 	 * @throws InvalidNameException
 	 *             If the given name is not on the specified format.
 	 */
@@ -48,7 +48,7 @@ public interface NodeCommon extends BaseNodeInterface {
 	 *             If there already exists another node with the same name and
 	 *             parentId.
 	 * @throws UnauthorizedException
-	 *             If the authenticated user is not Admin on the parent node.
+	 *             If the authenticated user is not authorized for this method.
 	 * @throws InvalidNameException
 	 *             If the given name is not on the specified format.
 	 * @throws NoSuchObjectException
@@ -66,11 +66,13 @@ public interface NodeCommon extends BaseNodeInterface {
 	 * @return The id of the parent node.
 	 * @throws NoSuchObjectException
 	 *             If no node with the given id exists.
+	 * @throws UnauthorizedException
+	 *             If the authenticated user is not authorized for this method.
 	 * @throws NoParentException
 	 *             If the given node is a toplevel node.
 	 */
 	long getParentNode(long nodeId) throws NoSuchObjectException,
-			NoParentException;
+			NoParentException, UnauthorizedException;
 
 	/**
 	 * Get all nodes with <em>this</em> node as parent.
@@ -79,8 +81,7 @@ public interface NodeCommon extends BaseNodeInterface {
 	 *            The id of an existing node.
 	 * @return A list with the id's of all childnodes.
 	 * @throws UnauthorizedException
-	 *             If the authenticated user is not <em>Admin</em> on the given
-	 *             node.
+	 *             If the authenticated user is not authorized for this method.
 	 * @throws NoSuchObjectException
 	 *             If no node with the given id exists.
 	 */
@@ -94,8 +95,7 @@ public interface NodeCommon extends BaseNodeInterface {
 	 *            A unique identificator of an existing node.
 	 * @return A list with the id's of all childnodes.
 	 * @throws UnauthorizedException
-	 *             If the authenticated user is not <em>NodeAdmin</em> on the
-	 *             given node.
+	 *             If the authenticated user is not authorized for this method.
 	 * @throws NoSuchObjectException
 	 *             If no node with the given id exists.
 	 */
@@ -104,17 +104,19 @@ public interface NodeCommon extends BaseNodeInterface {
 
 	/**
 	 * Get all nodes without a parent-node.
-	 * 
+	 * @throws UnauthorizedException
+	 *             If the authenticated user is not authorized for this method.
 	 * @return A list with the id's of all toplevel nodes.
 	 */
-	List<Long> getToplevelNodes();
+	List<Long> getToplevelNodes() throws UnauthorizedException;
 
 	/**
 	 * Get a list of nodes where the authenticated user is admin.
-	 * 
+	 * @throws UnauthorizedException
+	 *             If the authenticated user is not authorized for this method.
 	 * @return List of user-ids.
 	 */
-	List<Long> getNodesWhereIsAdmin();
+	List<Long> getNodesWhereIsAdmin() throws UnauthorizedException;
 
 	/**
 	 * Check if the authenticated user is admin on the given node.
@@ -125,8 +127,11 @@ public interface NodeCommon extends BaseNodeInterface {
 	 *         node.
 	 * @throws NoSuchObjectException
 	 *             If no node with the given id exists.
+	 * @throws UnauthorizedException
+	 *             If the authenticated user is not authorized for this method.
 	 * */
-	boolean isNodeAdmin(long nodeId) throws NoSuchObjectException;
+	boolean isNodeAdmin(long nodeId) throws NoSuchObjectException,
+		UnauthorizedException;
 
 	/**
 	 * Check if the authenticated user is Admin on the given node, or on any of
@@ -140,6 +145,8 @@ public interface NodeCommon extends BaseNodeInterface {
 	 *             If no node with the given id exists.
 	 * @throws NoSuchUserException
 	 *             If the the given user does not exist.
+	 * @throws UnauthorizedException
+	 *             If the authenticated user is not authorized for this method.
 	 */
 	void addNodeAdmin(long nodeId, long userId) throws NoSuchObjectException,
 			NoSuchUserException, UnauthorizedException;
@@ -155,9 +162,12 @@ public interface NodeCommon extends BaseNodeInterface {
 	 *             If no node with the given id exists.
 	 * @throws NoSuchUserException
 	 *             If the the given user does not exist.
+	 * @throws UnauthorizedException
+	 *             If the authenticated user is not authorized for this method.
 	 */
 	void removeNodeAdmin(long nodeId, long userId)
-			throws NoSuchObjectException, NoSuchUserException;
+			throws NoSuchObjectException, NoSuchUserException,
+			UnauthorizedException;
 
 	/**
 	 * Get id of all administrators registered for the given node.
@@ -167,6 +177,9 @@ public interface NodeCommon extends BaseNodeInterface {
 	 * @return A list with the id of all administrators for the given node.
 	 * @throws NoSuchObjectException
 	 *             If no node with the given id exists.
+	 * @throws UnauthorizedException
+	 *             If the authenticated user is not authorized for this method.
 	 */
-	List<Long> getNodeAdmins(long nodeId) throws NoSuchObjectException;
+	List<Long> getNodeAdmins(long nodeId) throws NoSuchObjectException,
+		UnauthorizedException;
 }
