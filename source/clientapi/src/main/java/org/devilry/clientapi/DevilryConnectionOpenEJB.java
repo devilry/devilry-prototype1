@@ -6,6 +6,15 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import org.devilry.core.dao.AssignmentNodeImpl;
+import org.devilry.core.dao.CourseNodeImpl;
+import org.devilry.core.dao.DeliveryCandidateImpl;
+import org.devilry.core.dao.DeliveryImpl;
+import org.devilry.core.dao.FileDataBlockImpl;
+import org.devilry.core.dao.FileMetaImpl;
+import org.devilry.core.dao.NodeImpl;
+import org.devilry.core.dao.PeriodNodeImpl;
+import org.devilry.core.dao.UserImpl;
 import org.devilry.core.daointerfaces.AssignmentNodeCommon;
 import org.devilry.core.daointerfaces.CourseNodeCommon;
 import org.devilry.core.daointerfaces.DeliveryCandidateCommon;
@@ -19,12 +28,15 @@ import org.devilry.core.daointerfaces.UserCommon;
 
 public class DevilryConnectionOpenEJB implements DevilryConnection {
 	
-	protected InitialContext localCtx;
-
-	public static InitialContext CTX = null;
-
-	public static InitialContext createCtx() throws NamingException {
-		if (CTX == null) {
+	InitialContext context;
+	
+	DevilryConnectionOpenEJB(String username, String password) throws NamingException {
+		setUpInitialContext(username, password);
+	}
+	
+	private void setUpInitialContext(String username, String password) throws NamingException {
+		
+		if (context == null) {
 			Properties p = new Properties();
 			p.put(Context.INITIAL_CONTEXT_FACTORY,
 					"org.apache.openejb.client.LocalInitialContextFactory");
@@ -32,68 +44,62 @@ public class DevilryConnectionOpenEJB implements DevilryConnection {
 					"{ejbName}{interfaceType.annotationName}");
 			p.put("openejb.jndiname.format",
 					"{ejbName}{interfaceType.annotationName}");
-			p.put(Context.SECURITY_PRINCIPAL, "homer");
-			p.put(Context.SECURITY_CREDENTIALS, "doh");
+			p.put(Context.SECURITY_PRINCIPAL, username);
+			p.put(Context.SECURITY_CREDENTIALS, password);
 			
-			CTX = new InitialContext(p);
+			context = new InitialContext(p);
 		}
-		return CTX;
-	}
-
-	protected InitialContext setupEjbContainer() throws NamingException {
-		return localCtx = createCtx();
-	}
-
-	InitialContext getCtx() throws NamingException {
-		return localCtx != null ? localCtx : setupEjbContainer();
 	}
 	
-	@SuppressWarnings("unchecked")
-	protected <E> E getLocalBean(Class<E> beanImplClass) throws NamingException {
-		return (E) getCtx().lookup(beanImplClass.getSimpleName() + "Local");
-	}
 
 	@SuppressWarnings("unchecked")
 	protected <E> E getRemoteBean(String className)
 			throws NamingException {
-		return (E) getCtx().lookup(className + "Remote");
+		return (E) context.lookup(className + "Remote");
 	}	
 	
-	public AssignmentNodeCommon getAssignmentNode() throws NamingException {
-		return getRemoteBean("AssignmentNodeImpl");
+
+	@SuppressWarnings("unchecked")
+	public <E> E getRemoteBean(Class<E> beanImplClass)
+			throws NamingException {
+		return (E) context.lookup(beanImplClass.getSimpleName() + "Remote");
 	}
 	
+	public NodeCommon getNode() throws NamingException {
+		return getRemoteBean(NodeImpl.class);
+	}
 
 	public CourseNodeCommon getCourseNode() throws NamingException {
-		return getRemoteBean("CourseNodeImpl");
-	}
-
-	public DeliveryCandidateCommon getDeliveryCandidate() throws NamingException {
-		return getRemoteBean("DeliveryCandidateImpl");
-	}
-
-	public DeliveryCommon getDelivery() throws NamingException {
-		return getRemoteBean("DeliveryImpl");
-	}
-
-	public FileDataBlockCommon getFileDataBlock() throws NamingException {
-		return getRemoteBean("FileDataBlockImpl");
-	}
-
-	public FileMetaCommon getFileMeta() throws NamingException {
-		return getRemoteBean("FileMetaImpl");
-	}
-
-	public NodeCommon getNode() throws NamingException {
-		return getRemoteBean("NodeImpl");
+		return getRemoteBean(CourseNodeImpl.class);
 	}
 
 	public PeriodNodeCommon getPeriodNode() throws NamingException {
-		return getRemoteBean("PeriodNodeImpl");
+		return getRemoteBean(PeriodNodeImpl.class);
+	}
+
+	public AssignmentNodeCommon getAssignmentNode() throws NamingException {
+		return getRemoteBean(AssignmentNodeImpl.class);
 	}
 
 	public UserCommon getUser() throws NamingException {
-		return getRemoteBean("UserImpl");
+		return getRemoteBean(UserImpl.class);
+	}
+
+	public DeliveryCommon getDelivery() throws NamingException {
+		return getRemoteBean(DeliveryImpl.class);
+	}
+
+	public DeliveryCandidateCommon getDeliveryCandidate()
+			throws NamingException {
+		return getRemoteBean(DeliveryCandidateImpl.class);
+	}
+
+	public FileMetaCommon getFileMeta() throws NamingException {
+		return getRemoteBean(FileMetaImpl.class);
+	}
+	
+	public FileDataBlockCommon getFileDataBlock() throws NamingException {
+		return getRemoteBean(FileDataBlockImpl.class);
 	}
 
 }
