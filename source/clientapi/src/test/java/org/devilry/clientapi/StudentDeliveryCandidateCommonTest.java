@@ -156,7 +156,7 @@ public abstract class StudentDeliveryCandidateCommonTest {
 		
 		
 	@Test
-	public void addFile() throws NamingException {
+	public void addFile() throws NamingException, NoSuchObjectException, UnauthorizedException {
 			
 		assertEquals(0, deliveryCandidate.getFileCount());
 		
