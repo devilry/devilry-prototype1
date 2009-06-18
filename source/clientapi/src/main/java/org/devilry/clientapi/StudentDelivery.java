@@ -25,4 +25,8 @@ public class StudentDelivery extends AbstractDelivery {
 		
 		return candidate;
 	}
+	
+	public long getDeliveryId() {
+		return deliveryId;
+	}
 }
