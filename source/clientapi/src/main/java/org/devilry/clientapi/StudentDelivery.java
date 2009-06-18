@@ -1,7 +1,11 @@
 package org.devilry.clientapi;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import javax.naming.NamingException;
 
+import org.devilry.core.daointerfaces.AssignmentNodeCommon;
 import org.devilry.core.daointerfaces.DeliveryCandidateCommon;
 import org.devilry.core.daointerfaces.DeliveryCommon;
 
@@ -15,6 +19,9 @@ public class StudentDelivery extends AbstractDelivery {
 		this.deliveryId = deliveryId;
 	}
 	
+	protected DeliveryCommon getDeliveryBean() throws NamingException {
+		return delivery == null ? delivery = connection.getDelivery() : delivery;
+	}
 	
 	public StudentDeliveryCandidate createDeliveryCandidate() throws NamingException {
 		
@@ -24,6 +31,24 @@ public class StudentDelivery extends AbstractDelivery {
 		StudentDeliveryCandidate candidate = new StudentDeliveryCandidate(candidateId, connection);
 		
 		return candidate;
+	}
+	
+	public List<StudentDeliveryCandidate> getDeliveryCandidates() throws NamingException {
+		
+		List<Long> candidates = getDeliveryBean().getDeliveryCandidates(deliveryId);
+		
+		LinkedList<StudentDeliveryCandidate> candidateList = new LinkedList<StudentDeliveryCandidate>();
+		
+		for (long id : candidates) {
+			candidateList.add(new StudentDeliveryCandidate(id, connection));
+		}
+		
+		return candidateList;
+	}
+	
+	
+	public AbstractDeliveryCandidate getDeliveryCandidate() {
+		return null;
 	}
 	
 	public long getDeliveryId() {
