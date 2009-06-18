@@ -1,5 +1,6 @@
 package org.devilry.clientapi;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.naming.NamingException;
@@ -28,18 +29,7 @@ public abstract class AbstractDelivery {
 	}
 	
 	
-	public List<AbstractDeliveryCandidate> getDeliveryCandidates() {
-		
-		List<Long> deliveries = delivery.getDeliveryCandidates(deliveryId);
-		
-		
-		
-		return null;
-	}
 	
-	public AbstractDeliveryCandidate getDeliveryCandidate() {
-		return null;
-	}
 	
 	public int status() {
 		return 0;
