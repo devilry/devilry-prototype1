@@ -131,10 +131,10 @@ public abstract class AuthorizeNodeCommonTest {
 
 		node.getParentNode(matnatId);
 
-		node.getChildnodes(uioId);
-		node.getChildnodes(matnatId);
+		node.getChildNodes(uioId);
+		node.getChildNodes(matnatId);
 
-		node.getChildcourses(uioId);
-		node.getChildcourses(matnatId);
+		node.getChildCourses(uioId);
+		node.getChildCourses(matnatId);
 	}
 }
