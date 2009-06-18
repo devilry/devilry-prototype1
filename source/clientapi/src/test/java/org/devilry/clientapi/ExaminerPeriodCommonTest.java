@@ -22,28 +22,30 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.GregorianCalendar;
 
-public abstract class StudentPeriodCommonTest extends UserPeriodCommonTest {
+public abstract class ExaminerPeriodCommonTest extends UserPeriodCommonTest {
+
+	Examiner homer;
+	Examiner bart, lisa;
 	
-	Student homer;
-	Student bart, lisa;
+	ExaminerPeriod period;
+	ExaminerPeriod period2;
 	
-	StudentPeriod period;
-	StudentPeriod period2;
-				
 	@Before
 	public void setUp() throws NamingException, PathExistsException, UnauthorizedException, InvalidNameException, NoSuchObjectException {
 				
 		super.setUp();
 		
-		period = new StudentPeriod(inf1000Spring09, connection);
-		period2 = new StudentPeriod(inf1000Fall09, connection);
+		period = new ExaminerPeriod(inf1000Spring09, connection);
+		period2 = new ExaminerPeriod(inf1000Fall09, connection);
 		
 		// Create some test users
-		homer = new Student(homerId, connection);
-		bart = new Student(bartId, connection);
-		lisa = new Student(lisaId, connection);
+				
+		homer = new Examiner(homerId, connection);
+		bart = new Examiner(bartId, connection);
+		lisa = new Examiner(lisaId, connection);
 	}
 	
+
 	@Test
 	public void getPath() throws NoSuchObjectException, NamingException {
 		NodePath path = period.getPath();
@@ -54,7 +56,6 @@ public abstract class StudentPeriodCommonTest extends UserPeriodCommonTest {
 	
 	@Test
 	public void getAssignments() throws NoSuchObjectException, UnauthorizedException, NamingException, PathExistsException, InvalidNameException {
-		// Collection<StudentAssignment> getAssignments()
 		
 		// Add some assignments
 		
@@ -65,11 +66,11 @@ public abstract class StudentPeriodCommonTest extends UserPeriodCommonTest {
 		long ass1 = assignmentNode.create("oblig1", "Obligatory assignment 1", deadline.getTime(), inf1000Spring09);
 		long ass2 = assignmentNode.create("oblig2", "Obligatory assignment 2", deadline.getTime(), inf1000Spring09);
 				
-		Collection<StudentAssignment> assignments = period.getAssignments();
+		Collection<ExaminerAssignment> assignments = period.getAssignments();
 		
 		assertEquals(2, assignments.size());
 		
-		for (StudentAssignment s : assignments) {
+		for (ExaminerAssignment s : assignments) {
 			long val = s.assignmentId;
 			assertTrue(val == ass1 || val == ass2);
 		}

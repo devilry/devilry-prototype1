@@ -32,48 +32,4 @@ public class StudentDeliveryCandidate extends AbstractDeliveryCandidate {
 		return outputStream;
 	}
 	
-	
-	class DevilryInputStreamIterator implements Iterable<DevilryInputStream>, Iterator<DevilryInputStream> {
-
-		Iterator<Long> fileMetaIdIterator;
-		
-		DevilryInputStreamIterator(List<Long> ids) {
-			fileMetaIdIterator = ids.iterator();
-		}
-		
-		public Iterator<DevilryInputStream> iterator() {
-			return this;
-		}
-
-		public boolean hasNext() {
-			return fileMetaIdIterator.hasNext();
-		}
-
-		public DevilryInputStream next() {
-			return new DevilryInputStream(fileMetaIdIterator.next(), connection); 
-		}
-
-		public void remove() {
-			throw new UnsupportedOperationException();
-		}
-	}
-		
-	Iterator<DevilryInputStream> deliveries() throws NoSuchObjectException, UnauthorizedException, NamingException {
-		List<Long> fileIds = getDeliveryCandidateBean().getFiles(deliveryCandidateId);
-		return new DevilryInputStreamIterator(fileIds).iterator();
-	}
-	
-	
-	public List<DevilryInputStream> getDeliveryFiles() throws NamingException, NoSuchObjectException, UnauthorizedException {
-				
-		LinkedList<DevilryInputStream> candidateList = new LinkedList<DevilryInputStream>();
-		Iterator<DevilryInputStream> iter = deliveries();
-		
-		while (iter.hasNext()) {
-			candidateList.add(iter.next());
-		}
-		return candidateList;
-	}
-	
-
 }

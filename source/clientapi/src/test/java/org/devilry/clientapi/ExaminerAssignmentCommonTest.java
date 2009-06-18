@@ -24,32 +24,32 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-public abstract class StudentAssignmentCommonTest extends UserAssignmentCommonTest {
+public abstract class ExaminerAssignmentCommonTest extends UserAssignmentCommonTest {
 	
-	Student homer;
-	Student bart, lisa;
+	Examiner homer;
+	Examiner bart, lisa;
 	
-	StudentPeriod period;
-	StudentPeriod period2;
+	ExaminerPeriod period;
+	ExaminerPeriod period2;
 	
-	StudentAssignment assignment;
+	ExaminerAssignment assignment;
 				
 	@Before
 	public void setUp() throws NamingException, PathExistsException, UnauthorizedException, InvalidNameException, NoSuchObjectException {
 		
 		super.setUp();
 				
-		period = new StudentPeriod(inf1000Spring09, connection);
-		period2 = new StudentPeriod(inf1000Fall09, connection);
+		period = new ExaminerPeriod(inf1000Spring09, connection);
+		period2 = new ExaminerPeriod(inf1000Fall09, connection);
 				
-		assignment = new StudentAssignment(assignmentId, connection); 
-		
+		assignment = new ExaminerAssignment(assignmentId, connection); 
 		// Create some test users
-		homer = new Student(homerId, connection);
-		bart = new Student(bartId, connection);
-		lisa = new Student(lisaId, connection);
+				
+		homer = new Examiner(homerId, connection);
+		bart = new Examiner(bartId, connection);
+		lisa = new Examiner(lisaId, connection);
 	}
-		
+	
 	@Test
 	public void getPath() throws NoSuchObjectException, NamingException {
 		NodePath path = assignment.getPath();
@@ -60,26 +60,28 @@ public abstract class StudentAssignmentCommonTest extends UserAssignmentCommonTe
 	
 	@Test
 	public void getDeliveries() throws NoSuchObjectException, UnauthorizedException, NamingException, PathExistsException, InvalidNameException {
-				
+		
+		// Add some deliveries
+		
 		assertEquals(0, assignment.getDeliveries().size());
 				
 		long deliveryId = delivery.create(assignmentId);
-		delivery.addStudent(deliveryId, homerId);
+		delivery.addExaminer(deliveryId, homerId);
 		
-		// Not connected to student
+		// Not connected to examiner
 		long infantDelivery = delivery.create(assignmentId);
 		
 		assertEquals(1, assignment.getDeliveries().size());
 		assertEquals(deliveryId, assignment.getDeliveries().get(0).deliveryId);
 				
 		long delivery2Id = delivery.create(assignmentId);
-		delivery.addStudent(delivery2Id, homerId);
+		delivery.addExaminer(delivery2Id, homerId);
 		
-		List<StudentDelivery> deliveries = assignment.getDeliveries();
+		List<ExaminerDelivery> deliveries = assignment.getDeliveries();
 		
 		assertEquals(2, deliveries.size());
 		
-		for (StudentDelivery d : deliveries) {
+		for (ExaminerDelivery d : deliveries) {
 			long val = d.deliveryId;
 			assertTrue(val == deliveryId || val == delivery2Id);
 		}

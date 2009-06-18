@@ -24,51 +24,38 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-public abstract class StudentDeliveryCandidateCommonTest extends UserDeliveryCandidateCommonTest {
+public abstract class ExaminerDeliveryCandidateCommonTest extends UserDeliveryCandidateCommonTest {
 			
-	Student homer;
-	Student bart, lisa;
+	Examiner homer;
+	Examiner bart, lisa;
 	
-	StudentPeriod period;
-	StudentPeriod period2;
+	ExaminerPeriod period;
+	ExaminerPeriod period2;
 	
-	StudentAssignment assignment;
-	StudentDelivery delivery;
-	StudentDeliveryCandidate deliveryCandidate;
+	ExaminerAssignment assignment;
+	ExaminerDelivery delivery;
+	ExaminerDeliveryCandidate deliveryCandidate;
 	
 	@Before
 	public void setUp() throws NamingException, PathExistsException, UnauthorizedException, InvalidNameException, NoSuchObjectException {
 		
 		super.setUp();
 				
-		period = new StudentPeriod(inf1000Spring09, connection);
-		period2 = new StudentPeriod(inf1000Fall09, connection);
+		period = new ExaminerPeriod(inf1000Spring09, connection);
+		period2 = new ExaminerPeriod(inf1000Fall09, connection);
 				
-		assignment = new StudentAssignment(assignmentId, connection); 
+		assignment = new ExaminerAssignment(assignmentId, connection); 
 		
-		delivery = new StudentDelivery(deliveryId, connection);
-		deliveryCandidate = new StudentDeliveryCandidate(deliveryCandidateId, connection);
+		delivery = new ExaminerDelivery(deliveryId, connection);
+		deliveryCandidate = new ExaminerDeliveryCandidate(deliveryCandidateId, connection);
 		
 		// Create some test users
 				
-		homer = new Student(homerId, connection);
-		bart = new Student(bartId, connection);
-		lisa = new Student(lisaId, connection);
+		homer = new Examiner(homerId, connection);
+		bart = new Examiner(bartId, connection);
+		lisa = new Examiner(lisaId, connection);
 	}
 			
-	@Test
-	public void addFile() throws NamingException, NoSuchObjectException, UnauthorizedException {
-			
-		assertEquals(0, deliveryCandidate.getFileCount());
-		
-		DevilryOutputStream out = deliveryCandidate.addFile("Testing2.txt");
-		
-		assertEquals(1, deliveryCandidate.getFileCount());
-		
-		List<DevilryInputStream> files = deliveryCandidate.getDeliveryFiles();
-		assertEquals(out.fileMetaId, files.get(0).fileMetaId);
-	}
-		
 	
 	@Test
 	public void getDeliveryFiles() throws NoSuchObjectException, UnauthorizedException, NamingException, PathExistsException, InvalidNameException {
