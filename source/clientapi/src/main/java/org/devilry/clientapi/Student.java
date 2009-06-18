@@ -32,7 +32,7 @@ public class Student {
 		return periodNode == null ? periodNode = connection.getPeriodNode() : periodNode;
 	}
 	
-	public List getActivePeriods() throws NamingException {
+	public List<StudentPeriod> getActivePeriods() throws NamingException {
 		
 		List<StudentPeriod> periods = getPeriods();
 				
