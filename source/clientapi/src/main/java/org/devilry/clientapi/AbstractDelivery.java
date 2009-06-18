@@ -29,10 +29,8 @@ public abstract class AbstractDelivery {
 	}
 	
 	
-	
-	
-	public int status() {
-		return 0;
+	public int getStatus() throws NamingException {
+		return getDeliveryBean().getStatus(deliveryId);
 	}
 	
 }
