@@ -9,7 +9,6 @@ import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
 
 import org.devilry.core.InvalidUsageException;
-import org.devilry.core.NoParentException;
 import org.devilry.core.NoSuchObjectException;
 import org.devilry.core.UnauthorizedException;
 import org.devilry.core.dao.NodeImpl;
@@ -18,12 +17,16 @@ import org.devilry.core.daointerfaces.NodeLocal;
 public class AuthorizeNode extends AuthorizeBaseNode {
 	private final Logger log = Logger.getLogger(getClass().getName());
 
+	/** Methods in NodeCommon which do not require any authorization. */
+	private static final MethodNames noAuthRequiredMethods = new MethodNames(
+			"getNodesWhereIsAdmin", "isNodeAdmin", "getParentNode",
+			"getChildnodes", "getChildcourses");
+
 	/**
 	 * Methods in NodeCommon where the authorized user must be admin on the node
 	 * given as first argument.
 	 */
-	private static final MethodNames nodeAdminMethods = new MethodNames(
-			"getChildnodes", "getChildcourses");
+	private static final MethodNames nodeAdminMethods = new MethodNames();
 
 	/**
 	 * Methods in NodeCommon where the authorized user must be Admin on the
@@ -33,9 +36,6 @@ public class AuthorizeNode extends AuthorizeBaseNode {
 	private static final MethodNames parentNodeAdminMethods = new MethodNames(
 			"addNodeAdmin", "removeNodeAdmin", "getNodeAdmins");
 
-	/** Methods in NodeCommon which do not require any authorization. */
-	private static final MethodNames noAuthRequiredMethods = new MethodNames(
-			"getNodesWhereIsAdmin", "isNodeAdmin", "getParentNode");
 
 	@EJB
 	private NodeLocal nodeBean;
@@ -71,38 +71,47 @@ public class AuthorizeNode extends AuthorizeBaseNode {
 		Object[] parameters = invocationCtx.getParameters();
 		String methodName = targetMethod.getName();
 
+		// No authorization required?
+		if (noAuthRequiredMethods.contains(methodName)
+				|| baseNodeNoAuthRequiredMethods.contains(methodName)) {
+			log.finest("No authorization required for method: " + 
+					fullMethodName);
+		}
+
 		// Requires admin on given node?
-		if (nodeAdminMethods.contains(methodName)
+		else if (nodeAdminMethods.contains(methodName)
 				|| baseNodeAdminMethods.contains(methodName)) {
-			long nodeId = (Long) parameters[0];
-			if (!nodeBean.isNodeAdmin(nodeId)) {
-				throw new UnauthorizedException(String.format(
-						"Access to method '%s' requires Admin rights on " +
-						"node %d.", fullMethodName, nodeId));
-			} else if(log.getLevel() == Level.FINEST) {
-				log.finest(String.format("Access to method %s allowed",
-						methodName));
-			}
+			nodeAdminRequired(methodName, parameters);
 		}
 
 		// Requires parent node admin?
 		else if(parentNodeAdminMethods.contains(methodName)
 				|| baseNodeParentAdminMethods.contains(methodName)) {
-			parentNodeRequired(methodName, parameters);
+			parentNodeAdminRequired(fullMethodName, parameters);
 		}
 		
 		// If the method has not yet been handled, and it is not among
 		// the methods which requires no authorization: deny access.
-		else if (!noAuthRequiredMethods.contains(methodName)
-				&& !baseNodeNoAuthRequiredMethods.contains(methodName)) {
-			log.warning(String.format("Authorization of method '%s' is not " +
-					"defined, so access is denied.", methodName));
+		else {
+			log.warning("No authorization rule set for method: " + 
+					fullMethodName);
 		}
+
 	}
 	
 	
 	
-	private void parentNodeRequired(String fullMethodName, Object[] parameters)
+	private void nodeAdminRequired(String fullMethodName, Object[] parameters)
+			throws NoSuchObjectException, UnauthorizedException {
+		long nodeId = (Long) parameters[0];
+		if (!nodeBean.isNodeAdmin(nodeId)) {
+			throw new UnauthorizedException(String.format(
+					"Access to method '%s' requires Admin rights on " +
+					"node %d.", fullMethodName, nodeId));
+		}
+	}
+
+	private void parentNodeAdminRequired(String fullMethodName, Object[] parameters)
 			throws UnauthorizedException {
 		long nodeId = (Long) parameters[0];
 

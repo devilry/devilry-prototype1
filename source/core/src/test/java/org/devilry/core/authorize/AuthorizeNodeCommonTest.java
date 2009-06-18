@@ -16,9 +16,6 @@ import org.junit.Test;
 public abstract class AuthorizeNodeCommonTest {
 	protected static CoreTestHelper testHelper;
 	protected static CoreTestHelper superTestHelper;
-	private NodeCommon node;
-	private UserCommon user;
-	private NodeCommon superNode;
 
 	/** The id of the users with the logged-in identity. */
 	private long userId, superId;
@@ -28,9 +25,7 @@ public abstract class AuthorizeNodeCommonTest {
 	@Before
 	public void setUp() throws NamingException, PathExistsException,
 			UnauthorizedException, InvalidNameException, NoSuchObjectException {
-		node = testHelper.getNodeCommon();
-		user = testHelper.getUserCommon();
-		superNode = superTestHelper.getNodeCommon();
+		NodeCommon superNode = superTestHelper.getNodeCommon();
 		UserCommon superUser = superTestHelper.getUserCommon();
 
 		superId = superUser.create("Homer Simpson", "homr@stuff.org", "123");
@@ -44,9 +39,6 @@ public abstract class AuthorizeNodeCommonTest {
 
 		uioId = superNode.create("uio", "UiO");
 		matnatId = superNode.create("matnat", "Matnat", uioId);
-		
-		System.out.printf("******* u:%d,%d,%s%n", userId,
-				user.getAuthenticatedUser(), user.getAuthenticatedIdentity());
 	}
 
 	@After
@@ -111,5 +103,38 @@ public abstract class AuthorizeNodeCommonTest {
 	public void setDisplayNameUnauthorized() throws Exception {
 		superTestHelper.getNodeCommon().addNodeAdmin(matnatId, userId);
 		testHelper.getNodeCommon().setDisplayName(matnatId, "u");
+	}
+
+
+
+	/** Test that none of the unprotected methods fails as a normal user
+	 * on both toplevel and normal nodes. */
+	@Test
+	public void noAuthMethods() throws Exception {
+		NodeCommon node = testHelper.getNodeCommon();
+		node.getName(uioId);
+		node.getName(matnatId);
+
+		node.getDisplayName(uioId);
+		node.getDisplayName(matnatId);
+
+		node.exists(uioId);
+		node.exists(matnatId);
+
+		node.getPath(uioId);
+		node.getPath(matnatId);
+
+		node.getNodesWhereIsAdmin();
+
+		node.isNodeAdmin(uioId);
+		node.isNodeAdmin(matnatId);
+
+		node.getParentNode(matnatId);
+
+		node.getChildnodes(uioId);
+		node.getChildnodes(matnatId);
+
+		node.getChildcourses(uioId);
+		node.getChildcourses(matnatId);
 	}
 }
