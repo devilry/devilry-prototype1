@@ -32,6 +32,8 @@ public abstract class AbstractAssignment {
 		return deadline;
 	}
 	
-	
+	public long getAssignmentId() {
+		return assignmentId;
+	}
 	
 }
