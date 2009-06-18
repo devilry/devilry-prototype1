@@ -1,10 +1,14 @@
 package org.devilry.clientapi;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.naming.NamingException;
 
+import org.devilry.clientapi.StudentDelivery.StudentDeliveryCandidateIterator;
+import org.devilry.core.NoSuchObjectException;
+import org.devilry.core.UnauthorizedException;
 import org.devilry.core.daointerfaces.FileMetaCommon;
 
 
@@ -28,16 +32,48 @@ public class StudentDeliveryCandidate extends AbstractDeliveryCandidate {
 		return outputStream;
 	}
 	
-	public List<DevilryInputStream> getDeliveryFiles() throws NamingException {
+	
+	class DevilryInputStreamIterator implements Iterable<DevilryInputStream>, Iterator<DevilryInputStream> {
+
+		Iterator<Long> fileMetaIdIterator;
 		
-		List<Long> fileIds = getDeliveryCandidateBean().getFiles(deliveryCandidateId);
-		
-		LinkedList<DevilryInputStream> files = new LinkedList<DevilryInputStream>();
-		
-		for (long id : fileIds) {
-			files.add(new DevilryInputStream(id, connection));
+		DevilryInputStreamIterator(List<Long> ids) {
+			fileMetaIdIterator = ids.iterator();
 		}
 		
-		return files;
+		public Iterator<DevilryInputStream> iterator() {
+			return this;
+		}
+
+		public boolean hasNext() {
+			return fileMetaIdIterator.hasNext();
+		}
+
+		public DevilryInputStream next() {
+			return new DevilryInputStream(fileMetaIdIterator.next(), connection); 
+		}
+
+		public void remove() {
+			throw new UnsupportedOperationException();
+		}
 	}
+		
+	Iterator<DevilryInputStream> deliveries() throws NoSuchObjectException, UnauthorizedException, NamingException {
+		List<Long> fileIds = getDeliveryCandidateBean().getFiles(deliveryCandidateId);
+		return new DevilryInputStreamIterator(fileIds).iterator();
+	}
+	
+	
+	public List<DevilryInputStream> getDeliveryFiles() throws NamingException, NoSuchObjectException, UnauthorizedException {
+				
+		LinkedList<DevilryInputStream> candidateList = new LinkedList<DevilryInputStream>();
+		Iterator<DevilryInputStream> iter = deliveries();
+		
+		while (iter.hasNext()) {
+			candidateList.add(iter.next());
+		}
+		return candidateList;
+	}
+	
+
 }
