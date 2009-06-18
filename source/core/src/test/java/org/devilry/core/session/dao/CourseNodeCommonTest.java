@@ -64,7 +64,7 @@ public abstract class CourseNodeCommonTest {
 	}
 
 	@After
-	public void tearDown() throws NamingException, NoSuchObjectException {
+	public void tearDown() throws Exception {
 		testHelper.clearUsersAndNodes();
 	}
 	

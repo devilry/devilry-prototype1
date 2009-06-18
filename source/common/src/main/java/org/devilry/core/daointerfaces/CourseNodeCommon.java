@@ -76,8 +76,11 @@ public interface CourseNodeCommon extends BaseNodeInterface {
 	 * 
 	 * @throws NoSuchObjectException
 	 *             If no course-node with the given id exists.
+	 * @throws UnauthorizedException
+	 *             If the authenticated user is not authorized for this method.
 	 * */
-	boolean isCourseAdmin(long courseNodeId) throws NoSuchObjectException;
+	boolean isCourseAdmin(long courseNodeId) throws NoSuchObjectException,
+		UnauthorizedException;
 
 	/**
 	 * Add a new administrator to the given course node.

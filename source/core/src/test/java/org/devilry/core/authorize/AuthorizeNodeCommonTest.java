@@ -45,7 +45,7 @@ public abstract class AuthorizeNodeCommonTest {
 	}
 
 	@After
-	public void tearDown() throws NamingException, NoSuchObjectException {
+	public void tearDown() throws Exception {
 		superTestHelper.clearUsersAndNodes();
 	}
 

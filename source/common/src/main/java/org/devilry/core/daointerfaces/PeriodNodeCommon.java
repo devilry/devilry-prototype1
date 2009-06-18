@@ -270,8 +270,11 @@ public interface PeriodNodeCommon extends BaseNodeInterface {
 	 *         period-node.
 	 * @throws NoSuchObjectException
 	 *             If no period-node with the given id exists.
+	 * @throws UnauthorizedException
+	 *             If the authenticated user is not authorized for this method.
 	 */
-	boolean isPeriodAdmin(long periodNodeId) throws NoSuchObjectException;
+	boolean isPeriodAdmin(long periodNodeId) throws NoSuchObjectException,
+		UnauthorizedException;
 
 	/**
 	 * Add a new Admin to the given period-node.

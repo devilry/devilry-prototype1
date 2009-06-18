@@ -8,6 +8,7 @@ import javax.persistence.*;
 
 import org.devilry.core.NoSuchObjectException;
 import org.devilry.core.NodePath;
+import org.devilry.core.UnauthorizedException;
 import org.devilry.core.daointerfaces.CourseNodeLocal;
 import org.devilry.core.daointerfaces.CourseNodeRemote;
 import org.devilry.core.daointerfaces.NodeCommon;
@@ -67,7 +68,8 @@ public class CourseNodeImpl extends BaseNodeImpl
 		return getNodesWhereIsAdmin(CourseNode.class);
 	}
 
-	public boolean isCourseAdmin(long courseNodeId) throws NoSuchObjectException {
+	public boolean isCourseAdmin(long courseNodeId) throws
+			NoSuchObjectException, UnauthorizedException {
 		CourseNode courseNode = getCourseNode(courseNodeId);
 		if(isAdmin(courseNode, userBean.getAuthenticatedUser())) {
 			return true;

@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.devilry.core.NoSuchObjectException;
 import org.devilry.core.NodePath;
+import org.devilry.core.UnauthorizedException;
 import org.devilry.core.daointerfaces.AssignmentNodeCommon;
 import org.devilry.core.daointerfaces.AssignmentNodeLocal;
 import org.devilry.core.daointerfaces.CourseNodeCommon;
@@ -200,7 +201,8 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 		return getAdmins(node);
 	}
 
-	public boolean isPeriodAdmin(long periodId) throws NoSuchObjectException {
+	public boolean isPeriodAdmin(long periodId) throws NoSuchObjectException,
+			UnauthorizedException {
 		PeriodNode periodNode = getPeriodNode(periodId);
 		if (isAdmin(periodNode, userBean.getAuthenticatedUser())) {
 			return true;
