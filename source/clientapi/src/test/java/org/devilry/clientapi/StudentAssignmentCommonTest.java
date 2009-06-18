@@ -25,6 +25,7 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
@@ -48,8 +49,6 @@ public abstract class StudentAssignmentCommonTest {
 	AssignmentNodeCommon assignmentNode;
 	DeliveryCommon delivery;
 	
-	
-
 	Student homer;
 	Student bart, lisa;
 	
@@ -57,6 +56,8 @@ public abstract class StudentAssignmentCommonTest {
 	StudentPeriod period2;
 	
 	StudentAssignment assignment;
+	
+	Calendar assignmentDeadline;
 	
 	ArrayList<String> names = new ArrayList<String>();
 	ArrayList<String> identity = new ArrayList<String>();
@@ -113,9 +114,9 @@ public abstract class StudentAssignmentCommonTest {
 		inf1000Spring09 = periodNode.create("spring2009", "INF1000 spring2009", start.getTime(), end.getTime(), inf1000);
 		inf1000Fall09 = periodNode.create("fall2009", "INf1000 fall 2009", start.getTime(), end.getTime(), inf1000);
 				
-		Calendar deadline = new GregorianCalendar(2009, 00, 01, 10, 15);
+		assignmentDeadline = new GregorianCalendar(2009, 00, 01, 10, 15);
 		
-		assignmentId = assignmentNode.create("oblig1", "Obligatory assignment 1", deadline.getTime(), inf1000Spring09);
+		assignmentId = assignmentNode.create("oblig1", "Obligatory assignment 1", assignmentDeadline.getTime(), inf1000Spring09);
 		
 		period = new StudentPeriod(inf1000Spring09, connection);
 		period2 = new StudentPeriod(inf1000Fall09, connection);
@@ -174,5 +175,10 @@ public abstract class StudentAssignmentCommonTest {
 			long val = d.getDeliveryId();
 			assertTrue(val == deliveryId || val == delivery2Id);
 		}
+	}
+	
+	@Test
+	public void getDeadline() throws NoSuchObjectException, NamingException {
+		assertEquals(assignmentDeadline.getTime(), assignment.getDeadline());
 	}
 }
