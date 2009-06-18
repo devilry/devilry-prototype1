@@ -12,20 +12,12 @@ import org.devilry.core.daointerfaces.AssignmentNodeCommon;
 import org.devilry.core.daointerfaces.DeliveryCandidateCommon;
 import org.devilry.core.daointerfaces.DeliveryCommon;
 
-public class StudentDelivery extends AbstractDelivery {
-
-	DeliveryCommon delivery;
-	long deliveryId;
+public class StudentDelivery extends AbstractDelivery<StudentDeliveryCandidate> {
 	
 	StudentDelivery(long deliveryId, DevilryConnection connection) {
 		super(deliveryId, connection);
-		this.deliveryId = deliveryId;
 	}
-	
-	protected DeliveryCommon getDeliveryBean() throws NamingException {
-		return delivery == null ? delivery = connection.getDelivery() : delivery;
-	}
-	
+		
 	public StudentDeliveryCandidate createDeliveryCandidate() throws NamingException {
 		
 		DeliveryCandidateCommon deliveryCandidate = connection.getDeliveryCandidate();
@@ -37,55 +29,23 @@ public class StudentDelivery extends AbstractDelivery {
 	}
 	
 	
-	class StudentDeliveryCandidateIterator implements Iterable<StudentDeliveryCandidate>, Iterator<StudentDeliveryCandidate> {
+	class StudentDeliveryCandidateIterator extends DeliveryCandidateIterator {
 
-		Iterator<Long> deliveryCandidateIterator;
-		
 		StudentDeliveryCandidateIterator(List<Long> ids) {
-			deliveryCandidateIterator = ids.iterator();
+			super(ids);
 		}
 		
-		public Iterator<StudentDeliveryCandidate> iterator() {
-			return this;
-		}
-
-		public boolean hasNext() {
-			return deliveryCandidateIterator.hasNext();
-		}
-
 		public StudentDeliveryCandidate next() {
 			return new StudentDeliveryCandidate(deliveryCandidateIterator.next(), connection); 
 		}
-
-		public void remove() {
-			throw new UnsupportedOperationException();
-		}
 	}
-	
-	
+		
 	Iterator<StudentDeliveryCandidate> candidates() throws NoSuchObjectException, UnauthorizedException, NamingException {
 		List<Long> candidates = getDeliveryBean().getDeliveryCandidates(deliveryId);
 		return new StudentDeliveryCandidateIterator(candidates).iterator();
 	}
-	
-	
-	public List<StudentDeliveryCandidate> getDeliveryCandidates() throws NamingException, NoSuchObjectException, UnauthorizedException {
-				
-		LinkedList<StudentDeliveryCandidate> candidateList = new LinkedList<StudentDeliveryCandidate>();
-		Iterator<StudentDeliveryCandidate> iter = candidates();
 		
-		while (iter.hasNext()) {
-			candidateList.add(iter.next());
-		}
-		return candidateList;
-	}
-	
-	
-	public AbstractDeliveryCandidate getDeliveryCandidate() {
+	public StudentDeliveryCandidate getDeliveryCandidate() {
 		return null;
-	}
-	
-	public long getDeliveryId() {
-		return deliveryId;
 	}
 }

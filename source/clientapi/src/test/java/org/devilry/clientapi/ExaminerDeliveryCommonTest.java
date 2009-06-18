@@ -23,48 +23,35 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-public abstract class StudentDeliveryCommonTest extends UserDeliveryCommonTest {
+public abstract class ExaminerDeliveryCommonTest extends UserDeliveryCommonTest {
 	
-	Student homer;
-	Student bart, lisa;
+	Examiner homer;
+	Examiner bart, lisa;
 	
-	StudentPeriod period;
-	StudentPeriod period2;
+	ExaminerPeriod period;
+	ExaminerPeriod period2;
 	
-	StudentAssignment assignment;
-	StudentDelivery delivery;
+	ExaminerAssignment assignment;
+	ExaminerDelivery delivery;
 		
 	@Before
 	public void setUp() throws NamingException, PathExistsException, UnauthorizedException, InvalidNameException, NoSuchObjectException {
 				
 		super.setUp();
 		
-		period = new StudentPeriod(inf1000Spring09, connection);
-		period2 = new StudentPeriod(inf1000Fall09, connection);
+		period = new ExaminerPeriod(inf1000Spring09, connection);
+		period2 = new ExaminerPeriod(inf1000Fall09, connection);
 				
-		assignment = new StudentAssignment(assignmentId, connection); 
+		assignment = new ExaminerAssignment(assignmentId, connection); 
 		
-		delivery = new StudentDelivery(deliveryId, connection);
+		delivery = new ExaminerDelivery(deliveryId, connection);
 		
 		// Create some test users
-		homer = new Student(homerId, connection);
-		bart = new Student(bartId, connection);
-		lisa = new Student(lisaId, connection);
+		homer = new Examiner(homerId, connection);
+		bart = new Examiner(bartId, connection);
+		lisa = new Examiner(lisaId, connection);
 	}
 	
-	@Test
-	public void createDeliveryCandidate() throws NamingException, NoSuchObjectException, UnauthorizedException {
-	
-		assertEquals(0, delivery.getDeliveryCandidates().size());
-		
-		StudentDeliveryCandidate candidate = delivery.createDeliveryCandidate();
-		
-		assertEquals(1, delivery.getDeliveryCandidates().size());
-		
-		List<StudentDeliveryCandidate> candidates = delivery.getDeliveryCandidates();
-		assertEquals(candidate.deliveryCandidateId, candidates.get(0).deliveryCandidateId);
-		
-	}
 	
 	@Test
 	public void getDeliveryCandidates() throws NoSuchObjectException, UnauthorizedException, NamingException, PathExistsException, InvalidNameException {
@@ -80,11 +67,11 @@ public abstract class StudentDeliveryCommonTest extends UserDeliveryCommonTest {
 		
 		long candidate2Id = deliveryCandidateBean.create(deliveryId);
 		
-		List<StudentDeliveryCandidate> candidates = delivery.getDeliveryCandidates();
+		List<ExaminerDeliveryCandidate> candidates = delivery.getDeliveryCandidates();
 				
 		assertEquals(2, candidates.size());
 		
-		for (StudentDeliveryCandidate c : candidates) {
+		for (ExaminerDeliveryCandidate c : candidates) {
 			long val = c.deliveryCandidateId;
 			assertTrue(val == candidateId || val == candidate2Id);
 		}
@@ -94,5 +81,10 @@ public abstract class StudentDeliveryCommonTest extends UserDeliveryCommonTest {
 	public void getStatus() throws NamingException {
 		deliveryBean.setStatus(deliveryId, 2);
 		assertEquals(2, delivery.getStatus());
+	}
+	
+	@Test
+	public void setStatus() throws NamingException {
+		// Ignored
 	}
 }
