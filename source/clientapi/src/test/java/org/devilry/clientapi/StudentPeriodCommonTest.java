@@ -70,7 +70,7 @@ public abstract class StudentPeriodCommonTest extends UserPeriodCommonTest {
 		assertEquals(2, assignments.size());
 		
 		for (StudentAssignment s : assignments) {
-			long val = s.getAssignmentId();
+			long val = s.assignmentId;
 			assertTrue(val == ass1 || val == ass2);
 		}
 	}

@@ -71,7 +71,7 @@ public abstract class ExaminerPeriodCommonTest extends UserPeriodCommonTest {
 		assertEquals(2, assignments.size());
 		
 		for (ExaminerAssignment s : assignments) {
-			long val = s.getAssignmentId();
+			long val = s.assignmentId;
 			assertTrue(val == ass1 || val == ass2);
 		}
 	}

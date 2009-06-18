@@ -11,34 +11,20 @@ import org.devilry.core.NodePath;
 import org.devilry.core.UnauthorizedException;
 
 
-public class StudentAssignment extends AbstractAssignment {
+public class StudentAssignment extends AbstractAssignment<StudentDelivery> {
 	
 	StudentAssignment(long assignmentId, DevilryConnection connection) {
 		super(assignmentId, connection);
 	}
 	
-	class StudentDeliveryIterator implements Iterable<StudentDelivery>, Iterator<StudentDelivery> {
-
-		Iterator<Long> deliveryIterator;
+	class StudentDeliveryIterator extends DeliveryIterator {
 		
 		StudentDeliveryIterator(List<Long> delivryIds) {
-			deliveryIterator = delivryIds.iterator();
+			super(delivryIds);
 		}
 		
-		public Iterator<StudentDelivery> iterator() {
-			return this;
-		}
-
-		public boolean hasNext() {
-			return deliveryIterator.hasNext();
-		}
-
 		public StudentDelivery next() {
 			return new StudentDelivery(deliveryIterator.next(), connection); 
-		}
-
-		public void remove() {
-			throw new UnsupportedOperationException();
 		}
 	}
 	
@@ -46,21 +32,5 @@ public class StudentAssignment extends AbstractAssignment {
 	Iterator<StudentDelivery> deliveries() throws NoSuchObjectException, UnauthorizedException, NamingException {
 		List<Long> ids = getAssignmentNodeBean().getDeliveries(assignmentId);
 		return new StudentDeliveryIterator(ids).iterator();
-	}
-	
-	public List<StudentDelivery> getDeliveries() throws NamingException, NoSuchObjectException, UnauthorizedException {
-		
-		LinkedList<StudentDelivery> deliveries = new LinkedList<StudentDelivery>();
-		
-		Iterator<StudentDelivery> iter = deliveries();
-				
-		while (iter.hasNext()) {
-			deliveries.add(iter.next());
-		}
-		return deliveries;
-	}
-	
-	public NodePath getPath() throws NamingException, NoSuchObjectException {
-		return getAssignmentNodeBean().getPath(assignmentId);
 	}
 }
