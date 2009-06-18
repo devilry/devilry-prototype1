@@ -31,8 +31,6 @@ public abstract class AuthorizeNodeCommonTest {
 		superId = superUser.create("Homer Simpson", "homr@stuff.org", "123");
 		superUser.setIsSuperAdmin(superId, true);
 		superUser.addIdentity(superId, "homer");
-		System.out.printf("******* s:%d,%s%n", superId, superUser
-				.getAuthenticatedIdentity());
 
 		userId = superUser.create("Marge Simpson", "marge@stuff.org", "123");
 		superUser.addIdentity(userId, "marge");
