@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.naming.NamingException;
 
+import org.devilry.core.NoSuchObjectException;
 import org.devilry.core.daointerfaces.AssignmentNodeCommon;
 import org.devilry.core.daointerfaces.AssignmentNodeLocal;
 import org.devilry.core.daointerfaces.AssignmentNodeRemote;
@@ -15,9 +16,7 @@ public abstract class AbstractAssignment {
 	
 	AssignmentNodeCommon assignment;
 	protected long assignmentId;
-	
-	Date deadline;
-	
+		
 	protected AbstractAssignment(long assignmentId, DevilryConnection connection) {
 		this.connection = connection;
 		this.assignmentId = assignmentId;
@@ -28,8 +27,8 @@ public abstract class AbstractAssignment {
 		return assignment == null ? assignment = connection.getAssignmentNode() : assignment;
 	}
 	
-	public Date getDeadline() {
-		return deadline;
+	public Date getDeadline() throws NoSuchObjectException, NamingException {
+		return getAssignmentNodeBean().getDeadline(assignmentId);
 	}
 	
 	public long getAssignmentId() {
