@@ -29,7 +29,7 @@ public class ExaminerAssignment extends AbstractAssignment<ExaminerDelivery> {
 	}
 		
 	Iterator<ExaminerDelivery> deliveries() throws NoSuchObjectException, UnauthorizedException, NamingException {
-		List<Long> ids = getAssignmentNodeBean().getDeliveries(assignmentId);
+		List<Long> ids = getDeliveryBean().getDeliveriesWhereIsExaminer();
 		return new ExaminerDeliveryIterator(ids).iterator();
 	}
 }
