@@ -18,7 +18,7 @@ public abstract class AuthorizeNodeCommonTest {
 	protected static CoreTestHelper superTestHelper;
 
 	/** The id of the users with the logged-in identity. */
-	private long userId, superId;
+	private long userId, userId2, superId;
 
 	private long uioId, matnatId;
 
@@ -31,11 +31,14 @@ public abstract class AuthorizeNodeCommonTest {
 		superId = superUser.create("Homer Simpson", "homr@stuff.org", "123");
 		superUser.setIsSuperAdmin(superId, true);
 		superUser.addIdentity(superId, "homer");
-		System.out.printf("******* s:%d,%s%n", superId,
-				superUser.getAuthenticatedIdentity());
+		System.out.printf("******* s:%d,%s%n", superId, superUser
+				.getAuthenticatedIdentity());
 
 		userId = superUser.create("Marge Simpson", "marge@stuff.org", "123");
 		superUser.addIdentity(userId, "marge");
+
+		userId2 = superUser.create("Bart Simpson", "bart@stuff.org", "123");
+		superUser.addIdentity(userId2, "bart");
 
 		uioId = superNode.create("uio", "UiO");
 		matnatId = superNode.create("matnat", "Matnat", uioId);
@@ -45,6 +48,45 @@ public abstract class AuthorizeNodeCommonTest {
 	public void tearDown() throws NamingException, NoSuchObjectException {
 		superTestHelper.clearUsersAndNodes();
 	}
+
+	/**
+	 * Test that none of the unprotected methods fails as a normal user on both
+	 * toplevel and normal nodes.
+	 */
+	@Test
+	public void noAuthMethods() throws Exception {
+		NodeCommon node = testHelper.getNodeCommon();
+		node.getName(uioId);
+		node.getName(matnatId);
+
+		node.getDisplayName(uioId);
+		node.getDisplayName(matnatId);
+
+		node.exists(uioId);
+		node.exists(matnatId);
+
+		node.getPath(uioId);
+		node.getPath(matnatId);
+
+		node.getNodesWhereIsAdmin();
+
+		node.isNodeAdmin(uioId);
+		node.isNodeAdmin(matnatId);
+
+		node.getParentNode(matnatId);
+
+		node.getChildNodes(uioId);
+		node.getChildNodes(matnatId);
+
+		node.getChildCourses(uioId);
+		node.getChildCourses(matnatId);
+	}
+
+	//
+	//
+	// setName()
+	//
+	//
 
 	/** Test that a SuperAdmin can set the name of a toplevel node. */
 	@Test
@@ -73,8 +115,12 @@ public abstract class AuthorizeNodeCommonTest {
 		superTestHelper.getNodeCommon().addNodeAdmin(matnatId, userId);
 		testHelper.getNodeCommon().setName(matnatId, "u");
 	}
-	
 
+	//
+	//
+	// setDisplayName()
+	//
+	//
 
 	/** Test that a SuperAdmin can set the diplayname of a toplevel node. */
 	@Test
@@ -83,10 +129,12 @@ public abstract class AuthorizeNodeCommonTest {
 		superTestHelper.getNodeCommon().setDisplayName(uioId, "u");
 	}
 
-	/** Test that not even an admin on a toplevel node cat set the the
-	 * displayname. */
+	/**
+	 * Test that not even an admin on a toplevel node cat set the the
+	 * displayname.
+	 */
 	@Test(expected = UnauthorizedException.class)
-	public void setToplevelNameUnauthorized() throws Exception {
+	public void setDisplayNameToplevelUnauthorized() throws Exception {
 		superTestHelper.getNodeCommon().addNodeAdmin(uioId, userId);
 		testHelper.getNodeCommon().setDisplayName(uioId, "u");
 	}
@@ -105,36 +153,111 @@ public abstract class AuthorizeNodeCommonTest {
 		testHelper.getNodeCommon().setDisplayName(matnatId, "u");
 	}
 
-
-
-	/** Test that none of the unprotected methods fails as a normal user
-	 * on both toplevel and normal nodes. */
+	//
+	//
+	// addNodeAdmin()
+	//
+	//
+	
+	/** Test that addNodeAdmin on toplevel node works when SuperAdmin. */
 	@Test
-	public void noAuthMethods() throws Exception {
-		NodeCommon node = testHelper.getNodeCommon();
-		node.getName(uioId);
-		node.getName(matnatId);
+	public void addNodeAdminTolpevel() throws Exception {
+		superTestHelper.getNodeCommon().addNodeAdmin(uioId, userId);
+	}
 
-		node.getDisplayName(uioId);
-		node.getDisplayName(matnatId);
+	/**
+	 * Test that addNodeAdmin on toplevel does not even work when admin on the
+	 * node.
+	 */
+	@Test(expected = UnauthorizedException.class)
+	public void addNodeAdminTolpevelUnauthorized() throws Exception {
+		superTestHelper.getNodeCommon().addNodeAdmin(uioId, userId);
+		testHelper.getNodeCommon().addNodeAdmin(uioId, userId);
+	}
 
-		node.exists(uioId);
-		node.exists(matnatId);
+	/** Test that addNodeAdmin works when admin on the parent-node. */
+	@Test
+	public void addNodeAdmin() throws Exception {
+		superTestHelper.getNodeCommon().addNodeAdmin(uioId, userId);
+		testHelper.getNodeCommon().addNodeAdmin(matnatId, userId2);
+	}
 
-		node.getPath(uioId);
-		node.getPath(matnatId);
+	/** Test that addNodeAdmin do not even work when admin on the node. */
+	@Test(expected = UnauthorizedException.class)
+	public void addNodeAdminUnauthorized() throws Exception {
+		superTestHelper.getNodeCommon().addNodeAdmin(matnatId, userId);
+		testHelper.getNodeCommon().addNodeAdmin(matnatId, userId2);
+	}
 
-		node.getNodesWhereIsAdmin();
+	//
+	//
+	// removeNodeAdmin()
+	//
+	//
+	
+	/** Test that removeNodeAdmin on toplevel node works when SuperAdmin. */
+	@Test
+	public void removeNodeAdminTolpevel() throws Exception {
+		superTestHelper.getNodeCommon().addNodeAdmin(uioId, userId);
+	}
 
-		node.isNodeAdmin(uioId);
-		node.isNodeAdmin(matnatId);
+	/**
+	 * Test that removeNodeAdmin on toplevel does not even work when admin on the
+	 * node.
+	 */
+	@Test(expected = UnauthorizedException.class)
+	public void removeNodeAdminTolpevelUnauthorized() throws Exception {
+		superTestHelper.getNodeCommon().addNodeAdmin(uioId, userId);
+		testHelper.getNodeCommon().removeNodeAdmin(uioId, userId);
+	}
 
-		node.getParentNode(matnatId);
+	/** Test that removeNodeAdmin works when admin on the parent-node. */
+	@Test
+	public void removeNodeAdmin() throws Exception {
+		superTestHelper.getNodeCommon().addNodeAdmin(uioId, userId);
+		testHelper.getNodeCommon().removeNodeAdmin(matnatId, userId2);
+	}
 
-		node.getChildNodes(uioId);
-		node.getChildNodes(matnatId);
+	/** Test that removeNodeAdmin do not even work when admin on the node. */
+	@Test(expected = UnauthorizedException.class)
+	public void removeNodeAdminUnauthorized() throws Exception {
+		superTestHelper.getNodeCommon().addNodeAdmin(matnatId, userId);
+		testHelper.getNodeCommon().removeNodeAdmin(matnatId, userId2);
+	}
 
-		node.getChildCourses(uioId);
-		node.getChildCourses(matnatId);
+	//
+	//
+	// getNodeAdmins()
+	//
+	//
+	
+	/** Test that getNodeAdmins on toplevel node works when SuperAdmin. */
+	@Test
+	public void getNodeAdminsTolpevel() throws Exception {
+		superTestHelper.getNodeCommon().getNodeAdmins(uioId);
+	}
+
+	/**
+	 * Test that getNodeAdmins on toplevel does not even work when admin on the
+	 * node.
+	 */
+	@Test(expected = UnauthorizedException.class)
+	public void getNodeAdminsTolpevelUnauthorized() throws Exception {
+		superTestHelper.getNodeCommon().addNodeAdmin(uioId, userId);
+		testHelper.getNodeCommon().getNodeAdmins(uioId);
+	}
+
+	/** Test that getNodeAdmins works when admin on the parent-node. */
+	@Test
+	public void getNodeAdmins() throws Exception {
+		superTestHelper.getNodeCommon().addNodeAdmin(uioId, userId);
+		testHelper.getNodeCommon().getNodeAdmins(matnatId);
+	}
+
+	/** Test that getNodeAdmins do not even work when admin on the node. */
+	@Test(expected = UnauthorizedException.class)
+	public void getNodeAdminsUnauthorized() throws Exception {
+		superTestHelper.getNodeCommon().addNodeAdmin(matnatId, userId);
+		testHelper.getNodeCommon().getNodeAdmins(matnatId);
 	}
 }

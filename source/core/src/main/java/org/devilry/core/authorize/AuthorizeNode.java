@@ -23,12 +23,6 @@ public class AuthorizeNode extends AuthorizeBaseNode {
 			"getChildnodes", "getChildcourses");
 
 	/**
-	 * Methods in NodeCommon where the authorized user must be admin on the node
-	 * given as first argument.
-	 */
-	private static final MethodNames nodeAdminMethods = new MethodNames();
-
-	/**
 	 * Methods in NodeCommon where the authorized user must be Admin on the
 	 * <em>parent-node</em> of the node given as first argument to be allowed
 	 * access.
@@ -78,12 +72,6 @@ public class AuthorizeNode extends AuthorizeBaseNode {
 					fullMethodName);
 		}
 
-		// Requires admin on given node?
-		else if (nodeAdminMethods.contains(methodName)
-				|| baseNodeAdminMethods.contains(methodName)) {
-			nodeAdminRequired(methodName, parameters);
-		}
-
 		// Requires parent node admin?
 		else if(parentNodeAdminMethods.contains(methodName)
 				|| baseNodeParentAdminMethods.contains(methodName)) {
@@ -97,18 +85,6 @@ public class AuthorizeNode extends AuthorizeBaseNode {
 					fullMethodName);
 		}
 
-	}
-	
-	
-	
-	private void nodeAdminRequired(String fullMethodName, Object[] parameters)
-			throws NoSuchObjectException, UnauthorizedException {
-		long nodeId = (Long) parameters[0];
-		if (!nodeBean.isNodeAdmin(nodeId)) {
-			throw new UnauthorizedException(String.format(
-					"Access to method '%s' requires Admin rights on " +
-					"node %d.", fullMethodName, nodeId));
-		}
 	}
 
 	private void parentNodeAdminRequired(String fullMethodName, Object[] parameters)

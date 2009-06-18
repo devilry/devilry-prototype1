@@ -25,7 +25,7 @@ public interface NodeCommon extends BaseNodeInterface {
 	 *             If there already exists another toplevel node with the given
 	 *             name.
 	 * @throws UnauthorizedException
-	 *             If the authenticated user is not SuperAdmin.
+	 *             If the authenticated user is not authorized for this method.
 	 * @throws InvalidNameException
 	 *             If the given name is not on the specified format.
 	 */
@@ -48,7 +48,7 @@ public interface NodeCommon extends BaseNodeInterface {
 	 *             If there already exists another node with the same name and
 	 *             parentId.
 	 * @throws UnauthorizedException
-	 *             If the authenticated user is not Admin on the parent node.
+	 *             If the authenticated user is not authorized for this method.
 	 * @throws InvalidNameException
 	 *             If the given name is not on the specified format.
 	 * @throws NoSuchObjectException
