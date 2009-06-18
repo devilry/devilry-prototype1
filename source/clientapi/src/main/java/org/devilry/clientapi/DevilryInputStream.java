@@ -12,7 +12,7 @@ public class DevilryInputStream extends AbstractDevilryFileStream {
 
 	FileDataBlockCommon fileDataBlock;
 	
-	DevilryInputStream(long fileMetaId, DevilryConnection connection) throws NamingException {
+	DevilryInputStream(long fileMetaId, DevilryConnection connection) {
 		super(fileMetaId, connection);
 	}
 
