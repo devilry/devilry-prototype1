@@ -15,6 +15,7 @@ import org.devilry.core.daointerfaces.AssignmentNodeCommon;
 import org.devilry.core.daointerfaces.AssignmentNodeLocal;
 import org.devilry.core.daointerfaces.AssignmentNodeRemote;
 import org.devilry.core.daointerfaces.CourseNodeLocal;
+import org.devilry.core.daointerfaces.DeliveryCommon;
 
 public abstract class AbstractAssignment<E extends AbstractDelivery> {
 
@@ -23,6 +24,8 @@ public abstract class AbstractAssignment<E extends AbstractDelivery> {
 	AssignmentNodeCommon assignment;
 	protected long assignmentId;
 		
+	DeliveryCommon delivery;
+	
 	protected AbstractAssignment(long assignmentId, DevilryConnection connection) {
 		this.connection = connection;
 		this.assignmentId = assignmentId;
@@ -30,6 +33,10 @@ public abstract class AbstractAssignment<E extends AbstractDelivery> {
 		
 	protected AssignmentNodeCommon getAssignmentNodeBean() throws NamingException {
 		return assignment == null ? assignment = connection.getAssignmentNode() : assignment;
+	}
+	
+	protected DeliveryCommon getDeliveryBean() throws NamingException {
+		return delivery == null ? delivery = connection.getDelivery() : delivery;
 	}
 	
 	public Date getDeadline() throws NoSuchObjectException, NamingException {
