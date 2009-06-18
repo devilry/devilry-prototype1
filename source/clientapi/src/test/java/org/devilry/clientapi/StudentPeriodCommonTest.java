@@ -8,6 +8,7 @@ import org.devilry.core.NoSuchUserException;
 import org.devilry.core.NodePath;
 import org.devilry.core.PathExistsException;
 import org.devilry.core.UnauthorizedException;
+import org.devilry.core.daointerfaces.AssignmentNodeCommon;
 import org.devilry.core.daointerfaces.CourseNodeCommon;
 import org.devilry.core.daointerfaces.NodeCommon;
 import org.devilry.core.daointerfaces.PeriodNodeCommon;
@@ -22,10 +23,12 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
 import java.util.List;
 
-public abstract class StudentCommonTest {
+public abstract class StudentPeriodCommonTest {
 		
 	protected static DevilryConnection connection;
 	
@@ -35,15 +38,19 @@ public abstract class StudentCommonTest {
 	protected long bartId;
 	protected long lisaId;
 	
-	protected NodeCommon node;
+	NodeCommon node;
 	CourseNodeCommon courseNode;
 	PeriodNodeCommon periodNode;
+	AssignmentNodeCommon assignmentNode;
 	
 	protected UserCommon userBean;
 	//protected long bartId, lisaId;
 
 	Student homer;
 	Student bart, lisa;
+	
+	StudentPeriod period;
+	StudentPeriod period2;
 	
 	ArrayList<String> names = new ArrayList<String>();
 	ArrayList<String> identity = new ArrayList<String>();
@@ -57,7 +64,8 @@ public abstract class StudentCommonTest {
 		courseNode = connection.getCourseNode();
 		userBean = connection.getUser();
 		periodNode = connection.getPeriodNode();
-				
+		assignmentNode = connection.getAssignmentNode();
+		
 		// Add users
 		names.add("Homer Simpson");
 		names.add("Bart Simpson");
@@ -97,7 +105,10 @@ public abstract class StudentCommonTest {
 		
 		inf1000Spring09 = periodNode.create("spring2009", "INF1000 spring2009", start.getTime(), end.getTime(), inf1000);
 		inf1000Fall09 = periodNode.create("fall2009", "INf1000 fall 2009", start.getTime(), end.getTime(), inf1000);
-			
+				
+		
+		period = new StudentPeriod(inf1000Spring09, connection);
+		period2 = new StudentPeriod(inf1000Fall09, connection);
 		
 		// Create some test users
 				
@@ -119,25 +130,34 @@ public abstract class StudentCommonTest {
 		}
 	}
 
-
 	@Test
-	public void getActivePeriods() {
-			//		inf1000
-		//public List getActivePeriods()
+	public void getPath() throws NoSuchObjectException, NamingException {
+		NodePath path = period.getPath();
+		
+		NodePath check = new NodePath(new String[]{"uio", "matnat", "ifi", "inf1000", "spring2009"});
+		assertTrue(path.equals(check));
 	}
 	
 	@Test
-	public void getPeriods() throws NamingException, NoSuchObjectException, UnauthorizedException, NoSuchUserException {
-	
-		List<StudentPeriod> periods;
+	public void getAssignments() throws NoSuchObjectException, UnauthorizedException, NamingException, PathExistsException, InvalidNameException {
+		// Collection<StudentAssignment> getAssignments()
 		
-		periodNode.addStudent(inf1000Spring09, homerId);
-		periods = homer.getPeriods();
-		assertEquals(1, periods.size());
+		// Add some assignments
 		
-		periodNode.addStudent(inf1000Fall09, homerId);
-		periods = homer.getPeriods();
-		assertEquals(2, periods.size());
+		assertEquals(0, period.getAssignments().size());
+		
+		Calendar deadline = new GregorianCalendar(2009, 00, 01, 10, 15);
+		
+		long ass1 = assignmentNode.create("oblig1", "Obligatory assignment 1", deadline.getTime(), inf1000Spring09);
+		long ass2 = assignmentNode.create("oblig2", "Obligatory assignment 2", deadline.getTime(), inf1000Spring09);
+				
+		Collection<StudentAssignment> assignments = period.getAssignments();
+		
+		assertEquals(2, assignments.size());
+		
+		for (StudentAssignment s : assignments) {
+			long val = s.getAssignmentId();
+			assertTrue(val == ass1 || val == ass2);
+		}
 	}
-	
 }

@@ -8,7 +8,9 @@ import org.devilry.core.NoSuchUserException;
 import org.devilry.core.NodePath;
 import org.devilry.core.PathExistsException;
 import org.devilry.core.UnauthorizedException;
+import org.devilry.core.daointerfaces.AssignmentNodeCommon;
 import org.devilry.core.daointerfaces.CourseNodeCommon;
+import org.devilry.core.daointerfaces.DeliveryCommon;
 import org.devilry.core.daointerfaces.NodeCommon;
 import org.devilry.core.daointerfaces.PeriodNodeCommon;
 import org.devilry.core.daointerfaces.UserCommon;
@@ -22,28 +24,39 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
 import java.util.List;
 
-public abstract class StudentCommonTest {
+public abstract class StudentAssignmentCommonTest {
 		
 	protected static DevilryConnection connection;
 	
 	protected long uioId, matnatId, ifiId, inf1000, inf1000Spring09, inf1000Fall09;
 	
+	long assignmentId;
+	
 	protected long homerId;
 	protected long bartId;
 	protected long lisaId;
 	
-	protected NodeCommon node;
+	UserCommon userBean;
+	NodeCommon node;
 	CourseNodeCommon courseNode;
 	PeriodNodeCommon periodNode;
+	AssignmentNodeCommon assignmentNode;
+	DeliveryCommon delivery;
 	
-	protected UserCommon userBean;
-	//protected long bartId, lisaId;
+	
 
 	Student homer;
 	Student bart, lisa;
+	
+	StudentPeriod period;
+	StudentPeriod period2;
+	
+	StudentAssignment assignment;
 	
 	ArrayList<String> names = new ArrayList<String>();
 	ArrayList<String> identity = new ArrayList<String>();
@@ -57,7 +70,9 @@ public abstract class StudentCommonTest {
 		courseNode = connection.getCourseNode();
 		userBean = connection.getUser();
 		periodNode = connection.getPeriodNode();
-				
+		assignmentNode = connection.getAssignmentNode();
+		delivery = connection.getDelivery();
+		
 		// Add users
 		names.add("Homer Simpson");
 		names.add("Bart Simpson");
@@ -97,8 +112,16 @@ public abstract class StudentCommonTest {
 		
 		inf1000Spring09 = periodNode.create("spring2009", "INF1000 spring2009", start.getTime(), end.getTime(), inf1000);
 		inf1000Fall09 = periodNode.create("fall2009", "INf1000 fall 2009", start.getTime(), end.getTime(), inf1000);
-			
+				
+		Calendar deadline = new GregorianCalendar(2009, 00, 01, 10, 15);
 		
+		assignmentId = assignmentNode.create("oblig1", "Obligatory assignment 1", deadline.getTime(), inf1000Spring09);
+		
+		period = new StudentPeriod(inf1000Spring09, connection);
+		period2 = new StudentPeriod(inf1000Fall09, connection);
+		
+		
+		assignment = new StudentAssignment(assignmentId, connection); 
 		// Create some test users
 				
 		homer = new Student(homerId, connection);
@@ -119,25 +142,37 @@ public abstract class StudentCommonTest {
 		}
 	}
 
-
 	@Test
-	public void getActivePeriods() {
-			//		inf1000
-		//public List getActivePeriods()
+	public void getPath() throws NoSuchObjectException, NamingException {
+		NodePath path = assignment.getPath();
+				
+		NodePath check = new NodePath(new String[]{"uio", "matnat", "ifi", "inf1000", "spring2009", "oblig1"});
+		assertTrue(path.equals(check));
 	}
 	
 	@Test
-	public void getPeriods() throws NamingException, NoSuchObjectException, UnauthorizedException, NoSuchUserException {
-	
-		List<StudentPeriod> periods;
+	public void getDeliveries() throws NoSuchObjectException, UnauthorizedException, NamingException, PathExistsException, InvalidNameException {
 		
-		periodNode.addStudent(inf1000Spring09, homerId);
-		periods = homer.getPeriods();
-		assertEquals(1, periods.size());
+		// Add some deliveries
 		
-		periodNode.addStudent(inf1000Fall09, homerId);
-		periods = homer.getPeriods();
-		assertEquals(2, periods.size());
+		assertEquals(0, assignment.getDeliveries().size());
+				
+		long deliveryId = delivery.create(assignmentId);
+		delivery.addStudent(deliveryId, homerId);
+		
+		assertEquals(1, assignment.getDeliveries().size());
+		assertEquals(deliveryId, assignment.getDeliveries().get(0).getDeliveryId());
+				
+		long delivery2Id = delivery.create(assignmentId);
+		delivery.addStudent(delivery2Id, homerId);
+		
+		List<StudentDelivery> deliveries = assignment.getDeliveries();
+		
+		assertEquals(2, deliveries.size());
+		
+		for (StudentDelivery d : deliveries) {
+			long val = d.getDeliveryId();
+			assertTrue(val == deliveryId || val == delivery2Id);
+		}
 	}
-	
 }
