@@ -1,6 +1,6 @@
 package org.devilry.clientapi;
 
-import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -28,22 +28,50 @@ public class StudentPeriod {
 		return periodNode == null ? periodNode = connection.getPeriodNode() : periodNode;
 	}
 	
-	public Collection<StudentAssignment> getAssignments() throws NamingException, NoSuchObjectException, UnauthorizedException {
-		
-		PeriodNodeCommon period = getPeriodBean();
 	
-		List<Long> ids = period.getAssignments(periodId);
+	
+	class StudentAssignmentIterator implements Iterable<StudentAssignment>, Iterator<StudentAssignment> {
+
+		Iterator<Long> assignmentIterator;
 		
-		List<StudentAssignment> studentAssignments = new LinkedList<StudentAssignment>();
-		StudentAssignment tmpAssignment;	
-		
-		for (long id : ids) {
-			tmpAssignment = new StudentAssignment(id, connection);
-			studentAssignments.add(tmpAssignment);
+		StudentAssignmentIterator(List<Long> ids) {
+			assignmentIterator = ids.iterator();
 		}
 		
-		return studentAssignments;
+		public Iterator<StudentAssignment> iterator() {
+			return this;
+		}
+
+		public boolean hasNext() {
+			return assignmentIterator.hasNext();
+		}
+
+		public StudentAssignment next() {
+			return new StudentAssignment(assignmentIterator.next(), connection); 
+		}
+
+		public void remove() {
+			throw new UnsupportedOperationException();
+		}
 	}
+	
+	Iterator<StudentAssignment> assignments() throws NoSuchObjectException, UnauthorizedException, NamingException {
+		List<Long> ids = getPeriodBean().getAssignments(periodId);
+		return new StudentAssignmentIterator(ids).iterator();
+	}
+	
+	
+	public List<StudentAssignment> getAssignments() throws NamingException, NoSuchObjectException, UnauthorizedException {
+				
+		LinkedList<StudentAssignment> assignmentList = new LinkedList<StudentAssignment>();
+		Iterator<StudentAssignment> iter = assignments();
+		
+		while (iter.hasNext()) {
+			assignmentList.add(iter.next());
+		}
+		return assignmentList;
+	}
+	
 	
 	public NodePath getPath() throws NamingException, NoSuchObjectException {
 		return getPeriodBean().getPath(periodId);
