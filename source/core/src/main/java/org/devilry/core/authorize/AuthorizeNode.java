@@ -1,8 +1,8 @@
 package org.devilry.core.authorize;
 
 import java.lang.reflect.Method;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ejb.EJB;
 import javax.interceptor.AroundInvoke;
@@ -15,12 +15,12 @@ import org.devilry.core.dao.NodeImpl;
 import org.devilry.core.daointerfaces.NodeLocal;
 
 public class AuthorizeNode extends AuthorizeBaseNode {
-	private final Logger log = Logger.getLogger(getClass().getName());
+	private final Logger log = LoggerFactory.getLogger(AuthorizeNode.class);
 
 	/** Methods in NodeCommon which do not require any authorization. */
 	private static final MethodNames noAuthRequiredMethods = new MethodNames(
 			"getNodesWhereIsAdmin", "isNodeAdmin", "getParentNode",
-			"getChildnodes", "getChildcourses");
+			"getChildNodes", "getChildCourses");
 
 	/**
 	 * Methods in NodeCommon where the authorized user must be Admin on the
@@ -38,11 +38,9 @@ public class AuthorizeNode extends AuthorizeBaseNode {
 	public Object authorize(InvocationContext invocationCtx) throws Exception {
 		long userId = userBean.getAuthenticatedUser();
 		if (userBean.isSuperAdmin(userId)) {
-			log.info(String.format("SuperAdmin %d granted access to: %s",
-					userId, invocationCtx.getMethod().getName()));
+			log.debug("SuperAdmin {} granted access to: {}",
+					userId, invocationCtx.getMethod().getName());
 		} else {
-			log.info(String.format("Authorizing user %d for access to: %s",
-					userId, invocationCtx.getMethod().getName()));
 			auth(invocationCtx);
 		}
 
@@ -68,8 +66,7 @@ public class AuthorizeNode extends AuthorizeBaseNode {
 		// No authorization required?
 		if (noAuthRequiredMethods.contains(methodName)
 				|| baseNodeNoAuthRequiredMethods.contains(methodName)) {
-			log.finest("No authorization required for method: " + 
-					fullMethodName);
+			log.debug("No authorization required for method: {}", fullMethodName);
 		}
 
 		// Requires parent node admin?
@@ -81,7 +78,7 @@ public class AuthorizeNode extends AuthorizeBaseNode {
 		// If the method has not yet been handled, and it is not among
 		// the methods which requires no authorization: deny access.
 		else {
-			log.warning("No authorization rule set for method: " + 
+			log.error("No authorization rule set for method: {}", 
 					fullMethodName);
 		}
 
@@ -97,9 +94,8 @@ public class AuthorizeNode extends AuthorizeBaseNode {
 				throw new UnauthorizedException(String.format(
 						"Access to method %s requires Admin rights on the " +
 						"parent-node.", fullMethodName));
-			} else if(log.getLevel() == Level.FINEST) {
-				log.finest(String.format("Access to method %s granted",
-						fullMethodName));
+			} else {
+				log.debug("Access to method {} granted", fullMethodName);
 			} 
 		} catch (NoSuchObjectException e) {
 			throw new UnauthorizedException(String.format(

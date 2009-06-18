@@ -5,10 +5,17 @@ import javax.ejb.Local;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.naming.NamingException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
+import org.devilry.core.authorize.AuthorizeNode;
 import org.junit.Test;
 
 public  class EjbExampleTest {
 
+	private final static Logger log = LoggerFactory.getLogger(AuthorizeNode.class);
+	
 	@Test
 	public void hmm() throws NamingException {
 		EjbTestHelper a = new EjbTestHelper("homer", "doh");
@@ -39,7 +46,7 @@ public  class EjbExampleTest {
 		}
 
 		public void tst() {
-			System.out.println("########## " + sessionCtx.getCallerPrincipal());
+			log.info("Authenticated user: {}", sessionCtx.getCallerPrincipal());
 		}
 	}
 }
