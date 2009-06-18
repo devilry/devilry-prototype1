@@ -10,8 +10,6 @@ import org.devilry.core.daointerfaces.DeliveryCandidateLocal;
 import org.devilry.core.daointerfaces.DeliveryCandidateRemote;
 
 public class AbstractDeliveryCandidate {
-
-	int fileCount = 0;
 	
 	DeliveryCandidateCommon deliveryCandidate;
 	protected long deliveryCandidateId;
@@ -23,24 +21,21 @@ public class AbstractDeliveryCandidate {
 		this.connection = connection;
 	}
 	
-	protected DeliveryCandidateCommon getDeliveryBean() throws NamingException {
+	protected DeliveryCandidateCommon getDeliveryCandidateBean() throws NamingException {
 		return deliveryCandidate == null ? deliveryCandidate = connection.getDeliveryCandidate() : deliveryCandidate;
 	}
 	
-	public List<AbstractDeliveryCandidate> getDeliveryFiles() {
-		return null;
-	}
 		
-	public int status() {
-		return 0;
+	public int getStatus() throws NamingException {
+		return getDeliveryCandidateBean().getStatus(deliveryCandidateId);
 	}
 	
 	public Date getTimeOfDelivery() {
 		return deliveryCandidate.getTimeOfDelivery(deliveryCandidateId);
 	}
 	
-	public int getFileCount() {
-		return fileCount;
+	public int getFileCount() throws NamingException {
+		return getDeliveryCandidateBean().getFiles(deliveryCandidateId).size();
 	}
 	
 }
