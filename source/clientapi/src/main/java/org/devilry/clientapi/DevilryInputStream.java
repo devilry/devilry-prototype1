@@ -12,18 +12,18 @@ public class DevilryInputStream extends AbstractDevilryFileStream {
 
 	FileDataBlockCommon fileDataBlock;
 	
-	DevilryInputStream(long fileMetaId, DevilryConnection connection) {
+	DevilryInputStream(long fileMetaId, DevilryConnection connection) throws NamingException {
 		super(fileMetaId, connection);
 	}
 
 	private FileDataBlockCommon getFileDataBlockBean() throws NamingException {
 		return fileDataBlock == null ? fileDataBlock = connection.getFileDataBlock() : fileDataBlock;
 	}
-		
+	
 	
 	Iterator<Long> fileBlockIterator = null;
 	
-	Iterator<Long> getFileBlockIterator() throws NamingException {
+	private Iterator<Long> getFileBlockIterator() throws NamingException {
 		
 		if (fileBlockIterator != null)
 			return fileBlockIterator;
@@ -34,8 +34,10 @@ public class DevilryInputStream extends AbstractDevilryFileStream {
 	
 	public byte [] read() throws NamingException {
 		
-		if (!getFileBlockIterator().hasNext())
+		if (!getFileBlockIterator().hasNext()) {
+			fileBlockIterator = null;
 			return null;
+		}
 
 		long fileDataBlockId = getFileBlockIterator().next();
 		
