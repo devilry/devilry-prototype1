@@ -44,34 +44,6 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 		return q.getResultList();
 	}
 
-//	@SuppressWarnings("unchecked")
-//	public List<Long> getDeliveriesWhereIsStudent(long assignmentId) {
-//		long userId = userBean.getAuthenticatedUser();
-//
-//		Query q = em
-//				.createQuery("SELECT d.id FROM Delivery d INNER JOIN d.students user WHERE user.id = :userId AND d.assignment.id =:assignmentId");
-//		q.setParameter("assignmentId", assignmentId);
-//		q.setParameter("userId", userId);
-//
-//		return q.getResultList();
-//	}
-//
-//	@SuppressWarnings("unchecked")
-//	public List<Long> getDeliveriesWhereIsExaminer(long assignmentId) {
-//		long userId = userBean.getAuthenticatedUser();
-//
-//		Query q = em
-//				.createQuery("SELECT d.id FROM Delivery d INNER JOIN d.examiners user WHERE user.id = :userId AND d.assignment.id =:assignmentId");
-//		q.setParameter("assignmentId", assignmentId);
-//		q.setParameter("userId", userId);
-//
-//		return q.getResultList();
-//	}
-
-	public List<Long> getChildren(long nodeId) {
-		throw new UnsupportedOperationException(
-				"AssignmentNode does not have any children. Did you mean getDeliveries?");
-	}
 
 	public Date getDeadline(long nodeId) {
 		return getAssignmentNode(nodeId).getDeadline();
@@ -202,7 +174,9 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 			return -1;
 		} 
 		
-		q = em.createQuery("SELECT n FROM AssignmentNode n WHERE n.name=:name AND n.course IS NOT NULL AND n.period.id=:parentId");
+		q = em.createQuery("SELECT n FROM AssignmentNode n " +
+				"WHERE n.name=:name AND n.course IS NOT NULL " +
+				"AND n.period.id=:parentId");
 		q.setParameter("name", name);
 		q.setParameter("parentId", parentId);
 
