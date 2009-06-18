@@ -30,7 +30,7 @@ public class StudentAssignment extends AbstractAssignment<StudentDelivery> {
 	
 	
 	Iterator<StudentDelivery> deliveries() throws NoSuchObjectException, UnauthorizedException, NamingException {
-		List<Long> ids = getAssignmentNodeBean().getDeliveries(assignmentId);
+		List<Long> ids = getDeliveryBean().getDeliveriesWhereIsStudent();
 		return new StudentDeliveryIterator(ids).iterator();
 	}
 }
