@@ -77,14 +77,14 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 		return q.getResultList();
 	}
 
-	public List<Long> getChildnodes(long nodeId) {
+	public List<Long> getChildNodes(long nodeId) {
 		Query q = em.createQuery("SELECT n.id FROM Node n "
 				+ "WHERE n.parent IS NOT NULL AND n.parent.id = :parentId");
 		q.setParameter("parentId", nodeId);
 		return q.getResultList();
 	}
 
-	public List<Long> getChildcourses(long nodeId) {
+	public List<Long> getChildCourses(long nodeId) {
 		Query q = em.createQuery("SELECT c.id FROM CourseNode c "
 				+ "WHERE c.parent.id = :parentId");
 		q.setParameter("parentId", nodeId);
@@ -94,13 +94,13 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void remove(long nodeId) throws NoSuchObjectException {
 		// Remove childnodes
-		List<Long> childNodes = getChildnodes(nodeId);
+		List<Long> childNodes = getChildNodes(nodeId);
 		for (Long childNodeId : childNodes) {
 			remove(childNodeId);
 		}
 
 		// Remove child-courses
-		List<Long> childCourses = getChildcourses(nodeId);
+		List<Long> childCourses = getChildCourses(nodeId);
 		for (Long courseId : childCourses) {
 			courseBean.remove(courseId);
 		}

@@ -84,7 +84,7 @@ public interface NodeCommon extends BaseNodeInterface {
 	 * @throws NoSuchObjectException
 	 *             If no node with the given id exists.
 	 */
-	List<Long> getChildnodes(long nodeId) throws UnauthorizedException,
+	List<Long> getChildNodes(long nodeId) throws UnauthorizedException,
 			NoSuchObjectException;
 
 	/**
@@ -99,7 +99,7 @@ public interface NodeCommon extends BaseNodeInterface {
 	 * @throws NoSuchObjectException
 	 *             If no node with the given id exists.
 	 */
-	List<Long> getChildcourses(long nodeId) throws UnauthorizedException,
+	List<Long> getChildCourses(long nodeId) throws UnauthorizedException,
 			NoSuchObjectException;
 
 	/**

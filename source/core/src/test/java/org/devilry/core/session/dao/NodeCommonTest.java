@@ -168,12 +168,12 @@ public abstract class NodeCommonTest {
 		long uioId = node.create("uio", "UiO");
 		long matnatId = node.create("matnat", "Mat...", uioId);
 
-		List<Long> children = node.getChildnodes(uioId);
+		List<Long> children = node.getChildNodes(uioId);
 		assertEquals(1, children.size());
 		assertEquals(matnatId, (long) children.get(0));
 
 		node.create("hf", "Huma....", uioId);
-		assertEquals(2, node.getChildnodes(uioId).size());
+		assertEquals(2, node.getChildNodes(uioId).size());
 	}
 
 	@Test
@@ -184,12 +184,12 @@ public abstract class NodeCommonTest {
 		long uioId = node.create("uio", "UiO");
 		long exphilId = course.create("exphil", "Exphil", uioId);
 
-		List<Long> children = node.getChildcourses(uioId);
+		List<Long> children = node.getChildCourses(uioId);
 		assertEquals(1, children.size());
 		assertEquals(exphilId, (long) children.get(0));
 
 		course.create("a", "Aaaaa", uioId);
-		assertEquals(2, node.getChildcourses(uioId).size());
+		assertEquals(2, node.getChildCourses(uioId).size());
 
 	}
 
