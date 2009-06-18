@@ -43,8 +43,8 @@ public abstract class StudentAssignmentCommonTest extends UserAssignmentCommonTe
 		period2 = new StudentPeriod(inf1000Fall09, connection);
 				
 		assignment = new StudentAssignment(assignmentId, connection); 
+		
 		// Create some test users
-				
 		homer = new Student(homerId, connection);
 		bart = new Student(bartId, connection);
 		lisa = new Student(lisaId, connection);
@@ -60,13 +60,14 @@ public abstract class StudentAssignmentCommonTest extends UserAssignmentCommonTe
 	
 	@Test
 	public void getDeliveries() throws NoSuchObjectException, UnauthorizedException, NamingException, PathExistsException, InvalidNameException {
-		
-		// Add some deliveries
-		
+				
 		assertEquals(0, assignment.getDeliveries().size());
 				
 		long deliveryId = delivery.create(assignmentId);
 		delivery.addStudent(deliveryId, homerId);
+		
+		// Not connected to student
+		long infantDelivery = delivery.create(assignmentId);
 		
 		assertEquals(1, assignment.getDeliveries().size());
 		assertEquals(deliveryId, assignment.getDeliveries().get(0).deliveryId);
