@@ -1,17 +1,12 @@
 package org.devilry.core.authorize;
 
-import java.lang.reflect.Method;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.ejb.EJB;
-import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
 
 import org.devilry.core.InvalidUsageException;
 import org.devilry.core.NoSuchObjectException;
 import org.devilry.core.UnauthorizedException;
-import org.devilry.core.dao.NodeImpl;
 import org.devilry.core.daointerfaces.NodeLocal;
 
 public class AuthorizeNode extends AuthorizeBaseNode {
@@ -32,27 +27,25 @@ public class AuthorizeNode extends AuthorizeBaseNode {
 
 	@EJB
 	private NodeLocal node;
+	
+	
+	private static final String parentAdminRightsErrmsg =
+			"Access to method %s requires Admin rights on the parent-node";
 
-	protected void auth(InvocationContext invocationCtx)
+	private static final String noParentNodeErrmsg =
+			"Access to method %s requires Admin rights on the parent-node, " +
+			"and the given node, %d, does not have a parent-node.";
+	
+	protected void auth(InvocationContext invocationCtx,
+			String methodName, String fullMethodName, Object[] parameters)
 			throws InvalidUsageException, UnauthorizedException,
 			NoSuchObjectException {
-		Class<?> targetClass = invocationCtx.getTarget().getClass();
-		if (targetClass != NodeImpl.class) {
-			throw new InvalidUsageException("The " + getClass().getName()
-					+ " interceptor can only be used on "
-					+ NodeImpl.class.getName());
-		}
-
-		Method targetMethod = invocationCtx.getMethod();
-		String fullMethodName = targetClass.getName() + "."
-				+ targetMethod.getName();
-		Object[] parameters = invocationCtx.getParameters();
-		String methodName = targetMethod.getName();
 
 		// No authorization required?
 		if (noAuthRequiredMethods.contains(methodName)
 				|| baseNodeNoAuthRequiredMethods.contains(methodName)) {
-			log.debug("No authorization required for method: {}", fullMethodName);
+			log.debug("No authorization required for method: {}",
+					fullMethodName);
 		}
 
 		// Requires parent node admin?
@@ -61,13 +54,24 @@ public class AuthorizeNode extends AuthorizeBaseNode {
 			parentNodeAdminRequired(fullMethodName, parameters);
 		}
 		
+		// create() allowed?
+		else if(methodName.equals("create")) {
+			if(parameters.length == 3) {
+				authCreate(fullMethodName, parameters);
+			} else {
+				throw new UnauthorizedException(String.format(
+					"The %s with no parentId is only accessable by " +
+					"SuperAdmin.", fullMethodName));
+			}
+		}
+
 		// If the method has not yet been handled, and it is not among
 		// the methods which requires no authorization: deny access.
 		else {
-			log.error("No authorization rule set for method: {}", 
-					fullMethodName);
+			throw new UnauthorizedException(
+					"No authorization rule set for non-SuperAdmin users " +
+					"on method: " + fullMethodName);
 		}
-
 	}
 
 	/** Check that the authorized user is admin on the parent-node
@@ -81,16 +85,12 @@ public class AuthorizeNode extends AuthorizeBaseNode {
 			long parentId = node.getParentNode(nodeId);
 			if (!node.isNodeAdmin(parentId)) {
 				throw new UnauthorizedException(String.format(
-						"Access to method %s requires Admin rights on the " +
-						"parent-node.", fullMethodName));
+						parentAdminRightsErrmsg, fullMethodName));
 			} else {
-				log.debug("Access to method {} granted", fullMethodName);
 			} 
 		} catch (NoSuchObjectException e) {
 			throw new UnauthorizedException(String.format(
-					"Access to method %s requires Admin rights on " +
-					"the parent-node, and the given node, %d, does " +
-					"not have a parent-node.", fullMethodName, nodeId));
+					noParentNodeErrmsg, fullMethodName, nodeId));
 		}
 	}
 	
@@ -102,14 +102,11 @@ public class AuthorizeNode extends AuthorizeBaseNode {
 		try {
 			if(!node.isNodeAdmin(parentId)) {
 				throw new UnauthorizedException(String.format(
-						"Access to method %s requires Admin rights on the " +
-						"parent-node.", fullMethodName));				
+						parentAdminRightsErrmsg, fullMethodName));				
 			}
 		} catch (NoSuchObjectException e) {
 			throw new UnauthorizedException(String.format(
-					"Access to method %s requires Admin rights on " +
-					"the parent-node, and the given node, %d, does " +
-					"not have a parent-node.", fullMethodName, parentId));
+					noParentNodeErrmsg, fullMethodName, parentId));
 		}
 	}
 }
