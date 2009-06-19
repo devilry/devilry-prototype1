@@ -60,7 +60,7 @@ public class AuthorizeNode extends AuthorizeBaseNode {
 				authCreate(fullMethodName, parameters);
 			} else {
 				throw new UnauthorizedException(String.format(
-					"The %s with no parentId is only accessable by " +
+					"The %s method with no parentId is only accessable by " +
 					"SuperAdmin.", fullMethodName));
 			}
 		}
