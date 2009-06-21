@@ -154,7 +154,7 @@ public class UserImpl implements UserRemote, UserLocal {
 	}
 
 	public boolean isSuperAdmin(long userId) {
-		return getUser(userId).isIsSuperAdmin();
+		return getUser(userId).isSuperAdmin();
 	}
 
 	public List<Long> getSuperAdmins() {

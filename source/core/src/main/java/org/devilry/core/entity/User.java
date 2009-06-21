@@ -43,7 +43,7 @@ public class User implements Serializable {
 		this.name = name;
 	}
 
-	public boolean isIsSuperAdmin() {
+	public boolean isSuperAdmin() {
 		return isSuperAdmin;
 	}
 
