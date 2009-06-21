@@ -94,6 +94,7 @@ public abstract class DevilryFileStreamCommonTest {
 				
 		homerId = userBean.create(names.get(0), emails.get(0), phoneNumbers.get(0));
 		userBean.addIdentity(homerId, identity.get(0));
+		userBean.setIsSuperAdmin(homerId, true);
 		
 		bartId = userBean.create(names.get(1), emails.get(1), phoneNumbers.get(1));
 		userBean.addIdentity(bartId, identity.get(1));
@@ -143,7 +144,7 @@ public abstract class DevilryFileStreamCommonTest {
 		
 
 	@After
-	public void tearDown() throws NamingException, NoSuchObjectException {
+	public void tearDown() throws NamingException, NoSuchObjectException, UnauthorizedException {
 						
 		for(long nodeId: node.getToplevelNodes()) {
 			node.remove(nodeId);

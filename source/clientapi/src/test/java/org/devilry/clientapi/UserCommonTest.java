@@ -4,26 +4,18 @@ import javax.naming.*;
 
 import org.devilry.core.InvalidNameException;
 import org.devilry.core.NoSuchObjectException;
-import org.devilry.core.NoSuchUserException;
-import org.devilry.core.NodePath;
 import org.devilry.core.PathExistsException;
 import org.devilry.core.UnauthorizedException;
 import org.devilry.core.daointerfaces.CourseNodeCommon;
 import org.devilry.core.daointerfaces.NodeCommon;
 import org.devilry.core.daointerfaces.PeriodNodeCommon;
 import org.devilry.core.daointerfaces.UserCommon;
-import org.devilry.core.testhelpers.CoreTestHelper;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
-import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 public abstract class UserCommonTest {
 		
@@ -74,6 +66,7 @@ public abstract class UserCommonTest {
 				
 		homerId = userBean.create(names.get(0), emails.get(0), phoneNumbers.get(0));
 		userBean.addIdentity(homerId, identity.get(0));
+		userBean.setIsSuperAdmin(homerId, true);
 		
 		bartId = userBean.create(names.get(1), emails.get(1), phoneNumbers.get(1));
 		userBean.addIdentity(bartId, identity.get(1));
@@ -99,7 +92,7 @@ public abstract class UserCommonTest {
 		
 
 	@After
-	public void tearDown() throws NamingException, NoSuchObjectException {
+	public void tearDown() throws NamingException, NoSuchObjectException, UnauthorizedException {
 						
 		for(long nodeId: node.getToplevelNodes()) {
 			node.remove(nodeId);

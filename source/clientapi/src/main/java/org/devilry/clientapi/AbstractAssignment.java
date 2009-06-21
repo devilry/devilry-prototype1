@@ -7,17 +7,13 @@ import java.util.List;
 
 import javax.naming.NamingException;
 
-import org.devilry.clientapi.StudentAssignment.StudentDeliveryIterator;
 import org.devilry.core.NoSuchObjectException;
 import org.devilry.core.NodePath;
 import org.devilry.core.UnauthorizedException;
 import org.devilry.core.daointerfaces.AssignmentNodeCommon;
-import org.devilry.core.daointerfaces.AssignmentNodeLocal;
-import org.devilry.core.daointerfaces.AssignmentNodeRemote;
-import org.devilry.core.daointerfaces.CourseNodeLocal;
 import org.devilry.core.daointerfaces.DeliveryCommon;
 
-public abstract class AbstractAssignment<E extends AbstractDelivery> {
+public abstract class AbstractAssignment<E extends AbstractDelivery<?>> {
 
 	protected DevilryConnection connection;
 	

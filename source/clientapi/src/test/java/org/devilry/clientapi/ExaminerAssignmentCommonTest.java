@@ -4,24 +4,13 @@ import javax.naming.*;
 
 import org.devilry.core.InvalidNameException;
 import org.devilry.core.NoSuchObjectException;
-import org.devilry.core.NoSuchUserException;
 import org.devilry.core.NodePath;
 import org.devilry.core.PathExistsException;
 import org.devilry.core.UnauthorizedException;
-import org.devilry.core.daointerfaces.AssignmentNodeCommon;
-import org.devilry.core.daointerfaces.CourseNodeCommon;
-import org.devilry.core.daointerfaces.DeliveryCommon;
-import org.devilry.core.daointerfaces.NodeCommon;
-import org.devilry.core.daointerfaces.PeriodNodeCommon;
-import org.devilry.core.daointerfaces.UserCommon;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 public abstract class ExaminerAssignmentCommonTest extends UserAssignmentCommonTest {
@@ -69,7 +58,7 @@ public abstract class ExaminerAssignmentCommonTest extends UserAssignmentCommonT
 		delivery.addExaminer(deliveryId, homerId);
 		
 		// Not connected to examiner
-		long infantDelivery = delivery.create(assignmentId);
+		delivery.create(assignmentId);
 		
 		assertEquals(1, assignment.getDeliveries().size());
 		assertEquals(deliveryId, assignment.getDeliveries().get(0).deliveryId);

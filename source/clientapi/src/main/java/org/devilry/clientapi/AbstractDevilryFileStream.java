@@ -2,9 +2,7 @@ package org.devilry.clientapi;
 
 import javax.naming.NamingException;
 
-import org.devilry.core.daointerfaces.DeliveryCandidateLocal;
 import org.devilry.core.daointerfaces.FileMetaCommon;
-import org.devilry.core.daointerfaces.FileMetaLocal;
 
 public abstract class AbstractDevilryFileStream {
 	

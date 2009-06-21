@@ -1,5 +1,6 @@
 package org.devilry.clientapi;
 
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,7 +13,7 @@ import org.devilry.core.UnauthorizedException;
 import org.devilry.core.daointerfaces.PeriodNodeCommon;
 
 
-public abstract class AbstractPeriod<E extends AbstractAssignment> {
+public abstract class AbstractPeriod<E extends AbstractAssignment<?>> {
 
 	DevilryConnection connection;
 	
@@ -74,5 +75,22 @@ public abstract class AbstractPeriod<E extends AbstractAssignment> {
 	public NodePath getPath() throws NamingException, NoSuchObjectException {
 		return getPeriodBean().getPath(periodId);
 	}
+
+	public String getPeriodName() throws NoSuchObjectException, NamingException {
+		return getPeriodBean().getName(periodId);
+	}
 	
+	public String getPeriodDisplayName() throws NoSuchObjectException, NamingException {
+		return getPeriodBean().getDisplayName(periodId);
+	}	
+	
+	public Date getPeriodStartDate() throws UnauthorizedException, NoSuchObjectException, NamingException {
+		return getPeriodBean().getStartDate(periodId);
+	}
+	
+	public Date getPeriodEndDate() throws UnauthorizedException, NoSuchObjectException, NamingException {
+		return getPeriodBean().getEndDate(periodId);
+	}
 }
+
+

@@ -1,15 +1,12 @@
 package org.devilry.clientapi;
 
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.naming.NamingException;
 
 import org.devilry.core.NoSuchObjectException;
-import org.devilry.core.NodePath;
 import org.devilry.core.UnauthorizedException;
-import org.devilry.core.daointerfaces.PeriodNodeCommon;
 
 
 public class StudentPeriod extends AbstractPeriod<StudentAssignment> {

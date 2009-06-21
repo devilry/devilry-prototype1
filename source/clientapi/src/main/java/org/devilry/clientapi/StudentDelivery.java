@@ -1,16 +1,13 @@
 package org.devilry.clientapi;
 
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.naming.NamingException;
 
 import org.devilry.core.NoSuchObjectException;
 import org.devilry.core.UnauthorizedException;
-import org.devilry.core.daointerfaces.AssignmentNodeCommon;
 import org.devilry.core.daointerfaces.DeliveryCandidateCommon;
-import org.devilry.core.daointerfaces.DeliveryCommon;
 
 public class StudentDelivery extends AbstractDelivery<StudentDeliveryCandidate> {
 	
@@ -40,7 +37,7 @@ public class StudentDelivery extends AbstractDelivery<StudentDeliveryCandidate> 
 		}
 	}
 		
-	Iterator<StudentDeliveryCandidate> candidates() throws NoSuchObjectException, UnauthorizedException, NamingException {
+	Iterator<StudentDeliveryCandidate> deliveryCandidates() throws NoSuchObjectException, UnauthorizedException, NamingException {
 		List<Long> candidates = getDeliveryBean().getDeliveryCandidates(deliveryId);
 		return new StudentDeliveryCandidateIterator(candidates).iterator();
 	}

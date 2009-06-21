@@ -3,7 +3,6 @@ package org.devilry.clientapi;
 import javax.naming.NamingException;
 
 import org.devilry.core.daointerfaces.FileDataBlockCommon;
-import org.devilry.core.daointerfaces.FileMetaCommon;
 
 public class DevilryOutputStream extends AbstractDevilryFileStream {
 

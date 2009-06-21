@@ -6,9 +6,7 @@ import org.devilry.core.InvalidNameException;
 import org.devilry.core.NoSuchObjectException;
 import org.devilry.core.PathExistsException;
 import org.devilry.core.UnauthorizedException;
-import org.devilry.core.daointerfaces.AssignmentNodeCommon;
 import org.devilry.core.daointerfaces.CourseNodeCommon;
-import org.devilry.core.daointerfaces.DeliveryCommon;
 import org.devilry.core.daointerfaces.NodeCommon;
 import org.devilry.core.daointerfaces.PeriodNodeCommon;
 import org.devilry.core.daointerfaces.UserCommon;
@@ -19,26 +17,22 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public abstract class UserAssignmentCommonTest {
+public abstract class SuperAdminCommonTest {
 		
 	protected static DevilryConnection connection;
 	
 	protected long uioId, matnatId, ifiId, inf1000, inf1000Spring09, inf1000Fall09;
 	
-	long assignmentId;
-	
 	protected long homerId;
 	protected long bartId;
 	protected long lisaId;
 	
-	UserCommon userBean;
-	NodeCommon node;
+	protected NodeCommon node;
 	CourseNodeCommon courseNode;
 	PeriodNodeCommon periodNode;
-	AssignmentNodeCommon assignmentNode;
-	DeliveryCommon delivery;
-		
-	Calendar assignmentDeadline;
+	
+	protected UserCommon userBean;
+
 	
 	ArrayList<String> names = new ArrayList<String>();
 	ArrayList<String> identity = new ArrayList<String>();
@@ -52,9 +46,7 @@ public abstract class UserAssignmentCommonTest {
 		courseNode = connection.getCourseNode();
 		userBean = connection.getUser();
 		periodNode = connection.getPeriodNode();
-		assignmentNode = connection.getAssignmentNode();
-		delivery = connection.getDelivery();
-		
+				
 		// Add users
 		names.add("Homer Simpson");
 		names.add("Bart Simpson");
@@ -95,10 +87,7 @@ public abstract class UserAssignmentCommonTest {
 		
 		inf1000Spring09 = periodNode.create("spring2009", "INF1000 spring2009", start.getTime(), end.getTime(), inf1000);
 		inf1000Fall09 = periodNode.create("fall2009", "INf1000 fall 2009", start.getTime(), end.getTime(), inf1000);
-				
-		assignmentDeadline = new GregorianCalendar(2009, 00, 01, 10, 15);
 		
-		assignmentId = assignmentNode.create("oblig1", "Obligatory assignment 1", assignmentDeadline.getTime(), inf1000Spring09);
 	}
 		
 
@@ -113,5 +102,4 @@ public abstract class UserAssignmentCommonTest {
 			userBean.remove(userId);
 		}
 	}
-
 }

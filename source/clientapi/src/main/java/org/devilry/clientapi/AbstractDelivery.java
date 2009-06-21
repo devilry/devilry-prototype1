@@ -6,13 +6,9 @@ import java.util.List;
 
 import javax.naming.NamingException;
 
-import org.devilry.clientapi.StudentDelivery.StudentDeliveryCandidateIterator;
 import org.devilry.core.NoSuchObjectException;
 import org.devilry.core.UnauthorizedException;
-import org.devilry.core.daointerfaces.AssignmentNodeRemote;
 import org.devilry.core.daointerfaces.DeliveryCommon;
-import org.devilry.core.daointerfaces.DeliveryLocal;
-import org.devilry.core.daointerfaces.DeliveryRemote;
 
 public abstract class AbstractDelivery<E extends AbstractDeliveryCandidate> {
 
@@ -60,12 +56,12 @@ public abstract class AbstractDelivery<E extends AbstractDeliveryCandidate> {
 		}
 	}
 	
-	abstract Iterator<E> candidates() throws NoSuchObjectException, UnauthorizedException, NamingException;
+	abstract Iterator<E> deliveryCandidates() throws NoSuchObjectException, UnauthorizedException, NamingException;
 	
 	public List<E> getDeliveryCandidates() throws NamingException, NoSuchObjectException, UnauthorizedException {
 				
 		LinkedList<E> candidateList = new LinkedList<E>();
-		Iterator<E> iter = candidates();
+		Iterator<E> iter = deliveryCandidates();
 		
 		while (iter.hasNext()) {
 			candidateList.add(iter.next());

@@ -12,30 +12,30 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
-public abstract class StudentDeliveryCandidateCommonTest extends UserDeliveryCandidateCommonTest {
+public abstract class AdminDeliveryCandidateCommonTest extends UserDeliveryCandidateCommonTest {
 			
 	Student homer;
 	Student bart, lisa;
 	
-	StudentPeriod period;
-	StudentPeriod period2;
+	AdminPeriod period;
+	AdminPeriod period2;
 	
-	StudentAssignment assignment;
-	StudentDelivery delivery;
-	StudentDeliveryCandidate deliveryCandidate;
+	AdminAssignment assignment;
+	AdminDelivery delivery;
+	AdminDeliveryCandidate deliveryCandidate;
 	
 	@Before
 	public void setUp() throws NamingException, PathExistsException, UnauthorizedException, InvalidNameException, NoSuchObjectException {
 		
 		super.setUp();
 				
-		period = new StudentPeriod(inf1000Spring09, connection);
-		period2 = new StudentPeriod(inf1000Fall09, connection);
+		period = new AdminPeriod(inf1000Spring09, connection);
+		period2 = new AdminPeriod(inf1000Fall09, connection);
 				
-		assignment = new StudentAssignment(assignmentId, connection); 
+		assignment = new AdminAssignment(assignmentId, connection); 
 		
-		delivery = new StudentDelivery(deliveryId, connection);
-		deliveryCandidate = new StudentDeliveryCandidate(deliveryCandidateId, connection);
+		delivery = new AdminDelivery(deliveryId, connection);
+		deliveryCandidate = new AdminDeliveryCandidate(deliveryCandidateId, connection);
 		
 		// Create some test users
 				
@@ -43,19 +43,7 @@ public abstract class StudentDeliveryCandidateCommonTest extends UserDeliveryCan
 		bart = new Student(bartId, connection);
 		lisa = new Student(lisaId, connection);
 	}
-			
-	@Test
-	public void addFile() throws NamingException, NoSuchObjectException, UnauthorizedException {
-			
-		assertEquals(0, deliveryCandidate.getFileCount());
-		
-		DevilryOutputStream out = deliveryCandidate.addFile("Testing2.txt");
-		
-		assertEquals(1, deliveryCandidate.getFileCount());
-		
-		List<DevilryInputStream> files = deliveryCandidate.getDeliveryFiles();
-		assertEquals(out.fileMetaId, files.get(0).fileMetaId);
-	}
+	
 		
 	
 	@Test
