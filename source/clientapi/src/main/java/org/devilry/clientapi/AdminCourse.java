@@ -10,6 +10,7 @@ import javax.naming.NamingException;
 import org.devilry.clientapi.Student.StudentPeriodIterator;
 import org.devilry.core.InvalidNameException;
 import org.devilry.core.NoSuchObjectException;
+import org.devilry.core.NoSuchUserException;
 import org.devilry.core.NodePath;
 import org.devilry.core.PathExistsException;
 import org.devilry.core.UnauthorizedException;
@@ -99,7 +100,15 @@ public class AdminCourse extends AbstractCourse<AdminPeriod> {
 		getCourseBean().setDisplayName(courseId, newName);
 	}
 	
-	public NodePath getPath() throws NamingException, NoSuchObjectException {
+	public void addCourseAdmin(long userId) throws NoSuchObjectException, NoSuchUserException, UnauthorizedException, NamingException {
+		getCourseBean().addCourseAdmin(courseId, userId);
+	}
+	
+	public void removeCourseAdmin(long userId) throws NoSuchObjectException, NoSuchUserException, UnauthorizedException, NamingException {
+		getCourseBean().addCourseAdmin(courseId, userId);
+	}
+	
+	public NodePath getPath() throws NamingException, NoSuchObjectException, InvalidNameException {
 		return getCourseBean().getPath(courseId);
 	}
 }
