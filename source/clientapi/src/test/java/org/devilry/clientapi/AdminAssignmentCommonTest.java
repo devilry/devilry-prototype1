@@ -42,7 +42,7 @@ public abstract class AdminAssignmentCommonTest extends UserAssignmentCommonTest
 	}
 		
 	@Test
-	public void getPath() throws NoSuchObjectException, NamingException {
+	public void getPath() throws NoSuchObjectException, NamingException, InvalidNameException {
 		NodePath path = assignment.getPath();
 				
 		NodePath check = new NodePath(new String[]{"uio", "matnat", "ifi", "inf1000", "spring2009", "oblig1"});
