@@ -7,6 +7,7 @@ import javax.ejb.TransactionAttributeType;
 import javax.interceptor.Interceptors;
 import javax.persistence.*;
 
+import org.devilry.core.InvalidNameException;
 import org.devilry.core.NoSuchObjectException;
 import org.devilry.core.NodePath;
 import org.devilry.core.UnauthorizedException;
@@ -108,7 +109,7 @@ public class CourseNodeImpl extends BaseNodeImpl
 	}
 	
 	
-	public NodePath getPath(long courseNodeId) throws NoSuchObjectException {
+	public NodePath getPath(long courseNodeId) throws NoSuchObjectException, InvalidNameException {
 		
 		CourseNode course = getCourseNode(courseNodeId);
 		String courseName = course.getName();
