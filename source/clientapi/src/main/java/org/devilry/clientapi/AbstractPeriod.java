@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.naming.NamingException;
 
+import org.devilry.core.InvalidNameException;
 import org.devilry.core.NoSuchObjectException;
 import org.devilry.core.NodePath;
 import org.devilry.core.UnauthorizedException;
@@ -72,7 +73,7 @@ public abstract class AbstractPeriod<E extends AbstractAssignment<?>> {
 	}
 	
 	
-	public NodePath getPath() throws NamingException, NoSuchObjectException {
+	public NodePath getPath() throws NamingException, NoSuchObjectException, InvalidNameException {
 		return getPeriodBean().getPath(periodId);
 	}
 
