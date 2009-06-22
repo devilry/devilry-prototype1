@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.naming.NamingException;
 
+import org.devilry.core.InvalidNameException;
 import org.devilry.core.NoSuchObjectException;
 import org.devilry.core.NodePath;
 import org.devilry.core.UnauthorizedException;
@@ -77,7 +78,7 @@ public abstract class AbstractAssignment<E extends AbstractDelivery<?>> {
 		return deliveries;
 	}
 	
-	public NodePath getPath() throws NamingException, NoSuchObjectException {
+	public NodePath getPath() throws NamingException, NoSuchObjectException, InvalidNameException {
 		return getAssignmentNodeBean().getPath(assignmentId);
 	}
 }
