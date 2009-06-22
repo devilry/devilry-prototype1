@@ -10,6 +10,7 @@ import javax.ejb.TransactionAttributeType;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
+import org.devilry.core.InvalidNameException;
 import org.devilry.core.NoSuchObjectException;
 import org.devilry.core.NodePath;
 import org.devilry.core.daointerfaces.AssignmentNodeLocal;
@@ -120,7 +121,7 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 	
 	
 
-	public NodePath getPath(long assignmentNodeId) throws NoSuchObjectException {
+	public NodePath getPath(long assignmentNodeId) throws NoSuchObjectException, InvalidNameException {
 		
 		AssignmentNode assignment = getAssignmentNode(assignmentNodeId);
 		String assignmentName = assignment.getName();
