@@ -10,6 +10,7 @@ import javax.interceptor.Interceptors;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
+import org.devilry.core.InvalidNameException;
 import org.devilry.core.NoSuchObjectException;
 import org.devilry.core.NodePath;
 import org.devilry.core.PathExistsException;
@@ -34,7 +35,7 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public long create(String name, String displayName)
-			throws PathExistsException {
+			throws PathExistsException, InvalidNameException {
 		try {
 			getIdFromPath(new NodePath(new String[] { name }));
 			throw new PathExistsException(
@@ -109,9 +110,15 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 		removeNode(nodeId, Node.class);
 	}
 
-	public NodePath getPath(long nodeId) throws NoSuchObjectException {
-
+	public NodePath getPath(long nodeId) throws NoSuchObjectException, 
+												InvalidNameException {
+		
 		Node node = getNode(nodeId);
+		
+		// No node with given NodeId
+		if (node == null)
+			throw new NoSuchObjectException("No node with id " + nodeId);
+		
 		String nodeName = node.getName();
 
 		NodePath path;
