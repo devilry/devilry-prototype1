@@ -1,6 +1,5 @@
 package org.devilry.clientapi;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,7 +14,7 @@ import org.devilry.core.daointerfaces.PeriodNodeCommon;
 import org.devilry.core.daointerfaces.UserCommon;
 
 
-public class SuperAdminNode {
+public class SuperAdmin {
 
 	DevilryConnection connection;
 	
@@ -26,7 +25,7 @@ public class SuperAdminNode {
 	
 	PeriodNodeCommon periodNode;
 	
-	SuperAdminNode(long userId, DevilryConnection connection) {
+	SuperAdmin(long userId, DevilryConnection connection) {
 		this.userId = userId;
 		this.connection = connection;
 	}
@@ -73,13 +72,23 @@ public class SuperAdminNode {
 		getNodeBean().remove(node.nodeId);
 	}
 	
-	public void addUser(String name, String email, String phoneNumber) throws NamingException {
-		long userid = getUserBean().create(name, email, phoneNumber);
+	public long addUser(String name, String email, String phoneNumber) throws NamingException {
+		return getUserBean().create(name, email, phoneNumber);
+	}
+	
+	public void addIdentity(long userId, String identity) throws NamingException {
+		getUserBean().addIdentity(userId, identity);
 	}
 	
 	public void removeUser(long userId) throws NamingException {
 		getUserBean().remove(userId);
 	}
 	
+	public boolean userExists(long userId) throws NamingException {
+		return getUserBean().userExists(userId);
+	}
 	
+	public long findUser(String identity) throws NamingException {
+		return getUserBean().findUser(identity);
+	}
 }
