@@ -42,7 +42,9 @@ public class StudentDelivery extends AbstractDelivery<StudentDeliveryCandidate> 
 		return new StudentDeliveryCandidateIterator(candidates).iterator();
 	}
 		
+	/*
 	public StudentDeliveryCandidate getDeliveryCandidate() {
 		return null;
 	}
+	*/
 }
