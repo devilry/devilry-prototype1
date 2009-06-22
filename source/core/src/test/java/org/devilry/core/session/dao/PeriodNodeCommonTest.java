@@ -240,7 +240,7 @@ public abstract class PeriodNodeCommonTest {
 	}
 
 	@Test
-	public void getPath() throws NoSuchObjectException {
+	public void getPath() throws NoSuchObjectException, InvalidNameException {
 		assertEquals(new NodePath("uio.matnat.inf1000.fall09", "\\."), periodNode.getPath(periodId));
 	}
 	
