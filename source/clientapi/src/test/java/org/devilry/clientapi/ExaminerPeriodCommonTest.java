@@ -40,7 +40,7 @@ public abstract class ExaminerPeriodCommonTest extends UserPeriodCommonTest {
 	
 
 	@Test
-	public void getPath() throws NoSuchObjectException, NamingException {
+	public void getPath() throws NoSuchObjectException, NamingException,  InvalidNameException{
 		NodePath path = period.getPath();
 		
 		NodePath check = new NodePath(new String[]{"uio", "matnat", "ifi", "inf1000", "spring2009"});
