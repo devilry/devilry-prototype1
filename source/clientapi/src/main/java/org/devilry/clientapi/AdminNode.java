@@ -1,6 +1,5 @@
 package org.devilry.clientapi;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -8,8 +7,11 @@ import javax.naming.NamingException;
 
 import org.devilry.core.InvalidNameException;
 import org.devilry.core.NoSuchObjectException;
+import org.devilry.core.NoSuchUserException;
+import org.devilry.core.NodePath;
 import org.devilry.core.PathExistsException;
 import org.devilry.core.UnauthorizedException;
+import org.devilry.core.daointerfaces.CourseNodeCommon;
 import org.devilry.core.daointerfaces.NodeCommon;
 import org.devilry.core.daointerfaces.PeriodNodeCommon;
 import org.devilry.core.daointerfaces.UserCommon;
@@ -24,8 +26,8 @@ public class AdminNode {
 	long nodeId;
 	
 	NodeCommon nodeBean;
-	
-	PeriodNodeCommon periodNode;
+	PeriodNodeCommon periodNodeBean;
+	CourseNodeCommon courseNodeBean;
 	
 	AdminNode(long nodeId, DevilryConnection connection) {
 		this.nodeId = nodeId;
@@ -40,28 +42,24 @@ public class AdminNode {
 		return nodeBean == null ? nodeBean = connection.getNode() : nodeBean;
 	}
 	
-	public void changeSubnodeName(AdminNode node, String newName) throws UnauthorizedException, NoSuchObjectException, NamingException {
+	protected CourseNodeCommon getCourseNodeBean() throws NamingException {
+		return courseNodeBean == null ? courseNodeBean = connection.getCourseNode() : courseNodeBean;
+	}
+	
+	public String getNodeName() throws NoSuchObjectException, NamingException {
+		return getNodeBean().getName(nodeId);
+	}
+	
+	public String getNodeDisplayName() throws NoSuchObjectException, NamingException {
+		return getNodeBean().getDisplayName(nodeId);
+	}	
 		
-		List<AdminNode> subnodes = getSubnodes();
-		
-		if (subnodes.contains(node)) {
-			getNodeBean().setName(node.nodeId, newName);
-		}
-		else {
-			System.err.println("Does not contain subnode with id:" + node.nodeId);
-		}
+	public void setNodeName(String newName) throws UnauthorizedException, NoSuchObjectException, NamingException {
+		getNodeBean().setName(nodeId, newName);
 	}
 
-	public void changeSubnodeDisplayName(AdminNode node, String newDisplayName) throws UnauthorizedException, NoSuchObjectException, NamingException {
-		
-		List<AdminNode> subnodes = getSubnodes();
-		
-		if (subnodes.contains(node)) {
-			getNodeBean().setDisplayName(node.nodeId, newDisplayName);
-		}
-		else {
-			System.err.println("Does not contain subnode with id:" + node.nodeId);
-		}
+	public void setNodeDisplayName(String newDisplayName) throws UnauthorizedException, NoSuchObjectException, NamingException {
+		getNodeBean().setDisplayName(nodeId, newDisplayName);
 	}
 
 	
@@ -90,6 +88,17 @@ public class AdminNode {
 		return subnodes;
 	}
 	
+	public List<AdminCourse> getCourses() throws UnauthorizedException, NoSuchObjectException, NamingException {
+		
+		List<Long> courses = getNodeBean().getChildCourses(nodeId);
+		
+		List<AdminCourse> courseList = new LinkedList<AdminCourse>();
+		
+		for (long id : courses) {
+			courseList.add(new AdminCourse(id, connection));
+		}
+		return courseList;
+	}
 	
 	public AdminNode addSubnode(String name, String displayName) throws PathExistsException, UnauthorizedException, InvalidNameException, NoSuchObjectException, NamingException {
 		long subnodeId = getNodeBean().create(name, displayName, nodeId);
@@ -101,21 +110,29 @@ public class AdminNode {
 		getNodeBean().remove(node.nodeId);
 	}
 
-	public void addCourse(String courseName, String courseDisplayName) {
-		
+	public AdminCourse addCourse(String courseName, String courseDisplayName) throws PathExistsException, UnauthorizedException, InvalidNameException, NoSuchObjectException, NamingException {
+		long courseId = getCourseNodeBean().create(courseName, courseDisplayName, nodeId);
+		return new AdminCourse(courseId, connection);
 	}
 
-	public void removeCourse() {
-		
+	public void removeCourse(AdminCourse course) throws NoSuchObjectException, NamingException {
+		getCourseNodeBean().remove(course.courseId);
 	}
-
-	public void changeCourseName() {
-		
+	
+	public void addNodeAdmin(long userId) throws NoSuchObjectException, NoSuchUserException, UnauthorizedException, NamingException {
+		getNodeBean().addNodeAdmin(nodeId, userId);
 	}
-
-	public void changeCourseDisplayName() {
-		
+	
+	public void removeNodeAdmin(long userId) throws NoSuchObjectException, NoSuchUserException, UnauthorizedException, NamingException {
+		getNodeBean().removeNodeAdmin(nodeId, userId);
 	}
-
-
+	
+	public List<Long> getNodeAdmins() throws NoSuchObjectException, UnauthorizedException, NamingException {
+		List<Long> admins = getNodeBean().getNodeAdmins(nodeId);
+		return admins;
+	}
+		
+	public NodePath getPath() throws NamingException, NoSuchObjectException, InvalidNameException {
+		return getNodeBean().getPath(nodeId);
+	}
 }
