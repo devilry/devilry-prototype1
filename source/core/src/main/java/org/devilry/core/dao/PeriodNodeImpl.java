@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.devilry.core.InvalidNameException;
 import org.devilry.core.NoSuchObjectException;
 import org.devilry.core.NodePath;
 import org.devilry.core.UnauthorizedException;
@@ -252,7 +253,7 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 		return node == null ? -1 : node.getId();
 	}
 
-	public NodePath getPath(long periodId) throws NoSuchObjectException {
+	public NodePath getPath(long periodId) throws NoSuchObjectException, InvalidNameException {
 
 		PeriodNode period = getPeriodNode(periodId);
 		String periodName = period.getName();
