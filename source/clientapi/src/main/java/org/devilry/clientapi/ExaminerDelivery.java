@@ -32,8 +32,9 @@ public class ExaminerDelivery extends AbstractDelivery<ExaminerDeliveryCandidate
 		return new ExaminerDeliveryCandidateIterator(candidates).iterator();
 	}
 		
+	/*
 	public StudentDeliveryCandidate getDeliveryCandidate() {
 		return null;
 	}
-	
+	*/
 }
