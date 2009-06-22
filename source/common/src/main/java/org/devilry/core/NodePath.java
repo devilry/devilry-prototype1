@@ -21,13 +21,17 @@ public class NodePath implements Serializable, Comparable<NodePath>,
 			nodePath.add(nodePathToCopy.get(i));
 	}
 
-	public NodePath(String path, String splitter) {
+	public NodePath(String path, String splitter) throws InvalidNameException {
 		this(path.split(splitter));
 	}
 
-	public NodePath(String[] nodes) {
+	public NodePath(String[] nodes) throws InvalidNameException {
 		for (int i = 0; i < nodes.length; i++) {
-			nodePath.add(nodes[i]);
+			
+			if (nodes[i].trim().equals(""))
+				throw new InvalidNameException("Invalid nodepath contains empty node!");
+			
+			nodePath.add(nodes[i].toLowerCase());
 		}
 	}
 
