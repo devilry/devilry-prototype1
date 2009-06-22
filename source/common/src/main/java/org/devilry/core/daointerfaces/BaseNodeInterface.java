@@ -1,5 +1,6 @@
 package org.devilry.core.daointerfaces;
 
+import org.devilry.core.InvalidNameException;
 import org.devilry.core.NoSuchObjectException;
 import org.devilry.core.NodePath;
 import org.devilry.core.UnauthorizedException;
@@ -75,7 +76,7 @@ public interface BaseNodeInterface {
 	 * @return The path of the given node.
 	 * @throws NoSuchObjectException If no node with the given id exists.
 	 */
-	NodePath getPath(long baseNodeId) throws NoSuchObjectException;
+	NodePath getPath(long baseNodeId) throws NoSuchObjectException, InvalidNameException;
 	
 	/** Get id from path.
 	 * 
