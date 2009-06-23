@@ -77,11 +77,11 @@ public abstract class AbstractPeriod<E extends AbstractAssignment<?>> {
 		return getPeriodBean().getPath(periodId);
 	}
 
-	public String getPeriodName() throws NoSuchObjectException, NamingException {
+	public String getName() throws NoSuchObjectException, NamingException {
 		return getPeriodBean().getName(periodId);
 	}
 	
-	public String getPeriodDisplayName() throws NoSuchObjectException, NamingException {
+	public String getDisplayName() throws NoSuchObjectException, NamingException {
 		return getPeriodBean().getDisplayName(periodId);
 	}	
 	
