@@ -78,7 +78,7 @@ public abstract class AdminPeriodCommonTest extends UserPeriodCommonTest {
 		String newPeriodName = "summer10";
 		adminPeriod.setPeriodName(newPeriodName);
 		
-		assertEquals(newPeriodName, adminPeriod.getPeriodName());
+		assertEquals(newPeriodName, adminPeriod.getName());
 	}
 	
 	@Test
@@ -92,7 +92,7 @@ public abstract class AdminPeriodCommonTest extends UserPeriodCommonTest {
 		String newPeriodDisplayName = "summer10";
 		adminPeriod.setPeriodDisplayName(newPeriodDisplayName);
 		
-		assertEquals(newPeriodDisplayName, adminPeriod.getPeriodDisplayName());
+		assertEquals(newPeriodDisplayName, adminPeriod.getDisplayName());
 	}
 	
 	
