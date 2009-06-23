@@ -81,4 +81,12 @@ public abstract class AbstractAssignment<E extends AbstractDelivery<?>> {
 	public NodePath getPath() throws NamingException, NoSuchObjectException, InvalidNameException {
 		return getAssignmentNodeBean().getPath(assignmentId);
 	}
+	
+	public String getName() throws NoSuchObjectException, NamingException {
+		return getAssignmentNodeBean().getName(assignmentId);
+	}
+	
+	public String getDisplayName() throws NoSuchObjectException, NamingException {
+		return getAssignmentNodeBean().getName(assignmentId);
+	}
 }
