@@ -7,9 +7,9 @@
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>core</artifactId>
+	<artifactId>jpacore</artifactId>
 
-	<name>Devilry :: core</name>
+	<name>Devilry :: jpacore</name>
 	<packaging>ejb</packaging>
 	<version>0.1</version>
 
@@ -20,7 +20,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>devilry</groupId>
-			<artifactId>common</artifactId>
+			<artifactId>coreapi</artifactId>
 			<version>0.1</version>
 		</dependency>
 		<dependency>

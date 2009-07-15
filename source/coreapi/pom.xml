@@ -8,9 +8,9 @@
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>common</artifactId>
+	<artifactId>coreapi</artifactId>
 
-	<name>Devilry :: common</name>
+	<name>Devilry :: coreapi</name>
 	<packaging>ejb</packaging>
 	<version>0.1</version>
 

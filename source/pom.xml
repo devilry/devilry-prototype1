@@ -12,10 +12,10 @@
 	</url>
 
 	<modules>
-		<module>core</module>
+		<module>jpacore</module>
 		<!--				<module>cli</module>-->
 		<module>clientapi</module>
-		<module>common</module>
+		<module>coreapi</module>
 		<!--<module>webcli</module>-->
 	</modules>
 

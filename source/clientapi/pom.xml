@@ -16,13 +16,13 @@
     <dependencies>
         <dependency>
             <groupId>devilry</groupId>
-            <artifactId>common</artifactId>
+            <artifactId>coreapi</artifactId>
             <version>0.1</version>
         </dependency>
 
 		 <dependency>
             <groupId>devilry</groupId>
-            <artifactId>core</artifactId>
+            <artifactId>jpacore</artifactId>
             <version>0.1</version>
             <scope>test</scope>
         </dependency>
