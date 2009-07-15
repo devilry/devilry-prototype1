@@ -4,6 +4,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
+import javax.interceptor.Interceptors;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import java.util.Date;
@@ -14,6 +15,8 @@ import org.devilry.core.InvalidNameException;
 import org.devilry.core.NoSuchObjectException;
 import org.devilry.core.NodePath;
 import org.devilry.core.UnauthorizedException;
+import org.devilry.core.authorize.AuthorizeCourseNode;
+import org.devilry.core.authorize.AuthorizePeriodNode;
 import org.devilry.core.daointerfaces.AssignmentNodeCommon;
 import org.devilry.core.daointerfaces.AssignmentNodeLocal;
 import org.devilry.core.daointerfaces.CourseNodeCommon;
@@ -23,6 +26,7 @@ import org.devilry.core.daointerfaces.PeriodNodeRemote;
 import org.devilry.core.entity.*;
 
 @Stateless
+@Interceptors( { AuthorizePeriodNode.class } )
 public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 		PeriodNodeLocal {
 
