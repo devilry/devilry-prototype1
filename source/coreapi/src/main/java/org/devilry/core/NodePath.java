@@ -28,10 +28,12 @@ public class NodePath implements Serializable, Comparable<NodePath>,
 	public NodePath(String[] nodes) throws InvalidNameException {
 		for (int i = 0; i < nodes.length; i++) {
 			
-			if (nodes[i].trim().equals(""))
+			String node = nodes[i].trim();
+			
+			if (node.equals(""))
 				throw new InvalidNameException("Invalid nodepath contains empty node!");
 			
-			nodePath.add(nodes[i].toLowerCase());
+			nodePath.add(node.toLowerCase());
 		}
 	}
 
@@ -39,12 +41,24 @@ public class NodePath implements Serializable, Comparable<NodePath>,
 		return nodePath.get(index);
 	}
 
-	public NodePath addToEnd(String node) {
+	public NodePath addToEnd(String node) throws InvalidNameException {
+		
+		node = node.trim();
+		
+		if (node.equals(""))
+			throw new InvalidNameException("Invalid nodepath contains empty node!");
+		
 		nodePath.add(node);
 		return this;
 	}
 
-	public NodePath addToStart(String node) {
+	public NodePath addToStart(String node) throws InvalidNameException {
+		
+		node = node.trim();
+		
+		if (node.equals(""))
+			throw new InvalidNameException("Invalid nodepath contains empty node!");
+		
 		nodePath.add(0, node);
 		return this;
 	}
