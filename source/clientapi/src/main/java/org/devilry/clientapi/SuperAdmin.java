@@ -53,7 +53,7 @@ public class SuperAdmin {
 		return admin;
 	}
 	
-	public void removeTopLevelNode(AdminNode node) throws NoSuchObjectException, NamingException {
+	public void removeTopLevelNode(AdminNode node) throws NoSuchObjectException, NamingException, UnauthorizedException {
 		getNodeBean().remove(node.nodeId);
 	}
 	
@@ -68,7 +68,7 @@ public class SuperAdmin {
 		
 	}
 	
-	public void removeNonEmptyNode(AdminNode node) throws NoSuchObjectException, NamingException {
+	public void removeNonEmptyNode(AdminNode node) throws NoSuchObjectException, NamingException, UnauthorizedException {
 		getNodeBean().remove(node.nodeId);
 	}
 	

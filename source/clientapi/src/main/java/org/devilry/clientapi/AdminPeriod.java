@@ -73,7 +73,7 @@ public class AdminPeriod extends AbstractPeriod<AdminAssignment> {
 		return new AdminAssignment(assignmentId, connection);
 	}
 
-	public void removePeriod(AdminAssignment assignment) throws NoSuchObjectException, NamingException {
+	public void removePeriod(AdminAssignment assignment) throws NoSuchObjectException, NamingException, UnauthorizedException {
 		getAssignmentBean().remove(assignment.assignmentId);
 	}
 

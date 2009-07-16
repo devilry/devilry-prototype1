@@ -106,7 +106,7 @@ public class AdminNode {
 	}
 
 	
-	public void removeSubnode(AdminNode node) throws NoSuchObjectException, NamingException {
+	public void removeSubnode(AdminNode node) throws NoSuchObjectException, NamingException, UnauthorizedException {
 		getNodeBean().remove(node.nodeId);
 	}
 
@@ -115,7 +115,7 @@ public class AdminNode {
 		return new AdminCourse(courseId, connection);
 	}
 
-	public void removeCourse(AdminCourse course) throws NoSuchObjectException, NamingException {
+	public void removeCourse(AdminCourse course) throws NoSuchObjectException, NamingException, UnauthorizedException {
 		getCourseNodeBean().remove(course.courseId);
 	}
 	

@@ -79,7 +79,7 @@ public class AdminCourse extends AbstractCourse<AdminPeriod> {
 		return new AdminPeriod(periodId, connection);
 	}
 
-	public void removePeriod(AdminPeriod period) throws NoSuchObjectException, NamingException {
+	public void removePeriod(AdminPeriod period) throws NoSuchObjectException, NamingException, UnauthorizedException {
 		getPeriodNodeBean().remove(period.periodId);
 	}
 
