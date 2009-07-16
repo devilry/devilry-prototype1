@@ -219,7 +219,7 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 	public long getIdFromPath(NodePath nodePath) throws NoSuchObjectException {
 
 		NodePath pathCopy = new NodePath(nodePath);
-		String periodName = pathCopy.removeLastPathComponent();
+		String periodName = pathCopy.removeLastPathElement();
 
 		long parentNodeId = courseBean.getIdFromPath(pathCopy);
 		long periodId = getPeriodNodeId(periodName, parentNodeId);

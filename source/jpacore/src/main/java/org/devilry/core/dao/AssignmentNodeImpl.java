@@ -153,7 +153,7 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 	public long getIdFromPath(NodePath nodePath) throws NoSuchObjectException {
 		
 		NodePath pathCopy = new NodePath(nodePath);
-		String assignmentName = pathCopy.removeLastPathComponent();
+		String assignmentName = pathCopy.removeLastPathElement();
 		
 		long parentNodeId = periodBean.getIdFromPath(pathCopy);
 		long assignmentId = getAssignmentNodeId(assignmentName, parentNodeId);

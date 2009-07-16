@@ -143,7 +143,7 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 			throw new NoSuchObjectException("No node with path: " + pathCopy);
 		}
 
-		String toplevelName = pathCopy.removeFirstPathComponent();
+		String toplevelName = pathCopy.removeFirstPathElement();
 		try {
 			long nodeId = getToplevelNodeByName(toplevelName);
 			for (String name : pathCopy) {
