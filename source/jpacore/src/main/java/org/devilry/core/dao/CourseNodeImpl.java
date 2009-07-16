@@ -127,7 +127,7 @@ public class CourseNodeImpl extends BaseNodeImpl
 	public long getIdFromPath(NodePath nodePath) throws NoSuchObjectException {
 		
 		NodePath pathCopy = new NodePath(nodePath);
-		String courseName = pathCopy.removeLastPathComponent();
+		String courseName = pathCopy.removeLastPathElement();
 		
 		long parentNodeId = nodeBean.getIdFromPath(pathCopy);
 		long courseId = getCourseNodeId(courseName, parentNodeId);
