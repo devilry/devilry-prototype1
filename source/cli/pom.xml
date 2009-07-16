@@ -16,7 +16,7 @@
     <dependencies>
         <dependency>
             <groupId>devilry</groupId>
-            <artifactId>core</artifactId>
+            <artifactId>coreapi</artifactId>
             <version>0.1</version>
         </dependency>
 

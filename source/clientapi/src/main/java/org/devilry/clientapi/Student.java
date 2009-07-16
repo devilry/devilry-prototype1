@@ -1,55 +1,41 @@
 package org.devilry.clientapi;
 
-import java.util.Collection;
-import java.util.LinkedList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.naming.NamingException;
 
-import org.devilry.core.daointerfaces.PeriodNodeCommon;
-import org.devilry.core.daointerfaces.UserCommon;
+import org.devilry.core.NoSuchObjectException;
+import org.devilry.core.UnauthorizedException;
 
-
-public class Student {
-
-	DevilryConnection connection;
+public class Student extends AbstractUser<StudentPeriod> {
 	
-	UserCommon student;
-	long studentId;
-	
-	PeriodNodeCommon periodNode;
-	
-	Student(long studentId, DevilryConnection connection) {
-		this.studentId = studentId;
-		this.connection = connection;
+	Student(long userId, DevilryConnection connection) {
+		super(userId, connection);
 	}
 	
-	private UserCommon getStudentBean() throws NamingException {
-		return student == null ? student = connection.getUser() : student;
-	}
-	
-	private PeriodNodeCommon getPeriodNodeBean() throws NamingException {
-		return periodNode == null ? periodNode = connection.getPeriodNode() : periodNode;
-	}
-	
-	public List getActivePeriods() throws NamingException {
-		
+	/*
+	 * Does the same as getPeriods
+	 * @see org.devilry.clientapi.AbstractUser#getActivePeriods()
+	 */
+	public List<StudentPeriod> getActivePeriods() throws NamingException, NoSuchObjectException, UnauthorizedException {
 		List<StudentPeriod> periods = getPeriods();
-				
 		return periods;
 	}
-	
-	public List<StudentPeriod> getPeriods() throws NamingException {
 		
-		List<Long> periodIds =  getPeriodNodeBean().getPeriodsWhereIsStudent();
+	class StudentPeriodIterator extends PeriodIterator {
 		
-		List<StudentPeriod> periods = new LinkedList<StudentPeriod>();
-		StudentPeriod periodTmp;
-		
-		for (long id : periodIds) {
-			periodTmp = new StudentPeriod(id, connection);
-			periods.add(periodTmp);
+		StudentPeriodIterator(List<Long> ids) {
+			super(ids);
+		}		
+
+		public StudentPeriod next() {
+			return new StudentPeriod(deliveryCandidateIterator.next(), connection);
 		}
-		return periods;
+	}
+	
+	public Iterator<StudentPeriod> periods() throws NoSuchObjectException, UnauthorizedException, NamingException {
+		List<Long> periodIds =  getPeriodNodeBean().getPeriodsWhereIsStudent();
+		return new StudentPeriodIterator(periodIds).iterator();
 	}
 }

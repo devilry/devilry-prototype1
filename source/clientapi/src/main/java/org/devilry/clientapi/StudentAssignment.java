@@ -1,27 +1,34 @@
 package org.devilry.clientapi;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.naming.NamingException;
 
-import org.devilry.core.NodePath;
+import org.devilry.core.NoSuchObjectException;
+import org.devilry.core.UnauthorizedException;
 
 
-public class StudentAssignment extends AbstractAssignment {
+public class StudentAssignment extends AbstractAssignment<StudentDelivery> {
 	
 	StudentAssignment(long assignmentId, DevilryConnection connection) {
 		super(assignmentId, connection);
 	}
 	
-	
-	public StudentDelivery getDelivery() throws NamingException {
-		List<Long> ids = getAssignmentNodeBean().getDeliveries(assignmentId);
+	class StudentDeliveryIterator extends DeliveryIterator {
 		
-		StudentDelivery delivery = new StudentDelivery(ids.get(0), connection);
-		return delivery;
+		StudentDeliveryIterator(List<Long> delivryIds) {
+			super(delivryIds);
+		}
+		
+		public StudentDelivery next() {
+			return new StudentDelivery(deliveryIterator.next(), connection); 
+		}
 	}
 	
-	public NodePath getPath() throws NamingException {
-		return getAssignmentNodeBean().getPath(assignmentId);
+	
+	Iterator<StudentDelivery> deliveries() throws NoSuchObjectException, UnauthorizedException, NamingException {
+		List<Long> ids = getDeliveryBean().getDeliveriesWhereIsStudent();
+		return new StudentDeliveryIterator(ids).iterator();
 	}
 }

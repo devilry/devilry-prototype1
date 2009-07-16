@@ -12,10 +12,10 @@
 	</url>
 
 	<modules>
-		<module>core</module>
+		<module>jpacore</module>
 		<!--				<module>cli</module>-->
 		<module>clientapi</module>
-		<module>common</module>
+		<module>coreapi</module>
 		<!--<module>webcli</module>-->
 	</modules>
 
@@ -50,7 +50,22 @@
 			<version>4.5</version>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.5.8</version>
+		</dependency>
+
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>0.9.15</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
+
+
 
 	<build>
 		<plugins>

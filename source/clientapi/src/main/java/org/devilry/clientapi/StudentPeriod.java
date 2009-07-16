@@ -1,50 +1,33 @@
 package org.devilry.clientapi;
 
-import java.util.Collection;
-import java.util.LinkedList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.naming.NamingException;
 
-import org.devilry.core.NodePath;
-import org.devilry.core.daointerfaces.PeriodNodeCommon;
+import org.devilry.core.NoSuchObjectException;
+import org.devilry.core.UnauthorizedException;
 
 
-public class StudentPeriod {
+public class StudentPeriod extends AbstractPeriod<StudentAssignment> {
 
-	DevilryConnection connection;
-	
-	PeriodNodeCommon periodNode;
-	long periodId;
-	
 	StudentPeriod(long periodId, DevilryConnection connection) {
-		this.connection = connection;
-		this.periodId = periodId;
+		super(periodId, connection);
 	}
-	
-	private PeriodNodeCommon getPeriodBean() throws NamingException {
-		return periodNode == null ? periodNode = connection.getPeriodNode() : periodNode;
-	}
-	
-	public Collection<StudentAssignment> getAssignments() throws NamingException {
 		
-		PeriodNodeCommon period = getPeriodBean();
-	
-		List<Long> ids = period.getAssignments(periodId);
-		
-		List<StudentAssignment> studentAssignments = new LinkedList<StudentAssignment>();
-		StudentAssignment tmpAssignment;	
-		
-		for (long id : ids) {
-			tmpAssignment = new StudentAssignment(id, connection);
-			studentAssignments.add(tmpAssignment);
+	class StudentAssignmentIterator extends AssignmentIterator {
+
+		StudentAssignmentIterator(List<Long> IDs) {
+			super(IDs);
 		}
 		
-		return studentAssignments;
+		public StudentAssignment next() {
+			return new StudentAssignment(assignmentIterator.next(), connection); 
+		}
 	}
 	
-	public NodePath getPath() throws NamingException {
-		return getPeriodBean().getPath(periodId);
+	public Iterator<StudentAssignment> assignments() throws NoSuchObjectException, UnauthorizedException, NamingException {
+		List<Long> ids = getPeriodBean().getAssignments(periodId);
+		return new StudentAssignmentIterator(ids).iterator();
 	}
-	
 }
