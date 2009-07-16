@@ -123,7 +123,7 @@ public abstract class AssignmentNodeCommonTest {
 	}
 	
 	@Test
-	public void remove() throws NoSuchObjectException {
+	public void remove() throws NoSuchObjectException, UnauthorizedException {
 		node.remove(uioId);
 		assertFalse(node.exists(assignmentId));
 	}

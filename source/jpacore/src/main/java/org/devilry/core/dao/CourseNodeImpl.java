@@ -97,7 +97,8 @@ public class CourseNodeImpl extends BaseNodeImpl
 		return getAdmins(node);
 	}
 	
-	public void remove(long courseNodeId) throws NoSuchObjectException {
+	public void remove(long courseNodeId) throws NoSuchObjectException,
+			UnauthorizedException {
 		// Remove childnodes
 		List<Long> childPeriods = getPeriods(courseNodeId);
 		for (Long childPeriodId : childPeriods) {

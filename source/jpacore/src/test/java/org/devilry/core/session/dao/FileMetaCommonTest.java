@@ -167,7 +167,7 @@ public abstract class FileMetaCommonTest {
 	}
 
 	@Test
-	public void remove() throws NoSuchObjectException {
+	public void remove() throws NoSuchObjectException, UnauthorizedException {
 
 		// Remove a single file-meta and it's children.
 		long dataId1 = fileDataBlock.create(fileMetaId, "test".getBytes());

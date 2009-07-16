@@ -14,7 +14,7 @@ import org.junit.Test;
 
 public  class EjbExampleTest {
 
-	private final static Logger log = LoggerFactory.getLogger(AuthorizeNode.class);
+	private final static Logger log = LoggerFactory.getLogger(EjbExampleTest.class);
 	
 	@Test
 	public void hmm() throws NamingException {

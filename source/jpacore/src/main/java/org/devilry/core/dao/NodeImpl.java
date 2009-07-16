@@ -14,6 +14,7 @@ import org.devilry.core.InvalidNameException;
 import org.devilry.core.NoSuchObjectException;
 import org.devilry.core.NodePath;
 import org.devilry.core.PathExistsException;
+import org.devilry.core.UnauthorizedException;
 import org.devilry.core.authorize.AuthorizeNode;
 import org.devilry.core.daointerfaces.CourseNodeCommon;
 import org.devilry.core.daointerfaces.CourseNodeLocal;
@@ -93,7 +94,8 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public void remove(long nodeId) throws NoSuchObjectException {
+	public void remove(long nodeId) throws NoSuchObjectException,
+			UnauthorizedException {
 		// Remove childnodes
 		List<Long> childNodes = getChildNodes(nodeId);
 		for (Long childNodeId : childNodes) {
@@ -110,15 +112,15 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 		removeNode(nodeId, Node.class);
 	}
 
-	public NodePath getPath(long nodeId) throws NoSuchObjectException, 
-												InvalidNameException {
-		
+	public NodePath getPath(long nodeId) throws NoSuchObjectException,
+			InvalidNameException {
+
 		Node node = getNode(nodeId);
-		
+
 		// No node with given NodeId
 		if (node == null)
 			throw new NoSuchObjectException("No node with id " + nodeId);
-		
+
 		String nodeName = node.getName();
 
 		NodePath path;
@@ -156,8 +158,9 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 	}
 
 	private long getToplevelNodeByName(String name) {
-		Query q = em.createQuery("SELECT n.id FROM Node n WHERE n.name =: name "
-				+ "AND n.parent IS NULL");
+		Query q = em
+				.createQuery("SELECT n.id FROM Node n WHERE n.name =: name "
+						+ "AND n.parent IS NULL");
 		q.setParameter("name", name);
 		return (Long) q.getSingleResult();
 	}
