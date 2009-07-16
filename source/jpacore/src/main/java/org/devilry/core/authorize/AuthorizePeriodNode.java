@@ -55,7 +55,8 @@ public class AuthorizePeriodNode extends AuthorizeBaseNode {
 			"getParentCourse",
 			"getAssignments",
 			"getStartDate",
-			"getEndDate"
+			"getEndDate",
+			"getPeriodNodeId"
 	);
 
 	/**
