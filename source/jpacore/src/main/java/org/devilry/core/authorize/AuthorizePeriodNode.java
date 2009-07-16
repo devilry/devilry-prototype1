@@ -16,20 +16,22 @@ public class AuthorizePeriodNode extends AuthorizeBaseNode {
 	 noauth - getAssignments
 	 noauth - getParentCourse
 	 noauth - getPeriodsWhereIsStudent
-	 noauth - getExaminers
 	 noauth - getPeriodsWhereIsExaminer
 	 noauth - getPeriodsWhereIsAdmin
-	 noauth - isPeriodAdmin
 	 noauth - getStartDate
 	 noauth - getEndDate
+	 noauth - getPeriodNodeId
+	 noauth - getIdFromPath
 	 
 	 periodAdmin - getStudents
 	 periodAdmin - isStudent
 	 periodAdmin - addStudent
 	 periodAdmin - removeStudent
+	 periodAdmin - getExaminers
 	 periodAdmin - isExaminer
 	 periodAdmin - addExaminer
 	 periodAdmin - removeExaminer
+	 periodAdmin - isPeriodAdmin
 	 
 	 courseAdmin - addPeriodAdmin
 	 courseAdmin - removePeriodAdmin
@@ -37,12 +39,12 @@ public class AuthorizePeriodNode extends AuthorizeBaseNode {
 	 courseAdmin - setStartDate
 	 courseAdmin - setEndDate
 	 
+	 courseAdmin - create
+	 
 	 authBaseNode - exists
 	 authBaseNode - getPath
 	 
-	 ? remove
-	 ? getIdFromPath
-	 ? getPeriodNodeId
+	 baseNodeParentAdminMethods - remove	 
 	 
 	 */
 		
@@ -51,12 +53,12 @@ public class AuthorizePeriodNode extends AuthorizeBaseNode {
 			"getPeriodsWhereIsStudent", 
 			"getPeriodsWhereIsExaminer", 
 			"getPeriodsWhereIsAdmin", 
-			"isPeriodAdmin", 
 			"getParentCourse",
 			"getAssignments",
 			"getStartDate",
 			"getEndDate",
-			"getPeriodNodeId"
+			"getPeriodNodeId",
+			"getIdFromPath"
 	);
 
 	/**
@@ -83,7 +85,8 @@ public class AuthorizePeriodNode extends AuthorizeBaseNode {
 			"removeExaminer", 
 			"addCourseAdmin", 
 			"removeCourseAdmin", 
-			"getCourseAdmins"			
+			"getCourseAdmins",	
+			"isPeriodAdmin"
 	);
 
 	@EJB
@@ -179,7 +182,7 @@ public class AuthorizePeriodNode extends AuthorizeBaseNode {
 		}
 	}
 	
-	/** Make sure only an Admin on the parent-node can create a course. */ 
+	/** Make sure only an Admin on the parent-node can create a period. */ 
 	private void authCreate(String fullMethodName, Object[] parameters)
 			throws UnauthorizedException {
 		long parentId = (Long) parameters[4];
