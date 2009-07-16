@@ -80,10 +80,8 @@ public abstract class AuthorizeNodeCommonTest {
 		node.getChildCourses(uioId);
 		node.getChildCourses(matnatId);
 		
-		NodePath x = new NodePath("uio", ".");
-		System.out.printf(x.toString());
-//		node.getIdFromPath(new NodePath("uio", ".") );
-//		node.getIdFromPath(new NodePath("uio.matnat", ".") );
+		node.getIdFromPath(new NodePath("uio", "\\.") );
+		node.getIdFromPath(new NodePath("uio.matnat", "\\.") );
 	}
 	
 	

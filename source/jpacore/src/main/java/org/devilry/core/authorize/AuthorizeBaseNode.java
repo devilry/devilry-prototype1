@@ -49,8 +49,8 @@ public abstract class AuthorizeBaseNode {
 					+ methodName;
 			Object[] parameters = invocationCtx.getParameters();
 			auth(invocationCtx, methodName, fullMethodName, parameters);
-			log.debug("Access to method {} granted to user {}.",
-					fullMethodName, userId);
+			log.debug("User {} granted access to: {}", userId,
+					fullMethodName);
 		}
 
 		return invocationCtx.proceed();
