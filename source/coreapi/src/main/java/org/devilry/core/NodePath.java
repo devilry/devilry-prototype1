@@ -39,12 +39,14 @@ public class NodePath implements Serializable, Comparable<NodePath>,
 		return nodePath.get(index);
 	}
 
-	public void addToEnd(String node) {
+	public NodePath addToEnd(String node) {
 		nodePath.add(node);
+		return this;
 	}
 
-	public void addToStart(String node) {
+	public NodePath addToStart(String node) {
 		nodePath.add(0, node);
+		return this;
 	}
 
 	public String[] toArray() {
