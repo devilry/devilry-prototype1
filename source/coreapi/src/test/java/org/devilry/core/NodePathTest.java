@@ -1,26 +1,12 @@
 package org.devilry.core;
 
-import javax.naming.*;
-
 import org.devilry.core.InvalidNameException;
-import org.devilry.core.NoSuchObjectException;
 import org.devilry.core.NodePath;
-import org.devilry.core.PathExistsException;
-import org.devilry.core.UnauthorizedException;
-import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import java.util.List;
 
-public abstract class NodePathTest {
-	
-	
-	@Before
-	public void setUp() throws NamingException, PathExistsException, UnauthorizedException, InvalidNameException, NoSuchObjectException {
-		
-		
-	}
+public class NodePathTest {
 	
 	
 	@Test
@@ -28,13 +14,15 @@ public abstract class NodePathTest {
 		
 		NodePath nPath;
 		
-		nPath = new NodePath("uio", ".");
-		assertEquals(nPath.size(), 1);
-		assertEquals(nPath.toString(), "uio");
+		System.err.println("path:" + "uio".split("\\."));
+		
+		nPath = new NodePath("uio", "\\.");
+		assertEquals(1, nPath.size());
+		assertEquals("uio", nPath.toString());
 				
-		nPath = new NodePath("uio.matnat.ifi.inf1000", ".");
-		assertEquals(nPath.size(), 4);
-		assertEquals(nPath.toString(), "uio.matnat.ifi.inf1000");
+		nPath = new NodePath("uio.matnat.ifi.inf1000", "\\.");
+		assertEquals(4, nPath.size());
+		assertEquals("uio.matnat.ifi.inf1000", nPath.toString());
 	}
 	
 	@Test
@@ -43,25 +31,25 @@ public abstract class NodePathTest {
 		NodePath nPath;
 		String [] path = new String[] {"uio", "matnat", "ifi", "inf1000"};
 		
-		nPath = new NodePath("uio", ".");
-		assertEquals(nPath.size(), 1);
-		assertEquals(nPath.toString(), "uio");
+		nPath = new NodePath("uio", "\\.");
+		assertEquals(1, nPath.size());
+		assertEquals("uio", nPath.toString());
 		
 		nPath = new NodePath(path);
-		assertEquals(nPath.size(), 4);
-		assertEquals(nPath.toString(), "uio.matnat.ifi.inf1000");
+		assertEquals(4, nPath.size());
+		assertEquals("uio.matnat.ifi.inf1000", nPath.toString());
 	}
 	
 	@Test
 	public void getTest() throws InvalidNameException {
 		
 		NodePath nPath;
-		nPath = new NodePath("uio.matnat.ifi.inf1000", ".");
+		nPath = new NodePath("uio.matnat.ifi.inf1000", "\\.");
 		
-		assertEquals(nPath.get(0), "uio");
-		assertEquals(nPath.get(1), "matnat");
-		assertEquals(nPath.get(2), "ifi");
-		assertEquals(nPath.get(3), "inf1000");
+		assertEquals("uio", nPath.get(0));
+		assertEquals("matnat", nPath.get(1));
+		assertEquals("ifi", nPath.get(2));
+		assertEquals("inf1000", nPath.get(3));
 		
 	}
 	
@@ -72,11 +60,11 @@ public abstract class NodePathTest {
 		nPath = new NodePath();
 		assertEquals(nPath.size(), 0);
 		
-		nPath.addToStart("uio");
-		assertEquals(nPath.toString(), "uio");
-		
 		nPath.addToStart("matnat");
-		assertEquals(nPath.toString(), "uio.matnat");
+		assertEquals("matnat", nPath.toString());
+		
+		nPath.addToStart("uio");
+		assertEquals("uio.matnat", nPath.toString());
 	}
 	
 	@Test
@@ -87,10 +75,10 @@ public abstract class NodePathTest {
 		assertEquals(nPath.size(), 0);
 		
 		nPath.addToEnd("uio");
-		assertEquals(nPath.toString(), "uio");
+		assertEquals("uio", nPath.toString());
 		
 		nPath.addToEnd("matnat");
-		assertEquals(nPath.toString(), "uio.matnat");
+		assertEquals("uio.matnat", nPath.toString());
 	}
 	
 	@Test
@@ -100,9 +88,9 @@ public abstract class NodePathTest {
 		String [] path = new String[] {"uio", "matnat", "ifi", "inf1000"};
 		nPath = new NodePath(path);
 		
-		nPath.removeFirstPathComponent();
-		assertEquals(nPath.size(), 3);
-		assertEquals(nPath.get(0), "matnat");
+		nPath.removeFirstPathElement();
+		assertEquals(3, nPath.size());
+		assertEquals("matnat", nPath.get(0));
 	}
 	
 	@Test
@@ -112,10 +100,10 @@ public abstract class NodePathTest {
 		String [] path = new String[] {"uio", "matnat", "ifi", "inf1000"};
 		nPath = new NodePath(path);
 		
-		nPath.removeFirstPathComponent();
-		assertEquals(nPath.size(), 3);
-		assertEquals(nPath.get(0), "uio");
-		assertEquals(nPath.get(2), "ifi");
+		nPath.removeFirstPathElement();
+		assertEquals(3, nPath.size());
+		assertEquals("matnat", nPath.get(0));
+		assertEquals("inf1000", nPath.get(2));
 	}
 	
 	
@@ -128,10 +116,10 @@ public abstract class NodePathTest {
 		
 		String [] toArray = nPath.toArray();
 		assertEquals(toArray.length, path.length);
-		assertEquals(toArray[0], path[0]);
-		assertEquals(toArray[1], path[1]);
-		assertEquals(toArray[2], path[2]);
-		assertEquals(toArray[3], path[3]);
+		assertEquals(path[0], toArray[0]);
+		assertEquals(path[1], toArray[1]);
+		assertEquals(path[2], toArray[2]);
+		assertEquals(path[3], toArray[3]);
 	}
 	
 	@Test
@@ -141,7 +129,7 @@ public abstract class NodePathTest {
 		String [] path = new String[] {"uio", "matnat", "ifi", "inf1000"};
 		nPath = new NodePath(path);
 		
-		assertEquals(nPath.toString(), "uio.matnat.ifi.inf1000");
+		assertEquals("uio.matnat.ifi.inf1000", nPath.toString());
 	}
 	
 	@Test
@@ -153,13 +141,14 @@ public abstract class NodePathTest {
 		
 		NodePath nPath2 = new NodePath(path);
 		
-		assertEquals(nPath.compareTo(nPath2), 0);
+		assertEquals(0, nPath.compareTo(nPath2));
 		
 		nPath2 = new NodePath(new String[] {"uio"});
-		assertEquals(nPath.compareTo(nPath2), -1);
+		
+		assertTrue(nPath.compareTo(nPath2) > 0);
 		
 		nPath2 = new NodePath(new String[] {"uio", "matnat", "ifi", "inf1000", "Assignemnt1"});
-		assertEquals(nPath.compareTo(nPath2), 1);
+		assertTrue(nPath.compareTo(nPath2) < 0);
 	}
 	
 	@Test
@@ -181,13 +170,13 @@ public abstract class NodePathTest {
 		assertEquals(nPath.size(), 0);
 		
 		nPath.addToEnd("matnat");
-		assertEquals(nPath.size(), 1);
+		assertEquals(1, nPath.size());
 		
 		nPath.addToStart("uio");
-		assertEquals(nPath.size(), 2);
+		assertEquals(2, nPath.size());
 	
-		nPath = new NodePath("uio.matnat.ifi.inf1010", ".");
-		assertEquals(nPath.size(), 4);
+		nPath = new NodePath("uio.matnat.ifi.inf1010", "\\.");
+		assertEquals(4, nPath.size());
 	}
 	
 }
