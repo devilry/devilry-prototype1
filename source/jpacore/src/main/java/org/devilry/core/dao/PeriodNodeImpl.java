@@ -26,7 +26,7 @@ import org.devilry.core.daointerfaces.PeriodNodeRemote;
 import org.devilry.core.entity.*;
 
 @Stateless
-@Interceptors( { AuthorizePeriodNode.class } )
+@Interceptors( { AuthorizePeriodNode.class })
 public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 		PeriodNodeLocal {
 
@@ -92,7 +92,8 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 		}
 	}
 
-	public void remove(long periodId) throws NoSuchObjectException {
+	public void remove(long periodId) throws NoSuchObjectException,
+			UnauthorizedException {
 
 		// Remove childnodes (assignments)
 		List<Long> childAssignments = getAssignments(periodId);
@@ -257,7 +258,8 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 		return node == null ? -1 : node.getId();
 	}
 
-	public NodePath getPath(long periodId) throws NoSuchObjectException, InvalidNameException {
+	public NodePath getPath(long periodId) throws NoSuchObjectException,
+			InvalidNameException {
 
 		PeriodNode period = getPeriodNode(periodId);
 		String periodName = period.getName();

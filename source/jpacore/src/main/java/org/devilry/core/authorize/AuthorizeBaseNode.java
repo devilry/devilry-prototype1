@@ -14,8 +14,8 @@ import org.slf4j.LoggerFactory;
 
 public abstract class AuthorizeBaseNode {
 	/** Methods in BaseNodeInterface which do not require any authorization. */
-	protected static final MethodNames baseNodeNoAuthRequiredMethods =
-		new MethodNames("getName", "getDisplayName", "exists", "getPath");
+	protected static final MethodNames baseNodeNoAuthRequiredMethods = new MethodNames(
+			"getName", "getDisplayName", "exists", "getPath", "getIdFromPath");
 
 	/** Log. */
 	protected final Logger log = LoggerFactory.getLogger(getClass());
@@ -24,10 +24,8 @@ public abstract class AuthorizeBaseNode {
 	 * Methods in BaseNodeInterface where the authorized user must be Admin on
 	 * the <em>parent-node</em> of the node given as first argument.
 	 */
-	protected static final MethodNames baseNodeParentAdminMethods =
-			new MethodNames("setName", "setDisplayName");
-
-
+	protected static final MethodNames baseNodeParentAdminMethods = new MethodNames(
+			"setName", "setDisplayName", "remove");
 
 	/** Session context is used to identify the authenticated user. */
 	@Resource
@@ -38,13 +36,12 @@ public abstract class AuthorizeBaseNode {
 	protected UserLocal user;
 
 	@AroundInvoke
-	public Object authorize(InvocationContext invocationCtx)
-			throws Exception {
+	public Object authorize(InvocationContext invocationCtx) throws Exception {
 
 		long userId = user.getAuthenticatedUser();
 		if (user.isSuperAdmin(userId)) {
-			log.debug("SuperAdmin {} granted access to: {}",
-					userId, invocationCtx.getMethod().getName());
+			log.debug("SuperAdmin {} granted access to: {}", userId,
+					invocationCtx.getMethod().getName());
 		} else {
 			Method targetMethod = invocationCtx.getMethod();
 			String methodName = targetMethod.getName();
@@ -52,9 +49,9 @@ public abstract class AuthorizeBaseNode {
 					+ methodName;
 			Object[] parameters = invocationCtx.getParameters();
 			auth(invocationCtx, methodName, fullMethodName, parameters);
-			log.debug("Access to method {} granted", fullMethodName);
+			log.debug("Access to method {} granted to user {}.",
+					fullMethodName, userId);
 		}
-		
 
 		return invocationCtx.proceed();
 	}

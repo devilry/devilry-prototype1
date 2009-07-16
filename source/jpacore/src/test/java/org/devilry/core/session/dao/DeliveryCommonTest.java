@@ -111,7 +111,7 @@ public abstract class DeliveryCommonTest {
 	
 
 	@Test
-	public void remove() throws NoSuchObjectException {
+	public void remove() throws NoSuchObjectException, UnauthorizedException {
 		delivery.remove(deliveryId);
 		assertFalse(delivery.exists(deliveryId));
 

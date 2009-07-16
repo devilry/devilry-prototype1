@@ -4,6 +4,7 @@ import javax.naming.NamingException;
 
 import org.devilry.core.InvalidNameException;
 import org.devilry.core.NoSuchObjectException;
+import org.devilry.core.NodePath;
 import org.devilry.core.PathExistsException;
 import org.devilry.core.UnauthorizedException;
 import org.devilry.core.daointerfaces.NodeCommon;
@@ -78,6 +79,11 @@ public abstract class AuthorizeNodeCommonTest {
 
 		node.getChildCourses(uioId);
 		node.getChildCourses(matnatId);
+		
+		NodePath x = new NodePath("uio", ".");
+		System.out.printf(x.toString());
+//		node.getIdFromPath(new NodePath("uio", ".") );
+//		node.getIdFromPath(new NodePath("uio.matnat", ".") );
 	}
 	
 	
@@ -181,6 +187,41 @@ public abstract class AuthorizeNodeCommonTest {
 	public void setDisplayNameUnauthorized() throws Exception {
 		superTestHelper.getNodeCommon().addNodeAdmin(matnatId, userId);
 		testHelper.getNodeCommon().setDisplayName(matnatId, "u");
+	}
+
+	//
+	//
+	// remove()
+	//
+	//
+	
+	/** Test that a SuperAdmin can remove a toplevel node. */
+	@Test
+	public void removeToplevel() throws Exception {
+		superTestHelper.getNodeCommon().remove(uioId);
+	}
+	
+	/**
+	 * Test that not even an admin on a toplevel node can remove a node.
+	 */
+	@Test(expected = UnauthorizedException.class)
+	public void removeToplevelUnauthorized() throws Exception {
+		superTestHelper.getNodeCommon().addNodeAdmin(uioId, userId);
+		testHelper.getNodeCommon().remove(uioId);
+	}
+	
+	/** Test that remove works when admin on the parent-node. */
+	@Test
+	public void remove() throws Exception {
+		superTestHelper.getNodeCommon().addNodeAdmin(uioId, userId);
+		testHelper.getNodeCommon().remove(matnatId);
+	}
+	
+	/** Make sure that even an Admin on a node can not remove the node. */
+	@Test(expected = UnauthorizedException.class)
+	public void removeUnauthorized() throws Exception {
+		superTestHelper.getNodeCommon().addNodeAdmin(matnatId, userId);
+		testHelper.getNodeCommon().remove(matnatId);
 	}
 
 	//
