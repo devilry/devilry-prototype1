@@ -8,8 +8,14 @@ import org.devilry.core.InvalidUsageException;
 import org.devilry.core.NoSuchObjectException;
 import org.devilry.core.UnauthorizedException;
 import org.devilry.core.daointerfaces.NodeLocal;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class AuthorizeNode extends AuthorizeBaseNode {
+	private Logger log = LoggerFactory.getLogger(getClass());
+
+	@EJB
+	private NodeLocal node;
 
 	/** Methods in NodeCommon which do not require any authorization. */
 	private static final MethodNames noAuthRequiredMethods = new MethodNames(
@@ -25,9 +31,6 @@ public class AuthorizeNode extends AuthorizeBaseNode {
 			"addNodeAdmin", "removeNodeAdmin", "getNodeAdmins");
 
 
-	@EJB
-	private NodeLocal node;
-	
 	
 	private static final String parentAdminRightsErrmsg =
 			"Access to method %s requires Admin rights on the parent-node";

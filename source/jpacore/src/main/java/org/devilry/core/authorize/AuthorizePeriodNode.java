@@ -7,10 +7,12 @@ import org.devilry.core.InvalidUsageException;
 import org.devilry.core.NoSuchObjectException;
 import org.devilry.core.UnauthorizedException;
 import org.devilry.core.daointerfaces.CourseNodeLocal;
-import org.devilry.core.daointerfaces.NodeLocal;
 import org.devilry.core.daointerfaces.PeriodNodeLocal;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class AuthorizePeriodNode extends AuthorizeBaseNode {
+	private Logger log = LoggerFactory.getLogger(getClass());
 	/*
 	 
 	 noauth - getAssignments

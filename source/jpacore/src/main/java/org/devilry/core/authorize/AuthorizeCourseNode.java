@@ -8,8 +8,12 @@ import org.devilry.core.NoSuchObjectException;
 import org.devilry.core.UnauthorizedException;
 import org.devilry.core.daointerfaces.CourseNodeLocal;
 import org.devilry.core.daointerfaces.NodeLocal;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class AuthorizeCourseNode extends AuthorizeBaseNode {
+	private Logger log = LoggerFactory.getLogger(getClass());
+
 	/** Methods in CourseNodeCommon which do not require any authorization. */
 	private static final MethodNames noAuthRequiredMethods = new MethodNames(
 			"getCoursesWhereIsAdmin", "isCourseAdmin", "getParentNode",
