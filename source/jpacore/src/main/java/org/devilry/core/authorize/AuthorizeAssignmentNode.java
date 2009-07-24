@@ -8,11 +8,8 @@ import org.devilry.core.NoSuchObjectException;
 import org.devilry.core.UnauthorizedException;
 import org.devilry.core.daointerfaces.AssignmentNodeLocal;
 import org.devilry.core.daointerfaces.PeriodNodeLocal;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class AuthorizeAssignmentNode extends AuthorizeBaseNode {
-	private Logger log = LoggerFactory.getLogger(getClass());
 	/*
 	 		 
 	 authBaseNode:

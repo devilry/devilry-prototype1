@@ -8,12 +8,8 @@ import org.devilry.core.InvalidUsageException;
 import org.devilry.core.NoSuchObjectException;
 import org.devilry.core.UnauthorizedException;
 import org.devilry.core.daointerfaces.NodeLocal;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class AuthorizeNode extends AuthorizeBaseNode {
-	private Logger log = LoggerFactory.getLogger(getClass());
-
 	@EJB
 	private NodeLocal node;
 
@@ -35,9 +31,6 @@ public class AuthorizeNode extends AuthorizeBaseNode {
 	private static final String parentAdminRightsErrmsg =
 			"Access to method %s requires Admin rights on the parent-node";
 
-	private static final String noParentNodeErrmsg =
-			"Access to method %s requires Admin rights on the parent-node, " +
-			"and the given node, %d, does not have a parent-node.";
 	
 	protected void auth(InvocationContext invocationCtx,
 			String methodName, String fullMethodName, Object[] parameters)
@@ -68,12 +61,8 @@ public class AuthorizeNode extends AuthorizeBaseNode {
 			}
 		}
 
-		// If the method has not yet been handled, and it is not among
-		// the methods which requires no authorization: deny access.
 		else {
-			throw new UnauthorizedException(
-					"No authorization rule set for non-SuperAdmin users " +
-					"on method: " + fullMethodName);
+			unknown(fullMethodName);
 		}
 	}
 
@@ -93,7 +82,9 @@ public class AuthorizeNode extends AuthorizeBaseNode {
 			} 
 		} catch (NoSuchObjectException e) {
 			throw new UnauthorizedException(String.format(
-					noParentNodeErrmsg, fullMethodName, nodeId));
+				"Access to method %s requires Admin rights on the " +
+				"parent-node, and the given node, %d, does not have a " +
+				"parent-node.", fullMethodName, nodeId));
 		}
 	}
 	
@@ -109,7 +100,9 @@ public class AuthorizeNode extends AuthorizeBaseNode {
 			}
 		} catch (NoSuchObjectException e) {
 			throw new UnauthorizedException(String.format(
-					noParentNodeErrmsg, fullMethodName, parentId));
+				"Access to method %s requires Admin rights on the " +
+				"parent-node, and the given parent-node, %d, does not exists.",
+				fullMethodName, parentId));
 		}
 	}
 }

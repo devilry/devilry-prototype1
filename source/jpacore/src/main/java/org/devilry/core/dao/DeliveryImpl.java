@@ -4,13 +4,15 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
+import javax.interceptor.Interceptors;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.devilry.core.authorize.AuthorizeDelivery;
 import org.devilry.core.daointerfaces.DeliveryCandidateLocal;
 import org.devilry.core.daointerfaces.DeliveryLocal;
 import org.devilry.core.daointerfaces.DeliveryRemote;
@@ -19,7 +21,8 @@ import org.devilry.core.entity.AssignmentNode;
 import org.devilry.core.entity.Delivery;
 import org.devilry.core.entity.User;
 
-@Stateful
+@Stateless
+@Interceptors( {AuthorizeDelivery.class} )
 public class DeliveryImpl implements DeliveryRemote, DeliveryLocal {
 	@PersistenceContext(unitName = "DevilryCore")
 	protected EntityManager em;

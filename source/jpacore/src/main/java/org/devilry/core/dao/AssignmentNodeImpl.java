@@ -7,12 +7,14 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
+import javax.interceptor.Interceptors;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import org.devilry.core.InvalidNameException;
 import org.devilry.core.NoSuchObjectException;
 import org.devilry.core.NodePath;
+import org.devilry.core.authorize.AuthorizeAssignmentNode;
 import org.devilry.core.daointerfaces.AssignmentNodeLocal;
 import org.devilry.core.daointerfaces.AssignmentNodeRemote;
 import org.devilry.core.daointerfaces.DeliveryCommon;
@@ -23,6 +25,7 @@ import org.devilry.core.entity.AssignmentNode;
 import org.devilry.core.entity.PeriodNode;
 
 @Stateless
+@Interceptors( {AuthorizeAssignmentNode.class} )
 public class AssignmentNodeImpl extends BaseNodeImpl implements
 		AssignmentNodeRemote, AssignmentNodeLocal {
 

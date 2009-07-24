@@ -18,7 +18,6 @@ import org.devilry.core.UnauthorizedException;
 import org.devilry.core.authorize.AuthorizeNode;
 import org.devilry.core.daointerfaces.CourseNodeCommon;
 import org.devilry.core.daointerfaces.CourseNodeLocal;
-import org.devilry.core.daointerfaces.NodeCommon;
 import org.devilry.core.daointerfaces.NodeLocal;
 import org.devilry.core.daointerfaces.NodeRemote;
 import org.devilry.core.entity.Node;

@@ -18,7 +18,6 @@ public abstract class AuthorizeCourseNodeCommonTest {
 	protected static CoreTestHelper testHelper;
 	protected static CoreTestHelper superTestHelper;
 
-	/** The id of the users with the logged-in identity. */
 	private long userId, userId2, superId;
 
 	private long uioId, inf1000Id;

@@ -8,13 +8,14 @@ import javax.ejb.SessionContext;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
 
+import org.devilry.core.UnauthorizedException;
 import org.devilry.core.daointerfaces.UserLocal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public abstract class AuthorizeBase {
 
-	private Logger log = LoggerFactory.getLogger(getClass());
+	protected Logger log = LoggerFactory.getLogger(getClass());
 
 	@Resource
 	protected SessionContext sessionCtx;
@@ -34,6 +35,7 @@ public abstract class AuthorizeBase {
 			log.debug("SuperAdmin {} granted access to: {}", userId, fullMethodName);
 		} else {
 			Object[] parameters = invocationCtx.getParameters();
+
 			auth(invocationCtx, methodName, fullMethodName, parameters);
 
 			// If no exception is thrown by the auth method, the user
@@ -48,4 +50,31 @@ public abstract class AuthorizeBase {
 	protected abstract void auth(InvocationContext invocationCtx,
 		String methodName, String fullMethodName, Object[] parameters)
 		throws Exception;
+
+	/** Should be used in auth() if the method is not among any of the known methods. */
+	protected void unknown(String fullMethodName) throws UnauthorizedException {
+		throw new UnauthorizedException(
+				"No authorization rule set for non-SuperAdmin users " +
+				"on method: " + fullMethodName);
+	}
+
+	/** Should be used in auth(). */
+	protected void noAuthRequired(String fullMethodName) {
+		log.debug("No authorization required for method: {}",
+				fullMethodName);
+	}
+
+	/** Should be used in auth() . */
+	protected boolean noAuthRequired(String methodName,
+			MethodNames noAuthRequiredMethods) {
+
+		if(noAuthRequiredMethods.contains(methodName)) {
+			log.debug("No authorization required for method: {}",
+					methodName);
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 }

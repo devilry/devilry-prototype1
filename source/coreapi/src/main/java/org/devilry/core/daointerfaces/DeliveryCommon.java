@@ -14,8 +14,11 @@ public interface DeliveryCommon {
 	 * @return The id of the newly created delivery.
 	 * @throws UnauthorizedException
 	 *             If the authenticated user is not authorized for this method.
+	 * @throws NoSuchObjectException
+	 *             If no assignment-node with the given id exists.
 	 */
-	long create(long assignmentId) throws UnauthorizedException;
+	long create(long assignmentId) throws UnauthorizedException,
+		NoSuchObjectException;
 
 	/**
 	 * Get parent (Assignment) node.
