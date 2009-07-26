@@ -115,8 +115,9 @@ public class DeliveryImpl implements DeliveryRemote, DeliveryLocal {
 		return l;
 	}
 
-	public boolean isStudent(long deliveryId, long userId) {
-		return getDelivery(deliveryId).getStudents().contains(getUser(userId));
+	public boolean isStudent(long deliveryId) {
+		return getDelivery(deliveryId).getStudents()
+				.contains(getUser(userBean.getAuthenticatedUser()));
 	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
@@ -157,8 +158,9 @@ public class DeliveryImpl implements DeliveryRemote, DeliveryLocal {
 		return l;
 	}
 
-	public boolean isExaminer(long deliveryId, long userId) {
-		return getDelivery(deliveryId).getExaminers().contains(getUser(userId));
+	public boolean isExaminer(long deliveryId) {
+		return getDelivery(deliveryId).getExaminers()
+				.contains(getUser(userBean.getAuthenticatedUser()));
 	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)

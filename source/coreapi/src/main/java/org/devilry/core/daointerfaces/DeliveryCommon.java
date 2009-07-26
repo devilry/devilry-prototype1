@@ -97,12 +97,12 @@ public interface DeliveryCommon {
 	List<Long> getStudents(long deliveryId) throws UnauthorizedException;
 
 	/**
-	 * Check if a user is student on the given delivery.
+	 * Check if the authenticated user is student on the given delivery.
 	 *
 	 * @throws UnauthorizedException If the authenticated user is not authorized
 	 *                               for this method.
 	 */
-	boolean isStudent(long deliveryId, long userId)
+	boolean isStudent(long deliveryId)
 			throws UnauthorizedException;
 
 	/**
@@ -142,13 +142,12 @@ public interface DeliveryCommon {
 	List<Long> getExaminers(long deliveryId) throws UnauthorizedException;
 
 	/**
-	 * Check if a user is Examiner on the given delivery.
+	 * Check if the authenticated user is Examiner on the given delivery.
 	 *
 	 * @throws UnauthorizedException If the authenticated user is not authorized
 	 *                               for this method.
 	 */
-	boolean isExaminer(long deliveryId, long userId)
-			throws UnauthorizedException;
+	boolean isExaminer(long deliveryId) throws UnauthorizedException;
 
 	/**
 	 * Add a new Examiner to the given delivery.

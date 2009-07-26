@@ -33,36 +33,38 @@ import javax.naming.NamingException;
 
 
 public abstract class DeliveryCommonTest {
-	
+
 	protected static CoreTestHelper testHelper;
-	
+
 	NodeCommon node;
 	UserCommon userBean;
 	CourseNodeCommon courseNode;
 	PeriodNodeCommon periodNode;
 	AssignmentNodeCommon assignmentNode;
-	
+
 	DeliveryCommon delivery;
 	DeliveryCandidateCommon deliveryCandidate;
-		
+
 	long superId;
-	
+
 	long uioId;
 	long matnatId;
 	long courseId;
 
 	long periodId;
 	long periodId2;
-		
+
 	long assignmentId, assignmentId2, assignmentId3;
 	Calendar deadline;
-		
+
 	long deliveryId, deliveryId2;
 
-	
+
 	@Before
-	public void setUp() throws NamingException, PathExistsException, UnauthorizedException, InvalidNameException, NoSuchObjectException {
-		
+	public void setUp()
+			throws NamingException, PathExistsException, UnauthorizedException,
+			InvalidNameException, NoSuchObjectException {
+
 		node = testHelper.getNodeCommon();
 		userBean = testHelper.getUserCommon();
 		courseNode = testHelper.getCourseNodeCommon();
@@ -70,15 +72,16 @@ public abstract class DeliveryCommonTest {
 		assignmentNode = testHelper.getAssignmentNodeCommon();
 		delivery = testHelper.getDeliveryCommon();
 		deliveryCandidate = testHelper.getDeliveryCandidateCommon();
-		
+
 		superId = userBean.create("Homer Simpson", "homr@stuff.org", "123");
 		userBean.setIsSuperAdmin(superId, true);
 		userBean.addIdentity(superId, "homer");
-		
+
 		uioId = node.create("uio", "UiO");
 		matnatId = node.create("matnat", "Faculty of Mathematics", uioId);
-		courseId = courseNode.create("inf1000", "Object oriented programming", matnatId);
-				
+		courseId = courseNode
+				.create("inf1000", "Object oriented programming", matnatId);
+
 		Calendar start = new GregorianCalendar(2009, 00, 01, 10, 15);
 		Calendar end = new GregorianCalendar(2009, 05, 15);
 
@@ -86,29 +89,35 @@ public abstract class DeliveryCommonTest {
 				end.getTime(), courseId);
 		periodId2 = periodNode.create("spring09", "Spring 2009", start
 				.getTime(), end.getTime(), courseId);
-		
+
 		deadline = new GregorianCalendar(2009, 07, 20);
-		
+
 		// Add assignment
-		assignmentId = assignmentNode.create("oblig1", "Obligatory assignemnt 1", deadline.getTime(), periodId);
-		
+		assignmentId = assignmentNode
+				.create("oblig1", "Obligatory assignemnt 1", deadline.getTime(),
+						periodId);
+
 		deliveryId = delivery.create(assignmentId);
 		deliveryId2 = delivery.create(assignmentId);
-		
+
 		deadline = new GregorianCalendar(2009, 05, 17);
-		
+
 		deadline = new GregorianCalendar(2009, 06, 17);
-		assignmentId2 = assignmentNode.create("oblig2", "Obligatory assignment 2", deadline.getTime(), periodId);
-		
+		assignmentId2 = assignmentNode
+				.create("oblig2", "Obligatory assignment 2", deadline.getTime(),
+						periodId);
+
 		deadline = new GregorianCalendar(2009, 07, 17);
-		assignmentId3 = assignmentNode.create("oblig1", "Obligatory assignment 1", deadline.getTime(), periodId2);
+		assignmentId3 = assignmentNode
+				.create("oblig1", "Obligatory assignment 1", deadline.getTime(),
+						periodId2);
 	}
 
 	@After
 	public void tearDown() throws Exception {
 		testHelper.clearUsersAndNodes();
 	}
-	
+
 
 	@Test
 	public void remove() throws NoSuchObjectException, UnauthorizedException {
@@ -127,7 +136,7 @@ public abstract class DeliveryCommonTest {
 	public void getAssignment() {
 		assertEquals(assignmentId, delivery.getAssignment(deliveryId));
 	}
-	
+
 	@Test
 	public void getStatus() {
 		// TODO
@@ -137,13 +146,14 @@ public abstract class DeliveryCommonTest {
 	public void setStatus() {
 		// TODO
 	}
-	
+
 
 	@Test
 	public void getDeliveryCandidates() throws Exception {
 		long id = deliveryCandidate.create(deliveryId);
 		assertEquals(1, delivery.getDeliveryCandidates(deliveryId).size());
-		assertEquals(id, (long) delivery.getDeliveryCandidates(deliveryId).get(0));
+		assertEquals(id,
+				(long) delivery.getDeliveryCandidates(deliveryId).get(0));
 
 		deliveryCandidate.create(deliveryId);
 		deliveryCandidate.create(deliveryId);
@@ -154,7 +164,7 @@ public abstract class DeliveryCommonTest {
 	public void getLastDeliveryCandidate() {
 		// TODO
 	}
-	
+
 	@Test
 	public void getLastValidDeliveryCandidate() {
 		// TODO
@@ -169,19 +179,19 @@ public abstract class DeliveryCommonTest {
 
 	@Test
 	public void isStudent() throws Exception {
-		assertFalse(delivery.isStudent(deliveryId, superId));
+		assertFalse(delivery.isStudent(deliveryId));
 		delivery.addStudent(deliveryId, superId);
-		assertTrue(delivery.isStudent(deliveryId, superId));
+		assertTrue(delivery.isStudent(deliveryId));
 	}
 
 	@Test
 	public void addStudent() throws Exception {
 		delivery.addStudent(deliveryId, superId);
-		assertTrue(delivery.isStudent(deliveryId, superId));
+		assertTrue(delivery.isStudent(deliveryId));
 
 		assertEquals(1, delivery.getStudents(deliveryId).size());
 		delivery.addStudent(deliveryId, superId);
-		
+
 		// Check that duplicate value isn't added
 		assertEquals(1, delivery.getStudents(deliveryId).size());
 	}
@@ -190,10 +200,11 @@ public abstract class DeliveryCommonTest {
 	public void removeStudent() throws Exception {
 		delivery.addStudent(deliveryId, superId);
 		delivery.removeStudent(deliveryId, superId);
-		assertFalse(delivery.isStudent(deliveryId, superId));
-		assertTrue(userBean.userExists(superId)); // make sure the user is not removed from the system as well!
+		assertFalse(delivery.isStudent(deliveryId));
+		assertTrue(userBean.userExists(
+				superId)); // make sure the user is not removed from the system as well!
 	}
-	
+
 	@Test
 	public void getDeliveriesWhereIsStudent() throws Exception {
 		delivery.addStudent(deliveryId, superId);
@@ -214,19 +225,19 @@ public abstract class DeliveryCommonTest {
 
 	@Test
 	public void isExaminer() throws Exception {
-		assertFalse(delivery.isExaminer(deliveryId, superId));
+		assertFalse(delivery.isExaminer(deliveryId));
 		delivery.addExaminer(deliveryId, superId);
-		assertTrue(delivery.isExaminer(deliveryId, superId));
+		assertTrue(delivery.isExaminer(deliveryId));
 	}
 
 	@Test
 	public void addExaminer() throws Exception {
 		delivery.addExaminer(deliveryId, superId);
-		assertTrue(delivery.isExaminer(deliveryId, superId));
+		assertTrue(delivery.isExaminer(deliveryId));
 
 		assertEquals(1, delivery.getExaminers(deliveryId).size());
 		delivery.addExaminer(deliveryId, superId);
-		
+
 		// Check that duplicate value isn't added
 		assertEquals(1, delivery.getExaminers(deliveryId).size());
 	}
@@ -235,10 +246,11 @@ public abstract class DeliveryCommonTest {
 	public void removeExaminer() throws Exception {
 		delivery.addExaminer(deliveryId, superId);
 		delivery.removeExaminer(deliveryId, superId);
-		assertFalse(delivery.isExaminer(deliveryId, superId));
-		assertTrue(userBean.userExists(superId)); // make sure the user is not removed from the system as well!
+		assertFalse(delivery.isExaminer(deliveryId));
+		assertTrue(userBean.userExists(
+				superId)); // make sure the user is not removed from the system as well!
 	}
-	
+
 	@Test
 	public void getDeliveriesWhereIsExaminer() throws Exception {
 		delivery.addExaminer(deliveryId, superId);
