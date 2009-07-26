@@ -1,4 +1,4 @@
-package org.devilry.core.session.dao;
+package org.devilry.core.dao;
 
 import java.util.Arrays;
 import java.util.Calendar;

@@ -1,34 +1,18 @@
-package org.devilry.core.session.dao;
+package org.devilry.core.dao;
 
-import javax.naming.*;
-import javax.persistence.*;
-
-import java.util.*;
-
+import org.devilry.core.*;
+import org.devilry.core.daointerfaces.*;
+import org.devilry.core.testhelpers.CoreTestHelper;
 import org.junit.After;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
-import org.devilry.core.InvalidNameException;
-import org.devilry.core.NoSuchObjectException;
-import org.devilry.core.NoSuchUserException;
-import org.devilry.core.NodePath;
-import org.devilry.core.PathExistsException;
-import org.devilry.core.UnauthorizedException;
-import org.devilry.core.dao.AssignmentNodeImpl;
-import org.devilry.core.dao.CourseNodeImpl;
-import org.devilry.core.dao.PeriodNodeImpl;
-import org.devilry.core.daointerfaces.AssignmentNodeCommon;
-import org.devilry.core.daointerfaces.AssignmentNodeRemote;
-import org.devilry.core.daointerfaces.CourseNodeCommon;
-import org.devilry.core.daointerfaces.CourseNodeRemote;
-import org.devilry.core.daointerfaces.NodeCommon;
-import org.devilry.core.daointerfaces.PeriodNodeCommon;
-import org.devilry.core.daointerfaces.PeriodNodeRemote;
-import org.devilry.core.daointerfaces.UserCommon;
-import org.devilry.core.session.*;
-import org.devilry.core.testhelpers.CoreTestHelper;
+import javax.naming.NamingException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 public abstract class PeriodNodeCommonTest {
 	
