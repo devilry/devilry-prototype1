@@ -1,31 +1,24 @@
 package org.devilry.core.dao;
 
-import java.util.Date;
-import java.util.List;
+import org.devilry.core.InvalidNameException;
+import org.devilry.core.NoSuchObjectException;
+import org.devilry.core.NodePath;
+import org.devilry.core.UnauthorizedException;
+import org.devilry.core.daointerfaces.*;
+import org.devilry.core.entity.AssignmentNode;
+import org.devilry.core.entity.PeriodNode;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
-import javax.interceptor.Interceptors;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
-
-import org.devilry.core.InvalidNameException;
-import org.devilry.core.NoSuchObjectException;
-import org.devilry.core.NodePath;
-import org.devilry.core.authorize.AuthorizeAssignmentNode;
-import org.devilry.core.daointerfaces.AssignmentNodeLocal;
-import org.devilry.core.daointerfaces.AssignmentNodeRemote;
-import org.devilry.core.daointerfaces.DeliveryCommon;
-import org.devilry.core.daointerfaces.DeliveryLocal;
-import org.devilry.core.daointerfaces.PeriodNodeCommon;
-import org.devilry.core.daointerfaces.PeriodNodeLocal;
-import org.devilry.core.entity.AssignmentNode;
-import org.devilry.core.entity.PeriodNode;
+import java.util.Date;
+import java.util.List;
 
 @Stateless
-@Interceptors( {AuthorizeAssignmentNode.class} )
+//@Interceptors( {AuthorizeAssignmentNode.class} )
 public class AssignmentNodeImpl extends BaseNodeImpl implements
 		AssignmentNodeRemote, AssignmentNodeLocal {
 
@@ -34,8 +27,7 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 
 	@EJB(beanInterface=PeriodNodeLocal.class) 
 	private PeriodNodeCommon periodBean;
-	
-	
+
 	private AssignmentNode getAssignmentNode(long nodeId) {
 		return getNode(AssignmentNode.class, nodeId);
 	}
@@ -99,7 +91,7 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 		return getAssignmentNode(assignmentNodeId).getPeriod().getId();
 	}
 
-	public void remove(long assignmentId) {
+	public void remove(long assignmentId) throws UnauthorizedException {
 
 		// Remove childnodes (deliveries)
 		List<Long> childDeliveries = getDeliveries(assignmentId);
@@ -121,7 +113,7 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 		AssignmentNode courseNode = getAssignmentNode(assignmentId);
 		return isAdmin(courseNode, userBean.getAuthenticatedUser());
 	}
-	
+
 	
 
 	public NodePath getPath(long assignmentNodeId) throws NoSuchObjectException, InvalidNameException {

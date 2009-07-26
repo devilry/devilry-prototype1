@@ -20,9 +20,11 @@ import org.devilry.core.daointerfaces.UserLocal;
 import org.devilry.core.entity.AssignmentNode;
 import org.devilry.core.entity.Delivery;
 import org.devilry.core.entity.User;
+import org.devilry.core.UnauthorizedException;
+import org.devilry.core.NoSuchObjectException;
 
 @Stateless
-@Interceptors( {AuthorizeDelivery.class} )
+@Interceptors({AuthorizeDelivery.class})
 public class DeliveryImpl implements DeliveryRemote, DeliveryLocal {
 	@PersistenceContext(unitName = "DevilryCore")
 	protected EntityManager em;
@@ -68,7 +70,9 @@ public class DeliveryImpl implements DeliveryRemote, DeliveryLocal {
 
 	public long getLastDeliveryCandidate(long deliveryId) {
 		Query q = em
-				.createQuery("SELECT d.id FROM DeliveryCandidate d WHERE d.timeOfDelivery = MAX(d.timeOfDelivery)");
+				.createQuery(
+						"SELECT d.id FROM DeliveryCandidate d WHERE " +
+								"d.timeOfDelivery = MAX(d.timeOfDelivery)");
 		return (Long) q.getSingleResult();
 	}
 
@@ -93,7 +97,7 @@ public class DeliveryImpl implements DeliveryRemote, DeliveryLocal {
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void remove(long deliveryId) {
 		List<Long> children = getDeliveryCandidates(deliveryId);
-		for(long dcId: children) {
+		for (long dcId : children) {
 			deliveryCandidateBean.remove(dcId);
 		}
 		em.remove(getDelivery(deliveryId));
@@ -105,8 +109,9 @@ public class DeliveryImpl implements DeliveryRemote, DeliveryLocal {
 
 	public List<Long> getStudents(long deliveryId) {
 		LinkedList<Long> l = new LinkedList<Long>();
-		for (User u : getDelivery(deliveryId).getStudents())
+		for (User u : getDelivery(deliveryId).getStudents()) {
 			l.add(u.getId());
+		}
 		return l;
 	}
 
@@ -132,7 +137,10 @@ public class DeliveryImpl implements DeliveryRemote, DeliveryLocal {
 	public List<Long> getDeliveriesWhereIsStudent() {
 		long userId = userBean.getAuthenticatedUser();
 		Query q = em
-				.createQuery("SELECT d.id FROM Delivery d INNER JOIN d.students stud WHERE stud.id = :userId");
+				.createQuery(
+						"SELECT d.id FROM Delivery d " +
+								"INNER JOIN d.students stud " +
+								"WHERE stud.id = :userId");
 		q.setParameter("userId", userId);
 		return q.getResultList();
 	}
@@ -143,8 +151,9 @@ public class DeliveryImpl implements DeliveryRemote, DeliveryLocal {
 
 	public List<Long> getExaminers(long deliveryId) {
 		LinkedList<Long> l = new LinkedList<Long>();
-		for (User u : getDelivery(deliveryId).getExaminers())
+		for (User u : getDelivery(deliveryId).getExaminers()) {
 			l.add(u.getId());
+		}
 		return l;
 	}
 
@@ -170,7 +179,10 @@ public class DeliveryImpl implements DeliveryRemote, DeliveryLocal {
 	public List<Long> getDeliveriesWhereIsExaminer() {
 		long userId = userBean.getAuthenticatedUser();
 		Query q = em
-				.createQuery("SELECT d.id FROM Delivery d INNER JOIN d.examiners ex WHERE ex.id = :userId");
+				.createQuery(
+						"SELECT d.id FROM Delivery d " +
+								"INNER JOIN d.examiners ex " +
+								"WHERE ex.id = :userId");
 		q.setParameter("userId", userId);
 		return q.getResultList();
 	}

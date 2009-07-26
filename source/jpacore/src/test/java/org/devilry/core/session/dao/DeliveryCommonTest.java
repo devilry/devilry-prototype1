@@ -140,7 +140,7 @@ public abstract class DeliveryCommonTest {
 	
 
 	@Test
-	public void getDeliveryCandidates() {
+	public void getDeliveryCandidates() throws Exception {
 		long id = deliveryCandidate.create(deliveryId);
 		assertEquals(1, delivery.getDeliveryCandidates(deliveryId).size());
 		assertEquals(id, (long) delivery.getDeliveryCandidates(deliveryId).get(0));
@@ -168,14 +168,14 @@ public abstract class DeliveryCommonTest {
 
 
 	@Test
-	public void isStudent() {
+	public void isStudent() throws Exception {
 		assertFalse(delivery.isStudent(deliveryId, superId));
 		delivery.addStudent(deliveryId, superId);
 		assertTrue(delivery.isStudent(deliveryId, superId));
 	}
 
 	@Test
-	public void addStudent() {
+	public void addStudent() throws Exception {
 		delivery.addStudent(deliveryId, superId);
 		assertTrue(delivery.isStudent(deliveryId, superId));
 
@@ -187,7 +187,7 @@ public abstract class DeliveryCommonTest {
 	}
 
 	@Test
-	public void removeStudent() {
+	public void removeStudent() throws Exception {
 		delivery.addStudent(deliveryId, superId);
 		delivery.removeStudent(deliveryId, superId);
 		assertFalse(delivery.isStudent(deliveryId, superId));
@@ -195,7 +195,7 @@ public abstract class DeliveryCommonTest {
 	}
 	
 	@Test
-	public void getDeliveriesWhereIsStudent() {
+	public void getDeliveriesWhereIsStudent() throws Exception {
 		delivery.addStudent(deliveryId, superId);
 		List<Long> l = delivery.getDeliveriesWhereIsStudent();
 		assertEquals(1, l.size());
@@ -213,14 +213,14 @@ public abstract class DeliveryCommonTest {
 
 
 	@Test
-	public void isExaminer() {
+	public void isExaminer() throws Exception {
 		assertFalse(delivery.isExaminer(deliveryId, superId));
 		delivery.addExaminer(deliveryId, superId);
 		assertTrue(delivery.isExaminer(deliveryId, superId));
 	}
 
 	@Test
-	public void addExaminer() {
+	public void addExaminer() throws Exception {
 		delivery.addExaminer(deliveryId, superId);
 		assertTrue(delivery.isExaminer(deliveryId, superId));
 
@@ -232,7 +232,7 @@ public abstract class DeliveryCommonTest {
 	}
 
 	@Test
-	public void removeExaminer() {
+	public void removeExaminer() throws Exception {
 		delivery.addExaminer(deliveryId, superId);
 		delivery.removeExaminer(deliveryId, superId);
 		assertFalse(delivery.isExaminer(deliveryId, superId));
@@ -240,7 +240,7 @@ public abstract class DeliveryCommonTest {
 	}
 	
 	@Test
-	public void getDeliveriesWhereIsExaminer() {
+	public void getDeliveriesWhereIsExaminer() throws Exception {
 		delivery.addExaminer(deliveryId, superId);
 		List<Long> l = delivery.getDeliveriesWhereIsExaminer();
 		assertEquals(1, l.size());
