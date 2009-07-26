@@ -143,32 +143,6 @@ public abstract class AuthorizeDeliveryCommonTest {
 
 
 	@Test
-	public void isExaminer() throws Exception {
-		superTestHelper.getAssignmentNodeCommon().addAssignmentAdmin(
-				oblig1Id, userId);
-		testHelper.getDeliveryCommon().isExaminer(delivery1Id, unAuthUser);
-	}
-
-	@Test(expected = UnauthorizedException.class)
-	public void isExaminerUnauthorized() throws Exception {
-		testHelper.getDeliveryCommon().isExaminer(delivery1Id, unAuthUser);
-	}
-
-
-	@Test
-	public void isStudent() throws Exception {
-		superTestHelper.getAssignmentNodeCommon().addAssignmentAdmin(
-				oblig1Id, userId);
-		testHelper.getDeliveryCommon().isStudent(delivery1Id, unAuthUser);
-	}
-
-	@Test(expected = UnauthorizedException.class)
-	public void isStudentUnauthorized() throws Exception {
-		testHelper.getDeliveryCommon().isStudent(delivery1Id, unAuthUser);
-	}
-
-
-	@Test
 	public void remove() throws Exception {
 		superTestHelper.getAssignmentNodeCommon().addAssignmentAdmin(
 				oblig1Id, userId);
@@ -212,5 +186,117 @@ public abstract class AuthorizeDeliveryCommonTest {
 		superTestHelper.getDeliveryCommon()
 				.addExaminer(delivery1Id, unAuthUser);
 		testHelper.getDeliveryCommon().removeStudent(delivery1Id, unAuthUser);
+	}
+
+
+	////////////////////////////////////////////
+	// examinerMethods
+	////////////////////////////////////////////
+
+	@Test
+	public void isExaminer() throws Exception {
+		superTestHelper.getDeliveryCommon().addExaminer(
+				delivery1Id, userId);
+		testHelper.getDeliveryCommon().isExaminer(delivery1Id);
+	}
+
+	@Test(expected = UnauthorizedException.class)
+	public void isExaminerUnauthorized() throws Exception {
+		testHelper.getDeliveryCommon().isExaminer(delivery1Id);
+	}
+
+
+	////////////////////////////////////////////
+	// studentMethods
+	////////////////////////////////////////////
+
+	@Test
+	public void isStudent() throws Exception {
+		superTestHelper.getDeliveryCommon().addStudent(delivery1Id, userId);
+		testHelper.getDeliveryCommon().isStudent(delivery1Id);
+	}
+
+	@Test(expected = UnauthorizedException.class)
+	public void isStudentUnauthorized() throws Exception {
+		testHelper.getDeliveryCommon().isStudent(delivery1Id);
+	}
+
+
+	///////////////////////////////////////////
+	// anyMethods
+	///////////////////////////////////////////
+
+	@Test
+	public void getDeliveryCandidatesAsStudent() throws Exception {
+		superTestHelper.getDeliveryCommon().addStudent(delivery1Id, userId);
+		testHelper.getDeliveryCommon().getDeliveryCandidates(delivery1Id);
+	}
+
+	@Test
+	public void getDeliveryCandidatesAsExaminer() throws Exception {
+		superTestHelper.getDeliveryCommon().addExaminer(delivery1Id, userId);
+		testHelper.getDeliveryCommon().getDeliveryCandidates(delivery1Id);
+	}
+
+	@Test
+	public void getDeliveryCandidatesAsAssignmentAdmin() throws Exception {
+		superTestHelper.getAssignmentNodeCommon()
+				.addAssignmentAdmin(oblig1Id, userId);
+		testHelper.getDeliveryCommon().getDeliveryCandidates(delivery1Id);
+	}
+
+	@Test(expected = UnauthorizedException.class)
+	public void getDeliveryCandidatesAsStudentUnauthorized() throws Exception {
+		testHelper.getDeliveryCommon().getDeliveryCandidates(delivery1Id);
+	}
+
+
+	@Test
+	public void getLastDeliveryCandidateAsStudent() throws Exception {
+		superTestHelper.getDeliveryCommon().addStudent(delivery1Id, userId);
+		testHelper.getDeliveryCommon().getLastDeliveryCandidate(delivery1Id);
+	}
+
+	@Test
+	public void getLastDeliveryCandidateAsExaminer() throws Exception {
+		superTestHelper.getDeliveryCommon().addExaminer(delivery1Id, userId);
+		testHelper.getDeliveryCommon().getLastDeliveryCandidate(delivery1Id);
+	}
+
+	@Test
+	public void getLastDeliveryCandidateAsAssignmentAdmin() throws Exception {
+		superTestHelper.getAssignmentNodeCommon()
+				.addAssignmentAdmin(oblig1Id, userId);
+		testHelper.getDeliveryCommon().getLastDeliveryCandidate(delivery1Id);
+	}
+
+	@Test(expected = UnauthorizedException.class)
+	public void getLastDeliveryCandidateAsStudentUnauthorized() throws Exception {
+		testHelper.getDeliveryCommon().getLastDeliveryCandidate(delivery1Id);
+	}
+
+
+	@Test
+	public void getLastValidDeliveryCandidateAsStudent() throws Exception {
+		superTestHelper.getDeliveryCommon().addStudent(delivery1Id, userId);
+		testHelper.getDeliveryCommon().getLastValidDeliveryCandidate(delivery1Id);
+	}
+
+	@Test
+	public void getLastValidDeliveryCandidateAsExaminer() throws Exception {
+		superTestHelper.getDeliveryCommon().addExaminer(delivery1Id, userId);
+		testHelper.getDeliveryCommon().getLastValidDeliveryCandidate(delivery1Id);
+	}
+
+	@Test
+	public void getLastValidDeliveryCandidateAsAssignmentAdmin() throws Exception {
+		superTestHelper.getAssignmentNodeCommon()
+				.addAssignmentAdmin(oblig1Id, userId);
+		testHelper.getDeliveryCommon().getLastValidDeliveryCandidate(delivery1Id);
+	}
+
+	@Test(expected = UnauthorizedException.class)
+	public void getLastValidDeliveryCandidateAsStudentUnauthorized() throws Exception {
+		testHelper.getDeliveryCommon().getLastValidDeliveryCandidate(delivery1Id);
 	}
 }

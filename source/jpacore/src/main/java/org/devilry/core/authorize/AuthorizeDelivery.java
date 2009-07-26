@@ -7,6 +7,8 @@ import org.devilry.core.daointerfaces.DeliveryLocal;
 
 import javax.ejb.EJB;
 import javax.interceptor.InvocationContext;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 public class AuthorizeDelivery extends AuthorizeBase {
 
@@ -30,11 +32,11 @@ public class AuthorizeDelivery extends AuthorizeBase {
 			"getStudents", "isStudent", "isExaminer", "remove",
 			"removeExaminer", "removeStudent");
 
-	/**
-	 * Methods that only students can access.
-	 */
 	private static final MethodNames studentMethods = new MethodNames(
-			"create");
+			"isStudent");
+
+	private static final MethodNames examinerMethods = new MethodNames(
+			"isExaminer");
 
 	/**
 	 * Methods that any of assignmentAdmin, student or examiner might access
@@ -50,10 +52,107 @@ public class AuthorizeDelivery extends AuthorizeBase {
 
 		if (noAuthRequired(methodName, noAuthRequiredMethods)) {
 			return;
+		} else if (isStudentCalled(methodName, parameters, invocationCtx)) {
+			return;
+		} else if (isExaminerCalled(methodName, parameters, invocationCtx)) {
+			return;
+		} else if (anyRequired(methodName, parameters, invocationCtx)) {
+			return;
 		} else if (assignmnentAdminRequired(methodName, parameters)) {
 			return;
 		} else {
 			unknown(fullMethodName);
+		}
+	}
+
+
+	private boolean noAuth(InvocationContext invocationCtx) {
+		return invocationCtx.getContextData().containsKey("skip auth");
+	}
+
+
+	/**
+	 * Put the "skip auth" key into context data, and call the given method
+	 * on the target class.
+	 * Because of the noAuth() test, authentication will be skipped, and
+	 * the given method is run even if the authenticated user does not have
+	 * access.
+	 */
+	private boolean isSomethingNoAuth(InvocationContext invocationCtx,
+									  Object[] parameters, String methodName)
+			throws NoSuchMethodException, IllegalAccessException,
+			InvocationTargetException {
+
+		// Put "skip auth" into getContextData for noAuth()
+		invocationCtx.getContextData().put("skip auth", true);
+
+		// Get the isStudent/isExaminer method from the target class using
+		// reflection. Note that we cannot use invocationCtx.getMethod() because
+		// this method is not only used when isStudent()/isExaminer() is called
+		// directly.
+		Class[] paramTypes = new Class[]{Long.TYPE};
+		Method isSomethingMethod =
+				invocationCtx.getTarget().getClass()
+						.getMethod(methodName, paramTypes);
+		return (Boolean) isSomethingMethod
+				.invoke(invocationCtx.getTarget(), parameters);
+	}
+
+	private boolean isStudentNoAuth(InvocationContext invocationCtx,
+									Object[] parameters)
+			throws IllegalAccessException, InvocationTargetException,
+			NoSuchMethodException {
+		return isSomethingNoAuth(invocationCtx, parameters, "isStudent");
+	}
+
+	private boolean isExaminerNoAuth(InvocationContext invocationCtx,
+									 Object[] parameters)
+			throws IllegalAccessException, InvocationTargetException,
+			NoSuchMethodException {
+		return isSomethingNoAuth(invocationCtx, parameters, "isExaminer");
+	}
+
+
+	private boolean isExaminerCalled(String methodName, Object[] parameters,
+									 InvocationContext invocationCtx)
+			throws UnauthorizedException, IllegalAccessException,
+			InvocationTargetException, NoSuchMethodException {
+
+		if (!methodName.equals("isExaminer")) {
+			return false;
+		}
+		if (noAuth(invocationCtx)) {
+			return true;
+		}
+
+		if (isExaminerNoAuth(invocationCtx, parameters)) {
+			return true;
+		} else {
+			throw new UnauthorizedException("Access to method isExaminer " +
+					"requires the authenticated user to be Examiner on the " +
+					"delivery");
+		}
+	}
+
+
+	private boolean isStudentCalled(String methodName, Object[] parameters,
+									InvocationContext invocationCtx)
+			throws UnauthorizedException, IllegalAccessException,
+			InvocationTargetException, NoSuchMethodException {
+
+		if (!methodName.equals("isStudent")) {
+			return false;
+		}
+		if (noAuth(invocationCtx)) {
+			return true;
+		}
+
+		if (isStudentNoAuth(invocationCtx, parameters)) {
+			return true;
+		} else {
+			throw new UnauthorizedException("Access to method isStudent " +
+					"requires the authenticated user to be Student on the " +
+					"delivery");
 		}
 	}
 
@@ -78,5 +177,27 @@ public class AuthorizeDelivery extends AuthorizeBase {
 							"assignment.", methodName));
 		}
 		return true;
+	}
+
+	private boolean anyRequired(String methodName, Object[] parameters,
+								InvocationContext invocationCtx)
+			throws UnauthorizedException, NoSuchObjectException,
+			IllegalAccessException, InvocationTargetException,
+			NoSuchMethodException {
+		if (!anyMethods.contains(methodName)) {
+			return false;
+		}
+
+		long deliveryId = (Long) parameters[0];
+		if (isStudentNoAuth(invocationCtx, parameters) ||
+				isExaminerNoAuth(invocationCtx, parameters)) {
+			return true;
+		} else {
+			long assignmentId = delivery.getAssignment(deliveryId);
+			if (assignment.isAssignmentAdmin(assignmentId)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
