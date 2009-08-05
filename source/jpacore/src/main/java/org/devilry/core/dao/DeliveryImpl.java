@@ -69,10 +69,10 @@ public class DeliveryImpl implements DeliveryRemote, DeliveryLocal {
 	}
 
 	public long getLastDeliveryCandidate(long deliveryId) {
-		Query q = em
-				.createQuery(
-						"SELECT d.id FROM DeliveryCandidate d WHERE " +
-								"d.timeOfDelivery = MAX(d.timeOfDelivery)");
+		Query q = em.createQuery("SELECT d.id FROM DeliveryCandidate d WHERE " +
+				"d.delivery.id = :deliveryId AND d.timeOfDelivery = " +
+				"(SELECT MAX(x.timeOfDelivery) FROM DeliveryCandidate x)");
+		q.setParameter("deliveryId", deliveryId);
 		return (Long) q.getSingleResult();
 	}
 

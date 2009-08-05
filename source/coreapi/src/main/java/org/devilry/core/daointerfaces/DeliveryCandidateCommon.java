@@ -27,21 +27,21 @@ public interface DeliveryCandidateCommon {
 		
 	/**
 	 * Get all the files in the delivery candidate.
-	 * @param deliveryCandiateId
+	 * @param deliveryCandidateId
 	 * @return
 	 */
 	public List<Long> getFiles(long deliveryCandidateId);
 	
 	/**
 	 * Set the status of the delivery
-	 * @param deliveryCandiateId
+	 * @param deliveryCandidateId
 	 * @param status
 	 */
 	public void setStatus(long deliveryCandidateId, int status);
 	
 	/**
 	 * Get the status of the delivery.
-	 * @param deliveryCandiateId
+	 * @param deliveryCandidateId
 	 * @return
 	 */
 	public int getStatus(long deliveryCandidateId);

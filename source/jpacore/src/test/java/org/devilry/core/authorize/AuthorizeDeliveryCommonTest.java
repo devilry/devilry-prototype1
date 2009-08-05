@@ -4,12 +4,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import org.devilry.core.UnauthorizedException;
-import org.devilry.core.daointerfaces.AssignmentNodeCommon;
-import org.devilry.core.daointerfaces.CourseNodeCommon;
-import org.devilry.core.daointerfaces.DeliveryCommon;
-import org.devilry.core.daointerfaces.NodeCommon;
-import org.devilry.core.daointerfaces.PeriodNodeCommon;
-import org.devilry.core.daointerfaces.UserCommon;
+import org.devilry.core.daointerfaces.*;
 import org.devilry.core.testhelpers.CoreTestHelper;
 import org.junit.After;
 import org.junit.Before;
@@ -56,6 +51,12 @@ public abstract class AuthorizeDeliveryCommonTest {
 
 		DeliveryCommon delivery = superTestHelper.getDeliveryCommon();
 		delivery1Id = delivery.create(oblig1Id);
+
+		// Required for testing of the functions returning a single delivery
+		// candidate.
+		DeliveryCandidateCommon deliveryCandidate =
+				superTestHelper.getDeliveryCandidateCommon();
+		deliveryCandidate.create(delivery1Id);
 	}
 
 	@After
@@ -271,7 +272,8 @@ public abstract class AuthorizeDeliveryCommonTest {
 	}
 
 	@Test(expected = UnauthorizedException.class)
-	public void getLastDeliveryCandidateAsStudentUnauthorized() throws Exception {
+	public void getLastDeliveryCandidateAsStudentUnauthorized()
+			throws Exception {
 		testHelper.getDeliveryCommon().getLastDeliveryCandidate(delivery1Id);
 	}
 
@@ -279,24 +281,30 @@ public abstract class AuthorizeDeliveryCommonTest {
 	@Test
 	public void getLastValidDeliveryCandidateAsStudent() throws Exception {
 		superTestHelper.getDeliveryCommon().addStudent(delivery1Id, userId);
-		testHelper.getDeliveryCommon().getLastValidDeliveryCandidate(delivery1Id);
+		testHelper.getDeliveryCommon()
+				.getLastValidDeliveryCandidate(delivery1Id);
 	}
 
 	@Test
 	public void getLastValidDeliveryCandidateAsExaminer() throws Exception {
 		superTestHelper.getDeliveryCommon().addExaminer(delivery1Id, userId);
-		testHelper.getDeliveryCommon().getLastValidDeliveryCandidate(delivery1Id);
+		testHelper.getDeliveryCommon()
+				.getLastValidDeliveryCandidate(delivery1Id);
 	}
 
 	@Test
-	public void getLastValidDeliveryCandidateAsAssignmentAdmin() throws Exception {
+	public void getLastValidDeliveryCandidateAsAssignmentAdmin()
+			throws Exception {
 		superTestHelper.getAssignmentNodeCommon()
 				.addAssignmentAdmin(oblig1Id, userId);
-		testHelper.getDeliveryCommon().getLastValidDeliveryCandidate(delivery1Id);
+		testHelper.getDeliveryCommon()
+				.getLastValidDeliveryCandidate(delivery1Id);
 	}
 
 	@Test(expected = UnauthorizedException.class)
-	public void getLastValidDeliveryCandidateAsStudentUnauthorized() throws Exception {
-		testHelper.getDeliveryCommon().getLastValidDeliveryCandidate(delivery1Id);
+	public void getLastValidDeliveryCandidateAsStudentUnauthorized()
+			throws Exception {
+		testHelper.getDeliveryCommon()
+				.getLastValidDeliveryCandidate(delivery1Id);
 	}
 }

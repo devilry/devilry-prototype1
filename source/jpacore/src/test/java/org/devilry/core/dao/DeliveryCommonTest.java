@@ -161,8 +161,11 @@ public abstract class DeliveryCommonTest {
 	}
 
 	@Test
-	public void getLastDeliveryCandidate() {
-		// TODO
+	public void getLastDeliveryCandidate() throws UnauthorizedException {
+		long id = deliveryCandidate.create(deliveryId);
+		assertEquals(delivery.getLastDeliveryCandidate(deliveryId), id);
+		long id2 = deliveryCandidate.create(deliveryId);
+		assertEquals(delivery.getLastDeliveryCandidate(deliveryId), id2);
 	}
 
 	@Test
