@@ -87,7 +87,7 @@ public abstract class AdminDeliveryCommonTest extends UserDeliveryCommonTest {
 	
 
 	@Test
-	public void addStudent() throws NamingException {
+	public void addStudent() throws NamingException, UnauthorizedException, NoSuchObjectException {
 		
 		AdminDelivery adminDelivery = assignment.addDelivery();
 		adminDelivery.addStudent(homerId);
@@ -98,7 +98,7 @@ public abstract class AdminDeliveryCommonTest extends UserDeliveryCommonTest {
 	}
 	
 	@Test
-	public void getStudents() throws NamingException {
+	public void getStudents() throws NamingException, UnauthorizedException, NoSuchObjectException {
 		AdminDelivery adminDelivery = assignment.addDelivery();
 		adminDelivery.addStudent(homerId);
 		adminDelivery.addStudent(lisaId);
@@ -112,7 +112,7 @@ public abstract class AdminDeliveryCommonTest extends UserDeliveryCommonTest {
 	}
 	
 	@Test
-	public void addExaminer() throws NamingException {
+	public void addExaminer() throws NamingException, UnauthorizedException, NoSuchObjectException {
 		
 		AdminDelivery adminDelivery = assignment.addDelivery();
 		adminDelivery.addExaminer(homerId);
@@ -123,7 +123,7 @@ public abstract class AdminDeliveryCommonTest extends UserDeliveryCommonTest {
 	}
 	
 	@Test
-	public void getExaminers() throws NamingException {
+	public void getExaminers() throws NamingException, UnauthorizedException, NoSuchObjectException {
 		AdminDelivery adminDelivery = assignment.addDelivery();
 		adminDelivery.addExaminer(homerId);
 		adminDelivery.addExaminer(lisaId);

@@ -31,12 +31,12 @@ public class AdminAssignment extends AbstractAssignment<AdminDelivery> {
 		return new AdminDeliveryIterator(ids).iterator();
 	}
 	
-	public AdminDelivery addDelivery() throws NamingException {
+	public AdminDelivery addDelivery() throws NamingException, UnauthorizedException, NoSuchObjectException {
 		long id = getDeliveryBean().create(assignmentId);
 		return new AdminDelivery(id, connection);
 	}
 	
-	public void removeDelivery(AdminDelivery delivery) throws NamingException {
+	public void removeDelivery(AdminDelivery delivery) throws NamingException, UnauthorizedException {
 		getDeliveryBean().remove(delivery.deliveryId);
 	}
 }
