@@ -57,20 +57,20 @@ public class AdminDelivery extends AbstractDelivery<AdminDeliveryCandidate> {
 		getDeliveryCandidateBean().remove(candidate.deliveryCandidateId);
 	}
 	
-	public void addStudent(long userId) throws NamingException {
+	public void addStudent(long userId) throws NamingException, UnauthorizedException {
 		getDeliveryBean().addStudent(deliveryId, userId);
 	}
 	
-	public void addExaminer(long userId) throws NamingException {
+	public void addExaminer(long userId) throws NamingException, UnauthorizedException {
 		getDeliveryBean().addExaminer(deliveryId, userId);
 	}
 	
-	public List<Long> getStudents() throws NamingException {
+	public List<Long> getStudents() throws NamingException, UnauthorizedException {
 		List<Long> students = getDeliveryBean().getStudents(deliveryId);
 		return students;
 	}
 	
-	public List<Long> getExaminers() throws NamingException {
+	public List<Long> getExaminers() throws NamingException, UnauthorizedException {
 		List<Long> students = getDeliveryBean().getExaminers(deliveryId);
 		return students;
 	}
