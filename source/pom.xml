@@ -16,6 +16,7 @@
 		<!--				<module>cli</module>-->
 		<module>clientapi</module>
 		<module>coreapi</module>
+        <module>maven-projectdevilry-skin</module>
 		<!--<module>webcli</module>-->
 	</modules>
 

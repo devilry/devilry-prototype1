@@ -1,30 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Devilry">
-	<body>
-		<menu name="Devilry">
-			<item name="About" href="index.html" />
-			<item name="Development" href="development.html" />
-<!--			<item name="2009-01-29" href="meetings/2009-01-29.html" />-->
-<!--			<item name="Simple 1" href="docbook_test.html" />-->
-		</menu>
-		
-		<menu name="Technologies">			
-			<item name="JavaEE" href="technologies/javaee.html" />
-			<item name="JUnit" href="technologies/junit.html" />
-			<item name="Apace Maven" href="technologies/maven.html" />
-		</menu>
+    <skin>
+        <groupId>org.projectdevilry</groupId>
+        <artifactId>maven-projectdevilry-skin</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </skin>
 
-		<menu ref="modules" />
 
-		<menu name="Usecases">
-		  <item name="User" href="usecases/User.html" />
-		  <item name="Student" href="usecases/Student.html" />
-		  <item name="AuthenticatedUser" href="usecases/AuthenticatedUser.html" />
-		  <item name="Examiner" href="usecases/Examiner.html" />
-		  <item name="Admin" href="usecases/Admin.html" />
-		  <item name="SuperAdmin" href="usecases/SuperAdmin.html" />
-		  <item name="CourseAdmin" href="usecases/CourseAdmin.html" />
-		  <item name="PeriodAdmin" href="usecases/PeriodAdmin.html" />
-		</menu>
-	</body>
+    <body>
+        <links>
+            <item name="Devilry@github" href="http://github.com/devilry/" />
+        </links>
+        <menu name="Devilry">
+            <item name="About" href="index.html"/>
+            <item name="Development" href="development.html"/>
+            <!--			<item name="2009-01-29" href="meetings/2009-01-29.html" />-->
+            <!--			<item name="Simple 1" href="docbook_test.html" />-->
+        </menu>
+
+        <menu name="Technologies">
+            <item name="JavaEE" href="technologies/javaee.html"/>
+            <item name="JUnit" href="technologies/junit.html"/>
+            <item name="Apace Maven" href="technologies/maven.html"/>
+        </menu>
+
+        <menu ref="modules"/>
+
+        <menu name="Usecases">
+            <item name="User" href="usecases/User.html"/>
+            <item name="Student" href="usecases/Student.html"/>
+            <item name="AuthenticatedUser"
+                  href="usecases/AuthenticatedUser.html"/>
+            <item name="Examiner" href="usecases/Examiner.html"/>
+            <item name="Admin" href="usecases/Admin.html"/>
+            <item name="SuperAdmin" href="usecases/SuperAdmin.html"/>
+            <item name="CourseAdmin" href="usecases/CourseAdmin.html"/>
+            <item name="PeriodAdmin" href="usecases/PeriodAdmin.html"/>
+        </menu>
+    </body>
 </project>
