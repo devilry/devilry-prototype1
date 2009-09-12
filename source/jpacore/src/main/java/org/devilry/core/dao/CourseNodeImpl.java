@@ -11,7 +11,6 @@ import org.devilry.core.InvalidNameException;
 import org.devilry.core.NoSuchObjectException;
 import org.devilry.core.NodePath;
 import org.devilry.core.UnauthorizedException;
-import org.devilry.core.authorize.AuthorizeCourseNode;
 import org.devilry.core.daointerfaces.CourseNodeLocal;
 import org.devilry.core.daointerfaces.CourseNodeRemote;
 import org.devilry.core.daointerfaces.NodeCommon;
@@ -24,7 +23,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Stateless
-@Interceptors( { AuthorizeCourseNode.class } )
+//@Interceptors( { org.devilry.core.authorize.AuthorizeCourseNode.class } )
 public class CourseNodeImpl extends BaseNodeImpl
 		implements CourseNodeRemote, CourseNodeLocal {
 	

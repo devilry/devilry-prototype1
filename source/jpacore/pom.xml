@@ -40,64 +40,77 @@
 
 
 	<build>
-		<plugins>
-			<!--
-				this configures the surefire plugin to run your tests with the
-				javaagent enabled
+	  <plugins>
+	    <!--
+		this configures the surefire plugin to run your tests with the
+		javaagent enabled
+	      -->
+	    <plugin>
+	      <groupId>org.apache.maven.plugins</groupId>
+	      <artifactId>maven-surefire-plugin</artifactId>
+	      <configuration>
+		<!--                    <forkMode>pertest</forkMode>-->
+		<argLine>
+		  -javaagent:${basedir}/target/openejb-javaagent-${openejb-version}.jar
+		</argLine>
+		<workingDirectory>
+		  ${basedir}/target
+		</workingDirectory>
+		<systemProperties>
+		  <property>
+		    <name>java.util.logging.config.file
+				</name>
+		    <value>test-classes/logging.properties
+		    </value>
+		  </property>
+		</systemProperties>
+	      </configuration>
+	    </plugin>
+	    
+			
+	    <plugin>
+	      <groupId>org.apache.maven.plugins</groupId>
+	      <artifactId>maven-dependency-plugin
+	      </artifactId>
+	      <version>2.1</version>
+	      <executions>
+		<execution>
+		  <id>copy</id>
+		  <phase>process-resources</phase>
+		  <goals>
+		    <goal>copy</goal>
+		  </goals>
+		  <configuration>
+		    <artifactItems>
+		      <!--
+			  this tells maven to copy the openejb-javaagent jar into your
+			  target/ directory where surefire can see it
 			-->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration>
-					<!--                    <forkMode>pertest</forkMode>-->
-					<argLine>
-						-javaagent:${basedir}/target/openejb-javaagent-${openejb-version}.jar
-					</argLine>
-					<workingDirectory>
-						${basedir}/target
-					</workingDirectory>
-					<systemProperties>
-						<property>
-							<name>java.util.logging.config.file
-							</name>
-							<value>test-classes/logging.properties
-							</value>
-						</property>
-					</systemProperties>
-				</configuration>
-			</plugin>
+		      <artifactItem>
+			<groupId>org.apache.openejb</groupId>
+			<artifactId>openejb-javaagent</artifactId>
+			<version>${openejb-version}</version>
+			<outputDirectory>${project.build.directory}
+			</outputDirectory>
+		      </artifactItem>
+		    </artifactItems>
+		  </configuration>
+		</execution>
+	      </executions>
+	    </plugin>
 
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin
-				</artifactId>
-				<version>2.1</version>
-				<executions>
-					<execution>
-						<id>copy</id>
-						<phase>process-resources</phase>
-						<goals>
-							<goal>copy</goal>
-						</goals>
-						<configuration>
-							<artifactItems>
-								<!--
-									this tells maven to copy the openejb-javaagent jar into your
-									target/ directory where surefire can see it
-								-->
-								<artifactItem>
-									<groupId>org.apache.openejb</groupId>
-									<artifactId>openejb-javaagent</artifactId>
-									<version>${openejb-version}</version>
-									<outputDirectory>${project.build.directory}
-									</outputDirectory>
-								</artifactItem>
-							</artifactItems>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
+	    <plugin>
+	      <groupId>org.apache.maven.plugins</groupId>
+	          <artifactId>maven-jar-plugin</artifactId>
+		  <executions>
+		    <execution>
+		      <goals>
+			<goal>test-jar</goal>
+		      </goals>
+		    </execution>
+		  </executions>
+	    </plugin>
+	    
+	  </plugins>
 	</build>
 </project>

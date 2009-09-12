@@ -12,7 +12,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import org.devilry.core.authorize.AuthorizeDelivery;
 import org.devilry.core.daointerfaces.DeliveryCandidateLocal;
 import org.devilry.core.daointerfaces.DeliveryLocal;
 import org.devilry.core.daointerfaces.DeliveryRemote;
@@ -24,7 +23,7 @@ import org.devilry.core.UnauthorizedException;
 import org.devilry.core.NoSuchObjectException;
 
 @Stateless
-@Interceptors({AuthorizeDelivery.class})
+//@Interceptors({org.devilry.core.authorize.AuthorizeDelivery.class})
 public class DeliveryImpl implements DeliveryRemote, DeliveryLocal {
 	@PersistenceContext(unitName = "DevilryCore")
 	protected EntityManager em;

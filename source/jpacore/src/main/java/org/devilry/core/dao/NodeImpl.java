@@ -15,7 +15,6 @@ import org.devilry.core.NoSuchObjectException;
 import org.devilry.core.NodePath;
 import org.devilry.core.PathExistsException;
 import org.devilry.core.UnauthorizedException;
-import org.devilry.core.authorize.AuthorizeNode;
 import org.devilry.core.daointerfaces.CourseNodeCommon;
 import org.devilry.core.daointerfaces.CourseNodeLocal;
 import org.devilry.core.daointerfaces.NodeLocal;
@@ -23,7 +22,7 @@ import org.devilry.core.daointerfaces.NodeRemote;
 import org.devilry.core.entity.Node;
 
 @Stateless
-@Interceptors( { AuthorizeNode.class })
+//@Interceptors( { org.devilry.core.authorize.AuthorizeNode.class })
 public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 
 	@EJB(beanInterface = CourseNodeLocal.class)

@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-import org.devilry.core.authorize.AuthorizeNode;
+//import org.devilry.core.authorize.AuthorizeNode;
 import org.junit.Test;
 
 public  class EjbExampleTest {
