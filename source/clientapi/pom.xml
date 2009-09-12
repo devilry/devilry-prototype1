@@ -24,7 +24,7 @@
             <groupId>devilry</groupId>
             <artifactId>jpacore</artifactId>
             <version>0.1</version>
-            <scope>test</scope>
+            <scope>provided</scope>
         </dependency>
 
         <!-- Required to run the client. -->
