@@ -37,7 +37,7 @@ public abstract class NodeCommonTest {
 	protected long homerId;
 
 	@Before
-	public void setUp() throws NamingException {
+	public void setUp() throws NamingException, UnauthorizedException {
 		node = testHelper.getNodeCommon();
 		userBean = testHelper.getUserCommon();
 

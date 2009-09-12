@@ -157,7 +157,7 @@ public abstract class DevilryFileStreamCommonTest {
 		
 	
 	@Test
-	public void readAndWrite() throws NamingException {
+	public void readAndWrite() throws NamingException, UnauthorizedException {
 		
 		long fileMetaId = fileMetaBean.create(deliveryCandidateId, "Testfile.txt");
 		
@@ -183,7 +183,7 @@ public abstract class DevilryFileStreamCommonTest {
 	}
 	
 	@Test
-	public void getFileSize() throws NamingException {
+	public void getFileSize() throws NamingException, UnauthorizedException {
 	
 		long fileMetaId = fileMetaBean.create(deliveryCandidateId, "Testfile.txt");
 		
@@ -200,7 +200,7 @@ public abstract class DevilryFileStreamCommonTest {
 	}
 	
 	@Test
-	public void getFilePath() throws NamingException {
+	public void getFilePath() throws NamingException, UnauthorizedException {
 		
 		String fileName = "Testfile.txt";
 		

@@ -90,7 +90,7 @@ public abstract class AssignmentNodeCommonTest {
 	
 	
 	@Test
-	public void getDeadline() throws NamingException, NoSuchObjectException {
+	public void getDeadline() throws NamingException, NoSuchObjectException, UnauthorizedException {
 		assertEquals(deadline.getTime(), assignmentNode.getDeadline(assignmentId));
 	}
 	
@@ -109,13 +109,13 @@ public abstract class AssignmentNodeCommonTest {
 	}
 
 	@Test
-	public void exists() throws NoSuchObjectException {
+	public void exists() throws NoSuchObjectException, UnauthorizedException {
 		assertTrue(assignmentNode.exists(assignmentId));
 		assertFalse(assignmentNode.exists(uioId));
 	}
 	
 	@Test
-	public void getPath() throws NoSuchObjectException, InvalidNameException {		
+	public void getPath() throws NoSuchObjectException, InvalidNameException, UnauthorizedException {		
 		assertEquals(new NodePath("uio.matnat.inf1000.fall09.oblig1", "\\."), assignmentNode.getPath(assignmentId));
 	}
 	

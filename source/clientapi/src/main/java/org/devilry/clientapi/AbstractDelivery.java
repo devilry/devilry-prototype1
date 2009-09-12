@@ -29,7 +29,7 @@ public abstract class AbstractDelivery<E extends AbstractDeliveryCandidate> {
 	}
 	
 	
-	public int getStatus() throws NamingException {
+	public int getStatus() throws NamingException, UnauthorizedException {
 		return getDeliveryBean().getStatus(deliveryId);
 	}
 	

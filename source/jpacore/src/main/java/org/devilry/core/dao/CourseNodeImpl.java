@@ -35,7 +35,8 @@ public class CourseNodeImpl extends BaseNodeImpl
 	private NodeCommon nodeBean;
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public long create(String name, String displayName, long parentId) {
+	public long create(String name, String displayName, long parentId) 
+		throws UnauthorizedException {
 		CourseNode node = new CourseNode();
 		node.setName(name.toLowerCase());
 		node.setDisplayName(displayName);
@@ -45,6 +46,7 @@ public class CourseNodeImpl extends BaseNodeImpl
 		return node.getId();
 	}
 
+	// No authorization required
 	public List<Long> getPeriods(long courseNodeId) {
 		Query q = em.createQuery("SELECT p.id FROM PeriodNode p " +
 				"WHERE p.course.id = :id");
@@ -52,11 +54,13 @@ public class CourseNodeImpl extends BaseNodeImpl
 		return q.getResultList();
 	}
 	
-	private CourseNode getCourseNode(long courseNodeId) {
+	// No authorization required
+	private CourseNode getCourseNode(long courseNodeId) throws UnauthorizedException {
 		return getNode(CourseNode.class, courseNodeId);
 	}
 
-	public boolean exists(long courseId) {
+	// No authorization required
+	public boolean exists(long courseId) throws UnauthorizedException {
 		try {
 			return getCourseNode(courseId) != null;
 		} catch(ClassCastException e) {
@@ -64,11 +68,13 @@ public class CourseNodeImpl extends BaseNodeImpl
 		}
 	}
 
-	public long getParentNode(long courseNodeId) {
+	// No authorization required
+	public long getParentNode(long courseNodeId) throws UnauthorizedException {
 		return getCourseNode(courseNodeId).getParent().getId();
 	}
 
-	public List<Long> getCoursesWhereIsAdmin() {
+	// No authorization required
+	public List<Long> getCoursesWhereIsAdmin() throws UnauthorizedException {
 		return getNodesWhereIsAdmin(CourseNode.class);
 	}
 
@@ -82,17 +88,17 @@ public class CourseNodeImpl extends BaseNodeImpl
 		}
 	}
 
-	public void addCourseAdmin(long courseNodeId, long userId) {
+	public void addCourseAdmin(long courseNodeId, long userId) throws UnauthorizedException {
 		CourseNode node = getCourseNode(courseNodeId);
 		addAdmin(node, userId);
 	}
 
-	public void removeCourseAdmin(long courseNodeId, long userId) {
+	public void removeCourseAdmin(long courseNodeId, long userId) throws UnauthorizedException {
 		CourseNode node = getCourseNode(courseNodeId);
 		removeAdmin(node, userId);
 	}
 	
-	public List<Long> getCourseAdmins(long courseNodeId) {
+	public List<Long> getCourseAdmins(long courseNodeId) throws UnauthorizedException {
 		CourseNode node = getCourseNode(courseNodeId);
 		return getAdmins(node);
 	}
@@ -109,8 +115,8 @@ public class CourseNodeImpl extends BaseNodeImpl
 		removeNode(courseNodeId, CourseNode.class);
 	}
 	
-	
-	public NodePath getPath(long courseNodeId) throws NoSuchObjectException, InvalidNameException {
+	// No authorization required
+	public NodePath getPath(long courseNodeId) throws NoSuchObjectException, InvalidNameException, UnauthorizedException {
 		
 		CourseNode course = getCourseNode(courseNodeId);
 		String courseName = course.getName();
@@ -124,7 +130,8 @@ public class CourseNodeImpl extends BaseNodeImpl
 		return path;
 	}
 	
-	public long getIdFromPath(NodePath nodePath) throws NoSuchObjectException {
+	// No authorization required
+	public long getIdFromPath(NodePath nodePath) throws NoSuchObjectException, UnauthorizedException {
 		
 		NodePath pathCopy = new NodePath(nodePath);
 		String courseName = pathCopy.removeLastPathElement();
@@ -136,6 +143,7 @@ public class CourseNodeImpl extends BaseNodeImpl
 	}
 
 	
+	// No authorization required
 	/**
 	 * Get the id of the course node name with parent parentId
 	 * @param name

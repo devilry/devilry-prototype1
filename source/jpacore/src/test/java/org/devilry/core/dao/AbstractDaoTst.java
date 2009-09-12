@@ -6,6 +6,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import org.devilry.core.UnauthorizedException;
 import org.devilry.core.dao.UserImpl;
 import org.devilry.core.daointerfaces.UserCommon;
 
@@ -36,7 +37,7 @@ public abstract class AbstractDaoTst {
 		return CTX;
 	}
 
-	protected void setupEjbContainer() throws NamingException {
+	protected void setupEjbContainer() throws NamingException, UnauthorizedException {
 //		System.setProperty("java.util.logging.config.file", "test-classes/logging.properties");
 		localCtx = AbstractDaoTst.getCtx();
 		userBean = getRemoteBean(UserImpl.class);

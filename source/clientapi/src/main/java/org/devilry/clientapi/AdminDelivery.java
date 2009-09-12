@@ -22,7 +22,7 @@ public class AdminDelivery extends AbstractDelivery<AdminDeliveryCandidate> {
 		return deliveryCandidate == null ? deliveryCandidate = connection.getDeliveryCandidate() : deliveryCandidate;
 	}
 	
-	public AdminDeliveryCandidate createDeliveryCandidate() throws NamingException {
+	public AdminDeliveryCandidate createDeliveryCandidate() throws NamingException, UnauthorizedException {
 		
 		DeliveryCandidateCommon deliveryCandidate = connection.getDeliveryCandidate();
 		
@@ -53,7 +53,7 @@ public class AdminDelivery extends AbstractDelivery<AdminDeliveryCandidate> {
 		return null;
 	}
 	
-	public void removeDeliveryCandidate(AdminDeliveryCandidate candidate) throws NamingException {
+	public void removeDeliveryCandidate(AdminDeliveryCandidate candidate) throws NamingException, UnauthorizedException {
 		getDeliveryCandidateBean().remove(candidate.deliveryCandidateId);
 	}
 	

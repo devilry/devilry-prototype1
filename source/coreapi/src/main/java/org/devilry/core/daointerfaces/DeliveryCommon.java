@@ -22,14 +22,14 @@ public interface DeliveryCommon {
 	 *
 	 * @return The id of the parent-node.
 	 */
-	long getAssignment(long deliveryId);
+	long getAssignment(long deliveryId) throws UnauthorizedException;
 
 	/**
 	 * Get status of the delivery
 	 *
 	 * @return
 	 */
-	int getStatus(long deliveryId);
+	int getStatus(long deliveryId) throws UnauthorizedException;
 
 	/**
 	 * Set status of the delivery
@@ -37,7 +37,7 @@ public interface DeliveryCommon {
 	 * @param deliveryId
 	 * @param status
 	 */
-	void setStatus(long deliveryId, int status);
+	void setStatus(long deliveryId, int status) throws UnauthorizedException;
 
 	/**
 	 * Get IDs of all delivery candidates for the delivery.
@@ -76,7 +76,7 @@ public interface DeliveryCommon {
 	/**
 	 * Check if a delivery with the given id exists.
 	 */
-	boolean exists(long deliveryId);
+	boolean exists(long deliveryId) throws UnauthorizedException;
 
 	/**
 	 * Remove the delivery with the given id.
@@ -129,7 +129,7 @@ public interface DeliveryCommon {
 	/**
 	 * Get a list of deliveries where the authenticated user is student.
 	 */
-	List<Long> getDeliveriesWhereIsStudent();
+	List<Long> getDeliveriesWhereIsStudent() throws UnauthorizedException;
 
 	/**
 	 * Get id of all Examiners registered for the given delivery.
@@ -173,5 +173,5 @@ public interface DeliveryCommon {
 	/**
 	 * Get a list of deliveries where the authenticated user is examiner.
 	 */
-	List<Long> getDeliveriesWhereIsExaminer();
+	List<Long> getDeliveriesWhereIsExaminer() throws UnauthorizedException;
 }

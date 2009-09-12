@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.naming.NamingException;
 
+import org.devilry.core.UnauthorizedException;
 import org.devilry.core.daointerfaces.FileDataBlockCommon;
 
 
@@ -23,7 +24,7 @@ public class DevilryInputStream extends AbstractDevilryFileStream {
 	
 	Iterator<Long> fileBlockIterator = null;
 	
-	private Iterator<Long> getFileBlockIterator() throws NamingException {
+	private Iterator<Long> getFileBlockIterator() throws NamingException, UnauthorizedException {
 		
 		if (fileBlockIterator != null)
 			return fileBlockIterator;
@@ -32,7 +33,7 @@ public class DevilryInputStream extends AbstractDevilryFileStream {
 		return fileBlockIterator = ids.iterator();
 	}
 	
-	public byte [] read() throws NamingException {
+	public byte [] read() throws NamingException, UnauthorizedException {
 		
 		if (!getFileBlockIterator().hasNext()) {
 			fileBlockIterator = null;

@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.naming.NamingException;
 
+import org.devilry.core.UnauthorizedException;
 import org.devilry.core.dao.UserImpl;
 import org.devilry.core.daointerfaces.UserCommon;
 import org.devilry.core.daointerfaces.UserRemote;
@@ -32,7 +33,7 @@ public abstract class UserCommonTest {
 	ArrayList<String> phoneNumbers = new ArrayList<String>();
 	
 	@Before
-	public void setUp() throws NamingException {
+	public void setUp() throws NamingException, UnauthorizedException {
 		
 		userBean = testHelper.getUserCommon();
 		
@@ -58,7 +59,7 @@ public abstract class UserCommonTest {
 	}
 
 	@After
-	public void tearDown() {
+	public void tearDown() throws UnauthorizedException {
 		for(long userId: userBean.getUsers()) {
 			userBean.remove(userId);
 		}
@@ -69,21 +70,21 @@ public abstract class UserCommonTest {
 	}
 
 	@Test
-	public void getName() {
+	public void getName() throws UnauthorizedException {
 		assertEquals(names.get(0), userBean.getName(testUser0));
 		assertEquals(names.get(1), userBean.getName(testUser1));
 		assertEquals(names.get(2), userBean.getName(testUser2));
 	}
 
 	@Test
-	public void getEmail() {
+	public void getEmail() throws UnauthorizedException {
 		assertEquals(emails.get(0), userBean.getEmail(testUser0));
 		assertEquals(emails.get(1), userBean.getEmail(testUser1));
 		assertEquals(emails.get(2), userBean.getEmail(testUser2));
 	}
 
 	@Test
-	public void getPhoneNumber() {
+	public void getPhoneNumber() throws UnauthorizedException {
 		assertEquals(phoneNumbers.get(0), userBean.getPhoneNumber(testUser0));
 		assertEquals(phoneNumbers.get(1), userBean.getPhoneNumber(testUser1));
 		assertEquals(phoneNumbers.get(2), userBean.getPhoneNumber(testUser2));
@@ -91,32 +92,32 @@ public abstract class UserCommonTest {
 
 	
 	@Test
-	public void setName() {
+	public void setName() throws UnauthorizedException {
 		userBean.setName(testUser0, "newname");
 		assertEquals("newname", userBean.getName(testUser0));
 	}
 
 	@Test
-	public void setEmail() {
+	public void setEmail() throws UnauthorizedException {
 		userBean.setEmail(testUser0, "newemail");
 		assertEquals("newemail", userBean.getEmail(testUser0));
 	}
 
 	@Test(expected=Exception.class)
-	public void setExistingEmail() {
+	public void setExistingEmail() throws UnauthorizedException {
 		userBean.setEmail(testUser0, "newemail");
 		userBean.setEmail(testUser1, "newemail");
 	}
 
 	@Test
-	public void setPhoneNumber() {
+	public void setPhoneNumber() throws UnauthorizedException {
 		userBean.setPhoneNumber(testUser0, "newphone");
 		assertEquals("newphone", userBean.getPhoneNumber(testUser0));
 	}
 	
 	
 	@Test
-	public void remove() {
+	public void remove() throws UnauthorizedException {
 		List<Long> users = userBean.getUsers();
 		assertTrue(users.size() == names.size()+1); // +1 because of the user created in super
 		
@@ -129,7 +130,7 @@ public abstract class UserCommonTest {
 	
 
 	@Test
-	public void addIdentity() {
+	public void addIdentity() throws UnauthorizedException {
 		userBean.addIdentity(testUser0, "laban");
 		
 		long id = userBean.findUser("laban");
@@ -137,7 +138,7 @@ public abstract class UserCommonTest {
 	}
 	
 	@Test
-	public void removeIdentity() {
+	public void removeIdentity() throws UnauthorizedException {
 		userBean.addIdentity(testUser0, "laban");
 		userBean.addIdentity(testUser0, "tull");
 		
@@ -153,7 +154,7 @@ public abstract class UserCommonTest {
 	
 	
 	@Test
-	public void identityExists() {
+	public void identityExists() throws UnauthorizedException {
 		userBean.addIdentity(testUser0, "laban");
 		userBean.addIdentity(testUser0, "tull");
 		
@@ -164,21 +165,21 @@ public abstract class UserCommonTest {
 	
 	
 	@Test
-	public void emailExists() {
+	public void emailExists() throws UnauthorizedException {
 		assertTrue(userBean.emailExists(emails.get(0)));
 		assertTrue(userBean.emailExists(emails.get(1)));
 		assertFalse(userBean.emailExists("nonexistantemail"));
 	}
 
 	@Test
-	public void userExists() {
+	public void userExists() throws UnauthorizedException {
 		assertTrue(userBean.userExists(testUser0));
 		assertFalse(userBean.userExists(testUser0+testUser1+testUser2));
 	}
 
 	
 	@Test
-	public void getIdentities() {
+	public void getIdentities() throws UnauthorizedException {
 		userBean.addIdentity(testUser0, "laban");
 		userBean.addIdentity(testUser0, "tull");
 		
@@ -191,7 +192,7 @@ public abstract class UserCommonTest {
 	
 	
 	@Test
-	public void findUser() {
+	public void findUser() throws UnauthorizedException {
 		userBean.addIdentity(testUser0, "laban");
 
 		long id = userBean.findUser("laban");
@@ -200,7 +201,7 @@ public abstract class UserCommonTest {
 
 	
 	@Test
-	public void getUsers() {
+	public void getUsers() throws UnauthorizedException {
 		List<Long> users = userBean.getUsers();
 	
 		assertTrue(users.size() == names.size() + 1); // +1 because of the user created in super
@@ -211,17 +212,17 @@ public abstract class UserCommonTest {
 
 	
 	@Test
-	public void getAuthenticatedUser() {
+	public void getAuthenticatedUser() throws UnauthorizedException {
 		assertEquals(superId, userBean.getAuthenticatedUser());
 	}
 
 	@Test
-	public void getAuthenticatedIdentity() {
+	public void getAuthenticatedIdentity() throws UnauthorizedException {
 		assertEquals("homer", userBean.getAuthenticatedIdentity());
 	}
 
 	@Test
-	public void setIsSuperAdmin() {
+	public void setIsSuperAdmin() throws UnauthorizedException {
 		assertFalse(userBean.isSuperAdmin(testUser0));
 		userBean.setIsSuperAdmin(testUser0, true);
 		assertTrue(userBean.isSuperAdmin(testUser0));
@@ -230,7 +231,7 @@ public abstract class UserCommonTest {
 	}
 
 	@Test
-	public void getSuperAdmins() {
+	public void getSuperAdmins() throws UnauthorizedException {
 		assertEquals(0, userBean.getSuperAdmins().size());
 		userBean.setIsSuperAdmin(testUser0, true);
 		List<Long> l = userBean.getSuperAdmins();

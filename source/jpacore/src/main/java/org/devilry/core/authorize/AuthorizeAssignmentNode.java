@@ -11,7 +11,6 @@ import org.devilry.core.daointerfaces.PeriodNodeLocal;
 
 public class AuthorizeAssignmentNode extends AuthorizeBaseNode {
 	/*
-	 		 
 	 authBaseNode:
 	 - getPath
 	 - exists
@@ -19,37 +18,38 @@ public class AuthorizeAssignmentNode extends AuthorizeBaseNode {
 	 baseNodeParentAdminMethods:
 	 - remove
 	 	 
+	 authCreate:
+	 - create 
+	 	 
 	 noauth:
-	 - getAssignmentNodeId
+	 - getIdFromPath
 	 - getDeadline
+	 - getAssignmentNodeId
 	 - getParentPeriod
 	 - getAssignmentNode
 	 - getAssignmentsWhereIsAdmin
-	 - getIdFromPath
+	 - getDeliveries
 	 	 
 	 assignmentAdmin:
 	 - isAssignmentAdmin
 	 	 
 	 periodAdmin:
-	 - create
 	 - removeAssignmentAdmin
 	 - getAssignmentAdmins
 	 - addAssignmentAdmin
-	 - create
 	 - setDeadline
-	 - getDeliveries
-	 
 	 */
 		
 	/** Methods in CourseNodeCommon which do not require any authorization. */
 	private static final MethodNames noAuthRequiredMethods = new MethodNames(
+			"getIdFromPath",
 			"getDeadline",
 			"getAssignmentNodeId",
 			"getParentPeriod",
 			"getAssignmentNode",
 			"getAssignmentsWhereIsAdmin",
-			"getIdFromPath",
-			"getDeliveries"
+			"getDeliveries",
+			"isAssignmentAdmin"
 	);
 
 	/**
@@ -65,7 +65,7 @@ public class AuthorizeAssignmentNode extends AuthorizeBaseNode {
 	);
 
 	private static final MethodNames assignmentAdminMethods = new MethodNames(
-			"isAssignmentAdmin"
+			""
 	);
 
 	@EJB

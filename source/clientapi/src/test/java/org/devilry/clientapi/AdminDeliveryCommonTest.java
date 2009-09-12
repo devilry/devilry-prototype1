@@ -137,7 +137,7 @@ public abstract class AdminDeliveryCommonTest extends UserDeliveryCommonTest {
 	}
 	
 	@Test
-	public void getStatus() throws NamingException {
+	public void getStatus() throws NamingException, UnauthorizedException {
 		deliveryBean.setStatus(deliveryId, 2);
 		assertEquals(2, delivery.getStatus());
 	}

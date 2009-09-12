@@ -46,11 +46,11 @@ public class AdminNode {
 		return courseNodeBean == null ? courseNodeBean = connection.getCourseNode() : courseNodeBean;
 	}
 	
-	public String getNodeName() throws NoSuchObjectException, NamingException {
+	public String getNodeName() throws NoSuchObjectException, NamingException, UnauthorizedException {
 		return getNodeBean().getName(nodeId);
 	}
 	
-	public String getNodeDisplayName() throws NoSuchObjectException, NamingException {
+	public String getNodeDisplayName() throws NoSuchObjectException, NamingException, UnauthorizedException {
 		return getNodeBean().getDisplayName(nodeId);
 	}	
 		
@@ -132,7 +132,7 @@ public class AdminNode {
 		return admins;
 	}
 		
-	public NodePath getPath() throws NamingException, NoSuchObjectException, InvalidNameException {
+	public NodePath getPath() throws NamingException, NoSuchObjectException, InvalidNameException, UnauthorizedException {
 		return getNodeBean().getPath(nodeId);
 	}
 }

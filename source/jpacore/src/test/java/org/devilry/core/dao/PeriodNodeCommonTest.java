@@ -200,7 +200,7 @@ public abstract class PeriodNodeCommonTest {
 	}
 
 	@Test
-	public void getPeriodsWhereIsExaminer() throws UnauthorizedException, NoSuchUserException {
+	public void getPeriodsWhereIsExaminer() throws UnauthorizedException, NoSuchUserException, NoSuchObjectException {
 		periodNode.addExaminer(periodId, superId);
 		List<Long> l = periodNode.getPeriodsWhereIsExaminer();
 		assertEquals(1, l.size());
@@ -218,13 +218,13 @@ public abstract class PeriodNodeCommonTest {
 	}
 
 	@Test
-	public void exists() throws NoSuchObjectException {
+	public void exists() throws NoSuchObjectException, UnauthorizedException {
 		assertTrue(periodNode.exists(periodId));
 		assertFalse(periodNode.exists(uioId));
 	}
 
 	@Test
-	public void getPath() throws NoSuchObjectException, InvalidNameException {
+	public void getPath() throws NoSuchObjectException, InvalidNameException, UnauthorizedException {
 		assertEquals(new NodePath("uio.matnat.inf1000.fall09", "\\."), periodNode.getPath(periodId));
 	}
 	

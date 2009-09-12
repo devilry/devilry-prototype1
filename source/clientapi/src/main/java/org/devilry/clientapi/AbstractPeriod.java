@@ -73,15 +73,15 @@ public abstract class AbstractPeriod<E extends AbstractAssignment<?>> {
 	}
 	
 	
-	public NodePath getPath() throws NamingException, NoSuchObjectException, InvalidNameException {
+	public NodePath getPath() throws NamingException, NoSuchObjectException, InvalidNameException, UnauthorizedException {
 		return getPeriodBean().getPath(periodId);
 	}
 
-	public String getName() throws NoSuchObjectException, NamingException {
+	public String getName() throws NoSuchObjectException, NamingException, UnauthorizedException {
 		return getPeriodBean().getName(periodId);
 	}
 	
-	public String getDisplayName() throws NoSuchObjectException, NamingException {
+	public String getDisplayName() throws NoSuchObjectException, NamingException, UnauthorizedException {
 		return getPeriodBean().getDisplayName(periodId);
 	}	
 	

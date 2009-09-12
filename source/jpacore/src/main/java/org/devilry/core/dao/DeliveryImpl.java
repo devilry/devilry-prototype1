@@ -95,7 +95,7 @@ public class DeliveryImpl implements DeliveryRemote, DeliveryLocal {
 	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public void remove(long deliveryId) {
+	public void remove(long deliveryId) throws UnauthorizedException {
 		List<Long> children = getDeliveryCandidates(deliveryId);
 		for (long dcId : children) {
 			deliveryCandidateBean.remove(dcId);
@@ -103,6 +103,7 @@ public class DeliveryImpl implements DeliveryRemote, DeliveryLocal {
 		em.remove(getDelivery(deliveryId));
 	}
 
+	
 	//
 	// Student
 	// ///////////////////////////
@@ -115,7 +116,7 @@ public class DeliveryImpl implements DeliveryRemote, DeliveryLocal {
 		return l;
 	}
 
-	public boolean isStudent(long deliveryId) {
+	public boolean isStudent(long deliveryId) throws UnauthorizedException {
 		return getDelivery(deliveryId).getStudents()
 				.contains(getUser(userBean.getAuthenticatedUser()));
 	}
@@ -135,7 +136,7 @@ public class DeliveryImpl implements DeliveryRemote, DeliveryLocal {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Long> getDeliveriesWhereIsStudent() {
+	public List<Long> getDeliveriesWhereIsStudent() throws UnauthorizedException {
 		long userId = userBean.getAuthenticatedUser();
 		Query q = em
 				.createQuery(
@@ -158,7 +159,7 @@ public class DeliveryImpl implements DeliveryRemote, DeliveryLocal {
 		return l;
 	}
 
-	public boolean isExaminer(long deliveryId) {
+	public boolean isExaminer(long deliveryId) throws UnauthorizedException {
 		return getDelivery(deliveryId).getExaminers()
 				.contains(getUser(userBean.getAuthenticatedUser()));
 	}
@@ -178,7 +179,7 @@ public class DeliveryImpl implements DeliveryRemote, DeliveryLocal {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Long> getDeliveriesWhereIsExaminer() {
+	public List<Long> getDeliveriesWhereIsExaminer() throws UnauthorizedException {
 		long userId = userBean.getAuthenticatedUser();
 		Query q = em
 				.createQuery(

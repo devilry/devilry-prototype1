@@ -133,7 +133,7 @@ public abstract class DeliveryCommonTest {
 	}
 
 	@Test
-	public void getAssignment() {
+	public void getAssignment() throws UnauthorizedException {
 		assertEquals(assignmentId, delivery.getAssignment(deliveryId));
 	}
 
@@ -174,7 +174,7 @@ public abstract class DeliveryCommonTest {
 	}
 
 	@Test
-	public void exists() {
+	public void exists() throws UnauthorizedException {
 		assertTrue(delivery.exists(deliveryId));
 		assertFalse(delivery.exists(deliveryId + deliveryId2));
 	}

@@ -2,6 +2,7 @@ package org.devilry.clientapi;
 
 import javax.naming.NamingException;
 
+import org.devilry.core.UnauthorizedException;
 import org.devilry.core.daointerfaces.FileDataBlockCommon;
 
 public class DevilryOutputStream extends AbstractDevilryFileStream {
@@ -16,7 +17,7 @@ public class DevilryOutputStream extends AbstractDevilryFileStream {
 		return fileDataBlock == null ? fileDataBlock = connection.getFileDataBlock() : fileDataBlock;
 	}
 		
-	public void write(byte [] data) throws NamingException {
+	public void write(byte [] data) throws NamingException, UnauthorizedException {
 		getFileDataBlockBean().create(fileMetaId, data);
 	}
 }

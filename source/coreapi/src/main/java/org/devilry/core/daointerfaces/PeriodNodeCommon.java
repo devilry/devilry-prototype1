@@ -48,8 +48,10 @@ public interface PeriodNodeCommon extends BaseNodeInterface {
 	 * @return The id of the parent course-node.
 	 * @throws NoSuchObjectException
 	 *             If no period-node with the given id exists.
+	 * @throws UnauthorizedException
+	 *             If the authenticated user is not authorized for this method.
 	 */
-	long getParentCourse(long periodNodeId) throws NoSuchObjectException;
+	long getParentCourse(long periodNodeId) throws NoSuchObjectException, UnauthorizedException;
 
 	/**
 	 * Set the start-date of a period.
@@ -58,14 +60,13 @@ public interface PeriodNodeCommon extends BaseNodeInterface {
 	 *            The id of an existing period-node.
 	 * @param start
 	 *            The start-date.
-	 * @throws UnauthorizedException
-	 *             If the authenticated user is not Admin on the
-	 *             parent-course-node of the given period.
 	 * @throws NoSuchObjectException
 	 *             If no period-node with the given id exists.
+	 * @throws UnauthorizedException
+	 *             If the authenticated user is not authorized for this method.
 	 */
 	void setStartDate(long periodNodeId, Date start)
-			throws UnauthorizedException, NoSuchObjectException;
+			throws NoSuchObjectException, UnauthorizedException;
 
 	/**
 	 * Get the start-date of a period.
@@ -74,6 +75,8 @@ public interface PeriodNodeCommon extends BaseNodeInterface {
 	 *            The id of an existing period-node.
 	 * @throws NoSuchObjectException
 	 *             If no period-node with the given id exists.
+	 * @throws UnauthorizedException
+	 *             If the authenticated user is not authorized for this method.
 	 */
 	Date getStartDate(long periodNodeId) throws NoSuchObjectException,
 			UnauthorizedException;
@@ -85,12 +88,11 @@ public interface PeriodNodeCommon extends BaseNodeInterface {
 	 *            The id of an existing period-node.
 	 * @param end
 	 *            The end-date.
-	 * @throws UnauthorizedException
-	 *             If the authenticated user is not Admin on the
-	 *             parent-course-node of the given period.
 	 * @throws NoSuchObjectException
 	 *             If no period-node with the given id exists.
-	 */
+	 * @throws UnauthorizedException
+	 *             If the authenticated user is not authorized for this method.
+	 */	
 	void setEndDate(long periodNodeId, Date end) throws NoSuchObjectException,
 			UnauthorizedException;
 
@@ -101,6 +103,8 @@ public interface PeriodNodeCommon extends BaseNodeInterface {
 	 *            The id of an existing period-node.
 	 * @throws NoSuchObjectException
 	 *             If no period-node with the given id exists.
+	 * @throws UnauthorizedException
+	 *             If the authenticated user is not authorized for this method.
 	 */
 	Date getEndDate(long periodNodeId) throws NoSuchObjectException,
 			UnauthorizedException;
@@ -111,11 +115,10 @@ public interface PeriodNodeCommon extends BaseNodeInterface {
 	 * @param periodNodeId
 	 *            The id of an existing period-node.
 	 * @return A list with the id of the requested assignments.
-	 * @throws UnauthorizedException
-	 *             If the authenticated user is not <em>Admin</em> on the given
-	 *             period-node.
 	 * @throws NoSuchObjectException
 	 *             If no period-node with the given id exists.
+	 * @throws UnauthorizedException
+	 *             If the authenticated user is not authorized for this method.
 	 */
 	List<Long> getAssignments(long periodNodeId) throws NoSuchObjectException,
 			UnauthorizedException;
@@ -126,14 +129,13 @@ public interface PeriodNodeCommon extends BaseNodeInterface {
 	 * @param periodNodeId
 	 *            The id of an existing period-node.
 	 * @return A list with the id of all Students for the given node.
-	 * @throws UnauthorizedException
-	 *             If the authenticated user is not Admin on the
-	 *             parent-course-node of the given period.
-	 * @throws NoSuchObjectException
+	  * @throws NoSuchObjectException
 	 *             If no period-node with the given id exists.
+	 * @throws UnauthorizedException
+	 *             If the authenticated user is not authorized for this method.
 	 */
-	List<Long> getStudents(long periodNodeId) throws UnauthorizedException,
-			NoSuchObjectException;
+	List<Long> getStudents(long periodNodeId) throws NoSuchObjectException,
+			UnauthorizedException;
 
 	/**
 	 * Check if the authenticated user is Student on the given period-node.
@@ -142,8 +144,11 @@ public interface PeriodNodeCommon extends BaseNodeInterface {
 	 *         period-node.
 	 * @throws NoSuchObjectException
 	 *             If no period-node with the given id exists.
+	 * @throws UnauthorizedException
+	 *             If the authenticated user is not authorized for this method.
 	 */
-	boolean isStudent(long periodNodeId) throws NoSuchObjectException;
+	boolean isStudent(long periodNodeId) throws NoSuchObjectException, 
+			UnauthorizedException;
 
 	/**
 	 * Add a new student to the given period-node.
@@ -155,8 +160,7 @@ public interface PeriodNodeCommon extends BaseNodeInterface {
 	 * @throws NoSuchObjectException
 	 *             If no period-node with the given id exists.
 	 * @throws UnauthorizedException
-	 *             If the authenticated user is not Admin on the
-	 *             parent-course-node of the given period.
+	 *             If the authenticated user is not authorized for this method.
 	 * @throws NoSuchUserException
 	 *             If the given user does not exist.
 	 */
@@ -179,14 +183,19 @@ public interface PeriodNodeCommon extends BaseNodeInterface {
 	 * @throws NoSuchUserException
 	 *             If the given user does not exist.
 	 */
-	void removeStudent(long periodNodeId, long userId);
+	void removeStudent(long periodNodeId, long userId) 
+			throws NoSuchObjectException, 
+					UnauthorizedException, 
+					NoSuchUserException;
 
 	/**
 	 * Get a list of period-nodes where the authenticated user is student.
 	 * 
+	 * @throws UnauthorizedException
+	 *             If the authenticated user is not authorized.
 	 * @return A list of period-node-ids.
 	 */
-	List<Long> getPeriodsWhereIsStudent();
+	List<Long> getPeriodsWhereIsStudent() throws UnauthorizedException;
 
 	/**
 	 * Get id of all Examiners registered for the given period.
@@ -210,8 +219,11 @@ public interface PeriodNodeCommon extends BaseNodeInterface {
 	 *         period-node.
 	 * @throws NoSuchObjectException
 	 *             If no period-node with the given id exists.
+	 * @throws UnauthorizedException
+	 *             If the authenticated user is not Admin on the
+	 *             parent-course-node of the given period.
 	 */
-	boolean isExaminer(long periodNodeId) throws NoSuchObjectException;
+	boolean isExaminer(long periodNodeId) throws NoSuchObjectException, UnauthorizedException;
 
 	/**
 	 * Add a new Examiner to the given period-node.
@@ -229,7 +241,7 @@ public interface PeriodNodeCommon extends BaseNodeInterface {
 	 *             If the given user does not exist.
 	 */
 	void addExaminer(long periodNodeId, long userId)
-			throws UnauthorizedException, NoSuchUserException;
+			throws NoSuchObjectException, UnauthorizedException, NoSuchUserException;
 
 	/**
 	 * Remove a Examiner from the given period-node.
@@ -246,21 +258,27 @@ public interface PeriodNodeCommon extends BaseNodeInterface {
 	 * @throws NoSuchUserException
 	 *             If the given user does not exist.
 	 */
-	void removeExaminer(long periodNodeId, long userId);
+	void removeExaminer(long periodNodeId, long userId) throws NoSuchObjectException, 
+															   UnauthorizedException, 
+															   NoSuchUserException;
 
 	/**
 	 * Get a list of nodes where the authenticated user is Examiner.
 	 * 
+	 * @throws UnauthorizedException
+	 *             If the authenticated user is not authorized for this method. 
 	 * @return List of period-node-ids.
 	 * */
-	List<Long> getPeriodsWhereIsExaminer();
+	List<Long> getPeriodsWhereIsExaminer() throws UnauthorizedException;
 
 	/**
 	 * Get a list of periods where the authenticated user is Admin.
 	 * 
+	 * @throws UnauthorizedException
+	 *             If the authenticated user is not authorized for this method.
 	 * @return List of period-node-ids.
 	 * */
-	List<Long> getPeriodsWhereIsAdmin();
+	List<Long> getPeriodsWhereIsAdmin() throws UnauthorizedException;
 
 	/**
 	 * Check if the authenticated user is Admin on the given period-node,

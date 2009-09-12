@@ -36,7 +36,7 @@ public abstract class AbstractAssignment<E extends AbstractDelivery<?>> {
 		return delivery == null ? delivery = connection.getDelivery() : delivery;
 	}
 	
-	public Date getDeadline() throws NoSuchObjectException, NamingException {
+	public Date getDeadline() throws NoSuchObjectException, NamingException, UnauthorizedException {
 		return getAssignmentNodeBean().getDeadline(assignmentId);
 	}
 		
@@ -78,15 +78,15 @@ public abstract class AbstractAssignment<E extends AbstractDelivery<?>> {
 		return deliveries;
 	}
 	
-	public NodePath getPath() throws NamingException, NoSuchObjectException, InvalidNameException {
+	public NodePath getPath() throws NamingException, NoSuchObjectException, InvalidNameException, UnauthorizedException {
 		return getAssignmentNodeBean().getPath(assignmentId);
 	}
 	
-	public String getName() throws NoSuchObjectException, NamingException {
+	public String getName() throws NoSuchObjectException, NamingException, UnauthorizedException {
 		return getAssignmentNodeBean().getName(assignmentId);
 	}
 	
-	public String getDisplayName() throws NoSuchObjectException, NamingException {
+	public String getDisplayName() throws NoSuchObjectException, NamingException, UnauthorizedException {
 		return getAssignmentNodeBean().getName(assignmentId);
 	}
 }

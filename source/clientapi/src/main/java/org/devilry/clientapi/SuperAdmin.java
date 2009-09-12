@@ -38,11 +38,11 @@ public class SuperAdmin {
 		return nodeBean == null ? nodeBean = connection.getNode() : nodeBean;
 	}
 	
-	public boolean isSuperAdmin(long userId) throws NamingException {
+	public boolean isSuperAdmin(long userId) throws NamingException, UnauthorizedException {
 		return getUserBean().isSuperAdmin(userId);
 	}
 	
-	public void setIsSuperAdmin(long userId, boolean value) throws NamingException {
+	public void setIsSuperAdmin(long userId, boolean value) throws NamingException, UnauthorizedException {
 		getUserBean().setIsSuperAdmin(userId, value);
 	}
 
@@ -72,23 +72,23 @@ public class SuperAdmin {
 		getNodeBean().remove(node.nodeId);
 	}
 	
-	public long addUser(String name, String email, String phoneNumber) throws NamingException {
+	public long addUser(String name, String email, String phoneNumber) throws NamingException, UnauthorizedException {
 		return getUserBean().create(name, email, phoneNumber);
 	}
 	
-	public void addIdentity(long userId, String identity) throws NamingException {
+	public void addIdentity(long userId, String identity) throws NamingException, UnauthorizedException {
 		getUserBean().addIdentity(userId, identity);
 	}
 	
-	public void removeUser(long userId) throws NamingException {
+	public void removeUser(long userId) throws NamingException, UnauthorizedException {
 		getUserBean().remove(userId);
 	}
 	
-	public boolean userExists(long userId) throws NamingException {
+	public boolean userExists(long userId) throws NamingException, UnauthorizedException {
 		return getUserBean().userExists(userId);
 	}
 	
-	public long findUser(String identity) throws NamingException {
+	public long findUser(String identity) throws NamingException, UnauthorizedException {
 		return getUserBean().findUser(identity);
 	}
 }

@@ -97,12 +97,12 @@ public abstract class SuperAdminCommonTest {
 	}
 	
 	@Test
-	public void isSuperAdmin() throws NamingException {
+	public void isSuperAdmin() throws NamingException, UnauthorizedException {
 		assertTrue(superAdmin.isSuperAdmin(homerId));
 	}
 	
 	@Test
-	public void setIsSuperAdmin() throws NamingException {
+	public void setIsSuperAdmin() throws NamingException, UnauthorizedException {
 		superAdmin.setIsSuperAdmin(lisaId, true);
 		assertTrue(superAdmin.isSuperAdmin(lisaId));
 		
