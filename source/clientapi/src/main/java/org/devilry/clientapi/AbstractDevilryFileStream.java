@@ -2,6 +2,7 @@ package org.devilry.clientapi;
 
 import javax.naming.NamingException;
 
+import org.devilry.core.UnauthorizedException;
 import org.devilry.core.daointerfaces.FileMetaCommon;
 
 public abstract class AbstractDevilryFileStream {
@@ -21,11 +22,11 @@ public abstract class AbstractDevilryFileStream {
 				fileMeta = connection.getFileMeta() : fileMeta;
 	}
 	
-	public int getFileSize() throws NamingException {
+	public int getFileSize() throws NamingException, UnauthorizedException {
 		return getFileMetaBean().getSize(fileMetaId);
 	}
 	
-	public String getFilePath() throws NamingException {
+	public String getFilePath() throws NamingException, UnauthorizedException {
 		return getFileMetaBean().getFilePath(fileMetaId);
 	}
 	

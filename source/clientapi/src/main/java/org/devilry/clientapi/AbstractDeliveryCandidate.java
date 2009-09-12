@@ -28,15 +28,15 @@ public class AbstractDeliveryCandidate {
 	}
 	
 		
-	public int getStatus() throws NamingException {
+	public int getStatus() throws NamingException, UnauthorizedException {
 		return getDeliveryCandidateBean().getStatus(deliveryCandidateId);
 	}
 	
-	public Date getTimeOfDelivery() {
+	public Date getTimeOfDelivery() throws UnauthorizedException {
 		return deliveryCandidate.getTimeOfDelivery(deliveryCandidateId);
 	}
 	
-	public int getFileCount() throws NamingException {
+	public int getFileCount() throws NamingException, UnauthorizedException {
 		return getDeliveryCandidateBean().getFiles(deliveryCandidateId).size();
 	}
 	

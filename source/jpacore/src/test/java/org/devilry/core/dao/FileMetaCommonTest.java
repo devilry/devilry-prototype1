@@ -122,17 +122,17 @@ public abstract class FileMetaCommonTest {
 	
 
 	@Test
-	public void getDeliveryCandidate() {
+	public void getDeliveryCandidate() throws UnauthorizedException {
 		assertEquals(deliveryCandidateId, fileMeta.getDeliveryCandidate(fileMetaId));
 	}
 
 	@Test
-	public void getFilePath() {
+	public void getFilePath() throws UnauthorizedException {
 		assertEquals("test.txt", fileMeta.getFilePath(fileMetaId));
 	}
 
 	@Test
-	public void getFileDataBlocks() throws NamingException {
+	public void getFileDataBlocks() throws NamingException, UnauthorizedException {
 
 		long id1 = fileDataBlock.create(fileMetaId, "Laban".getBytes());
 		long id2 = fileDataBlock.create(fileMetaId, "Tullball".getBytes());
@@ -151,7 +151,7 @@ public abstract class FileMetaCommonTest {
 	}
 
 	@Test
-	public void getSize() throws NamingException {
+	public void getSize() throws NamingException, UnauthorizedException {
 
 		byte[] data1 = "sdflhkfjskdfbaskdfbasdkfbadsklf".getBytes();
 		byte[] data2 = "aadbfaskdfbaskdfbasdfdddddddddd".getBytes();
@@ -190,7 +190,7 @@ public abstract class FileMetaCommonTest {
 	}
 
 	@Test
-	public void exists() {
+	public void exists() throws UnauthorizedException {
 		assertTrue(fileMeta.exists(fileMetaId));
 		assertFalse(fileMeta.exists(fileMetaId + 1));
 	}

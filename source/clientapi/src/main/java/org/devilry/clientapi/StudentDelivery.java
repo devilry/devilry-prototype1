@@ -15,7 +15,7 @@ public class StudentDelivery extends AbstractDelivery<StudentDeliveryCandidate> 
 		super(deliveryId, connection);
 	}
 		
-	public StudentDeliveryCandidate createDeliveryCandidate() throws NamingException {
+	public StudentDeliveryCandidate createDeliveryCandidate() throws NamingException, UnauthorizedException {
 		
 		DeliveryCandidateCommon deliveryCandidate = connection.getDeliveryCandidate();
 		

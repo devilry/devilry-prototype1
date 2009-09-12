@@ -30,7 +30,7 @@ public interface AssignmentNodeCommon extends BaseNodeInterface {
 	 *             If there already exists another course-node with the same
 	 *             name and parentId.
 	 * @throws UnauthorizedException
-	 *             If the authenticated user is not Admin on the parent node.
+	 *             If the authenticated user is not authorized for this method.
 	 * @throws InvalidNameException
 	 *             If the given name is not on the specified format.
 	 * @throws NoSuchObjectException
@@ -48,8 +48,10 @@ public interface AssignmentNodeCommon extends BaseNodeInterface {
 	 * @return The id of the parent period-node.
 	 * @throws NoSuchObjectException
 	 *             If no assignment-node with the given id exists.
+	 * @throws UnauthorizedException
+	 *             If the authenticated user is not authorized for this method
 	 */
-	long getParentPeriod(long assignmentNodeId) throws NoSuchObjectException;
+	long getParentPeriod(long assignmentNodeId) throws NoSuchObjectException, UnauthorizedException;
 
 	/**
 	 * Get the deadline for the given assignment.
@@ -59,8 +61,10 @@ public interface AssignmentNodeCommon extends BaseNodeInterface {
 	 * @return the date/time of the deadline.
 	 * @throws NoSuchObjectException
 	 *             If no assignment-node with the given id exists.
+	 * @throws UnauthorizedException
+	 *             If the authenticated user is not authorized for this method
 	 */
-	Date getDeadline(long assignmentNodeId) throws NoSuchObjectException;
+	Date getDeadline(long assignmentNodeId) throws UnauthorizedException;
 
 	/**
 	 * Set the deadline for this assignment.
@@ -72,8 +76,7 @@ public interface AssignmentNodeCommon extends BaseNodeInterface {
 	 * @throws NoSuchObjectException
 	 *             If no assignment-node with the given id exists.
 	 * @throws UnauthorizedException
-	 *             If the authenticated user is not <em>Admin</em> on the
-	 *             parent-period-node of the given assignment.
+	 *             If the authenticated user is not authorized for this method
 	 */
 	void setDeadline(long assignmentNodeId, Date deadline)
 			throws UnauthorizedException, NoSuchObjectException;
@@ -97,9 +100,11 @@ public interface AssignmentNodeCommon extends BaseNodeInterface {
 	/**
 	 * Get a list of assignments where the authenticated user is Admin.
 	 * 
+	 * @throws UnauthorizedException
+	 *             If the authenticated user is not authorized for this method
 	 * @return List of assignment-ids.
 	 * */
-	List<Long> getAssignmentsWhereIsAdmin();
+	List<Long> getAssignmentsWhereIsAdmin() throws UnauthorizedException;
 
 	/**
 	 * Add a new administrator to the given assignment node.
@@ -113,8 +118,7 @@ public interface AssignmentNodeCommon extends BaseNodeInterface {
 	 * @throws NoSuchUserException
 	 *             If the given user does not exist.
 	 * @throws UnauthorizedException
-	 *             If the authenticated user is not <em>Admin</em> on the
-	 *             parent-period-node of the given assignment.
+	 *             If the authenticated user is not authorized for this method
 	 */
 	void addAssignmentAdmin(long assignmentNodeId, long userId)
 			throws NoSuchObjectException, NoSuchUserException,
@@ -132,8 +136,7 @@ public interface AssignmentNodeCommon extends BaseNodeInterface {
 	 * @throws NoSuchUserException
 	 *             If the given user does not exist.
 	 * @throws UnauthorizedException
-	 *             If the authenticated user is not <em>Admin</em> on the
-	 *             parent-period-node of the given assignment.
+	 *             If the authenticated user is not authorized for this method
 	 */
 	void removeAssignmentAdmin(long assignmentNodeId, long userId)
 			throws NoSuchObjectException, NoSuchUserException,
@@ -149,8 +152,7 @@ public interface AssignmentNodeCommon extends BaseNodeInterface {
 	 * @throws NoSuchObjectException
 	 *             If no course-node with the given id exists.
 	 * @throws UnauthorizedException
-	 *             If the authenticated user is not <em>Admin</em> on the
-	 *             parent-node of the given course.
+	 *             If the authenticated user is not authorized for this method
 	 */
 	List<Long> getAssignmentAdmins(long assignmentNodeId)
 			throws NoSuchObjectException, UnauthorizedException;
@@ -163,8 +165,10 @@ public interface AssignmentNodeCommon extends BaseNodeInterface {
 	 *            The id of an existing assignment-node.
 	 * @throws NoSuchObjectException
 	 *             If no assignment-node with the given id exists.
-	 * */
+	 * @throws UnauthorizedException
+	 *             If the authenticated user is not authorized for this method
+	 */
 	boolean isAssignmentAdmin(long assignmentNodeId)
-			throws NoSuchObjectException;
+			throws NoSuchObjectException, UnauthorizedException ;
 
 }

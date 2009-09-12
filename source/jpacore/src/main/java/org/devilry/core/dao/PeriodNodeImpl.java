@@ -36,13 +36,13 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 	@EJB(beanInterface = CourseNodeLocal.class)
 	private CourseNodeCommon courseBean;
 
-	protected PeriodNode getPeriodNode(long nodeId) {
+	protected PeriodNode getPeriodNode(long nodeId) throws UnauthorizedException {
 		return getNode(PeriodNode.class, nodeId);
 	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public long create(String name, String displayName, Date start, Date end,
-			long parentId) {
+			long parentId) throws UnauthorizedException {
 		PeriodNode node = new PeriodNode();
 		node.setName(name.toLowerCase());
 		node.setDisplayName(displayName);
@@ -55,28 +55,28 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-	public void setStartDate(long nodeId, Date start) {
+	public void setStartDate(long nodeId, Date start) throws UnauthorizedException {
 		PeriodNode node = getPeriodNode(nodeId);
 		node.setStartDate(start);
 		em.merge(node);
 	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-	public void setEndDate(long nodeId, Date end) {
+	public void setEndDate(long nodeId, Date end) throws UnauthorizedException {
 		PeriodNode node = getPeriodNode(nodeId);
 		node.setEndDate(end);
 		em.merge(node);
 	}
 
-	public Date getStartDate(long nodeId) {
+	public Date getStartDate(long nodeId) throws UnauthorizedException {
 		return getPeriodNode(nodeId).getStartDate();
 	}
 
-	public Date getEndDate(long nodeId) {
+	public Date getEndDate(long nodeId) throws UnauthorizedException {
 		return getPeriodNode(nodeId).getEndDate();
 	}
 
-	public List<Long> getAssignments(long periodNodeId) {
+	public List<Long> getAssignments(long periodNodeId) throws UnauthorizedException {
 		Query q = em.createQuery("SELECT a.id FROM AssignmentNode a "
 				+ "WHERE a.period.id = :id");
 		q.setParameter("id", periodNodeId);
@@ -84,7 +84,7 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 		return result;
 	}
 
-	public boolean exists(long nodeId) {
+	public boolean exists(long nodeId) throws UnauthorizedException {
 		try {
 			return getPeriodNode(nodeId) != null;
 		} catch (ClassCastException e) {
@@ -105,7 +105,7 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 		removeNode(periodId, PeriodNode.class);
 	}
 
-	public long getParentCourse(long periodId) {
+	public long getParentCourse(long periodId) throws UnauthorizedException {
 		return getPeriodNode(periodId).getCourse().getId();
 	}
 
@@ -113,33 +113,33 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 	// Student
 	// ///////////////////////////
 
-	public List<Long> getStudents(long periodId) {
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public void addStudent(long periodId, long userId) throws UnauthorizedException {
+		PeriodNode n = getPeriodNode(periodId);
+		n.getStudents().add(getUser(userId));
+		em.merge(n);
+	}
+	
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public void removeStudent(long periodId, long userId) throws UnauthorizedException {
+		PeriodNode n = getPeriodNode(periodId);
+		n.getStudents().remove(getUser(userId));
+		em.merge(n);
+	}
+	
+	public boolean isStudent(long periodId) throws UnauthorizedException {
+		return getPeriodNode(periodId).getStudents().contains(
+				getUser(userBean.getAuthenticatedUser()));
+	}
+	
+	public List<Long> getStudents(long periodId) throws UnauthorizedException {
 		LinkedList<Long> l = new LinkedList<Long>();
 		for (User u : getPeriodNode(periodId).getStudents())
 			l.add(u.getId());
 		return l;
 	}
-
-	public boolean isStudent(long periodId) {
-		return getPeriodNode(periodId).getStudents().contains(
-				getUser(userBean.getAuthenticatedUser()));
-	}
-
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public void addStudent(long periodId, long userId) {
-		PeriodNode n = getPeriodNode(periodId);
-		n.getStudents().add(getUser(userId));
-		em.merge(n);
-	}
-
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public void removeStudent(long periodId, long userId) {
-		PeriodNode n = getPeriodNode(periodId);
-		n.getStudents().remove(getUser(userId));
-		em.merge(n);
-	}
-
-	public List<Long> getPeriodsWhereIsStudent() {
+	
+	public List<Long> getPeriodsWhereIsStudent() throws UnauthorizedException {
 		long userId = userBean.getAuthenticatedUser();
 		Query q = em.createQuery("SELECT p.id FROM PeriodNode p "
 				+ "INNER JOIN p.students stud WHERE stud.id = :userId");
@@ -151,33 +151,33 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 	// Examiner
 	// /////////////////////
 
-	public List<Long> getExaminers(long periodId) {
-		LinkedList<Long> l = new LinkedList<Long>();
-		for (User u : getPeriodNode(periodId).getExaminers())
-			l.add(u.getId());
-		return l;
-	}
-
-	public boolean isExaminer(long periodId) {
-		return getPeriodNode(periodId).getExaminers().contains(
-				getUser(userBean.getAuthenticatedUser()));
-	}
-
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public void addExaminer(long periodId, long userId) {
+	public void addExaminer(long periodId, long userId) throws UnauthorizedException {
 		PeriodNode n = getPeriodNode(periodId);
 		n.getExaminers().add(getUser(userId));
 		em.merge(n);
 	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public void removeExaminer(long periodId, long userId) {
+	public void removeExaminer(long periodId, long userId) throws UnauthorizedException {
 		PeriodNode n = getPeriodNode(periodId);
 		n.getExaminers().remove(getUser(userId));
 		em.merge(n);
 	}
 
-	public List<Long> getPeriodsWhereIsExaminer() {
+	public boolean isExaminer(long periodId) throws UnauthorizedException {
+		return getPeriodNode(periodId).getExaminers().contains(
+				getUser(userBean.getAuthenticatedUser()));
+	}
+	
+	public List<Long> getExaminers(long periodId) throws UnauthorizedException {
+		LinkedList<Long> l = new LinkedList<Long>();
+		for (User u : getPeriodNode(periodId).getExaminers())
+			l.add(u.getId());
+		return l;
+	}
+	
+	public List<Long> getPeriodsWhereIsExaminer() throws UnauthorizedException {
 		long userId = userBean.getAuthenticatedUser();
 		Query q = em.createQuery("SELECT p.id FROM PeriodNode p "
 				+ "INNER JOIN p.examiners ex WHERE ex.id = :userId");
@@ -188,27 +188,19 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 	// ///////////////////
 	// Admin
 	// ///////////////////
-	public List<Long> getPeriodsWhereIsAdmin() {
-		return getNodesWhereIsAdmin(PeriodNode.class);
-	}
-
-	public void addPeriodAdmin(long periodNodeId, long userId) {
+	
+	public void addPeriodAdmin(long periodNodeId, long userId) throws UnauthorizedException {
 		PeriodNode node = getPeriodNode(periodNodeId);
 		addAdmin(node, userId);
 	}
 
-	public void removePeriodAdmin(long periodNodeId, long userId) {
+	public void removePeriodAdmin(long periodNodeId, long userId) throws UnauthorizedException {
 		PeriodNode node = getPeriodNode(periodNodeId);
 		removeAdmin(node, userId);
 	}
-
-	public List<Long> getPeriodAdmins(long periodId) {
-		PeriodNode node = getPeriodNode(periodId);
-		return getAdmins(node);
-	}
-
+	
 	public boolean isPeriodAdmin(long periodId) throws NoSuchObjectException,
-			UnauthorizedException {
+														UnauthorizedException {
 		PeriodNode periodNode = getPeriodNode(periodId);
 		if (isAdmin(periodNode, userBean.getAuthenticatedUser())) {
 			return true;
@@ -216,8 +208,22 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 			return courseBean.isCourseAdmin(getParentCourse(periodId));
 		}
 	}
+	
+	public List<Long> getPeriodAdmins(long periodId) throws UnauthorizedException {
+		PeriodNode node = getPeriodNode(periodId);
+		return getAdmins(node);
+	}
 
-	public long getIdFromPath(NodePath nodePath) throws NoSuchObjectException {
+	public List<Long> getPeriodsWhereIsAdmin() throws UnauthorizedException {
+		return getNodesWhereIsAdmin(PeriodNode.class);
+	}
+	
+	
+	/////////////////////
+	// Other
+	/////////////////////
+	
+	public long getIdFromPath(NodePath nodePath) throws NoSuchObjectException, UnauthorizedException {
 
 		NodePath pathCopy = new NodePath(nodePath);
 		String periodName = pathCopy.removeLastPathElement();
@@ -235,7 +241,7 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 	 * @param parentId
 	 * @return
 	 */
-	protected long getPeriodNodeId(String name, long parentId) {
+	protected long getPeriodNodeId(String name, long parentId) throws UnauthorizedException {
 		Query q;
 
 		if (parentId == -1) {
@@ -259,7 +265,7 @@ public class PeriodNodeImpl extends BaseNodeImpl implements PeriodNodeRemote,
 	}
 
 	public NodePath getPath(long periodId) throws NoSuchObjectException,
-			InvalidNameException {
+			InvalidNameException, UnauthorizedException {
 
 		PeriodNode period = getPeriodNode(periodId);
 		String periodName = period.getName();

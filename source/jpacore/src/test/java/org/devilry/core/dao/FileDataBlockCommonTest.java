@@ -135,25 +135,25 @@ public abstract class FileDataBlockCommonTest {
 	
 	
 	@Test
-	public void getFileMeta() {
+	public void getFileMeta() throws UnauthorizedException {
 		assertEquals(fileMetaId, fileDataBlock.getFileMeta(fileDataBlockId));
 	}
 		
 	
 	@Test
-	public void getFileData() {
+	public void getFileData() throws UnauthorizedException {
 		assertTrue(Arrays.equals(data, fileDataBlock.getFileData(fileDataBlockId)));
 		assertTrue(Arrays.equals(data2, fileDataBlock.getFileData(fileDataBlockId2)));
 	}
 		
 	
 	@Test
-	public void getSize() {
+	public void getSize() throws UnauthorizedException {
 		assertEquals(data.length, fileDataBlock.getSize(fileDataBlockId));
 	}
 	
 	@Test
-	public void exists() {
+	public void exists() throws UnauthorizedException {
 		assertTrue(fileDataBlock.exists(fileDataBlockId2));
 		assertFalse(fileDataBlock.exists(fileDataBlockId2 + 1));
 	}

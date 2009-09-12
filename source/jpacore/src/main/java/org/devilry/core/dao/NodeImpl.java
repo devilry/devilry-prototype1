@@ -29,7 +29,7 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 	@EJB(beanInterface = CourseNodeLocal.class)
 	private CourseNodeCommon courseBean;
 
-	private Node getNode(long nodeId) {
+	private Node getNode(long nodeId) throws UnauthorizedException {
 		return getNode(Node.class, nodeId);
 	}
 
@@ -52,7 +52,7 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public long create(String name, String displayName, long parentId) {
+	public long create(String name, String displayName, long parentId) throws UnauthorizedException {
 		Node node = new Node();
 		node.setName(name.toLowerCase());
 		node.setDisplayName(displayName);
@@ -62,7 +62,7 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 		return node.getId();
 	}
 
-	public long getParentNode(long nodeId) throws NoSuchObjectException {
+	public long getParentNode(long nodeId) throws NoSuchObjectException, UnauthorizedException {
 		Node parent = getNode(nodeId).getParent();
 		if (parent == null) {
 			throw new NoSuchObjectException(String.format(
@@ -112,7 +112,7 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 	}
 
 	public NodePath getPath(long nodeId) throws NoSuchObjectException,
-			InvalidNameException {
+			InvalidNameException, UnauthorizedException {
 
 		Node node = getNode(nodeId);
 
@@ -173,11 +173,11 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 		return (Long) q.getSingleResult();
 	}
 
-	public List<Long> getNodesWhereIsAdmin() {
+	public List<Long> getNodesWhereIsAdmin() throws UnauthorizedException {
 		return getNodesWhereIsAdmin(Node.class);
 	}
 
-	public boolean isNodeAdmin(long nodeId) {
+	public boolean isNodeAdmin(long nodeId) throws UnauthorizedException {
 		Node node = getNode(nodeId);
 		if (isAdmin(node, userBean.getAuthenticatedUser())) {
 			return true;
@@ -191,17 +191,17 @@ public class NodeImpl extends BaseNodeImpl implements NodeRemote, NodeLocal {
 		}
 	}
 
-	public void addNodeAdmin(long nodeId, long userId) {
+	public void addNodeAdmin(long nodeId, long userId) throws UnauthorizedException {
 		Node node = getNode(nodeId);
 		addAdmin(node, userId);
 	}
 
-	public void removeNodeAdmin(long nodeId, long userId) {
+	public void removeNodeAdmin(long nodeId, long userId) throws UnauthorizedException {
 		Node node = getNode(nodeId);
 		removeAdmin(node, userId);
 	}
 
-	public List<Long> getNodeAdmins(long nodeId) {
+	public List<Long> getNodeAdmins(long nodeId) throws UnauthorizedException {
 		Node node = getNode(nodeId);
 		return getAdmins(node);
 	}

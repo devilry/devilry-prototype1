@@ -1,5 +1,6 @@
 package org.devilry.core.dao;
 
+import org.devilry.core.UnauthorizedException;
 import org.devilry.core.daointerfaces.DeliveryCandidateLocal;
 import org.devilry.core.daointerfaces.DeliveryCandidateRemote;
 import org.devilry.core.daointerfaces.FileDataBlockLocal;
@@ -87,7 +88,7 @@ public class DeliveryCandidateImpl implements DeliveryCandidateRemote, DeliveryC
 	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public void remove(long deliveryCandidateId) {
+	public void remove(long deliveryCandidateId) throws UnauthorizedException {
 		for(long fileMetaId: getFiles(deliveryCandidateId))
 			fileMetaBean.remove(fileMetaId);
 		em.remove(getDeliveryCandidate(deliveryCandidateId));

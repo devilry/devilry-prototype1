@@ -28,25 +28,26 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 	@EJB(beanInterface=PeriodNodeLocal.class) 
 	private PeriodNodeCommon periodBean;
 
-	private AssignmentNode getAssignmentNode(long nodeId) {
+	// No authorization required
+	private AssignmentNode getAssignmentNode(long nodeId) throws UnauthorizedException {
 		return getNode(AssignmentNode.class, nodeId);
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Long> getDeliveries(long nodeId) {
+	public List<Long> getDeliveries(long nodeId) throws UnauthorizedException {
 		Query q = em
 				.createQuery("SELECT d.id FROM Delivery d WHERE d.assignment.id = :id");
 		q.setParameter("id", nodeId);
 		return q.getResultList();
 	}
 
-
-	public Date getDeadline(long nodeId) {
+	// No authorization required
+	public Date getDeadline(long nodeId) throws UnauthorizedException {
 		return getAssignmentNode(nodeId).getDeadline();
 	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-	public void setDeadline(long nodeId, Date deadline) {
+	public void setDeadline(long nodeId, Date deadline) throws UnauthorizedException {
 		AssignmentNode a = getAssignmentNode(nodeId);
 		a.setDeadline(deadline);
 		em.persist(a);
@@ -54,7 +55,7 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public long create(String name, String displayName, Date deadline,
-			long parentId) {
+			long parentId) throws UnauthorizedException {
 		AssignmentNode node = new AssignmentNode();
 		node.setName(name.toLowerCase());
 		node.setDisplayName(displayName);
@@ -65,7 +66,8 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 		return node.getId();
 	}
 
-	public boolean exists(long nodeId) {
+	// No authorization required
+	public boolean exists(long nodeId) throws UnauthorizedException {
 		try {
 			return getAssignmentNode(nodeId) != null;
 		} catch (ClassCastException e) {
@@ -73,21 +75,23 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 		}
 	}
 
-	public List<Long> getAssignmentsWhereIsAdmin() {
+	// No authorization required
+	public List<Long> getAssignmentsWhereIsAdmin() throws UnauthorizedException {
 		return getNodesWhereIsAdmin(AssignmentNode.class);
 	}
 
-	public void addAssignmentAdmin(long assignmentNodeId, long userId) {
+	public void addAssignmentAdmin(long assignmentNodeId, long userId) throws UnauthorizedException {
 		AssignmentNode node = getAssignmentNode(assignmentNodeId);
 		addAdmin(node, userId);
 	}
 
-	public void removeAssignmentAdmin(long assignmentNodeId, long userId) {
+	public void removeAssignmentAdmin(long assignmentNodeId, long userId) throws UnauthorizedException {
 		AssignmentNode node = getAssignmentNode(assignmentNodeId);
 		removeAdmin(node, userId);
 	}
 
-	public long getParentPeriod(long assignmentNodeId) {
+	// No authorization required
+	public long getParentPeriod(long assignmentNodeId) throws UnauthorizedException {
 		return getAssignmentNode(assignmentNodeId).getPeriod().getId();
 	}
 
@@ -104,19 +108,18 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 	}
 	
 
-	public List<Long> getAssignmentAdmins(long assignmentId) {
+	public List<Long> getAssignmentAdmins(long assignmentId) throws UnauthorizedException {
 		AssignmentNode node = getAssignmentNode(assignmentId);
 		return getAdmins(node);
 	}
 
-	public boolean isAssignmentAdmin(long assignmentId) {
+	public boolean isAssignmentAdmin(long assignmentId) throws UnauthorizedException {
 		AssignmentNode courseNode = getAssignmentNode(assignmentId);
 		return isAdmin(courseNode, userBean.getAuthenticatedUser());
 	}
 
-	
-
-	public NodePath getPath(long assignmentNodeId) throws NoSuchObjectException, InvalidNameException {
+	// No authorization required
+	public NodePath getPath(long assignmentNodeId) throws NoSuchObjectException, InvalidNameException, UnauthorizedException {
 		
 		AssignmentNode assignment = getAssignmentNode(assignmentNodeId);
 		String assignmentName = assignment.getName();
@@ -130,8 +133,8 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 		return path;
 	}
 	
-	
-	public long getIdFromPath(String [] nodePath, long parentNodeId) {
+	// No authorization required
+	public long getIdFromPath(String [] nodePath, long parentNodeId) throws UnauthorizedException {
 		
 		long courseid = getAssignmentNodeId(nodePath[0], parentNodeId);
 		
@@ -144,8 +147,8 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 		}
 	}
 	
-	
-	public long getIdFromPath(NodePath nodePath) throws NoSuchObjectException {
+	// No authorization required
+	public long getIdFromPath(NodePath nodePath) throws NoSuchObjectException, UnauthorizedException {
 		
 		NodePath pathCopy = new NodePath(nodePath);
 		String assignmentName = pathCopy.removeLastPathElement();
@@ -156,14 +159,14 @@ public class AssignmentNodeImpl extends BaseNodeImpl implements
 		return assignmentId;
 	}
 	
-	
+	// No authorization required
 	/**
 	 * Get the id of the period node name with parent parentId
 	 * @param name
 	 * @param parentId
 	 * @return
 	 */
-	protected long getAssignmentNodeId(String name, long parentId) {
+	protected long getAssignmentNodeId(String name, long parentId) throws UnauthorizedException {
 		Query q;
 
 		if (parentId == -1) {

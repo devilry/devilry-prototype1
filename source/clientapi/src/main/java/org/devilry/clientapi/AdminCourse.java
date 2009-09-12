@@ -84,11 +84,11 @@ public class AdminCourse extends AbstractCourse<AdminPeriod> {
 	}
 
 	
-	public String getCourseName() throws NoSuchObjectException, NamingException {
+	public String getCourseName() throws NoSuchObjectException, NamingException, UnauthorizedException {
 		return getCourseBean().getName(courseId);
 	}
 	
-	public String getCourseDisplayName() throws NoSuchObjectException, NamingException {
+	public String getCourseDisplayName() throws NoSuchObjectException, NamingException, UnauthorizedException {
 		return getCourseBean().getDisplayName(courseId);
 	}	
 	
@@ -108,7 +108,7 @@ public class AdminCourse extends AbstractCourse<AdminPeriod> {
 		getCourseBean().addCourseAdmin(courseId, userId);
 	}
 	
-	public NodePath getPath() throws NamingException, NoSuchObjectException, InvalidNameException {
+	public NodePath getPath() throws NamingException, NoSuchObjectException, InvalidNameException, UnauthorizedException {
 		return getCourseBean().getPath(courseId);
 	}
 }

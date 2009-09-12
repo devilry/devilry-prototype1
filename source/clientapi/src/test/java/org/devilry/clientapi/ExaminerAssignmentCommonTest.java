@@ -40,7 +40,7 @@ public abstract class ExaminerAssignmentCommonTest extends UserAssignmentCommonT
 	}
 	
 	@Test
-	public void getPath() throws NoSuchObjectException, NamingException, InvalidNameException {
+	public void getPath() throws NoSuchObjectException, NamingException, InvalidNameException, UnauthorizedException {
 		NodePath path = assignment.getPath();
 				
 		NodePath check = new NodePath(new String[]{"uio", "matnat", "ifi", "inf1000", "spring2009", "oblig1"});
@@ -77,7 +77,7 @@ public abstract class ExaminerAssignmentCommonTest extends UserAssignmentCommonT
 	}
 	
 	@Test
-	public void getDeadline() throws NoSuchObjectException, NamingException {
+	public void getDeadline() throws NoSuchObjectException, NamingException, UnauthorizedException {
 		assertEquals(assignmentDeadline.getTime(), assignment.getDeadline());
 	}
 }

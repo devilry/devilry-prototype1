@@ -11,10 +11,41 @@ import org.devilry.core.daointerfaces.NodeLocal;
 
 public class AuthorizeCourseNode extends AuthorizeBaseNode {
 
+	/*
+	authBaseNode:
+	 - getPath
+	 - exists
+	 
+	 baseNodeParentAdminMethods:
+	 - remove
+	 	 
+	 authCreate:
+	 - create
+	 	 
+	 noauth:
+	 - getIdFromPath
+	 - getCoursesWhereIsAdmin
+	 - isCourseAdmin
+	 - getParentNode
+	 - getPeriods
+	 - getCourseNode
+	 - getCourseNodeId
+	 	 	 
+	 parentNodeAdminMethods:
+	 - addCourseAdmin
+	 - removeCourseAdmin
+	 - getCourseAdmins	
+	 */
+	
 	/** Methods in CourseNodeCommon which do not require any authorization. */
 	private static final MethodNames noAuthRequiredMethods = new MethodNames(
-			"getCoursesWhereIsAdmin", "isCourseAdmin", "getParentNode",
-			"getPeriods");
+			"getIdFromPath",
+			"getCoursesWhereIsAdmin", 
+			"isCourseAdmin", 
+			"getParentNode",
+			"getPeriods",
+			"getCourseNode",
+			"getCourseNodeId");
 
 	/**
 	 * Methods in CourseNodeCommon where the authorized user must be Admin on

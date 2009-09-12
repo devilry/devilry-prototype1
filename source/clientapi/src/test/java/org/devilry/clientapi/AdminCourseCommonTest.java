@@ -51,7 +51,7 @@ public abstract class AdminCourseCommonTest extends CourseCommonTest {
 	}
 	
 	@Test
-	public void getPath() throws NoSuchObjectException, NamingException, InvalidNameException {
+	public void getPath() throws NoSuchObjectException, NamingException, InvalidNameException, UnauthorizedException {
 		NodePath path = adminCourse.getPath();
 		
 		NodePath check = new NodePath(new String[]{"uio", "matnat", "ifi", "inf1000"});

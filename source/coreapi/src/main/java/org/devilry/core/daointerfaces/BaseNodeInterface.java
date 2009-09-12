@@ -33,7 +33,8 @@ public interface BaseNodeInterface {
 	 * @throws NoSuchObjectException
 	 *             If no node with the given id exists.
 	 */
-	String getName(long baseNodeId) throws NoSuchObjectException;
+	String getName(long baseNodeId) throws NoSuchObjectException, 
+											UnauthorizedException;
 
 	/**
 	 * Set the display-name of the given node.
@@ -62,7 +63,9 @@ public interface BaseNodeInterface {
 	 * @throws NoSuchObjectException
 	 *             If no node with the given id exists.
 	 */
-	String getDisplayName(long baseNodeId) throws NoSuchObjectException;
+	String getDisplayName(long baseNodeId) throws NoSuchObjectException, 
+												  UnauthorizedException
+	;
 
 	/**
 	 * Remove the given node.
@@ -92,7 +95,8 @@ public interface BaseNodeInterface {
 	 * @throws NoSuchObjectException
 	 *             If no node with the given id exists.
 	 */
-	boolean exists(long baseNodeId) throws NoSuchObjectException;
+	boolean exists(long baseNodeId) 
+			throws NoSuchObjectException, UnauthorizedException;
 
 	/**
 	 * Get the path of a node.
@@ -104,7 +108,7 @@ public interface BaseNodeInterface {
 	 *             If no node with the given id exists.
 	 */
 	NodePath getPath(long baseNodeId) throws NoSuchObjectException,
-			InvalidNameException;
+			InvalidNameException, UnauthorizedException;
 
 	/**
 	 * Get id from path.
@@ -115,5 +119,6 @@ public interface BaseNodeInterface {
 	 * @throws NoSuchObjectException
 	 *             If the node with the given path does not exist.
 	 */
-	long getIdFromPath(NodePath nodePath) throws NoSuchObjectException;
+	long getIdFromPath(NodePath nodePath) 
+			throws NoSuchObjectException, UnauthorizedException;
 }

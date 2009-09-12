@@ -89,7 +89,7 @@ public abstract class CourseNodeCommonTest {
 	}
 
 	@Test
-	public void exists() throws NoSuchObjectException {
+	public void exists() throws NoSuchObjectException, UnauthorizedException {
 		assertTrue(courseNode.exists(courseId));
 		assertFalse(courseNode.exists(uioId));
 	}

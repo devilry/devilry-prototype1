@@ -12,6 +12,32 @@ import java.lang.reflect.Method;
 
 public class AuthorizeDelivery extends AuthorizeBase {
 
+	/*
+	 noAuthRequiredMethods:
+	 - exists
+	 - getAssignment
+	 - getDeliveriesWhereIsExaminer
+	 - getDeliveriesWhereIsStudent
+	 
+	 assignmentAdminMethods:
+	 - addExaminer
+	 - addStudent
+	 - create
+	 - getExaminers
+	 - getStudents
+	 - isStudent
+	 - isExaminer
+	 - remove
+	 - removeExaminer
+	 - removeStudent
+	 
+	 anyMethods (assignmentadmin, student and examiner may access): 
+	 - getDeliveryCandidates
+	 - getLastDeliveryCandidate
+	 - getLastValidDeliveryCandidate
+	 
+	 */
+	
 	@EJB
 	private AssignmentNodeLocal assignment;
 
@@ -32,11 +58,6 @@ public class AuthorizeDelivery extends AuthorizeBase {
 			"getStudents", "isStudent", "isExaminer", "remove",
 			"removeExaminer", "removeStudent");
 
-	private static final MethodNames studentMethods = new MethodNames(
-			"isStudent");
-
-	private static final MethodNames examinerMethods = new MethodNames(
-			"isExaminer");
 
 	/**
 	 * Methods that any of assignmentAdmin, student or examiner might access

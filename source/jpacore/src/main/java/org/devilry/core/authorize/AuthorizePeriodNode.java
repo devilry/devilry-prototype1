@@ -10,54 +10,62 @@ import org.devilry.core.daointerfaces.CourseNodeLocal;
 import org.devilry.core.daointerfaces.PeriodNodeLocal;
 
 public class AuthorizePeriodNode extends AuthorizeBaseNode {
+	
+
 	/*
+	authBaseNode:
+	 - getPath
+	 - exists
 	 
-	 noauth - getAssignments
-	 noauth - getParentCourse
-	 noauth - getPeriodsWhereIsStudent
-	 noauth - getPeriodsWhereIsExaminer
-	 noauth - getPeriodsWhereIsAdmin
-	 noauth - getStartDate
-	 noauth - getEndDate
-	 noauth - getPeriodNodeId
-	 noauth - getIdFromPath
+	 baseNodeParentAdminMethods:
+	 - remove
+	 	 
+	 authCreate:
+	 - create
+	 	 
+	 noauth:
+	 - getIdFromPath
+	 - getPeriodsWhereIsAdmin
+	 - getPeriodsWhereIsStudent
+	 - getPeriodsWhereIsExaminer
+	 - getAssignments
+	 - getParentCourse
+	 - getStartDate
+	 - getEndDate
+	 - getPeriodNodeId
+	 - isPeriodAdmin
+	 	 	 	 
+	 parentCourseAdminMethods:
+	 - addPeriodAdmin
+	 - removePeriodAdmin
+	 - getPeriodAdmins
+	 - setStartDate
+	 - setEndDate
 	 
-	 periodAdmin - getStudents
-	 periodAdmin - isStudent
-	 periodAdmin - addStudent
-	 periodAdmin - removeStudent
-	 periodAdmin - getExaminers
-	 periodAdmin - isExaminer
-	 periodAdmin - addExaminer
-	 periodAdmin - removeExaminer
-	 periodAdmin - isPeriodAdmin
-	 
-	 courseAdmin - addPeriodAdmin
-	 courseAdmin - removePeriodAdmin
-	 courseAdmin - getPeriodAdmins
-	 courseAdmin - setStartDate
-	 courseAdmin - setEndDate
-	 
-	 courseAdmin - create
-	 
-	 authBaseNode - exists
-	 authBaseNode - getPath
-	 
-	 baseNodeParentAdminMethods - remove	 
-	 
+	 periodAdminMethods:
+	 - addStudent
+	 - removeStudent
+	 - isStudent
+	 - getStudents
+	 - addExaminer
+	 - removeExaminer
+	 - isExaminer
+	 - getExaminers
 	 */
-		
+	
+			
 	/** Methods in CourseNodeCommon which do not require any authorization. */
 	private static final MethodNames noAuthRequiredMethods = new MethodNames(
+			"getIdFromPath",
+			"getPeriodsWhereIsAdmin", 
 			"getPeriodsWhereIsStudent", 
 			"getPeriodsWhereIsExaminer", 
-			"getPeriodsWhereIsAdmin", 
-			"getParentCourse",
 			"getAssignments",
+			"getParentCourse",
 			"getStartDate",
 			"getEndDate",
 			"getPeriodNodeId",
-			"getIdFromPath"
+			"isPeriodAdmin"
 	);
 
 	/**
@@ -76,16 +84,12 @@ public class AuthorizePeriodNode extends AuthorizeBaseNode {
 	private static final MethodNames periodAdminMethods = new MethodNames(
 			"addStudent",
 			"removeStudent", 
-			"getStudents",
 			"isStudent",
-			"getExaminers",
+			"getStudents",
 			"addExaminer",
-			"isExaminer",
-			"removeExaminer", 
-			"addCourseAdmin", 
-			"removeCourseAdmin", 
-			"getCourseAdmins",	
-			"isPeriodAdmin"
+			"removeExaminer",
+			"getExaminers",
+			"isExaminer"
 	);
 
 	@EJB
