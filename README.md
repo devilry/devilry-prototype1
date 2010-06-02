@@ -1,3 +1,16 @@
+WARNING
+=======
+
+This prototype of the devilry core has *been abandoned* because of problems with
+JavaEE implementations. JavaEE is a great standard, but after much research we
+decided that a JavaEE was to complex, restricted and fragmented (implentations)
+for our use.
+
+This made us consider other approaches, and we ported the core to Django
+(http://djangoproject.org). Out current work in on the devilry-django
+repository (http://github.com/devilry/devilry-django).
+
+
 Usage
 =====
 
